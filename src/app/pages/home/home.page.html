@@ -44,23 +44,50 @@
                     </a>
                     <div class="collapse" id="collapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-buildings-fill"></i></div>Branches</a>
+                            <a class="nav-link" href="#" routerLink="/modules/admin/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/admin/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/admin/branches">
+                                <div class="sb-nav-link-icon"><i class="bi bi-buildings-fill"></i></div>
+                                Branches
+                            </a>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#adminCollapseReports" aria-expanded="false" aria-controls="adminCollapseReports">
                                 <div class="sb-nav-link-icon"><i class="bi bi-file-earmark-spreadsheet-fill"></i></div>Reports
                                 <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down"></i></div>
                             </a>
                             <div class="collapse" id="adminCollapseReports" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>Orders</a>
-                                    <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>House-Keeping</a>
-                                    <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>Attendance</a>
-                                    <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>Inventory</a>
-                                    <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>Maintenance</a>
+                                    <a class="nav-link" href="#" routerLink="/modules/admin/reports/orders">
+                                        <div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>
+                                        Orders
+                                    </a>
+                                    <a class="nav-link" href="#" routerLink="/modules/admin/reports/housekeeping">
+                                        <div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>
+                                        House-Keeping
+                                    </a>
+                                    <a class="nav-link" href="#" routerLink="/modules/admin/reports/attendance">
+                                        <div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>
+                                        Attendance
+                                    </a>
+                                    <a class="nav-link" href="#" routerLink="/modules/admin/reports/inventories">
+                                        <div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>
+                                        Inventory
+                                    </a>
+                                    <a class="nav-link" href="#" routerLink="/modules/admin/reports/maintenance">
+                                        <div class="sb-nav-link-icon"><i class="bi bi-record-circle"></i></div>
+                                        Maintenance
+                                    </a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-card-list"></i></div>Activity Logs</a>
+                            <a class="nav-link" href="#" routerLink="/modules/admin/logs">
+                                <div class="sb-nav-link-icon"><i class="bi bi-card-list"></i></div>
+                                Activity Logs
+                            </a>
                         </nav>
                     </div>
 
@@ -72,10 +99,22 @@
                     </a>
                     <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-people-fill"></i></div>Users</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-envelope-fill"></i></div>Invitations</a>
+                            <a class="nav-link" href="#" routerLink="/modules/users/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/users/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/users/users">
+                                <div class="sb-nav-link-icon"><i class="bi bi-people-fill"></i></div>
+                                Users
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/users/invitations">
+                                <div class="sb-nav-link-icon"><i class="bi bi-envelope-fill"></i></div>
+                                Invitations
+                            </a>
                         </nav>
                     </div>
 
@@ -89,12 +128,30 @@
                     </a>
                     <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-tag-fill"></i></div>Products</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-truck"></i></div>Orders</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-postcard-fill"></i></div>Vendors</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-receipt"></i></div>Invoice</a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/products">
+                                <div class="sb-nav-link-icon"><i class="bi bi-tag-fill"></i></div>
+                                Products
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/orders">
+                                <div class="sb-nav-link-icon"><i class="bi bi-truck"></i></div>
+                                Orders
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/vendors">
+                                <div class="sb-nav-link-icon"><i class="bi bi-postcard-fill"></i></div>
+                                Vendors
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/orders/invoice">
+                                <div class="sb-nav-link-icon"><i class="bi bi-receipt"></i></div>
+                                Invoice
+                            </a>
                         </nav>
                     </div>
 
@@ -106,12 +163,30 @@
                     </a>
                     <div class="collapse" id="collapseHousekeeping" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-list-task"></i></div>Tasks</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-building-fill"></i></div>Units</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-calendar3"></i></div>Schedules</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-exclamation-diamond-fill"></i></div>Incidents</a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/tasks">
+                                <div class="sb-nav-link-icon"><i class="bi bi-list-task"></i></div>
+                                Tasks
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/units">
+                                <div class="sb-nav-link-icon"><i class="bi bi-building-fill"></i></div>
+                                Units
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/schedules">
+                                <div class="sb-nav-link-icon"><i class="bi bi-calendar3"></i></div>
+                                Schedules
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/housekeeping/incidents">
+                                <div class="sb-nav-link-icon"><i class="bi bi-exclamation-diamond-fill"></i></div>
+                                Incidents
+                            </a>
                         </nav>
                     </div>
 
@@ -123,10 +198,22 @@
                     </a>
                     <div class="collapse" id="collapseAttendance" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-table"></i></div>Roster</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-stopwatch"></i></div>Attendance</a>
+                            <a class="nav-link" href="#" routerLink="/modules/attendance/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/attendance/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/attendance/roster">
+                                <div class="sb-nav-link-icon"><i class="bi bi-table"></i></div>
+                                Roster
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/attendance/attendance">
+                                <div class="sb-nav-link-icon"><i class="bi bi-stopwatch"></i></div>
+                                Attendance
+                            </a>
                         </nav>
                     </div>
 
@@ -138,12 +225,30 @@
                     </a>
                     <div class="collapse" id="collapseInventory" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-bookshelf"></i></div>Stock Items</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-archive-fill"></i></div>Items Categories</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-postcard"></i></div>Suppliers</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-cart-fill"></i></div>Purchasing</a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/items">
+                                <div class="sb-nav-link-icon"><i class="bi bi-bookshelf"></i></div>
+                                Stock Items
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/categories">
+                                <div class="sb-nav-link-icon"><i class="bi bi-archive-fill"></i></div>
+                                Items Categories
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/suppliers">
+                                <div class="sb-nav-link-icon"><i class="bi bi-postcard"></i></div>
+                                Suppliers
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/inventory/purchasing">
+                                <div class="sb-nav-link-icon"><i class="bi bi-cart-fill"></i></div>
+                                Purchasing
+                            </a>
                         </nav>
                     </div>
 
@@ -155,11 +260,26 @@
                     </a>
                     <div class="collapse" id="collapseMaintenance" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>Dashboard</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>Configuration</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-telephone-fill"></i></div>Services</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-person-fill-gear"></i></div>Contractors</a>
-                            <a class="nav-link" href="#"><div class="sb-nav-link-icon"><i class="bi bi-tv-fill"></i></div>Systems</a>
+                            <a class="nav-link" href="#" routerLink="/modules/maintenance/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/maintenance/configuration">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuration
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/maintenance/services">
+                                <div class="sb-nav-link-icon"><i class="bi bi-telephone-fill"></i></div>
+                                Services
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/maintenance/contractors">
+                                <div class="sb-nav-link-icon"><i class="bi bi-person-fill-gear"></i></div>
+                                Contractors
+                            </a>
+                            <a class="nav-link" href="#" routerLink="/modules/maintenance/systems">
+                                <div class="sb-nav-link-icon"><i class="bi bi-tv-fill"></i></div>
+                                Systems
+                            </a>
                         </nav>
                     </div>
 
@@ -172,7 +292,7 @@
         <!-- main content -->
         <main>
             <div class="container-fluid px-4">
-                <!-- <router-outlet></router-outlet> -->
+                <router-outlet></router-outlet>
             </div>
         </main>
 
