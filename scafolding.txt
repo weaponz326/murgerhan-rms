@@ -1,12 +1,16 @@
 + pages
     + home (Mr)(Cp)
-    + profile (Mr)(Cp)
+    + settings (Mr)(Cp)
+        + basic profile
+        + additional profile
+        + availability
+        + terms
     + auth (Mr)(Cp)
+        + sign up form
         + login form (C)
         + recovery form (C)
         + reset form (C)
         + form header (C)
-        + form footer (C)
     + modules
         + admin
             + dashboard (Mr)(Cp)
