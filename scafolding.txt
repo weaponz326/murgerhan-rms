@@ -19,7 +19,6 @@
                 + all branches (C)
                 + new branch (C)
                 + edit branch (C)
-                + branch form (C)
             + reports (Mr)(Cp)
                 + orders (C)
                 + inventory (C)
