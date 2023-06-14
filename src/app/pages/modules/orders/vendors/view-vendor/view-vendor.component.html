@@ -1,0 +1,55 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/orders/vendors/all-vendors">All vendors</a>
+    </li>
+    <li class="breadcrumb-item active">View vendor</li>
+</ol>
+
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">View vendor</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- vendor form component -->
+                        <app-vendor-form></app-vendor-form>
+                        
+                        <div class="row mt-3 float-end">
+                            <div class="col">
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Vendor History</p>
+                
+                <button class="btn btn-light bordered" routerLink="/modules/orders/vendors/vendor-history">
+                    View Vendor History
+                    <i class="bi bi-arrow-right ms-3"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- vendor products component -->
+<app-vendor-products></app-vendor-products>

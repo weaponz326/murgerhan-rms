@@ -70,10 +70,6 @@ const routes: Routes = [
         path: "modules/orders/vendors",
         loadChildren: () => import("../modules/orders/vendors/vendors.module").then(m => m.VendorsModule)
       },
-      {
-        path: "modules/orders/invoice",
-        loadChildren: () => import("../modules/orders/invoice/invoice.module").then(m => m.InvoiceModule)
-      },
 
       // housekeeping pages
       {
