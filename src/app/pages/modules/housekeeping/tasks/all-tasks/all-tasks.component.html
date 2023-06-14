@@ -1,1 +1,55 @@
-<p>all-tasks works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">All Tasks</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Tasks</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm add-item-btn" (click)="newTask.openModal()">New Task</button>
+                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search tasks">
+                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <table class="table table-sm table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Task ID</th>
+                                    <th scope="col">Task Name</th>
+                                    <th scope="col">Task Date</th>
+                                    <th scope="col">Task Type</th>
+                                    <th scope="col">Task Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TK92343</td>
+                                    <td>General Cleaning</td>
+                                    <td>04-06-2023</td>
+                                    <td>Chore</td>
+                                    <td>Done</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- new task modal component -->
+<app-new-task #newTaskComponentReference></app-new-task>

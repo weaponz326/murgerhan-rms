@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NewTaskComponent } from '../new-task/new-task.component';
 
 @Component({
   selector: 'app-all-tasks',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./all-tasks.component.scss']
 })
 export class AllTasksComponent {
+
+  @ViewChild('newTaskComponentReference', { read: NewTaskComponent, static: false }) newTask!: NewTaskComponent;
 
 }

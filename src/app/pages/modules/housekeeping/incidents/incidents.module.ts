@@ -6,6 +6,8 @@ import { IncidentsPage } from './incidents.page';
 import { AllIncidentsComponent } from './all-incidents/all-incidents.component';
 import { NewIncidentsComponent } from './new-incidents/new-incidents.component';
 import { ViewIncidentComponent } from './view-incident/view-incident.component';
+import { IncidentFormComponent } from './incident-form/incident-form.component';
+import { IncidentDetailsComponent } from './incident-details/incident-details.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { ViewIncidentComponent } from './view-incident/view-incident.component';
     IncidentsPage,
     AllIncidentsComponent,
     NewIncidentsComponent,
-    ViewIncidentComponent
+    ViewIncidentComponent,
+    IncidentFormComponent,
+    IncidentDetailsComponent
   ],
   imports: [
     CommonModule,

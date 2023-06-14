@@ -1,0 +1,117 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newTaskModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newTaskModalLabel">New Task</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="taskCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="taskCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="assignee" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Type :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                                <option value="Chore">Chore</option>
+                                <option value="Inspection">Inspection</option>
+                                <option value="Drill">Drill</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Status :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                                <option value="To Do">To Do</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Done">Done</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                        <div class="col-md-8">
+                            <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                                <option value="Non-Recurring">Non-Recurring</option>
+                                <option value="Recurring">Recurring</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Frequency :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn">Save</button>
+                    <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

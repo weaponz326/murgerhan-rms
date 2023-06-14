@@ -1,1 +1,34 @@
-<p>new-incidents works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/housekeeping/incidents/all-incidents">All Incidents</a>
+    </li>
+    <li class="breadcrumb-item active">Add Incident</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">New Incident</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- incident form component -->
+                        <app-incident-form></app-incident-form>
+                        
+                        <div class="row mt-3 float-end">
+                            <div class="col">
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

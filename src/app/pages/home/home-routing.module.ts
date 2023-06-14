@@ -89,10 +89,6 @@ const routes: Routes = [
         loadChildren: () => import("../modules/housekeeping/units/units.module").then(m => m.UnitsModule)
       },
       {
-        path: "modules/housekeeping/schedules",
-        loadChildren: () => import("../modules/housekeeping/schedules/schedules.module").then(m => m.SchedulesModule)
-      },
-      {
         path: "modules/housekeeping/incidents",
         loadChildren: () => import("../modules/housekeeping/incidents/incidents.module").then(m => m.IncidentsModule)
       },
