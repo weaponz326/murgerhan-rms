@@ -1,1 +1,37 @@
-<p>basic-profile works!</p>
+<div class="card shadow-lg border-0 rounded-lg mt-5 p-4">
+    <div class="card-body">
+        <h3 class="text-center font-weight-light my-4">Basic Profile</h3>
+        <hr>
+        <form>
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Full Name</label>
+                <input type="text" class="form-control form-control-sm" id="nameInput">
+            </div>
+            <div class="mb-3">
+                <label for="dobInput" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control form-control-sm" id="dobInput">
+            </div>
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">NI Number</label>
+                <input type="text" class="form-control form-control-sm" id="nameInput">
+            </div>
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">Email</label>
+                <input type="email" class="form-control form-control-sm" id="emailInput">
+            </div>
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Phone</label>
+                <input type="tel" class="form-control form-control-sm" id="nameInput">
+            </div>
+            <div class="mb-3">
+                <label for="addressTextarea" class="form-label">Address</label>
+                <textarea class="form-control form-control-sm" rows="3" id="addressTextarea"></textarea>
+            </div>
+
+            <div class="page-form-btn mt-4">
+                <!-- <button class="btn btn-sm btn-secondary float-start">Back</button> -->
+                <button class="btn btn-sm btn-primary float-end" routerLink="/settings/additional">Next</button>
+            </div>
+        </form>
+    </div>
+</div>

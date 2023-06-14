@@ -2,7 +2,7 @@
     + home (Mr)(Cp)
     + settings (Mr)(Cp)
         + basic profile
-        + additional profile
+        + additional info
         + availability
         + terms
     + auth (Mr)(Cp)

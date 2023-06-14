@@ -1,0 +1,36 @@
+<div class="card shadow-lg border-0 rounded-lg mt-5 p-4">
+    <div class="card-body">
+        <h3 class="text-center font-weight-light my-4">Additional Info</h3>
+        <hr>
+        <form>
+            <div class="mb-3">
+                <label for="nationalityInput" class="form-label">Nationality</label>
+                <input type="text" class="form-control form-control-sm" id="nationalityInput">
+            </div>
+            <div class="mb-3">
+                <label for="maritalStatusSelect" class="form-label">Marital Status</label>
+                <select class="form-control form-control-sm" id="maritalStatusSelect">
+                    <option value="Married">Married</option>
+                    <option value="Single">Single</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="religionInput" class="form-label">Religion</label>
+                <input type="text" class="form-control form-control-sm" id="religionInput">
+            </div>
+            <div class="mb-3">
+                <label for="ecNameInput" class="form-label">Emergency Contact Name</label>
+                <input type="text" class="form-control form-control-sm" id="ecNameInput">
+            </div>
+            <div class="mb-3">
+                <label for="ecContactInput" class="form-label">Emergency Contact Number</label>
+                <input type="tel" class="form-control form-control-sm" id="ecContactInput">
+            </div>
+
+            <div class="page-form-btn mt-4">
+                <button class="btn btn-sm btn-secondary float-start" routerLink="/settings/basic">Back</button>
+                <button class="btn btn-sm btn-primary float-end" routerLink="/settings/availability">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
