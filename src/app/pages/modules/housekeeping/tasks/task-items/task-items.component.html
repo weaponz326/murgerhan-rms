@@ -1,26 +1,52 @@
-<table class="table w-100 page-table">
-    <thead>
-        <tr class="bg-light">
-            <th width="15%" class="min-width-1">No.</th>
-            <th width="65%" class="min-width-3">Item Name</th>
-            <th width="20%" class="min-width-2">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Cleaning of tables</td>
-            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Cleaning of tables</td>
-            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Cleaning of tables</td>
-            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
-        </tr>
-    </tbody>
-</table>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/housekeeping/tasks/all-tasks">All Tasks</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/housekeeping/tasks/view-task">View Task</a>
+    </li>
+    <li class="breadcrumb-item active">Task Items</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Task Items</p>
+
+                <table class="table table-striped w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="10%" class="min-width-1">No.</th>
+                            <th width="40%" class="min-width-3">Item Description</th>
+                            <th width="25%" class="min-width-3">Unit</th>
+                            <th width="15%" class="min-width-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Cleaning of tables</td>
+                            <td>Main Hall</td>
+                            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Cleaning of tables</td>
+                            <td>Main Hall</td>
+                            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Cleaning of tables</td>
+                            <td>Main Hall</td>
+                            <td><input type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

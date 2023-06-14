@@ -1,6 +1,6 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/tasks/tasks/all-tasks">All tasks</a>
+        <a href="#" routerLink="/modules/housekeeping/tasks/all-tasks">All tasks</a>
     </li>
     <li class="breadcrumb-item active">View task</li>
 </ol>
@@ -140,17 +140,17 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-7">
-        <div class="card shadow-sm">
-            <div class="card-body">
+<div class="col-md-6">
+    <div class="card shadow-sm">
+        <div class="card-body">
 
-                <p class="lead">Task Items</p>
+            <p class="lead">Task Items</p>
+            
+            <button class="btn btn-light bordered" routerLink="/modules/housekeeping/tasks/task-items">
+                View Task Items
+                <i class="bi bi-arrow-right ms-3"></i>
+            </button>
 
-                <!-- task items component -->
-                <app-task-items></app-task-items>
-
-            </div>
         </div>
     </div>
 </div>
