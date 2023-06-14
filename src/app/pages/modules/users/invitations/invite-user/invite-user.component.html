@@ -1,0 +1,63 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newInvitationModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newInvitationModal" tabindex="-1" aria-labelledby="newInvitationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newInvitationModalLabel">New Invitation</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1">Invitee Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1">Invitee Email :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1">Email Subject :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1">Email Message :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea rows="5" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success modal-form-btn">Invite</button>
+                    <button type="button" class="btn btn-sm btn-warning modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

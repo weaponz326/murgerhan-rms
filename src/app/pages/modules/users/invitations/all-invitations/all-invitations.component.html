@@ -1,0 +1,52 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">All Invitations</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Invitations</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <button class="btn btn-primary py-1"(click)="inviteUser.openModal()">Invite User</button>
+                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search invitations">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <table class="table table-sm table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Invitee Name</th>
+                                    <th scope="col">Invitee Email</th>
+                                    <th scope="col">Invitation Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5</td>
+                                    <td>12-04-2023 04:00 PM</td>
+                                    <td>John Johnson</td>
+                                    <td>jjforreal@gmail.com</td>
+                                    <td>Pending</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- invite user modal component -->
+<app-invite-user #inviteUserComponentReference></app-invite-user>
