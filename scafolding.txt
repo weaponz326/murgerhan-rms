@@ -146,6 +146,11 @@
         + maintenance
             + dashboard (Mr)(Cp)
             + configuration (Mr)(Cp)
+            + maintenance issues (Mr)(Cp)
+                + all maintenance issues (C)
+                + new maintnenance issue (C)
+                + view maintnenance issue (C)
+                + maintenance issue form(C)
             + maintenance services (Mr)(Cp)
                 + all maintenance services (C)
                 + new maintenance service (C)

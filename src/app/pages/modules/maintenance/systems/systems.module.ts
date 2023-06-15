@@ -8,6 +8,7 @@ import { NewMaintenanceSystemComponent } from './new-maintenance-system/new-main
 import { ViewMaintenanceSystemComponent } from './view-maintenance-system/view-maintenance-system.component';
 import { MaintenanceSystemFormComponent } from './maintenance-system-form/maintenance-system-form.component';
 import { SystemMaintenanceHistoryComponent } from './system-maintenance-history/system-maintenance-history.component';
+import { SystemIssuesHistoryComponent } from './system-issues-history/system-issues-history.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SystemMaintenanceHistoryComponent } from './system-maintenance-history/
     NewMaintenanceSystemComponent,
     ViewMaintenanceSystemComponent,
     MaintenanceSystemFormComponent,
-    SystemMaintenanceHistoryComponent
+    SystemMaintenanceHistoryComponent,
+    SystemIssuesHistoryComponent
   ],
   imports: [
     CommonModule,

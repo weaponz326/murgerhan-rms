@@ -147,6 +147,10 @@ const routes: Routes = [
         loadChildren: () => import("../modules/maintenance/configuration/configuration.module").then(m => m.ConfigurationModule)
       },
       {
+        path: "modules/maintenance/issues",
+        loadChildren: () => import("../modules/maintenance/issues/issues.module").then(m => m.IssuesModule)
+      },
+      {
         path: "modules/maintenance/services",
         loadChildren: () => import("../modules/maintenance/services/services.module").then(m => m.ServicesModule)
       },

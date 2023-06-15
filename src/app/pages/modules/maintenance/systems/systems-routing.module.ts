@@ -6,6 +6,7 @@ import { AllMaintenanceSystemsComponent } from './all-maintenance-systems/all-ma
 import { SystemMaintenanceHistoryComponent } from './system-maintenance-history/system-maintenance-history.component';
 import { ViewMaintenanceSystemComponent } from './view-maintenance-system/view-maintenance-system.component';
 import { NewMaintenanceSystemComponent } from './new-maintenance-system/new-maintenance-system.component';
+import { SystemIssuesHistoryComponent } from './system-issues-history/system-issues-history.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: "all-systems", component: AllMaintenanceSystemsComponent },
       { path: "add-system", component: NewMaintenanceSystemComponent },
       { path: "view-system", component: ViewMaintenanceSystemComponent },
-      { path: "system-service-history", component: SystemMaintenanceHistoryComponent },
+      { path: "system-services-history", component: SystemMaintenanceHistoryComponent },
+      { path: "system-issues-history", component: SystemIssuesHistoryComponent, },
     ]
   }
 ];
