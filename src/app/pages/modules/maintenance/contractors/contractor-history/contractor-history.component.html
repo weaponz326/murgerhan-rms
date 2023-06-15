@@ -1,0 +1,93 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/maintenance/contractors/all-contractors">All contractors</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/maintenance/contractors/edit-contractor">Edit Contractor</a>
+    </li>
+    <li class="breadcrumb-item active">Contractor History</li>
+</ol>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Contractor Details</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <div class="row mb-1">
+                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Contractor ID :</label></div>
+                            <div class="col-md-8">
+                                <input class="form-control form-control-sm w-100">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-1">
+                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Contractor Name :</label></div>
+                            <div class="col-md-8">
+                                <input class="form-control form-control-sm w-100">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Contractor Maintenance Services History</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search contractor history">
+                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <table class="table table-sm table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Service ID</th>
+                                    <th scope="col">Service Title</th>
+                                    <th scope="col">Service Date</th>
+                                    <th scope="col">Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SE9233</td>
+                                    <td>Kitechen plumbing</td>
+                                    <td>04-06-2023</td>
+                                    <td>1240.00</td>
+                                </tr>
+                                <tr>
+                                    <td>SE9233</td>
+                                    <td>Kitechen plumbing</td>
+                                    <td>04-06-2023</td>
+                                    <td>1240.00</td>
+                                </tr>                            
+                            </tbody>
+                        </table>
+                
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

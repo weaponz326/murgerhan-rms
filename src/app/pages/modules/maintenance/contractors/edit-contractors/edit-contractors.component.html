@@ -1,0 +1,52 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/maintenance/contractors/all-contractors">All contractors</a>
+    </li>
+    <li class="breadcrumb-item active">Edit contractor</li>
+</ol>
+
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Edit contractor</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- contractor form component -->
+                        <app-contractor-form></app-contractor-form>
+                        
+                        <div class="row mt-3 float-end">
+                            <div class="col">
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Contractor History</p>
+                
+                <button class="btn btn-light bordered" routerLink="/modules/maintenance/contractors/contractor-history">
+                    View Contractor History
+                    <i class="bi bi-arrow-right ms-3"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>

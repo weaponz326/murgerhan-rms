@@ -161,6 +161,7 @@
                 + new maintenance system (C)
                 + view maintenance system (C)
                 + maintenance system form (C)
+                + system maintenance history (C)
 + components        
     + module utilities (M)
         + module topnav (C)
