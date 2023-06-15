@@ -1,0 +1,55 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newAttendanceModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newAttendanceModal" tabindex="-1" aria-labelledby="newAttendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newAttendanceModalLabel">Add New Attendance</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date From :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="attendanceDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date To :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="attendanceDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn">Save</button>
+                    <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

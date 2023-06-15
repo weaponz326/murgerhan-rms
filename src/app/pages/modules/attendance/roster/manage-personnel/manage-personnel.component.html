@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="20%" class="min-width-2">Personnel ID</th>
+                        <th width="45%" class="min-width-3">Personnel Name</th>
+                        <th width="20%" class="min-width-2">Batch</th>
+                        <th width="15%" class="p-0 min-width-2">
+                            <button class="btn btn-primary btn-sm w-100" (click)="addPersonnel.openModal()">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ST80450</td>
+                        <td>John Johnson</td>
+                        <td>KB 1</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm btn-success border w-50"><i class="bi bi-pen"></i></button>
+                            <button class="btn btn-sm border btn-danger w-50"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- add and edit personnel modal components -->
+<app-edit-personnel #editPersonnelComponentReference></app-edit-personnel>
+<app-add-personnel #addPersonnelComponentReference></app-add-personnel>

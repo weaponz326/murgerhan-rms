@@ -1,0 +1,51 @@
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editShiftModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editShiftModal" tabindex="-1" aria-labelledby="editShiftModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="editShiftModalLabel">Edit Shift</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="page-form">
+
+                <div class="modal-body">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Shift Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="shiftName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Start Time :</label></div>
+                        <div class="col-md-8">
+                            <input type="time" formControlName="startTime" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">End Time :</label></div>
+                        <div class="col-md-8">
+                            <input type="time" formControlName="endTime" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn">Save</button>
+                    <button type="submit" class="btn btn-sm btn-danger form-control-btn">Delete</button>
+                    <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
