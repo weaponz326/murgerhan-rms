@@ -5,11 +5,10 @@ import { AttendanceRoutingModule } from './attendance-routing.module';
 import { AttendancePage } from './attendance.page';
 import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 import { NewAttendanceComponent } from './new-attendance/new-attendance.component';
-import { ViewAttendanceComponent } from './view-attendance/view-attendance.component';
-import { ViewSheetComponent } from './view-sheet/view-sheet.component';
-import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
-import { StaffAttendanceHistoryComponent } from './staff-attendance-history/staff-attendance-history.component';
-import { DailyCheckSheetComponent } from './daily-check-sheet/daily-check-sheet.component';
+import { GeneralAttendanceRecordsComponent } from './general-attendance-records/general-attendance-records.component';
+import { GeneralAttendanceSheetComponent } from './general-attendance-sheet/general-attendance-sheet.component';
+import { UserAttendanceRecordsComponent } from './user-attendance-records/user-attendance-records.component';
+import { UserAttendanceSheetComponent } from './user-attendance-sheet/user-attendance-sheet.component';
 
 
 @NgModule({
@@ -17,11 +16,10 @@ import { DailyCheckSheetComponent } from './daily-check-sheet/daily-check-sheet.
     AttendancePage,
     AllAttendanceComponent,
     NewAttendanceComponent,
-    ViewAttendanceComponent,
-    ViewSheetComponent,
-    CheckAttendanceComponent,
-    StaffAttendanceHistoryComponent,
-    DailyCheckSheetComponent
+    GeneralAttendanceRecordsComponent,
+    GeneralAttendanceSheetComponent,
+    UserAttendanceRecordsComponent,
+    UserAttendanceSheetComponent
   ],
   imports: [
     CommonModule,
