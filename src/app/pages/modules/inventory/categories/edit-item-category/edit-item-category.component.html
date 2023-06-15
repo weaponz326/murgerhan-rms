@@ -1,0 +1,52 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/categories/all-item-categories">All Item Categories</a>
+    </li>
+    <li class="breadcrumb-item active">View Item Category</li>
+</ol>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">View Item Category</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- item category form component -->
+                        <app-item-category-form></app-item-category-form>                        
+                        
+                        <div class="row mt-3 float-end">
+                            <div class="col">
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Category Delivery Quality Checklist</p>
+                
+                <!-- category quality checklist component -->
+                <app-category-quality-checklist></app-category-quality-checklist>
+                        
+            </div>
+        </div>
+    </div>
+</div>
+
+

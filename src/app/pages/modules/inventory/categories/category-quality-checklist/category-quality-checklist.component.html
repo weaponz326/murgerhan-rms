@@ -1,0 +1,42 @@
+<div class="row mb-3">
+    <div class="col">
+        <button class="btn btn-sm btn-primary add-item-btn" (click)="addChecklist.openModal()">Add Checklist Item</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table w-100 page-table">
+            <thead>
+                <tr class="bg-light">
+                    <th width="15%" class="min-width-1">No.</th>
+                    <th width="85%" class="min-width-3">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Lorem ipsum nunya bizness</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lorem ipsum nunya bizness</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lorem ipsum nunya bizness</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lorem ipsum nunya bizness</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- add and edit checlist items modal components -->
+
+<app-add-checklist #addChecklistComponentReference></app-add-checklist>
+
+<app-edit-checklist #editChecklistComponentReference></app-edit-checklist>

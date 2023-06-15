@@ -10,9 +10,6 @@ export class EditOrderItemComponent {
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
-  ngOnInit(): void {
-  }
-
   openModal(){
     this.editButton.nativeElement.click();
   }
