@@ -3,12 +3,13 @@
         <h3 class="text-center font-weight-light my-4">Login</h3>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-floating mb-3">
-                <input class="form-control" id="inputEmail" type="email" />
+                <input formControlName="email" class="form-control" id="inputEmail" type="email" />
                 <label for="inputEmail">Email address</label>
                 <div *ngIf="errorCode == 'auth/user-not-found'" class="invalid-feedback">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="inputPassword" type="password" />
+                <input formControlName="password" class="form-control" id="inputPassword" type="password" />
                 <label for="inputPassword">Password</label>
                 <div *ngIf="errorCode == 'auth/wrong-password'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
