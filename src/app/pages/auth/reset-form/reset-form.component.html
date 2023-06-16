@@ -1,18 +1,32 @@
 <div class="card shadow-lg border-0 rounded-lg mt-5 pb-4">
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Reset Password</h3>
-        <form>
+        <form *ngIf="!showPrompt" [formGroup]="resetForm" (ngSubmit)="onSubmit()">
             <div class="form-floating mb-3">
-                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                <input class="form-control" id="inputPassword" type="password" />
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                <label for="inputPasswordConfirm">Confirm Password</label>
+                <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
+                <label for="inputPassword">Password</label>
+                <div *ngIf="errorCode == 'auth/weak-password'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
-            <div class="d-grid gap-2">
-                <button class="btn btn-primary btn-lg" type="button">Reset</button>
+            <div class="form-floating mb-3">
+                <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
+                <label for="inputPasswordConfirm">Confirm Password</label>
+                <div *ngIf="passwordMismatch" class="invalid-feedback">Passwords do not match</div>
             </div>
         </form>
+
+        <div *ngIf="showPrompt" class="row p5 text-center">
+            <div class="col">
+                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <p class="lead">Password reset successful</p>
+                <p class="lead">Continue to login</p>
+                <div class="d-grid gap-2 mt-5">
+                    <button routerLink="/auth/login" class="btn btn-primary btn-lg">Login</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

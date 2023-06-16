@@ -2,17 +2,28 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Password Recovery</h3>
         <div class="small text-center mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
-        <form>
+
+        <form *ngIf="!showPrompt" [formGroup]="recoveryForm" (ngSubmit)="onSubmit()">
             <div class="form-floating mb-3">
                 <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
                 <label for="inputEmail">Email address</label>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
             <div class="d-grid gap-2">
-                <button class="btn btn-primary btn-lg" type="button">Submit</button>
+                <button class="btn btn-primary btn-lg">Submit</button>
             </div>
             <div class="text-center mt-4 mb-0">
                 <a class="small" href="#" routerLink="/auth/login">Return to login</a>
             </div>
         </form>
+
+        <div *ngIf="showPrompt" class="row p5 text-center">
+            <div class="col">
+                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <p class="lead">Email Submitted</p>
+                <p class="lead">Plese check your inbox to confirm your account</p>
+            </div>
+        </div>
+
     </div>
 </div>
