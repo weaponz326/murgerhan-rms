@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
-// import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
+import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
 
 import { Branch } from 'src/app/models/modules/admin/admin.model';
 
@@ -17,7 +17,7 @@ export class NewBranchComponent {
 
   constructor(
     private router: Router,
-    // private adminApi: AdminApiService
+    private adminApi: AdminApiService
   ) {}
 
   isSavingBranch = false;
@@ -37,29 +37,32 @@ export class NewBranchComponent {
       branch_name: this.branchForm.controls.branchName.value as string,
       location: this.branchForm.controls.location.value as string,
       special_features: this.branchForm.controls.specialFeatures.value as string,
-      manager: {
-        staff_id: "",
-        full_name: ""
-      },
       number_of_staff: 0,
+      manager: {
+        id: "",
+        data: {
+          staff_id: "",
+          full_name: ""
+        }
+      },
     }
 
     console.log(data);
 
-    // this.adminApi.createBranch(data)
-    //   .then((res: any) => {
-    //     console.log(res);
+    this.adminApi.createBranch(data)
+      .then((res: any) => {
+        console.log(res);
 
-    //     if(res.id){
-    //       sessionStorage.setItem('admin_branch_id', res.id);
-    //       this.router.navigateByUrl('/home/branch/view-branch');
-    //     }
-    //     this.isSavingBranch = false;
-    //   })
-    //   .catch((err: any) => {
-    //     console.log(err);
-    //     this.isSavingBranch = false;
-    //   });
+        if(res.id){
+          sessionStorage.setItem('admin_branch_id', res.id);
+          this.router.navigateByUrl('/home/branch/view-branch');
+        }
+        this.isSavingBranch = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.isSavingBranch = false;
+      });
   }
 
 }

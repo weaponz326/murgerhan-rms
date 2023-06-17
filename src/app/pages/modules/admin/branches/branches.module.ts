@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { BranchesRoutingModule } from './branches-routing.module';
 import { BranchesPage } from './branches.page';
@@ -17,6 +18,7 @@ import { EditBranchComponent } from './edit-branch/edit-branch.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     BranchesRoutingModule
   ]
 })

@@ -3,40 +3,68 @@ import { Observable } from 'rxjs';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
+// import {
+//   Firestore, addDoc, collection, collectionData,
+//   doc, docData, deleteDoc, updateDoc, DocumentReference, setDoc
+// } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminApiService {
 
-  // branches
+  constructor(
+    private firestore: AngularFirestore,
+  ) { }
 
-  private collectionName = 'admin/branch';
-  private collectionRef: AngularFirestoreCollection<any>;
+  branchRef = this.firestore.collection('admin_branch');
+  logRef = this.firestore.collection('admin_activity_log');
 
-  constructor(private firestore: AngularFirestore) {
-    this.collectionRef = this.firestore.collection(this.collectionName);
+  // branch
+
+  createBranch(data: any){
+    return this.branchRef.add(data);
   }
 
-  createBranch(data: any): Promise<void> {
-    const id = this.firestore.createId();
-    return this.collectionRef.doc(id).set(data);
+  updateBranch(id:any, data: any){
+    return this.branchRef.doc(id).update(data);
   }
 
-  getBranch(id: string): Observable<any> {
-    return this.collectionRef.doc(id).valueChanges();
+  deleteBranch(id: any){
+    return this.branchRef.doc(id).delete();
   }
 
-  updateBranch(id: string, data: any): Promise<void> {
-    return this.collectionRef.doc(id).update(data);
+  getBranch(id: any){
+    return this.branchRef.doc(id).ref.get();
   }
 
-  deleteBranch(id: string): Promise<void> {
-    return this.collectionRef.doc(id).delete();
+  getBranchList(){
+    return this.branchRef.ref.get();
   }
 
-  getBranchList(): Observable<any[]> {
-    return this.collectionRef.valueChanges();
+  // activity logs
+
+  createLog(data: any){
+    return this.logRef.add(data);
+  }
+
+  updateLog(id:any, data: any){
+    return this.logRef.doc(id).update(data);
+  }
+
+  deleteLog(id: any){
+    return this.logRef.doc(id).delete();
+  }
+
+  getLog(id: any){
+    return this.logRef.doc(id).ref.get();
+  }
+
+  getLogList(){
+    return this.logRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .get();
   }
 
 }

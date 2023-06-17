@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-// import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
+import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class AllBranchesComponent {
 
   constructor(
     private router: Router,
-    // private adminApi: AdminApiService,
+    private adminApi: AdminApiService,
   ) { }
 
   branchListData: any[] = [];
@@ -28,25 +28,25 @@ export class AllBranchesComponent {
   getBranchList(){
     this.isFetchingData = true;
 
-    // this.adminApi.getBranchList()
-    //   .subscribe(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.branchListData = res.docs;
-    //       this.isFetchingData = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingData = false;
-    //     }
-    //   )
+    this.adminApi.getBranchList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          this.branchListData = res.docs;
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          console.log(err);
+          this.isFetchingData = false;
+        }
+      )
   }
 
   editBranch(branchId: any){
     console.log(branchId);
 
     sessionStorage.setItem("admin_branch_id", branchId);
-    this.router.navigateByUrl("/moodules/admin/branches/edit-branch");
+    this.router.navigateByUrl("/modules/admin/branches/edit-branch");
   }
 
 }
