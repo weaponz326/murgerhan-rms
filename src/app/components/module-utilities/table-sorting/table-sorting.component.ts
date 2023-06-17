@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-table-sorting',
@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class TableSortingComponent {
 
+  @Input() sortField: string = "";
+  @Input() currentField: string = "";
+  @Output() sortDirection = new EventEmitter<string>();
+
+  ngOnInit(): void {
+  }
+
+  setSort(direction: any){
+    this.sortDirection.emit(direction);
+
+    console.log(this.currentField)
+  }  
+  
 }

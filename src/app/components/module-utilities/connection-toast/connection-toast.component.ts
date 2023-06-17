@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-connection-toast',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class ConnectionToastComponent {
 
+  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
+
+  isShowToast = false;
+  timer: any;
+
+  openToast(){
+    console.log("opening connection toast");
+    this.isShowToast = true;
+
+    var timer = setInterval(() => {
+      this.isShowToast = false;
+      clearInterval(timer);
+      console.log("closing toast...", timer);
+    }, 3000);
+  }
+  
 }

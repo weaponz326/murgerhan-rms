@@ -1,1 +1,3 @@
-<p>table-sorting works!</p>
+<i *ngIf="!(currentField == sortField || currentField == '-' + sortField)" class="bi bi-filter float-end list-pointer" (click)="setSort(sortField)"></i>
+<i *ngIf="currentField == sortField" class="bi bi-sort-down float-end list-pointer" (click)="setSort('-' + sortField)"></i>
+<i *ngIf="currentField == '-' + sortField" class="bi bi-sort-up float-end list-pointer" (click)="setSort(sortField)"></i>

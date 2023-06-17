@@ -1,1 +1,15 @@
-<p>table-loading works!</p>
+<div class="text-center">
+    <div *ngIf="isLoading">
+        <div *ngIf="loaderSize == 'md'" class="spinner-grow m-4" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div *ngIf="loaderSize == 'sm'" class="spinner-grow spinner-grow-sm m-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!isNoData && !isLoading">
+        <p *ngIf="loaderSize == 'md'" class="m-4">No data available</p>
+        <p *ngIf="loaderSize == 'sm'" class="m-2">No data available</p>
+    </div>
+</div>

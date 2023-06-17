@@ -1,1 +1,8 @@
-<p>access-toast works!</p>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div [ngClass]="isShowToast ? 'show' : 'hide'" id="liveToast" class="toast text-white bg-warning border-0 access-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body p-3">
+            <i class="h4 bi bi-exclamation-triangle me-3"></i>
+            Access denied.
+        </div>
+    </div>
+</div>
