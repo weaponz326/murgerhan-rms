@@ -18,28 +18,28 @@
                         <div class="row mb-1">
                             <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Branch Name :</label></div>
                             <div class="col-md-8">
-                                <input class="form-control form-control-sm w-100">
+                                <input formControlName="branchName" class="form-control form-control-sm w-100">
                             </div>
                         </div>
                         
                         <div class="row mb-1">
                             <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Location :</label></div>
                             <div class="col-md-8">
-                                <input class="form-control form-control-sm w-100">
+                                <input formControlName="location" class="form-control form-control-sm w-100">
                             </div>
                         </div>
                 
                         <div class="row mb-1">
                             <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Special Features :</label></div>
                             <div class="col-md-8">
-                                <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+                                <textarea formControlName="specialFeatures" rows="3" class="form-control form-control-sm w-100"></textarea>
                             </div>
                         </div>
                                 
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingBranch" (click)="createBranch()">Save</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/admin/branches">Cancel</button>
                             </div>
                         </div>                        
 

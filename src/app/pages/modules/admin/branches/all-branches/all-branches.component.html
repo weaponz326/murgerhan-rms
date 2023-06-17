@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-sm btn-primary add-item-btn" routerLink="/modules/admin/branches/new-branch">Add New Branch</button>
-                        <button class="btn btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getBranchList" class="btn btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -30,16 +30,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="py-3">First Branch</td>
-                                    <td class="py-3">London Sub 1</td>
-                                    <td class="py-3">John Johnson</td>
+                                <tr  *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)">
+                                    <td class="py-3">{{data?.data().branch_name}}</td>
+                                    <td class="py-3">{{data?.data().location}}</td>
+                                    <td class="py-3">{{data?.data().manager.manager}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="py-3">First Branch</td>
-                                    <td class="py-3">London Sub 1</td>
-                                    <td class="py-3">John Johnson</td>
-                                </tr>            
                             </tbody>
                         </table>
                 
