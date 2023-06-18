@@ -41,7 +41,6 @@ export class AllUsersComponent {
     activity: ""
   }
 
-
   ngOnInit(): void {
     this.getBasicUserList();
   }

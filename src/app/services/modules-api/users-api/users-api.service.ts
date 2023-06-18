@@ -105,4 +105,29 @@ export class UsersApiService {
     return this.userRef.ref.get();
   }
 
+  // invitations
+
+  createInvitation(data: any){
+    return this.userRef.add(data);
+  }
+
+  updateInvitation(id:any, data: any){
+    return this.userRef.doc(id).update(data);
+  }
+
+  deleteInvitation(id: any){
+    return this.userRef.doc(id).delete();
+  }
+
+  getInvitation(id: any){
+    return this.userRef.doc(id).ref.get();
+  }
+
+  getInvitationList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.userRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
 }

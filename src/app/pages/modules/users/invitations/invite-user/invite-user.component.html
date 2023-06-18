@@ -6,7 +6,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="page-form">
+            <form [formGroup]="invitationForm">
 
                 <div class="modal-header bg-light">
                     <span class="modal-title" id="newInvitationModalLabel">Invite New User</span>
@@ -16,10 +16,19 @@
                 <div class="modal-body">
                     <div class="row mb-1">
                         <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1">Invitaion ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="invitationCode" type="text" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
                             <label class="text-muted float-md-end float-sm-start mt-1">Invitee Name :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="inviteeName" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -28,7 +37,7 @@
                             <label class="text-muted float-md-end float-sm-start mt-1">Invitee Email :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="inviteeEmail" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -37,7 +46,7 @@
                             <label class="text-muted float-md-end float-sm-start mt-1">Email Subject :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="emailSubject" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -46,13 +55,13 @@
                             <label class="text-muted float-md-end float-sm-start mt-1">Email Message :</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea rows="5" class="form-control form-control-sm w-100"></textarea>
+                            <textarea formControlName="emailMessage" rows="5" class="form-control form-control-sm w-100"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success form-control-btn">Invite</button>
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingInvitation" (click)="createInvitation()">Invite</button>
                     <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
@@ -61,3 +70,7 @@
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

@@ -63,3 +63,16 @@ export class UserRole {
         }
     }
 }
+
+export class Invitation {
+    created_at!: any;
+    updated_at!: any;
+    invitation_code!: string;
+    invitation_date!: any;
+    invitee_name!: string;
+    invitee_email!: string;
+    invitation_status!: string;
+    date_accepted!: any;
+    email_subject!: string;
+    email_message!: string;
+}
