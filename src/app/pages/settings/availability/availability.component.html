@@ -2,126 +2,126 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Availability</h3>
         <hr>
-        <form>
-            <div class="mb-3">
-                <label>Contract Type</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Full Time
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Part Time
-                    </label>
-                </div>
-            </div>
 
-            <div class="mb-3 availability-div">
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Availability</label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>From</label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>To</label>
-                    </div>
-                </div>
-                
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="monday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="monday-check">Moday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="tuesday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="tuesday-check">Tuesday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="wednesday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="wednesday-check">Wednesday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="thursday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="thursday-check">Thursday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="friday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="friday-check">Friday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="saturday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="saturday-check">Saturday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-5">
-                        <input type="checkbox" class="btn-check" id="sunday-check" autocomplete="off">
-                        <label class="btn btn-light btn-sm" for="sunday-check">Sunday</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                    <div class="col-md-3">
-                        <input class="form-control form-control-sm" type="time">
-                    </div>
-                </div>
+        <div class="mb-3">
+            <label>Contract Type</label>
+            <div class="form-check">
+                <input [(ngModel)]="contractType" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Full Time
+                </label>
             </div>
+            <div class="form-check">
+                <input [(ngModel)]="contractType" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Part Time
+                </label>
+            </div>
+        </div>
 
-            <div class="page-form-btn mt-4">
-                <button class="btn btn-sm btn-secondary float-start" routerLink="/settings/additional">Back</button>
-                <button class="btn btn-sm btn-primary float-end" routerLink="/settings/terms">Next</button>
+        <div class="mb-3 availability-div">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Availability</label>
+                </div>
+                <div class="col-md-3">
+                    <label>From</label>
+                </div>
+                <div class="col-md-3">
+                    <label>To</label>
+                </div>
             </div>
-        </form>
+            
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="mondayAvailability" type="checkbox" class="btn-check" id="monday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="monday-check">Moday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="mondayTimeFrom" [disabled]="!mondayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="mondayTimeTo" [disabled]="!mondayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="tuesdayAvailability" type="checkbox" class="btn-check" id="tuesday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="tuesday-check">Tuesday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="tuesdayTimeFrom" [disabled]="!tuesdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="tuesdayTimeTo" [disabled]="!tuesdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="wednesdayAvailability" type="checkbox" class="btn-check" id="wednesday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="wednesday-check">Wednesday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="wednesdayTimeFrom" [disabled]="!wednesdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="wednesdayTimeTo" [disabled]="!wednesdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="thursdayAvailability" type="checkbox" class="btn-check" id="thursday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="thursday-check">Thursday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="thursdayTimeFrom" [disabled]="!thursdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="thursdayTimeTo" [disabled]="!thursdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="fridayAvailability" type="checkbox" class="btn-check" id="friday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="friday-check">Friday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="fridayTimeFrom" [disabled]="!fridayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="fridayTimeTo" [disabled]="!fridayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="saturdayAvailability" type="checkbox" class="btn-check" id="saturday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="saturday-check">Saturday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="saturdayTimeFrom" [disabled]="!saturdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="saturdayTimeTo" [disabled]="!saturdayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-5">
+                    <input [(ngModel)]="sundayAvailability" type="checkbox" class="btn-check" id="sunday-check" autocomplete="off">
+                    <label class="btn btn-light btn-sm" for="sunday-check">Sunday</label>
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="sundayTimeFrom" [disabled]="!sundayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+                <div class="col-md-3">
+                    <input [(ngModel)]="sundayTimeTo" [disabled]="!sundayAvailability" class="form-control form-control-sm" type="time">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button [disabled]="isSavingAvailability" class="btn btn-sm btn-secondary float-start form-control-btn" routerLink="/settings/additional">Back</button>
+            <button [disabled]="isFetchingData || isSavingAvailability" (click)="updateAvailability()" class="btn btn-sm btn-primary float-end form-control-btn">Next</button>
+        </div>
+
     </div>
 </div>
