@@ -68,7 +68,7 @@ export class BasicProfileComponent {
       created_at: this.basicData.data().created_at,
       updated_at: serverTimestamp(),
       terms_acceptance_status: this.basicData.data().terms_acceptance_status,
-      fuull_name: this.basicForm.controls.fullName.value as string,
+      full_name: this.basicForm.controls.fullName.value as string,
       date_of_birth: this.basicForm.controls.dateOfBirth.value,
       ni_number: this.basicForm.controls.niNumber.value as string,
       email: this.basicForm.controls.email.value as string,

@@ -32,8 +32,11 @@ export class UsersApiService {
     return this.userRef.doc(id).ref.get();
   }
 
-  getBasicUserList(){
-    return this.userRef.ref.get();
+  getBasicUserList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.userRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
   }
 
   // user additional profile
@@ -79,4 +82,27 @@ export class UsersApiService {
   getAvailabilityList(){
     return this.userRef.ref.get();
   }
+
+  // user availability
+
+  createUserRole(data: any){
+    return this.userRef.add(data);
+  }
+
+  updateUserRole(id:any, data: any){
+    return this.userRef.doc(id).update(data);
+  }
+
+  deleteUserRole(id: any){
+    return this.userRef.doc(id).delete();
+  }
+
+  getUserRole(id: any){
+    return this.userRef.doc(id).ref.get();
+  }
+
+  getUserRoleList(){
+    return this.userRef.ref.get();
+  }
+
 }

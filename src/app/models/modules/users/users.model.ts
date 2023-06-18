@@ -2,7 +2,7 @@ export class UserBasicProfile {
     created_at!: any;
     updated_at!: any;
     terms_acceptance_status!: boolean;
-    fuull_name!: string;
+    full_name!: string;
     date_of_birth!: any;
     ni_number!: string;
     email!: string;
@@ -46,5 +46,20 @@ export class UserAvailabilty {
         sunday: {
             available: boolean; time_from: any; time_to: any;
         };
+    }
+}
+
+export class UserRole {
+    created_at!: any;
+    updated_at!: any;
+    full_name!: string;
+    staff_id!: string;
+    staff_role!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
     }
 }

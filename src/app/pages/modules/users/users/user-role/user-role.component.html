@@ -5,13 +5,13 @@
                 
                 <p class="lead">User Role</p>
 
-                <form>
+                <form [formGroup]="roleForm" (ngSubmit)="updateRole()">
                     <div class="row mb-1">
                         <div class="col-md-4">
                             <label class="text-muted float-md-end float-sm-start mt-1">Full Name :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control form-control-sm w-100" disabled>
+                            <input formControlName="fullName" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -20,7 +20,7 @@
                             <label class="text-muted float-md-end float-sm-start mt-1">Staff ID :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="staffID" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="menuItem" class="form-control">
+                                <input formControlName="branch" class="form-control">
                                 <button type="button" class="btn btn-secondary">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="menuItem" class="form-control">
+                                <input formControlName="staffRole" class="form-control">
                                 <button type="button" class="btn btn-secondary">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -54,14 +54,21 @@
 
                     <div class="row float-end mt-2">
                         <div class="col">
-                            <button class="btn btn-sm btn-success ms-2 form-control-btn">Update</button>
-                            <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
+                            <button [disabled]="isFetchingData || isSavingRole" type="submit" class="btn btn-sm btn-success ms-2 form-control-btn">Update</button>
+                            <button [disabled]="isFetchingData || isDeletingRole" type="button" class="btn btn-sm btn-danger ms-2 form-control-btn" (click)="confirmDelete()">Delete</button>
                         </div>
                     </div>
-                </form>
-                
+                </form>                
                 
             </div>
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteRole()"></app-delete-modal-one>

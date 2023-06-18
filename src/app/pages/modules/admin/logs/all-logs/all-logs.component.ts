@@ -77,6 +77,7 @@ export class AllLogsComponent {
 
   changePage(page: any){
     this.currentPageNumber = page;
-    this.adminApi.getBranchList();
+    this.getLogList();
   }
+
 }

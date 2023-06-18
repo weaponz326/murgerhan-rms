@@ -21,100 +21,142 @@
 
                 <div class="tab-content mt-3" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Full Name :</div>
-                            <div class="col-md-8">John Johnson</div>
+                        <div *ngIf="!isFetchingData">                                                
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Full Name :</div>
+                                <div class="col-md-8">{{basicProfileData.data().full_name}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Date of Birth :</div>
+                                <div class="col-md-8">{{basicProfileData.data().date_of_birth}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">NI Number :</div>
+                                <div class="col-md-8">{{basicProfileData.data().ni_number}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Email :</div>
+                                <div class="col-md-8">{{basicProfileData.data().email}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Phone :</div>
+                                <div class="col-md-8">{{basicProfileData.data().phone}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Address :</div>
+                                <div class="col-md-8">{{basicProfileData.data().address}}</div>
+                            </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Date of Birth :</div>
-                            <div class="col-md-8"></div>
+
+                        <div *ngIf="isFetchingData" class="text-center">
+                            <div class="spinner-border text-primary m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">NI Number :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Email :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Phone :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Address :</div>
-                            <div class="col-md-8"></div>
-                        </div>                        
                     </div>
 
                     <div class="tab-pane fade" id="nav-additional" role="tabpanel" aria-labelledby="nav-logo-tab">
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Nationality :</div>
-                            <div class="col-md-8">Ghanaian</div>
+                        <div *ngIf="!isFetchingData">                        
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Nationality :</div>
+                                <div class="col-md-8">{{additionalProfileData.data().nationality}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Marital Status :</div>
+                                <div class="col-md-8">{{additionalProfileData.data().marital_status}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Religion :</div>
+                                <div class="col-md-8">{{additionalProfileData.data().religion}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Emergency Contact name :</div>
+                                <div class="col-md-8">{{additionalProfileData.data().e_contact_name}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4 text-muted">Emergency Contact Number :</div>
+                                <div class="col-md-8">{{additionalProfileData.data().e_contact_number}}</div>
+                            </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Marital Status :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Religion :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Emergency Contact name :</div>
-                            <div class="col-md-8"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 text-muted">Emergency Contact Number :</div>
-                            <div class="col-md-8"></div>
+
+                        <div *ngIf="isFetchingData" class="text-center">
+                            <div class="spinner-border text-primary m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="nav-availability" role="tabpanel" aria-labelledby="nav-location-tab">
-                        <div class="row mb-3">
-                            <div class="col-md-4 text-muted">Contract Type :</div>
-                            <div class="col-md-8">Full Time</div>
+                        <div *ngIf="!isFetchingData">
+                            <div class="row mb-3">
+                                <div class="col-md-4 text-muted">Contract Type :</div>
+                                <div class="col-md-8">{{availabilityData.data().contract_type}}</div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-muted">Availability :</div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="40%">Days</th>
+                                                <th scope="col" width="20%">Available</th>
+                                                <th scope="col" width="20%">Time From</th>
+                                                <th scope="col" width="20%">Time To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Monday</td>
+                                                <td><input [checked]="availabilityData.data().available.monday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.monday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.monday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tuesday</td>
+                                                <td><input [checked]="availabilityData.data().available.tuesday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.tuesday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.tuesday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Wednesday</td>
+                                                <td><input [checked]="availabilityData.data().available.wednesday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.wednesday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.wednesday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thursday</td>
+                                                <td><input [checked]="availabilityData.data().available.thursday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.thursday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.thursday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Friday</td>
+                                                <td><input [checked]="availabilityData.data().available.friday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.friday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.friday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Saturday</td>
+                                                <td><input [checked]="availabilityData.data().available.saturday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.saturday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.saturday.time_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sunday</td>
+                                                <td><input [checked]="availabilityData.data().available.sunday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData.data().available.sunday.time_from}}</td>
+                                                <td>{{availabilityData.data().available.sunday.time_to}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="row">
-                            <div class="col">
-                                <div class="text-muted">Availability :</div>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="50%">Days</th>
-                                            <th scope="col" width="25%">Time From</th>
-                                            <th scope="col" width="25%">Time To</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>10:00 AM</td>
-                                            <td>04:00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesday</td>
-                                            <td>10:00 AM</td>
-                                            <td>04:00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Wednesday</td>
-                                            <td>10:00 AM</td>
-                                            <td>04:00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thursday</td>
-                                            <td>10:00 AM</td>
-                                            <td>04:00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Friday</td>
-                                            <td>10:00 AM</td>
-                                            <td>04:00 PM</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                        <div *ngIf="isFetchingData" class="text-center">
+                            <div class="spinner-border text-primary m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
                     </div>
