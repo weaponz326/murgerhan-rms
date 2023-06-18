@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 
 @Component({
@@ -15,6 +17,8 @@ export class AllBranchesComponent {
     private router: Router,
     private adminApi: AdminApiService,
   ) { }
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   branchListData: any[] = [];
 
@@ -37,6 +41,7 @@ export class AllBranchesComponent {
         },
         (err: any) => {
           console.log(err);
+          this.connectionToast.openToast();
           this.isFetchingData = false;
         }
       )

@@ -12,57 +12,65 @@
 
                 <p class="lead">Log Detail</p>
 
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">Log ID :</div>
-                            <div class="col-md-4">{{logCode}}</div>
+                <div *ngIf="!isFetchingData">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">Log ID :</div>
+                                <div class="col-md-4">{{logCode}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">Date/Time :</div>
+                                <div class="col-md-4">{{logDate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                            
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">User Name :</div>
+                                <div class="col-md-4">{{userName}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">Activity :</div>
+                                <div class="col-md-4">{{activity}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">Previous Entry :</div>
+                                <div class="col-md-4">{{previousEntry}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-4 text-muted">Inputed Entry :</div>
+                                <div class="col-md-4">{{inputedEntry}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">Date/Time :</div>
-                            <div class="col-md-4">{{logDate}}</div>
-                        </div>
-                    </div>
-                </div>
-                           
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">User Name :</div>
-                            <div class="col-md-4">{{userName}}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">Activity :</div>
-                            <div class="col-md-4">{{activity}}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">Previous Entry :</div>
-                            <div class="col-md-4">{{previousEntry}}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-4 text-muted">Inputed Entry :</div>
-                            <div class="col-md-4">{{inputedEntry}}</div>
-                        </div>
+                <div *ngIf="isFetchingData" class="text-center">
+                    <div class="spinner-border text-primary m-5" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
 

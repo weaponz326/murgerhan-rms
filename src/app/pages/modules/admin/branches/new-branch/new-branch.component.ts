@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
-
 import { Branch } from 'src/app/models/modules/admin/admin.model';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class NewBranchComponent {
     private router: Router,
     private adminApi: AdminApiService
   ) {}
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isSavingBranch = false;
 
@@ -55,12 +58,13 @@ export class NewBranchComponent {
 
         if(res.id){
           sessionStorage.setItem('admin_branch_id', res.id);
-          this.router.navigateByUrl('/home/branch/view-branch');
+          this.router.navigateByUrl("/modules/admin/branches/edit-branch");
         }
         this.isSavingBranch = false;
       })
       .catch((err: any) => {
         console.log(err);
+        this.connectionToast.openToast();
         this.isSavingBranch = false;
       });
   }

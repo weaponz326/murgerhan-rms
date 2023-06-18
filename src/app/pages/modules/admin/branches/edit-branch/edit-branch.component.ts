@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
-
 import { Branch } from 'src/app/models/modules/admin/admin.model';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
 
 @Component({
@@ -19,6 +21,9 @@ export class EditBranchComponent {
     private router: Router,
     private adminApi: AdminApiService
   ) {}
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   branchData: any;
 
@@ -39,6 +44,7 @@ export class EditBranchComponent {
   }
 
   getBranch() {
+    this.isFetchingData = true;
     const id = sessionStorage.getItem('admin_branch_id') as string;
 
     this.adminApi.getBranch(id)
@@ -50,6 +56,7 @@ export class EditBranchComponent {
       }),
       (err: any) => {
         console.log(err);
+        this.connectionToast.openToast();
         this.isFetchingData = false;
       };
   }
@@ -67,10 +74,10 @@ export class EditBranchComponent {
       special_features: this.branchForm.controls.specialFeatures.value as string,
       number_of_staff: this.branchData.data().number_of_staff,
       manager: {
-        id: this.branchData.data().manager.id,
+        id: this.branchData.data().manager?.id,
         data: {
-          staff_id: this.branchData.data().manager.data.data.staff_id,
-          full_name: this.branchData.data().manager.data.data.full_name
+          staff_id: this.branchData.data().manager?.data?.staff_id,
+          full_name: this.branchData.data().manager?.data?.full_name
         }
       },
     }
@@ -82,6 +89,7 @@ export class EditBranchComponent {
       })
       .catch((err) => {
         console.log(err);
+        this.connectionToast.openToast();
         this.isSavingBranch = false;
       });
   }
@@ -99,6 +107,7 @@ export class EditBranchComponent {
       })
       .catch((err) => {
         console.log(err);
+        this.connectionToast.openToast();
         this.isDeletingBranch = false;
       });
   }
@@ -107,8 +116,12 @@ export class EditBranchComponent {
     this.branchForm.controls.branchName.setValue(this.branchData.data().branch_name);
     this.branchForm.controls.location.setValue(this.branchData.data().location);
     this.branchForm.controls.specialFeatures.setValue(this.branchData.data().special_features);
-    this.branchForm.controls.manager.setValue(this.branchData.data().manager.data.full_name);
+    this.branchForm.controls.manager.setValue(this.branchData.data().manager?.data?.full_name);
     this.branchForm.controls.noOfStaff.setValue(this.branchData.data().number_of_staff);
+  }
+
+  confirmDelete(){
+    this.deleteModal.openModal();
   }
 
 }

@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-sm btn-primary add-item-btn" routerLink="/modules/admin/branches/new-branch">Add New Branch</button>
-                        <button [disabled]="isFetchingData" (click)="getBranchList" class="btn btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getBranchList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -30,10 +30,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)">
+                                <tr *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)" class="table-pointer">
                                     <td class="py-3">{{data?.data().branch_name}}</td>
                                     <td class="py-3">{{data?.data().location}}</td>
                                     <td class="py-3">{{data?.data().manager.manager}}</td>
+                                </tr>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="3">
+                                        <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -45,3 +50,7 @@
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

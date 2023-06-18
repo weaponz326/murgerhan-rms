@@ -30,6 +30,8 @@ export class LogDetailsComponent {
   }
 
   getLog() {
+    this.isFetchingData = true;
+    
     const id = sessionStorage.getItem('admin_log_id') as string;
 
     this.adminApi.getLog(id)

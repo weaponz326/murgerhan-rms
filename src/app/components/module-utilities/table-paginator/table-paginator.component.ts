@@ -8,13 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TablePaginatorComponent {
 
   @Output() pageSelected = new EventEmitter<any>();
-  @Input() currentPage = 0;
-  @Input() totalPages = 0;
+  @Input() currentPageNumber = 0;
+  @Input() currentPageSize = 0;
   
   changePage(event: any, page: any){
-    console.log(page);
     event.preventDefault();
-
+    console.log(page);
     this.pageSelected.emit(page);
   }
 

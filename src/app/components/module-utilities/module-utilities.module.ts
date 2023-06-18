@@ -25,6 +25,16 @@ import { TablePaginatorComponent } from './table-paginator/table-paginator.compo
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ConnectionToastComponent,
+    AccessToastComponent,
+    DeleteModalOneComponent,
+    DeleteModalTwoComponent,
+    ImageInputComponent,
+    TableSortingComponent,
+    TableLoadingComponent,
+    TablePaginatorComponent
   ]
 })
 export class ModuleUtilitiesModule { }

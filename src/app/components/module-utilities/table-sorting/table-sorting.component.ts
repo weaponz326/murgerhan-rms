@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TableSortingComponent {
 
+  @Input() fieldTitle: string = "";
   @Input() sortField: string = "";
   @Input() currentField: string = "";
   @Output() sortDirection = new EventEmitter<string>();
