@@ -1,34 +1,36 @@
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product ID :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+<form [formGroup]="productForm">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="productCode" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product Name :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product Name :</label></div>
+        <div class="col-md-8">
+            <input formControlName="productName" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product Type :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Product Type :</label></div>
+        <div class="col-md-8">
+            <input formControlName="productType" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Price :</label></div>
-    <div class="col-md-8">
-        <input type="number" min="0" step="0.01" class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Price :</label></div>
+        <div class="col-md-8">
+            <input formControlName="price" type="number" min="0" step="0.01" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
-    <div class="col-md-8">
-        <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+        <div class="col-md-8">
+            <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
     </div>
-</div>
+</form>

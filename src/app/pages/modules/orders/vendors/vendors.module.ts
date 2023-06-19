@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { VendorsRoutingModule } from './vendors-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { VendorsPage } from './vendors.page';
 import { AllVendorsComponent } from './all-vendors/all-vendors.component';
 import { NewVendorComponent } from './new-vendor/new-vendor.component';
@@ -23,7 +26,9 @@ import { VendorProductsComponent } from './vendor-products/vendor-products.compo
   ],
   imports: [
     CommonModule,
-    VendorsRoutingModule
+    ReactiveFormsModule,
+    VendorsRoutingModule,
+    ModuleUtilitiesModule
   ]
 })
 export class VendorsModule { }

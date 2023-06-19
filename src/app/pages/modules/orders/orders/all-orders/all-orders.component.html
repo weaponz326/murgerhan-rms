@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="addOrder.openModal()">Add order</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search orders">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,32 +25,42 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Order ID</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Vendor</th>
-                                    <th scope="col">Total Price</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Order ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Order Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Vendor'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Total Price'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>OD923403</td>
-                                    <td>04-06-2023</td>
-                                    <td>Murger Vendor</td>
-                                    <td>1240.00</td>
+                                <tr *ngFor="let data of orderListData" (dblclick)="viewOrder(data?.id)">
+                                    <td>{{data?.data().order_code}}</td>
+                                    <td>{{data?.data().order_date}}</td>
+                                    <td>{{data?.data().vendor?.vendor_name}}</td>
+                                    <td>{{data?.data().total_price}}</td>
                                 </tr>
-                                <tr>
-                                    <td>OD923403</td>
-                                    <td>04-06-2023</td>
-                                    <td>Murger Vendor</td>
-                                    <td>1240.00</td>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="4">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>OD923403</td>
-                                    <td>04-06-2023</td>
-                                    <td>Murger Vendor</td>
-                                    <td>1240.00</td>
-                                </tr>                               
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getOrderList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>
@@ -62,4 +72,5 @@
 </div>
 
 <!-- add order modal component -->
+
 <app-add-order #addOrderComponentReference></app-add-order>

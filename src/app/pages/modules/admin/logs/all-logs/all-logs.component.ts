@@ -41,7 +41,6 @@ export class AllLogsComponent {
     activity: ""
   }
 
-
   ngOnInit(): void {
     this.getLogList();
   }
