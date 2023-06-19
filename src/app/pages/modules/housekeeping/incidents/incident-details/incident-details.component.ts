@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-incident-details',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class IncidentDetailsComponent {
 
+  incidentDetails = new FormGroup({
+    description: new FormControl(''),
+    resolution: new FormControl(''),
+    comments: new FormControl(''),
+  })
+  
 }

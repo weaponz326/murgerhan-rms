@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TasksRoutingModule } from './tasks-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { TasksPage } from './tasks.page';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
 import { NewTaskComponent } from './new-task/new-task.component';
@@ -25,7 +28,9 @@ import { TaskItemsComponent } from './task-items/task-items.component';
   ],
   imports: [
     CommonModule,
-    TasksRoutingModule
+    ReactiveFormsModule,
+    TasksRoutingModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class TasksModule { }

@@ -3,7 +3,7 @@
 </ol>
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="card shadow-sm">
             <div class="card-body">
                 
@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/housekeeping/units/add-unit">Add Unit</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search units">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getUnitList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,28 +25,38 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Unit ID</th>
-                                    <th scope="col">Unit Name</th>
-                                    <th scope="col">Unit Type</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Unit ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Unit Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Unit Type'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>MU8935</td>
-                                    <td>Washroom</td>
-                                    <td>Room</td>
+                                <tr *ngFor="let data of unitListData" (dblclick)="viewUnit(data?.id)">
+                                    <td>{{data?.data().unit_code}}</td>
+                                    <td>{{data?.data().unit_name}}</td>
+                                    <td>{{data?.data().unit_type}}</td>
                                 </tr>
-                                <tr>
-                                    <td>MU8935</td>
-                                    <td>Washroom</td>
-                                    <td>Room</td>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="3">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>MU8935</td>
-                                    <td>Washroom</td>
-                                    <td>Room</td>
-                                </tr>                                
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getUnitList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>

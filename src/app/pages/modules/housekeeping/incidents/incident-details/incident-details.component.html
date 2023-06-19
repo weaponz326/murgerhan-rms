@@ -1,14 +1,16 @@
-<div class="mb-3">
-    <label class="form-label">Description :</label>
-    <textarea rows="6" class="form-control form-control-sm w-100"></textarea>
-</div>
+<form [formGroup]="incidentDetails">
+    <div class="mb-3">
+        <label class="form-label">Description :</label>
+        <textarea formControlName="description" rows="6" class="form-control form-control-sm w-100"></textarea>
+    </div>
 
-<div class="mb-3">
-    <label class="form-label">Resolution :</label>
-    <textarea rows="6" class="form-control form-control-sm w-100"></textarea>
-</div>
+    <div class="mb-3">
+        <label class="form-label">Resolution :</label>
+        <textarea formControlName="resolution" rows="6" class="form-control form-control-sm w-100"></textarea>
+    </div>
 
-<div class="mb-3">
-    <label class="form-label">Comments :</label>
-    <textarea rows="6" class="form-control form-control-sm w-100"></textarea>
-</div>
+    <div class="mb-3">
+        <label class="form-label">Comments :</label>
+        <textarea formControlName="comments" rows="6" class="form-control form-control-sm w-100"></textarea>
+    </div>
+</form>

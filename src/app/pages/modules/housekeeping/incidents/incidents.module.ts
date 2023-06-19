@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IncidentsRoutingModule } from './incidents-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { IncidentsPage } from './incidents.page';
 import { AllIncidentsComponent } from './all-incidents/all-incidents.component';
 import { NewIncidentsComponent } from './new-incidents/new-incidents.component';
@@ -21,7 +24,9 @@ import { IncidentDetailsComponent } from './incident-details/incident-details.co
   ],
   imports: [
     CommonModule,
-    IncidentsRoutingModule
+    ReactiveFormsModule,
+    IncidentsRoutingModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class IncidentsModule { }

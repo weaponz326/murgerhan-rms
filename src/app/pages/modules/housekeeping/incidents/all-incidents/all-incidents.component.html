@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/housekeeping/incidents/new-incident">New Incident</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search incidents">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getIncidentList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,20 +25,42 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Incident ID</th>
-                                    <th scope="col">Incident Title</th>
-                                    <th scope="col">Incident Date</th>
-                                    <th scope="col">Incident Type</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Incident ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Incident Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Incident Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Incident Status'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>IC8935</td>
-                                    <td>Breaking of a chair</td>
-                                    <td>12-05-2023</td>
-                                    <td>Accident</td>
+                                <tr *ngFor="let data of incidentListData" (dblclick)="viewIncident(data?.id)">
+                                    <td>{{data?.data().incident_code}}</td>
+                                    <td>{{data?.data().incident_subject}}</td>
+                                    <td>{{data?.data().incident_date}}</td>
+                                    <td>{{data?.data().incident_status}}</td>
+                                </tr>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="4">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getIncidentList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>

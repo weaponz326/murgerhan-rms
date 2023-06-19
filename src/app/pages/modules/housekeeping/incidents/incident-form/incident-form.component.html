@@ -1,38 +1,40 @@
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident ID :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+<form [formGroup]="incidentForm">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="incidentCode" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Title :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Subject :</label></div>
+        <div class="col-md-8">
+            <input formControlName="incidentSubject" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Type :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Type :</label></div>
+        <div class="col-md-8">
+            <input formControlName="incidentType" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Date :</label></div>
-    <div class="col-md-8">
-        <input type="datetime-local" class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Date :</label></div>
+        <div class="col-md-8">
+            <input formControlName="incidentDate" type="datetime-local" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Status :</label></div>
-    <div class="col-md-8">
-        <select class="form-control form-control-sm w-100">
-            <option value=""></option>
-            <option value="Resolved">Resolved</option>
-            <option value="Unresolved">Unresolved</option>
-        </select>
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Status :</label></div>
+        <div class="col-md-8">
+            <select formControlName="incidentStatus" class="form-control form-control-sm w-100">
+                <option value=""></option>
+                <option value="Resolved">Resolved</option>
+                <option value="Unresolved">Unresolved</option>
+            </select>
+        </div>
     </div>
-</div>
+</form>
