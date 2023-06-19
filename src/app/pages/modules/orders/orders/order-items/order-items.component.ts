@@ -1,10 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { AddOrderItemComponent } from '../add-order-item/add-order-item.component';
-import { EditOrderItemComponent } from '../edit-order-item/edit-order-item.component';
 import { Router } from '@angular/router';
+
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
+import { AddOrderItemComponent } from '../add-order-item/add-order-item.component';
+import { EditOrderItemComponent } from '../edit-order-item/edit-order-item.component';
+
 
 @Component({
   selector: 'app-order-items',

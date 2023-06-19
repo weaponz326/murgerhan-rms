@@ -14,6 +14,8 @@ export class HousekeepingApiService {
 
   unitRef = this.firestore.collection('housekeeping_unit');
   incidentRef = this.firestore.collection('housekeeping_incident');
+  taskRef = this.firestore.collection('housekeeping_task');
+  taskItemRef = this.firestore.collection('housekeeping_task_item');
 
   // unit
 
@@ -65,4 +67,51 @@ export class HousekeepingApiService {
     .get();
   }
  
+  // task
+
+  createTask(data: any){
+    return this.taskRef.add(data);
+  }
+
+  updateTask(id:any, data: any){
+    return this.taskRef.doc(id).update(data);
+  }
+
+  deleteTask(id: any){
+    return this.taskRef.doc(id).delete();
+  }
+
+  getTask(id: any){
+    return this.taskRef.doc(id).ref.get();
+  }
+
+  getTaskList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.taskRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // task items
+
+  createTaskItem(data: any){
+    return this.taskItemRef.add(data);
+  }
+
+  updateTaskItem(id:any, data: any){
+    return this.taskItemRef.doc(id).update(data);
+  }
+
+  deleteTaskItem(id: any){
+    return this.taskItemRef.doc(id).delete();
+  }
+
+  getTaskItem(id: any){
+    return this.taskItemRef.doc(id).ref.get();
+  }
+
+  getTaskItemList(){
+    return this.taskItemRef.ref.get();
+  }
+
 }

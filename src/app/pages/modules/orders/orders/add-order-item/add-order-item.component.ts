@@ -36,7 +36,7 @@ export class AddOrderItemComponent {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
       item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
-      order: sessionStorage.getItem('shop_order_id') as string,
+      order: sessionStorage.getItem('orders_order_id') as string,
       quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
       product: {
         id: this.selectedProductData.id,

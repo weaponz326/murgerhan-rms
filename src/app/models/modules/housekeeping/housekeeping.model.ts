@@ -35,3 +35,40 @@ export class Incident {
         }
     };
 }
+
+export class Task {
+    created_at!: any;
+    updated_at!: any;
+    task_code!: string;
+    task_name!: string;
+    primary_assignee!: string;
+    task_type!: string;
+    from_date!: any;
+    to_date!: any;
+    task_status!: string;
+    description!: string;
+    occurance!: string;
+    frequency!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class TaskItem {
+    created_at!: any;
+    updated_at!: any;
+    item_number!: number;
+    task_description!: string;
+    task!: string;
+    unit!: {
+        id: string;
+        data: {
+            unit_code: string;
+            unit_name: string;
+        }
+    };
+}

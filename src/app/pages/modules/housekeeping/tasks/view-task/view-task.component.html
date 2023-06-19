@@ -13,110 +13,115 @@
 
                 <p class="lead">View Task</p>
                 
-                <div class="row">
-                    <div class="col-md-6">
+                <form [formGroup]="taskForm">
 
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task ID :</label></div>
-                            <div class="col-md-8">
-                                <input formControlName="taskCode" class="form-control form-control-sm w-100">
-                            </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
-                            <div class="col-md-8">
-                                <input formControlName="taskCode" class="form-control form-control-sm w-100">
-                            </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
-                            <div class="col-md-8">
-                                <div class="input-group input-group-sm w-100">
-                                    <input formControlName="assignee" class="form-control">
-                                    <button type="button" class="btn btn-secondary">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task ID :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="taskCode" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="taskName" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm w-100">
+                                        <input formControlName="primaryAssignee" class="form-control">
+                                        <button type="button" class="btn btn-secondary">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Type :</label></div>
+                                <div class="col-md-8">
+                                    <select formControlName="taskType" class="form-control form-control-sm w-100">
+                                        <option value="Chore">Chore</option>
+                                        <option value="Inspection">Inspection</option>
+                                        <option value="Drill">Drill</option>
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                                <div class="col-md-8">
+                                    <input type="datetime-local" formControlName="fromDate" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
+                                <div class="col-md-8">
+                                    <input type="datetime-local" formControlName="toDate" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Type :</label></div>
-                            <div class="col-md-8">
-                                <select formControlName="taskCode" class="form-control form-control-sm w-100">
-                                    <option value="Chore">Chore</option>
-                                    <option value="Inspection">Inspection</option>
-                                    <option value="Drill">Drill</option>
-                                </select>
+                        <div class="col-md-6">
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Status :</label></div>
+                                <div class="col-md-8">
+                                    <select formControlName="taskStatus" class="form-control form-control-sm w-100">
+                                        <option value="To Do">To Do</option>
+                                        <option value="Ongoing">Ongoing</option>
+                                        <option value="Done">Done</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
-                            <div class="col-md-8">
-                                <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                                <div class="col-md-8">
+                                    <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+                                </div>
                             </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
-                            <div class="col-md-8">
-                                <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
+                                <div class="col-md-8">
+                                    <select formControlName="occurance" class="form-control form-control-sm w-100">
+                                        <option value="Non-Recurring" selected>Non-Recurring</option>
+                                        <option value="Recurring">Recurring</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Frequency :</label></div>
+                                <div class="col-md-8">
+                                    <select formControlName="frequency" class="form-control form-control-sm w-100">
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>                                                                    
+                        </div>                                        
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Status :</label></div>
-                            <div class="col-md-8">
-                                <select formControlName="taskCode" class="form-control form-control-sm w-100">
-                                    <option value="To Do">To Do</option>
-                                    <option value="Ongoing">Ongoing</option>
-                                    <option value="Done">Done</option>
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
-                            <div class="col-md-8">
-                                <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
-                            </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
-                            <div class="col-md-8">
-                                <select formControlName="taskCode" class="form-control form-control-sm w-100">
-                                    <option value="Non-Recurring">Non-Recurring</option>
-                                    <option value="Recurring">Recurring</option>
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Frequency :</label></div>
-                            <div class="col-md-8">
-                                <select formControlName="taskCode" class="form-control form-control-sm w-100">
-                                    <option value="Daily">Daily</option>
-                                    <option value="Weekly">Weekly</option>
-                                    <option value="Monthly">Monthly</option>
-                                </select>
-                            </div>
-                        </div>                                                                    
-                    </div>
-                </div>
+                </form>
 
                 <div class="row mt-3 float-end">
                     <div class="col">
-                        <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                        <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
-                        <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                        <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isFetchingData || isSavingTask" (click)="updateTask()">Save</button>
+                        <button class="btn btn-sm btn-danger ms-2 form-control-btn" [disabled]="isFetchingData || isDeletingTask" (click)="confirmDelete()">Delete</button>
+                        <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/housekeeping/tasks">Cancel</button>
                     </div>
-                </div>    
+                </div>   
 
             </div>
         </div>
@@ -125,32 +130,45 @@
 </div>
 
 <div class="row mb-4">
-    <div class="col">
+    <div class="col-md-7">
         <div class="card shadow-sm">
             <div class="card-body">
+    
+                <p class="lead">Task Items</p>
+                
+                <!-- task items component -->
 
-                <p class="lead">Task Schedule</p>
-
-                <!-- <app-daily-schedule></app-daily-schedule> -->
-                <!-- <app-weekly-schedule></app-weekly-schedule> -->
-                <!-- <app-monthly-schedule></app-monthly-schedule> -->
+                <app-task-items></app-task-items>
 
             </div>
         </div>
     </div>
-</div>
 
-<div class="col-md-6">
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="col-md-4">
+        <div *ngIf="this.taskForm.controls.occurance.value == 'Recurring'" class="card shadow-sm">
+            <div class="card-body">
 
-            <p class="lead">Task Items</p>
+                <p class="lead">Task Scehdule</p>
             
-            <button class="btn btn-light bordered" routerLink="/modules/housekeeping/tasks/task-items">
-                View Task Items
-                <i class="bi bi-arrow-right ms-3"></i>
-            </button>
+                <button class="btn btn-light bordered" routerLink="/modules/housekeeping/tasks/task-schedule">
+                    View Task Scehdule
+                    <i class="bi bi-arrow-right ms-3"></i>
+                </button>
 
+            </div>
+        </div>
+
+        <div *ngIf="this.taskForm.controls.occurance.value == 'Non-Recurring'" class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Inspect/Check Task</p>
+            
+                <button class="btn btn-light bordered" routerLink="/modules/housekeeping/tasks/inspect-task">
+                    Inspect Task
+                    <i class="bi bi-arrow-right ms-3"></i>
+                </button>
+
+            </div>
         </div>
     </div>
 </div>

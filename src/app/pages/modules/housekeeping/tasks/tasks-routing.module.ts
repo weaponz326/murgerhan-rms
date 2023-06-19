@@ -18,6 +18,8 @@ const routes: Routes = [
       { path: "new-task", component: NewTaskComponent },
       { path: "view-task", component: ViewTaskComponent },
       { path: "task-items", component: TaskItemsComponent },
+      // { path: "inspect_task", component: InspectTaskComponent },
+      // { path: "task-schedule", component: TaskScheduleComponent },
     ]
   }
 ];

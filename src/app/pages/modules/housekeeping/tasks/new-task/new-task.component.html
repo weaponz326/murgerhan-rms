@@ -6,7 +6,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="page-form">
+            <form [formGroup]="taskForm">
 
                 <div class="modal-header bg-light">
                     <span class="modal-title" id="newTaskModalLabel">New Task</span>
@@ -24,7 +24,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
                         <div class="col-md-8">
-                            <input formControlName="taskCode" class="form-control form-control-sm w-100">
+                            <input formControlName="taskName" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="assignee" class="form-control">
+                                <input formControlName="primaryAssignee" class="form-control">
                                 <button type="button" class="btn btn-secondary">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -43,7 +43,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Type :</label></div>
                         <div class="col-md-8">
-                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                            <select formControlName="taskType" class="form-control form-control-sm w-100">
                                 <option value="Chore">Chore</option>
                                 <option value="Inspection">Inspection</option>
                                 <option value="Drill">Drill</option>
@@ -54,21 +54,21 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
                         <div class="col-md-8">
-                            <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+                            <input type="datetime-local" formControlName="fromDate" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
                         <div class="col-md-8">
-                            <input type="datetime-local" formControlName="taskDate" class="form-control form-control-sm w-100">
+                            <input type="datetime-local" formControlName="toDate" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Status :</label></div>
                         <div class="col-md-8">
-                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                            <select formControlName="taskStatus" class="form-control form-control-sm w-100">
                                 <option value="To Do">To Do</option>
                                 <option value="Ongoing">Ongoing</option>
                                 <option value="Done">Done</option>
@@ -79,15 +79,15 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
                         <div class="col-md-8">
-                            <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+                            <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
                         <div class="col-md-8">
-                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
-                                <option value="Non-Recurring">Non-Recurring</option>
+                            <select formControlName="occurance" class="form-control form-control-sm w-100">
+                                <option value="Non-Recurring" selected>Non-Recurring</option>
                                 <option value="Recurring">Recurring</option>
                             </select>
                         </div>
@@ -96,7 +96,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Frequency :</label></div>
                         <div class="col-md-8">
-                            <select formControlName="taskCode" class="form-control form-control-sm w-100">
+                            <select formControlName="frequency" class="form-control form-control-sm w-100">
                                 <option value="Daily">Daily</option>
                                 <option value="Weekly">Weekly</option>
                                 <option value="Monthly">Monthly</option>
@@ -106,7 +106,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success form-control-btn">Save</button>
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingTask" (click)="createTask()">Save</button>
                     <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
@@ -115,3 +115,7 @@
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

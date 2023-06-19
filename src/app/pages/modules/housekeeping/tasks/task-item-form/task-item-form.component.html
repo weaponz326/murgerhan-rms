@@ -1,1 +1,35 @@
-<p>task-item-form works!</p>
+<form  [formGroup]="taskItemForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Item No. :</label>
+        </div>
+        <div class="col-md-8">
+            <input type="number" min="1" formControlName="itemNumber" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Task Description :</label>
+        </div>
+        <div class="col-md-8">
+            <textarea formControlName="taskDescription" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Unit Name :</label>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="unitName" class="form-control">
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
