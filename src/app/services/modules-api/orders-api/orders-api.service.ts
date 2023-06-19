@@ -15,6 +15,7 @@ export class OrdersApiService {
   productRef = this.firestore.collection('orders_product');
   orderRef = this.firestore.collection('orders_order');
   orderItemRef = this.firestore.collection('orders_order_item');
+  vendorRef = this.firestore.collection('orders_vendor');
 
   // product
 
@@ -87,5 +88,52 @@ export class OrdersApiService {
   getOrderItemList(){
     return this.orderItemRef.ref.get();
   }
- 
+
+  // vendor
+
+  createVendor(data: any){
+    return this.vendorRef.add(data);
+  }
+
+  updateVendor(id:any, data: any){
+    return this.vendorRef.doc(id).update(data);
+  }
+
+  deleteVendor(id: any){
+    return this.vendorRef.doc(id).delete();
+  }
+
+  getVendor(id: any){
+    return this.vendorRef.doc(id).ref.get();
+  }
+
+  getVendorList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.vendorRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // vendor products
+
+  createVendorProduct(data: any){
+    return this.orderItemRef.add(data);
+  }
+
+  updateVendorProduct(id:any, data: any){
+    return this.orderItemRef.doc(id).update(data);
+  }
+
+  deleteVendorProduct(id: any){
+    return this.orderItemRef.doc(id).delete();
+  }
+
+  getVendorProduct(id: any){
+    return this.orderItemRef.doc(id).ref.get();
+  }
+
+  getVendorProductList(){
+    return this.orderItemRef.ref.get();
+  }
+
 }

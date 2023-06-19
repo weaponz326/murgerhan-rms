@@ -54,3 +54,41 @@ export class OrderItem {
         }
     };
 }
+
+export class Vendor {
+    created_at!: any;
+    updated_at!: any;
+    vendor_code!: string;
+    vendor_name!: string;
+    phone!: string;
+    email!: string;
+    address!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class VendorProduct {
+    created_at!: any;
+    updated_at!: any;
+    vendor!: {
+        id: string;
+        data: {
+            vendor_code: string;
+            vendor_name: string;
+        }
+    }
+    product!: {
+        id: string;
+        data: {
+            product_code: string;
+            product_name: string;
+            price: string;
+        }
+    };
+}
+

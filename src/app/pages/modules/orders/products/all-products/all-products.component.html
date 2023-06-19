@@ -43,7 +43,7 @@
                                     <td>{{data?.data().price}}</td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="4">
+                                    <td colspan="3">
                                         <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                     </td>
                                 </tr>

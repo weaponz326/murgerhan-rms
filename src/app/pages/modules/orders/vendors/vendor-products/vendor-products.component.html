@@ -22,26 +22,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>MU8935</td>
-                                    <td>Murger Jumbo</td>
-                                    <td>5.00</td>
+                                <tr *ngFor="let data of vendorProductListData">
+                                    <td>{{data?.product?.data?.product_code}}</td>
+                                    <td>{{data?.product?.data?.product_name}}</td>
+                                    <td>{{data?.product?.data?.product_price}}</td>
                                     <td class="p-0">
-                                        <button class="btn btn-danger btn-sm border w-100">
+                                        <button (click)="confirmDelete(data.product?.id)" [disabled]="isItemDeleting" class="btn btn-danger btn-sm border w-100">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>MU8935</td>
-                                    <td>Murger Jumbo</td>
-                                    <td>5.00</td>
-                                    <td class="p-0">
-                                        <button class="btn btn-danger btn-sm border w-100">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>                         
                             </tbody>
                         </table>
                 
@@ -52,3 +42,7 @@
         </div>
     </div>
 </div>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteVendorProduct()"></app-delete-modal-two>

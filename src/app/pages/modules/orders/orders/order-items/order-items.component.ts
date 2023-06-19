@@ -115,7 +115,7 @@ export class OrderItemsComponent {
       });
   }
 
-  deleteOrder() {
+  deleteOrderItem() {
     this.isItemDeleting = true;
 
     this.ordersApi.deleteOrder(this.deleteId)

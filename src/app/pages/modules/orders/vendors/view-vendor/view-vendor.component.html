@@ -1,8 +1,8 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/orders/vendors/all-vendors">All vendors</a>
+        <a href="#" routerLink="/modules/orders/vendors/all-vendors">All Vendors</a>
     </li>
-    <li class="breadcrumb-item active">View vendor</li>
+    <li class="breadcrumb-item active">View Vendor</li>
 </ol>
 
 <div class="row mb-4">
@@ -11,19 +11,20 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <p class="lead">View vendor</p>
+                <p class="lead">View Vendor</p>
                 
                 <div class="row">
                     <div class="col">
 
                         <!-- vendor form component -->
-                        <app-vendor-form></app-vendor-form>
+                        
+                        <app-vendor-form #vendorFormComponentReference></app-vendor-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isFetchingData || isSavingVendor" (click)="updateVendor()">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn" [disabled]="isFetchingData || isDeletingVendor" (click)="confirmDelete()">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/orders/vendors">Cancel</button>
                             </div>
                         </div>                        
 
@@ -51,5 +52,14 @@
 
 </div>
 
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteVendor()"></app-delete-modal-one>
+
 <!-- vendor products component -->
+
 <app-vendor-products></app-vendor-products>
