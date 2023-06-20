@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AttendanceRoutingModule } from './attendance-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { AttendancePage } from './attendance.page';
 import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 import { NewAttendanceComponent } from './new-attendance/new-attendance.component';
@@ -23,7 +26,9 @@ import { UserAttendanceSheetComponent } from './user-attendance-sheet/user-atten
   ],
   imports: [
     CommonModule,
-    AttendanceRoutingModule
+    ReactiveFormsModule,
+    AttendanceRoutingModule,
+    ModuleUtilitiesModule
   ]
 })
 export class AttendanceModule { }

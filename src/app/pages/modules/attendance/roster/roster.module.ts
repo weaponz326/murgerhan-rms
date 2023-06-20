@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { RosterRoutingModule } from './roster-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { RosterPage } from './roster.page';
 import { AllRosterComponent } from './all-roster/all-roster.component';
 import { NewRosterComponent } from './new-roster/new-roster.component';
@@ -37,7 +40,9 @@ import { EditBatchComponent } from './edit-batch/edit-batch.component';
   ],
   imports: [
     CommonModule,
-    RosterRoutingModule
+    ReactiveFormsModule,
+    RosterRoutingModule,
+    ModuleUtilitiesModule
   ]
 })
 export class RosterModule { }

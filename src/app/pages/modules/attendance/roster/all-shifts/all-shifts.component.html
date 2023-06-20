@@ -12,10 +12,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Morning Shift</td>
-            <td>08:00 AM</td>
-            <td>12:00 PM</td>
+        <tr *ngFor="let data of rosterShiftListData">
+            <td>{{data?.shift_name}}</td>
+            <td>{{data?.start_time}}</td>
+            <td>{{data?.end_time}}</td>
             <td class="p-0">
                 <button class="btn btn-sm border w-50"><i class="bi bi-pen"></i></button>
                 <button class="btn btn-sm border w-50"><i class="bi bi-trash"></i></button>
@@ -25,5 +25,11 @@
 </table>
 
 <!-- add and edit shift modal components -->
+
 <app-add-shift #addShiftComponentReference></app-add-shift>
+
 <app-edit-shift #editShiftComponentReference></app-edit-shift>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteRosterShift()"></app-delete-modal-two>

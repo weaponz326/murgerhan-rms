@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="newRoster.openModal()">New Roster</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search roster">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getRosterList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,16 +25,34 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Roster ID</th>
-                                    <th scope="col">Roster Name</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Roster ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Roster Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>RS923403</td>
-                                    <td>April Kitchen Roster</td>
+                                <tr *ngFor="let data of rosterListData" (dblclick)="viewRoster(data?.id)">
+                                    <td>{{data?.data().roster_code}}</td>
+                                    <td>{{data?.data().roster_name}}</td>
+                                </tr>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="2">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getRosterList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>
@@ -46,4 +64,5 @@
 </div>
 
 <!-- new-roster modal component -->
+
 <app-new-roster #newRosterComponentReference></app-new-roster>
