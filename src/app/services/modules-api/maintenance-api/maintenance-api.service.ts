@@ -13,6 +13,8 @@ export class MaintenanceApiService {
 
   maintenanceIssueRef = this.firestore.collection('maintenance_issue');
   maintenanceServiceRef = this.firestore.collection('maintenance_service');
+  contractorRef = this.firestore.collection('maintenance_contractor');
+  systemRef = this.firestore.collection('maintenance_system');
 
   // issue
 
@@ -59,6 +61,56 @@ export class MaintenanceApiService {
 
   getServiceList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.maintenanceServiceRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // contractor
+
+  createContractor(data: any){
+    return this.contractorRef.add(data);
+  }
+
+  updateContractor(id:any, data: any){
+    return this.contractorRef.doc(id).update(data);
+  }
+
+  deleteContractor(id: any){
+    return this.contractorRef.doc(id).delete();
+  }
+
+  getContractor(id: any){
+    return this.contractorRef.doc(id).ref.get();
+  }
+
+  getContractorList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.contractorRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // system
+
+  createSystem(data: any){
+    return this.systemRef.add(data);
+  }
+
+  updateSystem(id:any, data: any){
+    return this.systemRef.doc(id).update(data);
+  }
+
+  deleteSystem(id: any){
+    return this.systemRef.doc(id).delete();
+  }
+
+  getSystem(id: any){
+    return this.systemRef.doc(id).ref.get();
+  }
+
+  getSystemList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.systemRef.ref
     .where("branch.id", "==", localStorage.getItem("selected_branch"))
     .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
     .get();

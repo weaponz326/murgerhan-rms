@@ -1,41 +1,43 @@
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+<form [formGroup]="systemForm">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
+        <div class="col-md-8">
+            <input fromControlName="systemCode" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
+        <div class="col-md-8">
+            <input fromControlName="systemName" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Type :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Type :</label></div>
+        <div class="col-md-8">
+            <input fromControlName="systemType" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Location :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Location :</label></div>
+        <div class="col-md-8">
+            <input fromControlName="location" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Condition :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Condition :</label></div>
+        <div class="col-md-8">
+            <input fromControlName="condition" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
-    <div class="col-md-8">
-        <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+        <div class="col-md-8">
+            <textarea fromControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
     </div>
-</div>
+</form>

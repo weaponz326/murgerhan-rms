@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/maintenance/contractors/add-contractor">Add Contractor</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search contractors">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getContractorList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,28 +25,38 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Contractor ID</th>
-                                    <th scope="col">Contractor Name</th>
-                                    <th scope="col">Phone No.</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Contractor ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Phone No.'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>PW Plumbing Works</td>
-                                    <td>823774823</td>
+                                <tr *ngFor="let data of contractorListData" (dblclick)="viewContractor(data?.id)">
+                                    <td>{{data?.data().contractor_code}}</td>
+                                    <td>{{data?.data().contractor_name}}</td>
+                                    <td>{{data?.data().phone}}</td>
                                 </tr>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>PW Plumbing Works</td>
-                                    <td>823774823</td>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="3">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>PW Plumbing Works</td>
-                                    <td>823774823</td>
-                                </tr>                                         
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getContractorList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>

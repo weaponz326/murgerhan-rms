@@ -17,13 +17,14 @@
                     <div class="col">
 
                         <!-- maintenance system form component -->
-                        <app-maintenance-system-form></app-maintenance-system-form>
+                        
+                        <app-maintenance-system-form #maintenanceSystemFormComponentReference></app-maintenance-system-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isFetchingData || isSavingSystem" (click)="updateSystem()">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn" [disabled]="isFetchingData || isDeletingSystem" (click)="confirmDelete()">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/maintenance/systems">Cancel</button>
                             </div>
                         </div>                        
 
@@ -39,9 +40,9 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
 
-                <p class="lead">System Issues History</p>
+                <p class="lead">System Systems History</p>
                 
-                <button class="btn btn-light bordered" routerLink="/modules/maintenance/systems/system-issues-history">
+                <button class="btn btn-light bordered" routerLink="/modules/maintenance/systems/system-systems-history">
                     View System History
                     <i class="bi bi-arrow-right ms-3"></i>
                 </button>
@@ -65,3 +66,11 @@
     </div>
 
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteSystem()"></app-delete-modal-one>

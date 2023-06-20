@@ -59,3 +59,40 @@ export class Service {
         }
     };
 }
+
+export class Contractor {
+    created_at!: any;
+    updated_at!: any;
+    contractor_code!: string;
+    contractor_name!: string;
+    contractor_type!: string;
+    main_service!: string;
+    phone!: string;
+    email!: string;
+    address!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class System {
+    created_at!: any;
+    updated_at!: any;
+    system_code!: string;
+    system_name!: string;
+    system_type!: string;
+    location!: string;
+    condition!: string;
+    description!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}

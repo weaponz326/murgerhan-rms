@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-contractor-form',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class ContractorFormComponent {
 
+  contractorForm = new FormGroup({
+    contractorCode: new FormControl(''),
+    contractorName: new FormControl(''),
+    contractorType: new FormControl(''),
+    mainService: new FormControl(''),
+    phone: new FormControl(''),
+    email: new FormControl(''),
+    address: new FormControl(''),
+  })
+  
 }
