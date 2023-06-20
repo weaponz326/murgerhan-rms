@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ServicesRoutingModule } from './services-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { ServicesPage } from './services.page';
 import { AllMaintenanceServicesComponent } from './all-maintenance-services/all-maintenance-services.component';
 import { NewMaintenanceServiceComponent } from './new-maintenance-service/new-maintenance-service.component';
@@ -19,7 +22,9 @@ import { MaintenanceServiceFormComponent } from './maintenance-service-form/main
   ],
   imports: [
     CommonModule,
-    ServicesRoutingModule
+    ReactiveFormsModule,
+    ServicesRoutingModule,
+    ModuleUtilitiesModule
   ]
 })
 export class ServicesModule { }

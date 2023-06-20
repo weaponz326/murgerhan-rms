@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-maintenance-issue-form',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class MaintenanceIssueFormComponent {
 
+  issueForm = new FormGroup({
+    issueCode: new FormControl(''),
+    issueSubject: new FormControl(''),
+    issueType: new FormControl(''),
+    issueDate: new FormControl(),
+    system: new FormControl(''),
+    reportedTo: new FormControl(''),
+    description: new FormControl(''),
+    issueStatus: new FormControl(''),
+    comments: new FormControl(''),
+  })
+  
 }

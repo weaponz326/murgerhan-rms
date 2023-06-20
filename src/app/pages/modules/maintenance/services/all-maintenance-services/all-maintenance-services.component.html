@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/maintenance/services/new-service">New Service</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance services">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getServiceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,26 +25,36 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Service ID</th>
-                                    <th scope="col">Service Title</th>
-                                    <th scope="col">Service Date</th>
-                                    <th scope="col">Contractor Name</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Service ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Service Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Service Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>SE80035</td>
-                                    <td>Kitchen Plumbing</td>
-                                    <td>04-03-2023</td>
-                                    <td>PW Plumbing Works</td>
-                                </tr> 
-                                <tr>
-                                    <td>SE80035</td>
-                                    <td>Kitchen Plumbing</td>
-                                    <td>04-03-2023</td>
-                                    <td>PW Plumbing Works</td>
-                                </tr>                               
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="4">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
+                                </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getServiceList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>
