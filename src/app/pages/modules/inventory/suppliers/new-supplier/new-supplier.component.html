@@ -1,8 +1,8 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/inventory/suppliers/all-suppliers">All suppliers</a>
+        <a href="#" routerLink="/modules/inventory/suppliers/all-suppliers">All Suppliers</a>
     </li>
-    <li class="breadcrumb-item active">New supplier</li>
+    <li class="breadcrumb-item active">New Supplier</li>
 </ol>
 
 <div class="row">
@@ -10,18 +10,19 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <p class="lead">Add New supplier</p>
+                <p class="lead">Add New Supplier</p>
                 
                 <div class="row">
                     <div class="col">
 
                         <!-- supplier form component -->
-                        <app-supplier-form></app-supplier-form>
+
+                        <app-supplier-form #supplierFormComponentReference></app-supplier-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingSupplier" (click)="createSupplier()">Save</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/inventory/suppliers">Cancel</button>
                             </div>
                         </div>                        
 
@@ -32,3 +33,7 @@
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

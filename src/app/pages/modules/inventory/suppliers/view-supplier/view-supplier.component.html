@@ -1,8 +1,8 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/inventory/suppliers/all-suppliers">All suppliers</a>
+        <a href="#" routerLink="/modules/inventory/suppliers/all-suppliers">All Suppliers</a>
     </li>
-    <li class="breadcrumb-item active">View supplier</li>
+    <li class="breadcrumb-item active">View Supplier</li>
 </ol>
 
 <div class="row mb-4">
@@ -11,19 +11,20 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <p class="lead">View supplier</p>
+                <p class="lead">View Supplier</p>
                 
                 <div class="row">
                     <div class="col">
 
                         <!-- supplier form component -->
-                        <app-supplier-form></app-supplier-form>
+                        
+                        <app-supplier-form #supplierFormComponentReference></app-supplier-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn">Save</button>
-                                <button class="btn btn-sm btn-danger ms-2 form-control-btn">Delete</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isFetchingData || isSavingSupplier" (click)="updateSupplier()">Save</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn" [disabled]="isFetchingData || isDeletingSupplier" (click)="confirmDelete()">Delete</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/inventory/suppliers">Cancel</button>
                             </div>
                         </div>                        
 
@@ -51,5 +52,15 @@
 
 </div>
 
+
 <!-- supplier products component -->
+
 <app-supplier-products></app-supplier-products>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteSupplier()"></app-delete-modal-one>

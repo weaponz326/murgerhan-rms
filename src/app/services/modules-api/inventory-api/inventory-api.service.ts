@@ -13,6 +13,8 @@ export class InventoryApiService {
   stockItemRef = this.firestore.collection('inventory_stock_item');
   itemCategoryRef = this.firestore.collection('inventory_item_category');
   categoryChecklistRef = this.firestore.collection('inventory_item_category_checklist');
+  supplierRef = this.firestore.collection('inventory_supplier');
+  supplierItemRef = this.firestore.collection('inventory_supplier_item');
 
   // stock item
 
@@ -84,6 +86,53 @@ export class InventoryApiService {
 
   getCategoryChecklistList(){
     return this.categoryChecklistRef.ref.get();
+  }
+
+  // supplier
+
+  createSupplier(data: any){
+    return this.supplierRef.add(data);
+  }
+
+  updateSupplier(id:any, data: any){
+    return this.supplierRef.doc(id).update(data);
+  }
+
+  deleteSupplier(id: any){
+    return this.supplierRef.doc(id).delete();
+  }
+
+  getSupplier(id: any){
+    return this.supplierRef.doc(id).ref.get();
+  }
+
+  getSupplierList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.supplierRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // supplier items
+
+  createSupplierItem(data: any){
+    return this.supplierItemRef.add(data);
+  }
+
+  updateSupplierItem(id:any, data: any){
+    return this.supplierItemRef.doc(id).update(data);
+  }
+
+  deleteSupplierItem(id: any){
+    return this.supplierItemRef.doc(id).delete();
+  }
+
+  getSupplierItem(id: any){
+    return this.supplierItemRef.doc(id).ref.get();
+  }
+
+  getSupplierItemList(){
+    return this.supplierItemRef.ref.get();
   }
 
 }

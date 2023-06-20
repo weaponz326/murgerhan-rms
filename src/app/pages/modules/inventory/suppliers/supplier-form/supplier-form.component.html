@@ -1,34 +1,36 @@
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier ID :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+<form [formGroup]="supplierForm">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="supplierCode" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier Name :</label></div>
-    <div class="col-md-8">
-        <input class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier Name :</label></div>
+        <div class="col-md-8">
+            <input formControlName="supplierName" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Phone No. :</label></div>
-    <div class="col-md-8">
-        <input type="tel" class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Phone No. :</label></div>
+        <div class="col-md-8">
+            <input formControlName="phone" type="tel" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Email :</label></div>
-    <div class="col-md-8">
-        <input type="email" class="form-control form-control-sm w-100">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Email :</label></div>
+        <div class="col-md-8">
+            <input formControlName="email" type="email" class="form-control form-control-sm w-100">
+        </div>
     </div>
-</div>
 
-<div class="row mb-1">
-    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Address :</label></div>
-    <div class="col-md-8">
-        <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Address :</label></div>
+        <div class="col-md-8">
+            <textarea formControlName="address" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
     </div>
-</div>
+</form>

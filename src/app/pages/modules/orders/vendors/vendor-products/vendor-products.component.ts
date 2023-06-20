@@ -77,7 +77,7 @@ export class VendorProductsComponent {
 
     console.log(data);
 
-    this.ordersApi.createOrder(data)
+    this.ordersApi.createVendorProduct(data)
       .then((res: any) => {
         console.log(res);
 
@@ -94,7 +94,7 @@ export class VendorProductsComponent {
   deleteVendorProduct() {
     this.isItemDeleting = true;
 
-    this.ordersApi.deleteOrder(this.deleteId)
+    this.ordersApi.deleteVendorProduct(this.deleteId)
       .then((res) => {
         console.log(res);
         this.isItemDeleting = false;

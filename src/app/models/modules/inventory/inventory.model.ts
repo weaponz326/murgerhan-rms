@@ -49,3 +49,40 @@ export class CategoryChecklist {
     item_number!: number;
     description!: string;
 }
+
+export class Supplier {
+    created_at!: any;
+    updated_at!: any;
+    supplier_code!: string;
+    supplier_name!: string;
+    phone!: string;
+    email!: string;
+    address!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class SupplierItem {
+    created_at!: any;
+    updated_at!: any;
+    supplier!: {
+        id: string;
+        data: {
+            supplier_code: string;
+            supplier_name: string;
+        }
+    }
+    stock_item!: {
+        id: string;
+        data: {
+            item_code: string;
+            item_name: string;
+            unit_price: string;
+        }
+    };
+}

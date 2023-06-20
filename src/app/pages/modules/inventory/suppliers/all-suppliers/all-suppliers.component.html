@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/inventory/suppliers/new-supplier">New Supplier</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search suppliers">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getSupplierList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,28 +25,38 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Supplier ID</th>
-                                    <th scope="col">Supplier Name</th>
-                                    <th scope="col">Phone No.</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Supplier ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Supplier Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Phone No.'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>Beef Supplier</td>
-                                    <td>823774823</td>
+                                <tr *ngFor="let data of supplierListData" (dblclick)="viewSupplier(data?.id)">
+                                    <td>{{data?.data().supplier_code}}</td>
+                                    <td>{{data?.data().supplier_name}}</td>
+                                    <td>{{data?.data().phone}}</td>
                                 </tr>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>Beef Supplier</td>
-                                    <td>823774823</td>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="3">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>VD923</td>
-                                    <td>Beef Supplier</td>
-                                    <td>823774823</td>
-                                </tr>                                
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getSupplierList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>

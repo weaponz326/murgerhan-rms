@@ -16,6 +16,7 @@ export class OrdersApiService {
   orderRef = this.firestore.collection('orders_order');
   orderItemRef = this.firestore.collection('orders_order_item');
   vendorRef = this.firestore.collection('orders_vendor');
+  vendorProductRef = this.firestore.collection('orders_vendor_product');
 
   // product
 
@@ -117,23 +118,23 @@ export class OrdersApiService {
   // vendor products
 
   createVendorProduct(data: any){
-    return this.orderItemRef.add(data);
+    return this.vendorProductRef.add(data);
   }
 
   updateVendorProduct(id:any, data: any){
-    return this.orderItemRef.doc(id).update(data);
+    return this.vendorProductRef.doc(id).update(data);
   }
 
   deleteVendorProduct(id: any){
-    return this.orderItemRef.doc(id).delete();
+    return this.vendorProductRef.doc(id).delete();
   }
 
   getVendorProduct(id: any){
-    return this.orderItemRef.doc(id).ref.get();
+    return this.vendorProductRef.doc(id).ref.get();
   }
 
   getVendorProductList(){
-    return this.orderItemRef.ref.get();
+    return this.vendorProductRef.ref.get();
   }
 
 }
