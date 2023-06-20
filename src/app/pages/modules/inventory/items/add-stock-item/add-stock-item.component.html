@@ -14,12 +14,13 @@
             <div class="modal-body">
 
                 <!-- item form component -->
+                
                 <app-stock-item-form></app-stock-item-form>                
 
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-sm btn-success form-control-btn">Save</button>
+                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
                 <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 

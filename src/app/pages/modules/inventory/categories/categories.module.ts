@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CategoriesRoutingModule } from './categories-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { CategoriesPage } from './categories.page';
 import { AllItemCategoriesComponent } from './all-item-categories/all-item-categories.component';
 import { AddItemCategoryComponent } from './add-item-category/add-item-category.component';
@@ -25,7 +28,9 @@ import { EditChecklistComponent } from './edit-checklist/edit-checklist.componen
   ],
   imports: [
     CommonModule,
-    CategoriesRoutingModule
+    ReactiveFormsModule,
+    CategoriesRoutingModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class CategoriesModule { }

@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PurchasingRoutingModule } from './purchasing-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { PurchasingPage } from './purchasing.page';
 import { AllPurchasingComponent } from './all-purchasing/all-purchasing.component';
 import { NewPurchasingComponent } from './new-purchasing/new-purchasing.component';
@@ -27,7 +30,9 @@ import { PurchasingItemFormComponent } from './purchasing-item-form/purchasing-i
   ],
   imports: [
     CommonModule,
-    PurchasingRoutingModule
+    ReactiveFormsModule,
+    PurchasingRoutingModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class PurchasingModule { }

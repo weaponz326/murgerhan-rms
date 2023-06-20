@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { serverTimestamp } from 'firebase/firestore';
+
+import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
+
+import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
+
 
 @Component({
   selector: 'app-add-stock-item',
@@ -7,11 +13,67 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class AddStockItemComponent {
 
+  @Output() saveItemEvent = new EventEmitter<any>();
+
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
-  
+  @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
+
+  isItemSaving = false;
+
+  selectedItemCategoryData: any;
+  selectedBranchData: any;
+
   openModal(){
     this.addButton.nativeElement.click();
+  }
+
+  saveItem(){
+    let data: StockItem = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      item_code: this.stockItemForm.stockItemForm.controls.itemCode.value as string,
+      item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
+      unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
+      stock: this.stockItemForm.stockItemForm.controls.stock.value as number,
+      refill_ordered: this.stockItemForm.stockItemForm.controls.refillOrdered.value as number,
+      location: this.stockItemForm.stockItemForm.controls.location.value as string,
+      container: this.stockItemForm.stockItemForm.controls.container.value as string,
+      batch_number: this.stockItemForm.stockItemForm.controls.batchNumber.value as string,
+      manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
+      expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
+      item_category: {
+        id: this.selectedItemCategoryData.id,
+        data: {
+          category_code: this.selectedItemCategoryData.data.category_code,
+          category_name: this.selectedItemCategoryData.data.category_name,
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      },
+    }
+
+    this.saveItemEvent.emit(data);
+  }
+
+  resetForm(){
+    this.stockItemForm.stockItemForm.controls.itemCode.setValue('');
+    this.stockItemForm.stockItemForm.controls.itemName.setValue('');
+    this.stockItemForm.stockItemForm.controls.itemCategory.setValue('');
+    this.stockItemForm.stockItemForm.controls.unitPrice.setValue(0.00);
+    this.stockItemForm.stockItemForm.controls.stock.setValue(0);
+    this.stockItemForm.stockItemForm.controls.refillOrdered.setValue(0);
+    this.stockItemForm.stockItemForm.controls.location.setValue('');
+    this.stockItemForm.stockItemForm.controls.container.setValue('');
+    this.stockItemForm.stockItemForm.controls.batchNumber.setValue('');
+    this.stockItemForm.stockItemForm.controls.manufacturingDate.setValue(null);
+    this.stockItemForm.stockItemForm.controls.expiryDate.setValue(null);
+    this.selectedItemCategoryData = null;
   }
 
 }

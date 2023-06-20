@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SuppliersRoutingModule } from './suppliers-routing.module';
+import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+
 import { SuppliersPage } from './suppliers.page';
 import { AllSuppliersComponent } from './all-suppliers/all-suppliers.component';
 import { NewSupplierComponent } from './new-supplier/new-supplier.component';
@@ -23,7 +26,9 @@ import { SupplierHistoryComponent } from './supplier-history/supplier-history.co
   ],
   imports: [
     CommonModule,
-    SuppliersRoutingModule
+    ReactiveFormsModule,
+    SuppliersRoutingModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class SuppliersModule { }
