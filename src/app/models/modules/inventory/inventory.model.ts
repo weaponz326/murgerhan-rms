@@ -86,3 +86,44 @@ export class SupplierItem {
         }
     };
 }
+
+export class Purchasing {
+    created_at!: any;
+    updated_at!: any;
+    purchasing_code!: string;
+    purchasing_date!: any;
+    purchasing_status!: string;
+    delivery_date!: any;
+    total_price!: number;
+    supplier!: {
+        id: string;
+        data: {
+            supplier_code: string;
+            supplier_name: string;
+        }
+    };
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class PurchasingItem {
+    created_at!: any;
+    updated_at!: any;
+    item_number!: number;
+    quantity!: number;
+    purchasing!: string;
+    stock_item!: {
+        id: string;
+        data: {
+            item_code: string;
+            item_name: string;
+            unit_price: number;
+        }
+    };
+}
+

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-purchasing-item-form',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class PurchasingItemFormComponent {
 
+  purchasingItemForm = new FormGroup({
+    itemNumber: new FormControl(),
+    itemCode: new FormControl(),
+    itemName: new FormControl(''),
+    unitPrice: new FormControl(0.00),
+    quantity: new FormControl(1),
+  })
+  
 }

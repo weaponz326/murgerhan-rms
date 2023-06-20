@@ -1,4 +1,4 @@
-<form class="page-form">
+<form  [formGroup]="purchasingItemForm">
 
     <div class="row mb-1">
         <div class="col-md-4">
@@ -11,11 +11,11 @@
 
     <div class="row mb-1">
         <div class="col-md-4">
-            <label class="float-md-end float-sm-start mt-1">Purchasing Item ID :</label>
+            <label class="float-md-end float-sm-start mt-1">Stock Item ID :</label>
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="productCode" class="form-control">
+                <input formControlName="itmeCode" class="form-control">
                 <button type="button" class="btn btn-secondary">
                     <i class="bi bi-three-dots"></i>
                 </button>
@@ -25,11 +25,11 @@
 
     <div class="row mb-1">
         <div class="col-md-4">
-            <label class="float-md-end float-sm-start mt-1">Item Name :</label>
+            <label class="float-md-end float-sm-start mt-1">Stock Item Name :</label>
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="productName" class="form-control">
+                <input formControlName="itemName" class="form-control">
                 <button type="button" class="btn btn-secondary">
                     <i class="bi bi-three-dots"></i>
                 </button>
@@ -39,10 +39,10 @@
 
     <div class="row mb-1">
         <div class="col-md-4">
-            <label class="float-md-end float-sm-start mt-1">Price :</label>
+            <label class="float-md-end float-sm-start mt-1">Unit Price :</label>
         </div>
         <div class="col-md-8">
-            <input type="number" min="0" step=".01" class="form-control form-control-sm w-100">
+            <input formControlName="unitPrice" type="number" min="0" step=".01" class="form-control form-control-sm w-100">
         </div>
     </div>
 
@@ -51,7 +51,7 @@
             <label class="float-md-end float-sm-start mt-1">Quantity :</label>
         </div>
         <div class="col-md-8">
-            <input type="number" min="1" class="form-control form-control-sm w-100">
+            <input formControlName="quantity" type="number" min="1" class="form-control form-control-sm w-100">
         </div>
     </div>
 

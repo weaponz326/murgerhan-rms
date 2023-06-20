@@ -15,6 +15,8 @@ export class InventoryApiService {
   categoryChecklistRef = this.firestore.collection('inventory_item_category_checklist');
   supplierRef = this.firestore.collection('inventory_supplier');
   supplierItemRef = this.firestore.collection('inventory_supplier_item');
+  purchasingRef = this.firestore.collection('inventory_purchasing');
+  purchasingItemRef = this.firestore.collection('inventory_purchasing_item');
 
   // stock item
 
@@ -133,6 +135,53 @@ export class InventoryApiService {
 
   getSupplierItemList(){
     return this.supplierItemRef.ref.get();
+  }
+
+  // purchasing
+
+  createPurchasing(data: any){
+    return this.purchasingRef.add(data);
+  }
+
+  updatePurchasing(id:any, data: any){
+    return this.purchasingRef.doc(id).update(data);
+  }
+
+  deletePurchasing(id: any){
+    return this.purchasingRef.doc(id).delete();
+  }
+
+  getPurchasing(id: any){
+    return this.purchasingRef.doc(id).ref.get();
+  }
+
+  getPurchasingList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.purchasingRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
+  }
+
+  // supplier
+
+  createPurchasingItem(data: any){
+    return this.purchasingItemRef.add(data);
+  }
+
+  updatePurchasingItem(id:any, data: any){
+    return this.purchasingItemRef.doc(id).update(data);
+  }
+
+  deletePurchasingItem(id: any){
+    return this.purchasingItemRef.doc(id).delete();
+  }
+
+  getPurchasingItem(id: any){
+    return this.purchasingItemRef.doc(id).ref.get();
+  }
+
+  getPurchasingItemList(){
+    return this.purchasingItemRef.ref.get();
   }
 
 }
