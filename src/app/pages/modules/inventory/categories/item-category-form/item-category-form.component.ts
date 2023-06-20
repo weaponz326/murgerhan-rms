@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item-category-form',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ItemCategoryFormComponent {
 
+  categoryForm = new FormGroup({
+    categoryCode: new FormControl(''),
+    categoryName: new FormControl(''),
+    description: new FormControl(''),
+  })
+  
 }

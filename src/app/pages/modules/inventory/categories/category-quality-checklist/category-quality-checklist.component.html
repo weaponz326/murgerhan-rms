@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col">
-        <button class="btn btn-sm btn-primary add-item-btn" (click)="addChecklist.openModal()">Add Checklist Item</button>
+        <button class="btn btn-sm btn-primary add-item-btn" (click)="addChecklist.openModal(lastItem)">Add Checklist Item</button>
     </div>
 </div>
 
@@ -9,26 +9,14 @@
         <table class="table w-100 page-table">
             <thead>
                 <tr class="bg-light">
-                    <th width="15%" class="min-width-1">No.</th>
-                    <th width="85%" class="min-width-3">Description</th>
+                    <td>Item No.</td>
+                    <td>Item Description</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum nunya bizness</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum nunya bizness</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum nunya bizness</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum nunya bizness</td>
+                <tr *ngFor="let data of checklistListData">
+                    <td>{{data?.item_number}}</td>
+                    <td>{{data?.description}}</td>
                 </tr>
             </tbody>
         </table>
@@ -37,6 +25,10 @@
 
 <!-- add and edit checlist items modal components -->
 
-<app-add-checklist #addChecklistComponentReference></app-add-checklist>
+<app-add-checklist #addChecklistComponentReference (saveItemEvent)="createCategoryChecklist($event)"></app-add-checklist>
 
-<app-edit-checklist #editChecklistComponentReference></app-edit-checklist>
+<app-edit-checklist #editChecklistComponentReference (saveItemEvent)="updateCategoryChecklist($event)" (deleteItemEvent)="confirmDelete($event)"></app-edit-checklist>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteCategoryChecklist()"></app-delete-modal-two>

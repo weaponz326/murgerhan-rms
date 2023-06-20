@@ -12,25 +12,29 @@
             </div>
 
             <div class="modal-body">                
+          
+                <form [formGroup]="checklistForm">
                 
-                <div class="row mb-1">
-                    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Checlist Item No. :</label></div>
-                    <div class="col-md-8">
-                        <input type="number" min="0" class="form-control form-control-sm w-100">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Checlist Item No. :</label></div>
+                        <div class="col-md-8">
+                            <input type="number" min="0" class="form-control form-control-sm w-100">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="row mb-1">
-                    <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
-                    <div class="col-md-8">
-                        <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+                    
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                        <div class="col-md-8">
+                            <textarea rows="3" class="form-control form-control-sm w-100"></textarea>
+                        </div>
                     </div>
-                </div>
+
+                </form>
 
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-sm btn-success form-control-btn">Save</button>
+                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
                 <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 

@@ -24,9 +24,6 @@ export class EditTaskItemComponent {
 
   isItemSaving = false;
 
-  ngOnInit(): void {
-  }
-
   openModal(data: any){
     this.taskItemData = data;
     this.setTaskItemData(data);

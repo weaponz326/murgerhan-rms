@@ -26,3 +26,26 @@ export class StockItem {
         }
     };
 }
+
+export class ItemCategory {
+    created_at!: any;
+    updated_at!: any;
+    category_code!: string;
+    category_name!: string;
+    description!: string;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
+export class CategoryChecklist {
+    created_at!: any;
+    updated_at!: any;
+    category!: string;
+    item_number!: number;
+    description!: string;
+}
