@@ -1,0 +1,67 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectLogModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectLogModal" tabindex="-1" aria-labelledby="selectLogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectLogModalLabel">Select Activity Log</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Log ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Date/Time'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'User Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Activity'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of logListData" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.data().log_code}}</td>
+                            <td>{{data?.data().date_created}}</td>
+                            <td>{{data?.data().user?.full_name}}</td>
+                            <td>{{data?.data().activity}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <app-table-paginator
+                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getLogList()"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>                             
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

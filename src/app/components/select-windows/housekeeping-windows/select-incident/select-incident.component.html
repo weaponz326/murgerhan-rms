@@ -1,0 +1,67 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectIncidentModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectIncidentModal" tabindex="-1" aria-labelledby="selectIncidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectIncidentModalLabel">Select Incident</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-sm table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Incident ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Incident Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Incident Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Incident Status'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of incidentListData" (dblclick)="selectRow(data)">
+                            <td>{{data?.data().incident_code}}</td>
+                            <td>{{data?.data().incident_subject}}</td>
+                            <td>{{data?.data().incident_date}}</td>
+                            <td>{{data?.data().incident_status}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <app-table-paginator
+                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getIncidentList()"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>                                      
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

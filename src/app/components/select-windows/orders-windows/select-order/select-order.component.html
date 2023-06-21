@@ -1,0 +1,67 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectOrderModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectOrderModal" tabindex="-1" aria-labelledby="selectOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectOrderModalLabel">Select Order</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-sm table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Order ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Order Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Vendor'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Total Price'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of orderListData" (dblclick)="selectRow(data)">
+                            <td>{{data?.data().order_code}}</td>
+                            <td>{{data?.data().order_date}}</td>
+                            <td>{{data?.data().vendor?.vendor_name}}</td>
+                            <td>{{data?.data().total_price}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <app-table-paginator
+                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getOrderList()"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>                                 
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

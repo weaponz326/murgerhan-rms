@@ -1,0 +1,57 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectStockItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectStockItemModal" tabindex="-1" aria-labelledby="selectStockItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectStockItemModalLabel">Select Stock Item</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-sm table-bordered w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="15%" class="min-width-2">
+                                <app-table-sorting [fieldTitle]="'Item ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>                                
+                            <th width="30%" class="min-width-2">
+                                <app-table-sorting [fieldTitle]="'Item Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-2">
+                                <app-table-sorting [fieldTitle]="'Unit Price'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-2">
+                                <app-table-sorting [fieldTitle]="'Stock'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-3">
+                                <app-table-sorting [fieldTitle]="'Item Category'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of stockItemListData" (dblclick)="selectRow(data)">
+                            <td>{{data?.data().item_code}}</td>
+                            <td>{{data?.data().item_name}}</td>
+                            <td>{{data?.data().unit_price}}</td>
+                            <td>{{data?.data().stock}}</td>
+                            <td>{{data?.data().item_category.data.category_name}}</td>
+                        </tr>
+                    </tbody>
+                </table>                     
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

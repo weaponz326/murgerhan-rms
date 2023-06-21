@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
@@ -7,20 +6,23 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 
 
 @Component({
-  selector: 'app-all-users',
-  templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.scss']
+  selector: 'app-select-invitation',
+  templateUrl: './select-invitation.component.html',
+  styleUrls: ['./select-invitation.component.scss']
 })
-export class AllUsersComponent {
+export class SelectInvitationComponent {
 
-  constructor(
-    private router: Router,
-    private usersApi: UsersApiService,
-  ) { }
+  constructor(private usersApi: UsersApiService) { }
+
+  @Output() rowSelected = new EventEmitter<object>();
+  @Input() closeTarget = "";
+
+  @ViewChild('openButtonElementReference', { read: ElementRef, static: false }) openButton!: ElementRef;
+  @ViewChild('closeButtonElementReference', { read: ElementRef, static: false }) closeButton!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  userListData: any[] = [];
+  invitationListData: any[] = [];
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -41,18 +43,20 @@ export class AllUsersComponent {
     activity: ""
   }
 
-  ngOnInit(): void {
-    this.getBasicUserList();
+  openModal(){
+    this.invitationListData = [];
+    this.getInvitationList();
+    this.openButton.nativeElement.click();
   }
 
-  getBasicUserList(){
+  getInvitationList(){
     this.isFetchingData = true;
 
-    this.usersApi.getBasicUserList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getInvitationList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
       .then(
         (res: any) => {
           console.log(res);
-          this.userListData = res.docs;
+          this.invitationListData = res.docs;
           this.isFetchingData = false;
 
           this.currentPageSize = res.docs.length;
@@ -67,16 +71,15 @@ export class AllUsersComponent {
       )
   }
 
-  viewUserDetails(userId: any){
-    console.log(userId);
-
-    sessionStorage.setItem("users_user_id", userId);
-    this.router.navigateByUrl("/modules/users/users/view-user");
-  }
-
   changePage(page: any){
     this.currentPageNumber = page;
-    this.getBasicUserList();
+    this.getInvitationList();
   }
-  
+
+  selectRow(row: any){
+    this.rowSelected.emit(row);
+    this.closeButton.nativeElement.click();
+    console.log(row);
+  }
+
 }

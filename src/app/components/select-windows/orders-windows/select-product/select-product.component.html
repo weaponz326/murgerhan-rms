@@ -1,0 +1,63 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectProductModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectProductModal" tabindex="-1" aria-labelledby="selectProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectProductModalLabel">Select Product</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-sm table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Product ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Product Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                            <th scope="col">
+                                <app-table-sorting [fieldTitle]="'Price'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of productListData" (dblclick)="selectRow(data)">
+                            <td>{{data?.data().product_code}}</td>
+                            <td>{{data?.data().product_name}}</td>
+                            <td>{{data?.data().price}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                            <td colspan="3">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <app-table-paginator
+                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getProductList()"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>                                  
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

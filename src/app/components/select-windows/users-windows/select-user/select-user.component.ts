@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
@@ -7,16 +6,19 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 
 
 @Component({
-  selector: 'app-all-users',
-  templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.scss']
+  selector: 'app-select-user',
+  templateUrl: './select-user.component.html',
+  styleUrls: ['./select-user.component.scss']
 })
-export class AllUsersComponent {
+export class SelectUserComponent {
 
-  constructor(
-    private router: Router,
-    private usersApi: UsersApiService,
-  ) { }
+  constructor(private usersApi: UsersApiService) { }
+
+  @Output() rowSelected = new EventEmitter<object>();
+  @Input() closeTarget = "";
+
+  @ViewChild('openButtonElementReference', { read: ElementRef, static: false }) openButton!: ElementRef;
+  @ViewChild('closeButtonElementReference', { read: ElementRef, static: false }) closeButton!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
@@ -41,8 +43,10 @@ export class AllUsersComponent {
     activity: ""
   }
 
-  ngOnInit(): void {
+  openModal(){
+    this.userListData = [];
     this.getBasicUserList();
+    this.openButton.nativeElement.click();
   }
 
   getBasicUserList(){
@@ -67,16 +71,15 @@ export class AllUsersComponent {
       )
   }
 
-  viewUserDetails(userId: any){
-    console.log(userId);
-
-    sessionStorage.setItem("users_user_id", userId);
-    this.router.navigateByUrl("/modules/users/users/view-user");
-  }
-
   changePage(page: any){
     this.currentPageNumber = page;
     this.getBasicUserList();
+  }
+
+  selectRow(row: any){
+    this.rowSelected.emit(row);
+    this.closeButton.nativeElement.click();
+    console.log(row);
   }
   
 }

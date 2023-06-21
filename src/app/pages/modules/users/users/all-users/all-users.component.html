@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of logListData" (dblclick)="viewUserDetails(data?.id)">
+                                <tr *ngFor="let data of userListData" (dblclick)="viewUserDetails(data?.id)">
                                     <td>{{data?.data().user_code}}</td>
                                     <td>{{data?.data().full_name}}</td>
                                     <td>{{data?.data().branch}}</td>
