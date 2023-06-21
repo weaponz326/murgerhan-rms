@@ -13,7 +13,7 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="newAttendance.openModal()">New Attendance</button>
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search attendance">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getAttendanceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -25,16 +25,34 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Attendance ID</th>
-                                    <th scope="col">Attendance Name</th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Attendance ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Attendance Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>AT834</td>
-                                    <td>April Kitchen Attendance</td>
+                                <tr *ngFor="let data of attendanceListData" (dblclick)="viewAttendance(data?.id)">
+                                    <td>{{data?.data().attendance_code}}</td>
+                                    <td>{{data?.data().attendance_name}}</td>
+                                </tr>
+                                <tr *ngIf="isFetchingData || !isDataAvailable">
+                                    <td colspan="2">
+                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                    </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">
+                                        <app-table-paginator
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getAttendanceList()"
+                                        ></app-table-paginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                 
                     </div>
@@ -46,4 +64,5 @@
 </div>
 
 <!-- new-attendance modal component -->
+
 <app-new-attendance #newAttendanceComponentReference></app-new-attendance>

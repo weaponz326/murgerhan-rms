@@ -14,6 +14,7 @@ export class AttendanceApiService {
   rosterShiftRef = this.firestore.collection('attendance_roster_shift');
   rosterBatchRef = this.firestore.collection('attendance_roster_batch');
   rosterPersonnelRef = this.firestore.collection('attendance_roster_personnel');
+  attendanceRef = this.firestore.collection('attendance_attendance');
 
   // roster
 
@@ -104,6 +105,31 @@ export class AttendanceApiService {
 
   getRosterPersonnelList(){
     return this.rosterPersonnelRef.ref.get();
+  }
+
+  // attendance
+
+  createAttendance(data: any){
+    return this.attendanceRef.add(data);
+  }
+
+  updateAttendance(id:any, data: any){
+    return this.attendanceRef.doc(id).update(data);
+  }
+
+  deleteAttendance(id: any){
+    return this.attendanceRef.doc(id).delete();
+  }
+
+  getAttendance(id: any){
+    return this.attendanceRef.doc(id).ref.get();
+  }
+
+  getAttendanceList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.attendanceRef.ref
+    .where("branch.id", "==", localStorage.getItem("selected_branch"))
+    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
   }
 
 }

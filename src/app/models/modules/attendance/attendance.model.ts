@@ -50,3 +50,19 @@ export class RosterPersonnel {
         };
     };
 }
+
+export class Attendance {
+    created_at!: any;
+    updated_at!: any;
+    attendance_code!: string;
+    attendance_name!: string;
+    from_date!: any;
+    to_date!: any;
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
