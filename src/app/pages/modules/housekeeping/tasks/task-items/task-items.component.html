@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
 
-        <table class="table table-btasked table-sm w-100 page-table">
+        <table class="table table-bordered table-sm w-100 page-table">
             <thead>
                 <tr class="bg-light">
                     <th width="10%" class="min-width-1">No.</th>
@@ -20,8 +20,10 @@
                     <td>{{data?.data().task_description}}</td>
                     <td>{{data?.data().unit?.data?.unit_name}}</td>
                     <td class="p-0">
-                        <button class="btn btn-sm btn-success btask w-50"><i class="bi bi-pen"></i></button>
-                        <button class="btn btn-sm btn-danger btask w-50">
+                        <button class="btn btn-sm btn-success btask w-50" (click)="openEditItem(data)">
+                            <i class="bi bi-pen"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btask w-50" (click)="confirmDelete(data.id)">
                             <i class="bi bi-trash"></i>
                         </button>
                     </td>
@@ -34,9 +36,9 @@
 
 <!-- add and edit item modal components -->
 
-<app-add-task-item #addTaskItemComponentReference></app-add-task-item>
+<app-add-task-item #addTaskItemComponentReference (saveItemEvent)="createTaskItem($event)"></app-add-task-item>
 
-<app-edit-task-item #editTaskItemComponentReference></app-edit-task-item>
+<app-edit-task-item #editTaskItemComponentReference (saveItemEvent)="updateTaskItem($event)"></app-edit-task-item>
 
 <!-- delete confirmation modal component -->
 

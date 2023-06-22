@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,10 +9,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TaskItemFormComponent {
 
+  @Output() openUnitWindow = new EventEmitter<any>();
+
   taskItemForm = new FormGroup({
     itemNumber: new FormControl(),
     taskDescription: new FormControl(''),
-    unitName: new FormControl(''),
+    unitName: new FormControl({value: '', disabled: true}),
   })
 
 }

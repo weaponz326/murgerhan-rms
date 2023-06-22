@@ -117,7 +117,9 @@ export class HousekeepingApiService {
   }
 
   getTaskItemList(){
-    return this.taskItemRef.ref.get();
+    return this.taskItemRef.ref
+    .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+    .get();
   }
 
 }

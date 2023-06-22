@@ -9,3 +9,11 @@
 .table-hover tbody tr{
 	cursor: pointer;
 }
+
+.table tbody td{
+  white-space: nowrap;
+  table-layout: fixed;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}

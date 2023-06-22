@@ -49,7 +49,7 @@ export class TaskItemsComponent {
           console.log(res);
           this.taskItemListData = res.docs;
 
-          try { this.lastItem = Number(res.docs.length)}
+          try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
 
           this.isFetchingData = false;
@@ -62,12 +62,12 @@ export class TaskItemsComponent {
       )
   }
 
-  createTask(data: any) {
+  createTaskItem(data: any) {
     this.addTaskItem.isItemSaving = true;
 
     console.log(data);
 
-    this.housekeepingApi.createTask(data)
+    this.housekeepingApi.createTaskItem(data)
       .then((res: any) => {
         console.log(res);
 
@@ -86,12 +86,10 @@ export class TaskItemsComponent {
       });
   }
 
-  updateTask(task_item: any) {
+  updateTaskItem(task_item: any) {
     this.editTaskItem.isItemSaving = true;
     
-    const id = sessionStorage.getItem('housekeeping_task_id') as string;
-
-    this.housekeepingApi.updateTask(task_item.id, task_item.data)
+    this.housekeepingApi.updateTaskItem(task_item.id, task_item.data)
       .then((res) => {
         console.log(res);
         this.editTaskItem.isItemSaving = false;

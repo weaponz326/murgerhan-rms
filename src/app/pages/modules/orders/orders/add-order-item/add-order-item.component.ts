@@ -63,6 +63,7 @@ export class AddOrderItemComponent {
     this.orderItemForm.orderItemForm.controls.productName.setValue('');
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(1);
+    this.selectedProductId = null;
     this.selectedProductData = null;
   }
 

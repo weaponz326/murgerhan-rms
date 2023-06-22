@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { TaskItem } from 'src/app/models/modules/housekeeping/housekeeping.model';
 
 import { TaskItemFormComponent } from '../task-item-form/task-item-form.component';
+import { SelectUnitComponent } from 'src/app/components/select-windows/housekeeping-windows/select-unit/select-unit.component';
 
 
 @Component({
@@ -18,9 +19,11 @@ export class AddTaskItemComponent {
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('taskItemFormComponentReference', { read: TaskItemFormComponent, static: false }) taskItemForm!: TaskItemFormComponent;
+  @ViewChild('selectUnitComponentReference', { read: SelectUnitComponent, static: false }) selectUnit!: SelectUnitComponent;
 
   isItemSaving = false;
 
+  selectedUnitId: any;
   selectedUnitData: any;
 
   openModal(lastId: any){
@@ -36,10 +39,10 @@ export class AddTaskItemComponent {
       task: sessionStorage.getItem('housekeeping_task_id') as string,
       task_description: this.taskItemForm.taskItemForm.controls.taskDescription.value as string,
       unit: {
-        id: this.selectedUnitData.id,
+        id: this.selectedUnitId,
         data: {
-          unit_code: this.selectedUnitData.data.unit_code,
-          unit_name: this.selectedUnitData.data.unit_name,
+          unit_code: this.selectedUnitData.unit_code,
+          unit_name: this.selectedUnitData.unit_name,
         }
       },
     }
@@ -55,4 +58,16 @@ export class AddTaskItemComponent {
     this.selectedUnitData = null;
   }
 
+  openUnitWindow(){
+    console.log("You are opening select unit window")
+    this.selectUnit.openModal();
+  }
+
+  onUnitSelected(unitData: any){
+    console.log(unitData);
+    this.taskItemForm.taskItemForm.controls.unitName.setValue(unitData.data().unit_name);
+    this.selectedUnitId = unitData.id;
+    this.selectedUnitData = unitData.data();
+  }
+  
 }
