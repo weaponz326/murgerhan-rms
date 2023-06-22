@@ -68,7 +68,7 @@ export class MainNavbarComponent {
       .then((res) => {
         console.log(res);
         this.userRoleData = res;
-        localStorage.setItem("user_branch", JSON.stringify(this.userRoleData.data().branch))
+        localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch))
       }),
       (err: any) => {
         console.log(err);

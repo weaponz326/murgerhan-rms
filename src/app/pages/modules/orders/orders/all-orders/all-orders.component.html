@@ -43,7 +43,7 @@
                                 <tr *ngFor="let data of orderListData" (dblclick)="viewOrder(data?.id)">
                                     <td>{{data?.data().order_code}}</td>
                                     <td>{{data?.data().order_date}}</td>
-                                    <td>{{data?.data().vendor?.vendor_name}}</td>
+                                    <td>{{data?.data().vendor?.data.vendor_name}}</td>
                                     <td>{{data?.data().total_price}}</td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
@@ -54,7 +54,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3">
+                                    <td colspan="4">
                                         <app-table-paginator
                                         (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getOrderList()"
                                         ></app-table-paginator>
@@ -74,3 +74,7 @@
 <!-- add order modal component -->
 
 <app-add-order #addOrderComponentReference></app-add-order>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

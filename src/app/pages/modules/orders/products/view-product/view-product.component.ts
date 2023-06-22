@@ -27,7 +27,7 @@ export class ViewProductComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   productData: any;
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingProduct = false;
@@ -43,7 +43,7 @@ export class ViewProductComponent {
 
     this.ordersApi.getProduct(id)
       .then((res) => {
-        console.log(res);
+        console.log(res.data());
         this.productData = res;
         this.isFetchingData = false;
         this.setProductData();        

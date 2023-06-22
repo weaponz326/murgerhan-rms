@@ -8,6 +8,7 @@ import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
 
 
 @Component({
@@ -24,11 +25,13 @@ export class ViewOrderComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+  @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
   orderData: any;
 
+  selectedVendorId: any;
   selectedVendorData: any;
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingOrder = false;
@@ -37,8 +40,8 @@ export class ViewOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
     orderDate: new FormControl(),
-    vendorCode: new FormControl(''),
-    vendorName: new FormControl(''),
+    vendorCode: new FormControl({value: '', disabled: true}),
+    vendorName: new FormControl({value: '', disabled: true}),
     orderStatus: new FormControl(''),
     deliveryDate: new FormControl(),
   })
@@ -81,7 +84,7 @@ export class ViewOrderComponent {
       vendor: {
         id: this.selectedVendorData.id,
         data: {
-          vendor_id: this.selectedVendorData.data.vendor_id,
+          vendor_code: this.selectedVendorData.data.vendor_code,
           vendor_name: this.selectedVendorData.data.vendor_name
         }
       },
@@ -127,14 +130,30 @@ export class ViewOrderComponent {
   setOrderData(){
     this.orderForm.controls.orderCode.setValue(this.orderData.data().order_code);
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    this.orderForm.controls.vendorCode.setValue(this.orderData.data().vendor_code);
-    this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor_name);
+    this.orderForm.controls.vendorCode.setValue(this.orderData.data().vendor.data.vendor_code);
+    this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor.data.vendor_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
+
+    this.selectedVendorId = this.orderData.data().vendor.id;
+    this.selectedVendorData = this.orderData.data().vendor.data;
   }
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  openVendorWindow(){
+    console.log("You are opening select vendor window")
+    this.selectVendor.openModal();
+  }
+
+  onVendorSelected(vendorData: any){
+    console.log(vendorData);
+    this.selectedVendorId = vendorData.id;
+    this.selectedVendorData = vendorData.data();
+    this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);
+    this.orderForm.controls.vendorName.setValue(vendorData.data().vendor_name);
   }
   
 }

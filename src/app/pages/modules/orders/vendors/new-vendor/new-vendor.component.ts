@@ -24,7 +24,7 @@ export class NewVendorComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('vendorFormComponentReference', { read: VendorFormComponent, static: false }) vendorForm!: VendorFormComponent;
 
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingVendor = false;
 
@@ -47,8 +47,6 @@ export class NewVendorComponent {
         }
       }
     }
-
-    console.log(data);
 
     this.ordersApi.createVendor(data)
       .then((res: any) => {

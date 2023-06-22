@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { OrdersWindowsModule } from 'src/app/components/select-windows/orders-windows/orders-windows.module';
 
 import { OrdersPage } from './orders.page';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
@@ -30,7 +31,8 @@ import { OrderItemFormComponent } from './order-item-form/order-item-form.compon
     CommonModule,
     ReactiveFormsModule,
     OrdersRoutingModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
+    OrdersWindowsModule
   ]
 })
 export class OrdersModule { }

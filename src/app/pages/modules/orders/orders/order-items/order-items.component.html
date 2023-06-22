@@ -25,13 +25,15 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of orderItemListData">
-                                    <td>{{data?.item_number}}</td>
-                                    <td>{{data?.product?.data?.product_name}}</td>
-                                    <td>{{data?.product?.data?.price}}</td>
-                                    <td>{{data?.quantity}}</td>
-                                    <td>{{data?.product.price * data?.quantity}}</td>
+                                    <td>{{data?.data().item_number}}</td>
+                                    <td>{{data?.data().product?.data?.product_name}}</td>
+                                    <td>{{data?.data().product?.data?.price}}</td>
+                                    <td>{{data?.data().quantity}}</td>
+                                    <td>{{data?.data().product?.data?.price * data?.data().quantity}}</td>
                                     <td class="p-0">
-                                        <button class="btn btn-sm btn-success border w-50"><i class="bi bi-pen"></i></button>
+                                        <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
+                                            <i class="bi bi-pen"></i>
+                                        </button>
                                         <button class="btn btn-sm btn-danger border w-50">
                                             <i class="bi bi-trash"></i>
                                         </button>
@@ -60,9 +62,9 @@
 
 <!-- add and edit item modal components -->
 
-<app-add-order-item #addOrderItemComponentReference></app-add-order-item>
+<app-add-order-item #addOrderItemComponentReference (saveItemEvent)="createOrderItem($event)"></app-add-order-item>
 
-<app-edit-order-item #editOrderItemComponentReference></app-edit-order-item>
+<app-edit-order-item #editOrderItemComponentReference (saveItemEvent)="updateOrderItem($event)"></app-edit-order-item>
 
 <!-- delete confirmation modal component -->
 

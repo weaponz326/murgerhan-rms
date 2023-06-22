@@ -54,6 +54,9 @@ export class AllProductsComponent {
           console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);

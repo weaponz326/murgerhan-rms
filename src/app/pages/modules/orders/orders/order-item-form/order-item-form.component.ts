@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,11 +9,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class OrderItemFormComponent {
 
+  @Output() openProductWindow = new EventEmitter<any>();
+
+  selectedMenuItemId = "";
+  selectedMenuItemData: any;
+  
   orderItemForm = new FormGroup({
     itemNumber: new FormControl(),
-    productCode: new FormControl(),
-    productName: new FormControl(''),
-    price: new FormControl(0.00),
+    productCode: new FormControl({value: '', disabled: true}),
+    productName: new FormControl({value: '', disabled: true}),
+    price: new FormControl({value: 0.00, disabled: true}),
     quantity: new FormControl(1),
   })
   

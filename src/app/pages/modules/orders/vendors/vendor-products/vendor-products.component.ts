@@ -6,6 +6,7 @@ import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
+import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
 
 
 @Component({
@@ -21,10 +22,10 @@ export class VendorProductsComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   vendorProductListData: any[] = [];
   selectedProductData: any;
-  vendorData: any;
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -43,7 +44,7 @@ export class VendorProductsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.vendorProductListData = res;
+          this.vendorProductListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
@@ -58,19 +59,13 @@ export class VendorProductsComponent {
     let data: VendorProduct = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      vendor: {
-        id: this.vendorData.id,
-        data: {
-          vendor_code: this.vendorData.data.vendor_code,
-          vendor_name: this.vendorData.data.vendor_name,
-        } 
-      },
+      vendor: sessionStorage.getItem('orders_vendor_id') as string,
       product: {
         id: this.selectedProductData.id,
         data: {
-          product_code: this.selectedProductData.data.product_code,
-          product_name: this.selectedProductData.data.product_name,
-          price: this.selectedProductData.data.price,
+          product_code: this.selectedProductData.data().product_code,
+          product_name: this.selectedProductData.data().product_name,
+          price: this.selectedProductData.data().price,
         }
       }
     }
@@ -110,6 +105,17 @@ export class VendorProductsComponent {
   confirmDelete(id: any){
     this.deleteId = id;
     this.deleteModal.openModal();
+  }
+  
+  openProductWindow(){
+    console.log("You are opening select product window")
+    this.selectProduct.openModal();
+  }
+
+  onProductSelected(productData: any){
+    console.log(productData);
+    this.selectedProductData = productData;
+    this.createVendorProduct();
   }
   
 }

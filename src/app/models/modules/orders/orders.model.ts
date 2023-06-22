@@ -26,7 +26,7 @@ export class Order {
     vendor!: {
         id: string;
         data: {
-            vendor_id: string;
+            vendor_code: string;
             vendor_name: string;
         }
     };
@@ -75,13 +75,7 @@ export class Vendor {
 export class VendorProduct {
     created_at!: any;
     updated_at!: any;
-    vendor!: {
-        id: string;
-        data: {
-            vendor_code: string;
-            vendor_name: string;
-        }
-    }
+    vendor!: string;
     product!: {
         id: string;
         data: {

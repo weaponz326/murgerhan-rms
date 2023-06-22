@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { OrderItem } from 'src/app/models/modules/orders/orders.model';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
+import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
 
 
 @Component({
@@ -18,8 +19,11 @@ export class EditOrderItemComponent {
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('orderItemFormComponentReference', { read: OrderItemFormComponent, static: false }) orderItemForm!: OrderItemFormComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   orderItemData: any;
+  
+  selectedProductId: any;
   selectedProductData: any;
 
   isItemSaving = false;
@@ -42,11 +46,11 @@ export class EditOrderItemComponent {
       order: sessionStorage.getItem('orders_order_id') as string,
       quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
       product: {
-        id: this.selectedProductData.id,
+        id: this.selectedProductId,
         data: {
-          product_code: this.selectedProductData.data.product_code,
-          product_name: this.selectedProductData.data.product_name,
-          price: this.selectedProductData.data.price,
+          product_code: this.selectedProductData.product_code,
+          product_name: this.selectedProductData.product_name,
+          price: this.selectedProductData.price,
         }
       },
     }
@@ -60,12 +64,31 @@ export class EditOrderItemComponent {
   }
 
   setOrderItemData(data: any){
-    this.orderItemForm.orderItemForm.controls.itemNumber.setValue(data.item_number);
-    this.orderItemForm.orderItemForm.controls.productCode.setValue(data.product?.product_code);
-    this.orderItemForm.orderItemForm.controls.productName.setValue(data.product?.product_name);
-    this.orderItemForm.orderItemForm.controls.price.setValue(data.product.price);
-    this.orderItemForm.orderItemForm.controls.quantity.setValue(data.quantity);
-    this.selectedProductData = data.product;
+    console.log(data.data())
+    this.orderItemForm.orderItemForm.controls.itemNumber.setValue(data.data().item_number);
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(data.data().product?.data.product_code);
+    this.orderItemForm.orderItemForm.controls.productName.setValue(data.data().product?.data.product_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(data.data().product.data.price);
+    this.orderItemForm.orderItemForm.controls.quantity.setValue(data.data().quantity);
+
+    this.selectedProductId = data.data().product.id;
+    this.selectedProductData = data.data().product.data;
   }
   
+  openProductWindow(){
+    console.log("You are opening select product window")
+    this.selectProduct.openModal();
+  }
+
+  onProductSelected(productData: any){
+    console.log(productData);
+
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);
+    this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
+
+    this.selectedProductId = productData.id;
+    this.selectedProductData = productData.data();
+  }
+
 }

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { VendorsRoutingModule } from './vendors-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { OrdersWindowsModule } from 'src/app/components/select-windows/orders-windows/orders-windows.module';
 
 import { VendorsPage } from './vendors.page';
 import { AllVendorsComponent } from './all-vendors/all-vendors.component';
@@ -28,7 +29,8 @@ import { VendorProductsComponent } from './vendor-products/vendor-products.compo
     CommonModule,
     ReactiveFormsModule,
     VendorsRoutingModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
+    OrdersWindowsModule
   ]
 })
 export class VendorsModule { }

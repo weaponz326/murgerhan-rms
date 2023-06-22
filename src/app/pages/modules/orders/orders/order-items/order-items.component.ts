@@ -44,7 +44,7 @@ export class OrderItemsComponent {
   calculateTotalPrice(){
     this.totalPrice = 0;
     for (let item of this.orderItemListData){
-      this.totalPrice += item.product.data.price * item.quantity;
+      this.totalPrice += item.data().product.data.price * item.data().quantity;
     }
 
     this.patchTotalAmount();
@@ -58,11 +58,11 @@ export class OrderItemsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.orderItemListData = res;
+          this.orderItemListData = res.docs;
 
           this.calculateTotalPrice();
 
-          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
 
           this.isFetchingData = false;
@@ -75,12 +75,12 @@ export class OrderItemsComponent {
       )
   }
 
-  createOrder(data: any) {
+  createOrderItem(data: any) {
     this.addOrderItem.isItemSaving = true;
 
     console.log(data);
 
-    this.ordersApi.createOrder(data)
+    this.ordersApi.createOrderItem(data)
       .then((res: any) => {
         console.log(res);
 
@@ -99,12 +99,10 @@ export class OrderItemsComponent {
       });
   }
 
-  updateOrder(order_item: any) {
+  updateOrderItem(order_item: any) {
     this.editOrderItem.isItemSaving = true;
     
-    const id = sessionStorage.getItem('orders_order_id') as string;
-
-    this.ordersApi.updateOrder(order_item.id, order_item.data)
+    this.ordersApi.updateOrderItem(order_item.id, order_item.data)
       .then((res) => {
         console.log(res);
         this.editOrderItem.isItemSaving = false;
@@ -121,7 +119,7 @@ export class OrderItemsComponent {
   deleteOrderItem() {
     this.isItemDeleting = true;
 
-    this.ordersApi.deleteOrder(this.deleteId)
+    this.ordersApi.deleteOrderItem(this.deleteId)
       .then((res) => {
         console.log(res);
         this.isItemDeleting = false;

@@ -7,6 +7,7 @@ import { Order } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
 
 
 @Component({
@@ -24,17 +25,19 @@ export class AddOrderComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;  
+  @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
   isSavingOrder = false;
 
+  selectedVendorId: any;
   selectedVendorData: any;
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
     orderDate: new FormControl(),
-    vendorCode: new FormControl(''),
-    vendorName: new FormControl(''),
+    vendorCode: new FormControl({value: '', disabled: true}),
+    vendorName: new FormControl({value: '', disabled: true}),
   })
 
   openModal(){
@@ -43,8 +46,6 @@ export class AddOrderComponent {
   }
   
   createOrder() {
-    this.isSavingOrder = true;
-
     let data: Order = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -54,10 +55,10 @@ export class AddOrderComponent {
       delivery_date: null,
       total_price: 0.00,
       vendor: {
-        id: this.selectedVendorData.id,
+        id: this.selectedVendorId,
         data: {
-          vendor_id: this.selectedVendorData.data.vendor_id,
-          vendor_name: this.selectedVendorData.data.vendor_name
+          vendor_code: this.selectedVendorData.vendor_code,
+          vendor_name: this.selectedVendorData.vendor_name
         }
       },
       branch: {
@@ -71,21 +72,40 @@ export class AddOrderComponent {
 
     console.log(data);
 
-    this.ordersApi.createOrder(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.selectedBranchData.id){
+      this.isSavingOrder = true;
 
-        if(res.id){
-          sessionStorage.setItem('orders_order_id', res.id);
-          this.router.navigateByUrl("/modules/orders/orders/view-order");
-        }
-        this.isSavingOrder = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingOrder = false;
-      });
+      this.ordersApi.createOrder(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('orders_order_id', res.id);
+            this.router.navigateByUrl("/modules/orders/orders/view-order");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingOrder = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingOrder = false;
+        });
+    }
+  }
+
+  openVendorWindow(){
+    console.log("You are opening select vendor window")
+    this.selectVendor.openModal();
+  }
+
+  onVendorSelected(vendorData: any){
+    console.log(vendorData);
+    this.selectedVendorId = vendorData.id;
+    this.selectedVendorData = vendorData.data();
+    this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);
+    this.orderForm.controls.vendorName.setValue(vendorData.data().vendor_name);
   }
 
 }

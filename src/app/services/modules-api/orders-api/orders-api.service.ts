@@ -38,8 +38,10 @@ export class OrdersApiService {
 
   getProductList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.productRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
  
@@ -63,8 +65,10 @@ export class OrdersApiService {
 
   getOrderList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.orderRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
 
@@ -87,7 +91,9 @@ export class OrdersApiService {
   }
 
   getOrderItemList(){
-    return this.orderItemRef.ref.get();
+    return this.orderItemRef.ref
+    .where("order", "==", sessionStorage.getItem('orders_order_id'))
+    .get();
   }
 
   // vendor
@@ -110,8 +116,10 @@ export class OrdersApiService {
 
   getVendorList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.vendorRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
 

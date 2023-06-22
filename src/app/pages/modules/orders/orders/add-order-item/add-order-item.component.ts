@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { OrderItem } from 'src/app/models/modules/orders/orders.model';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
+import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
 
 
 @Component({
@@ -18,9 +19,11 @@ export class AddOrderItemComponent {
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('orderItemFormComponentReference', { read: OrderItemFormComponent, static: false }) orderItemForm!: OrderItemFormComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   isItemSaving = false;
 
+  selectedProductId: any;
   selectedProductData: any;
 
   openModal(lastId: any){
@@ -39,16 +42,18 @@ export class AddOrderItemComponent {
       order: sessionStorage.getItem('orders_order_id') as string,
       quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
       product: {
-        id: this.selectedProductData.id,
+        id: this.selectedProductId,
         data: {
-          product_code: this.selectedProductData.data.product_code,
-          product_name: this.selectedProductData.data.product_name,
-          price: this.selectedProductData.data.price,
+          product_code: this.selectedProductData.product_code,
+          product_name: this.selectedProductData.product_name,
+          price: this.selectedProductData.price,
         }
       },
     }
 
-    if(this.selectedProductData.id != "")
+    console.log(this.selectedProductId)
+
+    if(this.selectedProductId != "")
       this.saveItemEvent.emit(data);
   }
 
@@ -61,4 +66,21 @@ export class AddOrderItemComponent {
     this.selectedProductData = null;
   }
 
+  openProductWindow(){
+    console.log("You are opening select product window")
+    this.selectProduct.openModal();
+  }
+
+  onProductSelected(productData: any){
+    console.log(productData);
+
+    this.selectedProductData = productData;
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);
+    this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
+
+    this.selectedProductId = productData.id;
+    this.selectedProductData = productData.data();
+  }
+  
 }
