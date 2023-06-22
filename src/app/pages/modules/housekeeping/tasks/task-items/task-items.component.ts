@@ -47,9 +47,9 @@ export class TaskItemsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.taskItemListData = res;
+          this.taskItemListData = res.docs;
 
-          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          try { this.lastItem = Number(res.docs.length)}
           catch{ this.lastItem = 0 }
 
           this.isFetchingData = false;

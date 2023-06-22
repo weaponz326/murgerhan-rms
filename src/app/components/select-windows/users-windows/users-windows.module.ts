@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 
 import { ModuleUtilitiesModule } from '../../module-utilities/module-utilities.module';
 
-import { SelectUserComponent } from './select-user/select-user.component';
 import { SelectInvitationComponent } from './select-invitation/select-invitation.component';
+import { SelectBasicUserComponent } from './select-basic-user/select-basic-user.component';
+import { SelectUserRoleComponent } from './select-user-role/select-user-role.component';
 
 
 
 @NgModule({
   declarations: [
-    SelectUserComponent,
-    SelectInvitationComponent
+    SelectInvitationComponent,
+    SelectBasicUserComponent,
+    SelectUserRoleComponent
   ],
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
   ],
   exports: [
-    SelectUserComponent,
-    SelectInvitationComponent
+    SelectInvitationComponent,
+    SelectBasicUserComponent,
+    SelectUserRoleComponent
   ]
 })
 export class UsersWindowsModule { }

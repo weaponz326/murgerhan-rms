@@ -41,7 +41,6 @@ export class Task {
     updated_at!: any;
     task_code!: string;
     task_name!: string;
-    primary_assignee!: string;
     task_type!: string;
     from_date!: any;
     to_date!: any;
@@ -49,6 +48,14 @@ export class Task {
     description!: string;
     occurance!: string;
     frequency!: string;
+    primary_assignee!: {
+        id: string;
+        data: {
+            staff_code: string;
+            full_name: string;
+            staff_role: string;
+        }
+    };
     branch!: {
         id: string;
         data: {

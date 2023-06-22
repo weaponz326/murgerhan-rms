@@ -87,8 +87,10 @@ export class HousekeepingApiService {
 
   getTaskList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.taskRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
 

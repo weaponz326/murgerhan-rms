@@ -6,11 +6,11 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 
 
 @Component({
-  selector: 'app-select-user',
-  templateUrl: './select-user.component.html',
-  styleUrls: ['./select-user.component.scss']
+  selector: 'app-select-user-role',
+  templateUrl: './select-user-role.component.html',
+  styleUrls: ['./select-user-role.component.scss']
 })
-export class SelectUserComponent {
+export class SelectUserRoleComponent {
 
   constructor(private usersApi: UsersApiService) { }
 
@@ -45,14 +45,14 @@ export class SelectUserComponent {
 
   openModal(){
     this.userListData = [];
-    this.getBasicUserList();
+    this.getUserRoleList();
     this.openButton.nativeElement.click();
   }
 
-  getBasicUserList(){
+  getUserRoleList(){
     this.isFetchingData = true;
 
-    this.usersApi.getBasicUserList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getUserRoleList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
       .then(
         (res: any) => {
           console.log(res);
@@ -73,7 +73,7 @@ export class SelectUserComponent {
 
   changePage(page: any){
     this.currentPageNumber = page;
-    this.getBasicUserList();
+    this.getUserRoleList();
   }
 
   selectRow(row: any){
@@ -81,5 +81,5 @@ export class SelectUserComponent {
     this.closeButton.nativeElement.click();
     console.log(row);
   }
-  
+
 }

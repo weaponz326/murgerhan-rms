@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="primaryAssignee" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openUserRoleWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -119,3 +119,7 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select userrole component -->
+
+<app-select-user-role #selectUserRoleComponentReference (rowSelected)="onUserRoleSelected($event)" [closeTarget]="'#newTaskModal'"></app-select-user-role>

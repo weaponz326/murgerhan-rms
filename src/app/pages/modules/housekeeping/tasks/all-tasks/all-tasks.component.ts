@@ -55,6 +55,9 @@ export class AllTasksComponent {
           console.log(res);
           this.taskListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);
@@ -68,7 +71,7 @@ export class AllTasksComponent {
     console.log(taskId);
 
     sessionStorage.setItem("housekeeping_task_id", taskId);
-    this.router.navigateByUrl("/modules/housekeeping/tasks/edit-task");
+    this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
   }
 
   changePage(page: any){

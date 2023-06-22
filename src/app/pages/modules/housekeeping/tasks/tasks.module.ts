@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { UsersWindowsModule } from 'src/app/components/select-windows/users-windows/users-windows.module';
 
 import { TasksPage } from './tasks.page';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
@@ -31,6 +32,7 @@ import { TaskItemsComponent } from './task-items/task-items.component';
     ReactiveFormsModule,
     TasksRoutingModule,
     ModuleUtilitiesModule,
+    UsersWindowsModule
   ]
 })
 export class TasksModule { }

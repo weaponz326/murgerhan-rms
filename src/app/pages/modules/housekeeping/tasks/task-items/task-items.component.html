@@ -16,9 +16,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of taskItemListData">
-                    <td>{{data?.item_number}}</td>
-                    <td>{{data?.task_description}}</td>
-                    <td>{{data?.unit?.data?.unit_name}}</td>
+                    <td>{{data?.data().item_number}}</td>
+                    <td>{{data?.data().task_description}}</td>
+                    <td>{{data?.data().unit?.data?.unit_name}}</td>
                     <td class="p-0">
                         <button class="btn btn-sm btn-success btask w-50"><i class="bi bi-pen"></i></button>
                         <button class="btn btn-sm btn-danger btask w-50">
