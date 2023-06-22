@@ -24,7 +24,7 @@ export class NewIncidentsComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('incidentFormComponentReference', { read: IncidentFormComponent, static: false }) incidentForm!: IncidentFormComponent;
 
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingIncident = false;
 

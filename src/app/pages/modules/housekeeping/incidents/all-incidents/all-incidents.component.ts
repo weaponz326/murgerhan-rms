@@ -54,6 +54,9 @@ export class AllIncidentsComponent {
           console.log(res);
           this.incidentListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);

@@ -29,7 +29,8 @@ export class ViewIncidentComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   incidentData: any;
-  selectedBranchData: any;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingIncident = false;
