@@ -27,7 +27,8 @@ export class EditUnitComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   unitData: any;
-  selectedBranchData: any;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingUnit = false;

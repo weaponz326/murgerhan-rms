@@ -24,7 +24,7 @@ export class AddUnitComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('unitFormComponentReference', { read: UnitFormComponent, static: false }) unitForm!: UnitFormComponent;
 
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingUnit = false;
 
