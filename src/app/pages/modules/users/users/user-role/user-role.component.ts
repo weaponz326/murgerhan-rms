@@ -8,6 +8,7 @@ import { UsersApiService } from 'src/app/services/modules-api/users-api/users-ap
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { SelectBranchComponent } from 'src/app/components/select-windows/admin-windows/select-branch/select-branch.component';
 
 
 @Component({
@@ -29,22 +30,23 @@ export class UserRoleComponent {
   isDeletingRole = false;
 
   roleForm = new FormGroup({
-    fullName: new FormControl({value: "", disabled: true}),
-    staffID: new FormControl(),
-    branch: new FormControl(''),
+    fullName: new FormControl(''),
+    staffCode: new FormControl(''),
+    branch: new FormControl({value: '', disabled: true}),
     staffRole: new FormControl(''),
   })
 
-  selectedRoleData: any;
+  selectdBranchData: any;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+  @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
   
   ngOnInit(): void {
-    this.getRole();
+    this.getUserRole();
   }
 
-  getRole() {
+  getUserRole() {
     this.isFetchingData = true;
     const id = localStorage.getItem('uid') as string;
 
@@ -62,31 +64,32 @@ export class UserRoleComponent {
       };
   }
 
-  updateRole() {
+  updateUserRole() {
     this.isSavingRole = true;
     
-    const id = sessionStorage.getItem('user_role_id') as string;
+    const id = localStorage.getItem('uid') as string;
 
     let data: UserRole = {
       created_at: this.roleData.data().created_at,
       updated_at: serverTimestamp(),
       full_name: this.roleForm.controls.fullName.value as string,
-      staff_id: this.roleForm.controls.staffID.value,
+      staff_code: this.roleForm.controls.staffCode.value as string,
+      staff_role: this.roleForm.controls.staffRole.value as string,
       branch: {
-        id: this.selectedRoleData.id,
+        id: this.selectdBranchData.id,
         data: {
-          branch_name: this.selectedRoleData.data().role_name,
-          location: this.selectedRoleData.data().location
+          branch_name: this.selectdBranchData.data().branch_name,
+          location: this.selectdBranchData.data().location
         }
       },
-      staff_role: this.roleForm.controls.staffRole.value as string,
     }
+
+    console.log(data)
 
     this.usersApi.updateUserRole(id, data)
       .then((res) => {
         console.log(res);
         this.isSavingRole = false;
-        this.router.navigateByUrl('/settings/additional');
       })
       .catch((err) => {
         console.log(err);
@@ -95,10 +98,10 @@ export class UserRoleComponent {
       });
   }
 
-  deleteRole(){
+  deleteUserRole(){
     this.isDeletingRole = true;
 
-    const id = sessionStorage.getItem('user_role_id') as string;
+    const id = localStorage.getItem('uid') as string;
 
     this.usersApi.deleteUserRole(id)
       .then((res) => {
@@ -113,9 +116,21 @@ export class UserRoleComponent {
       });
   }
 
+  openBranchWindow(){
+    console.log("You are opening select branch window")
+    this.selectBranch.openModal();
+  }
+
+  onBranchSelected(branchData: any){
+    console.log(branchData);
+
+    this.roleForm.controls.branch.setValue(branchData.data().branch_name);
+    this.selectdBranchData = branchData;
+  }
+
   setRoleData(){
     this.roleForm.controls.fullName.setValue(this.roleData.data().full_name);
-    this.roleForm.controls.staffID.setValue(this.roleData.data().staff_id);
+    this.roleForm.controls.staffCode.setValue(this.roleData.data().staff_code);
     this.roleForm.controls.branch.setValue(this.roleData.data().branch?.data.branch_name);
     this.roleForm.controls.staffRole.setValue(this.roleData.data().staff_role);
   }

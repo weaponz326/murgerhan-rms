@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class UsersApiService {
 
   constructor(
     private firestore: AngularFirestore,
+    private storage: AngularFireStorage
   ) { }
 
   usersBasicRef = this.firestore.collection('users_user_basic_profile');
@@ -30,6 +32,10 @@ export class UsersApiService {
 
   deleteBasicUser(id: any){
     return this.usersBasicRef.doc(id).delete();
+  }
+
+  setBasicUser(id:any, data: any){
+    return this.usersBasicRef.doc(id).set(data);
   }
 
   getBasicUser(id: any){
@@ -57,6 +63,10 @@ export class UsersApiService {
     return this.usersAdditionalRef.doc(id).delete();
   }
 
+  setAdditionalUser(id:any, data: any){
+    return this.usersAdditionalRef.doc(id).set(data);
+  }
+
   getAdditionalUser(id: any){
     return this.usersAdditionalRef.doc(id).ref.get();
   }
@@ -79,6 +89,10 @@ export class UsersApiService {
     return this.usersAvailabilityRef.doc(id).delete();
   }
 
+  setAvailability(id:any, data: any){
+    return this.usersAvailabilityRef.doc(id).set(data);
+  }
+  
   getAvailability(id: any){
     return this.usersAvailabilityRef.doc(id).ref.get();
   }
@@ -101,12 +115,18 @@ export class UsersApiService {
     return this.usersRoleRef.doc(id).delete();
   }
 
+  setUserRole(id:any, data: any){
+    return this.usersRoleRef.doc(id).set(data);
+  }
+
   getUserRole(id: any){
     return this.usersRoleRef.doc(id).ref.get();
   }
 
-  getUserRoleList(){
-    return this.usersRoleRef.ref.get();
+  getUserRoleList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+    return this.usersRoleRef.ref
+    // .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .get();
   }
 
   // invitations
@@ -132,6 +152,26 @@ export class UsersApiService {
     .where("branch.id", "==", localStorage.getItem("selected_branch"))
     .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
     .get();
+  }
+
+  // profile photo
+
+  uploadImage(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const filePath = `images/users/${Date.now()}_${file.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(filePath, file);
+
+      task.snapshotChanges()
+        .pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe(
+              (url: string) => resolve(url),
+              (error: any) => reject(error)
+            );
+          })
+        ).subscribe();
+    });
   }
 
 }

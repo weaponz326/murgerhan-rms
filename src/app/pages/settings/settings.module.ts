@@ -10,6 +10,7 @@ import { BasicProfileComponent } from './basic-profile/basic-profile.component';
 import { AvailabilityComponent } from './availability/availability.component';
 import { TermsComponent } from './terms/terms.component';
 import { AdditionalInfoComponent } from './additional-info/additional-info.component';
+import { ProfilePhotoComponent } from './profile-photo/profile-photo.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AdditionalInfoComponent } from './additional-info/additional-info.compo
     BasicProfileComponent,
     AvailabilityComponent,
     TermsComponent,
-    AdditionalInfoComponent
+    AdditionalInfoComponent,
+    ProfilePhotoComponent
   ],
   imports: [
     CommonModule,

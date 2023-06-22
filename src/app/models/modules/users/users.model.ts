@@ -8,6 +8,7 @@ export class UserBasicProfile {
     email!: string;
     phone!: string;
     address!: string;
+    profile_photo!: string;
 }
 
 export class UserAdditionalProfile {
@@ -53,7 +54,7 @@ export class UserRole {
     created_at!: any;
     updated_at!: any;
     full_name!: string;
-    staff_id!: string;
+    staff_code!: string;
     staff_role!: string;
     branch!: {
         id: string;

@@ -6,6 +6,7 @@ import { BasicProfileComponent } from './basic-profile/basic-profile.component';
 import { AvailabilityComponent } from './availability/availability.component';
 import { TermsComponent } from './terms/terms.component';
 import { AdditionalInfoComponent } from './additional-info/additional-info.component';
+import { ProfilePhotoComponent } from './profile-photo/profile-photo.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: "", component: BasicProfileComponent },
       { path: "basic", component: BasicProfileComponent },
       { path: "additional", component: AdditionalInfoComponent },
+      { path: "photo", component: ProfilePhotoComponent },
       { path: "availability", component: AvailabilityComponent },
       { path: "terms", component: TermsComponent },
     ]

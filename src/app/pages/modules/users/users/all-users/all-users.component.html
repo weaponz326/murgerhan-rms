@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search users">
-                        <button [disabled]="isFetchingData" (click)="getBasicUserList()" class="btn btn-sm btn-light border float-end page-refresh-btn me-3">
+                        <button [disabled]="isFetchingData" (click)="getUserRoleList()" class="btn btn-sm btn-light border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -40,10 +40,10 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of userListData" (dblclick)="viewUserDetails(data?.id)">
-                                    <td>{{data?.data().user_code}}</td>
+                                    <td>{{data?.data().staff_code}}</td>
                                     <td>{{data?.data().full_name}}</td>
-                                    <td>{{data?.data().branch}}</td>
-                                    <td>{{data?.data().user_role}}</td>
+                                    <td>{{data?.data().branch.data.branch_name}}</td>
+                                    <td>{{data?.data().staff_role}}</td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
                                     <td colspan="4">
@@ -55,7 +55,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getBasicUserList()"
+                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getUserRoleList()"
                                         ></app-table-paginator>
                                     </td>
                                 </tr>

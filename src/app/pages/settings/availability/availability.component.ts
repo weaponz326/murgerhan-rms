@@ -76,7 +76,7 @@ export class AvailabilityComponent {
   updateAvailability() {
     this.isSavingAvailability = true;
     
-    const id = sessionStorage.getItem('user_availability_id') as string;
+    const id = localStorage.getItem('uid') as string;
 
     let data: UserAvailabilty = {
       created_at: this.availabilityData.data().created_at,
@@ -84,12 +84,12 @@ export class AvailabilityComponent {
       contract_type: this.contractType,
       availability: {
         monday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        tuesday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        wednesday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        thursday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        friday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        saturday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
-        sunday: { available: this.mondayAvailability, time_from: this.mondayTimeFrom, time_to: this.mondayTimeTo },
+        tuesday: { available: this.tuesdayAvailability, time_from: this.tuesdayTimeFrom, time_to: this.tuesdayTimeTo },
+        wednesday: { available: this.wednesdayAvailability, time_from: this.wednesdayTimeFrom, time_to: this.wednesdayTimeTo },
+        thursday: { available: this.thursdayAvailability, time_from: this.thursdayTimeFrom, time_to: this.thursdayTimeTo },
+        friday: { available: this.fridayAvailability, time_from: this.fridayTimeFrom, time_to: this.fridayTimeTo },
+        saturday: { available: this.saturdayAvailability, time_from: this.saturdayTimeFrom, time_to: this.saturdayTimeTo },
+        sunday: { available: this.sundayAvailability, time_from: this.sundayTimeFrom, time_to: this.sundayTimeTo },
       }
     }
 
@@ -107,7 +107,7 @@ export class AvailabilityComponent {
   }
 
   setAvailabilityData(){
-    this.contractType = this.availabilityData.contract_type;
+    this.contractType = this.availabilityData.data().contract_type;
 
     this.mondayAvailability = this.availabilityData.data().availability.monday.available;
     this.mondayTimeFrom = this.availabilityData.data().availability.monday.time_from;

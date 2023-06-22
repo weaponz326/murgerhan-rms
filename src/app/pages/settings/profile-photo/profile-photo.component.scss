@@ -1,0 +1,27 @@
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .custom-file-upload input[type="file"] {
+    display: none;
+  }
+  
+  .custom-file-upload i {
+    margin-right: 5px;
+  }
+  
+  .custom-file-upload span {
+    vertical-align: middle;
+  }
+  
+.img-pointer {
+    cursor: pointer;
+}

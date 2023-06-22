@@ -5,7 +5,7 @@
                 
                 <p class="lead">User Role</p>
 
-                <form [formGroup]="roleForm" (ngSubmit)="updateRole()">
+                <form [formGroup]="roleForm" (ngSubmit)="updateUserRole()">
                     <div class="row mb-1">
                         <div class="col-md-4">
                             <label class="text-muted float-md-end float-sm-start mt-1">Full Name :</label>
@@ -20,7 +20,7 @@
                             <label class="text-muted float-md-end float-sm-start mt-1">Staff ID :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="staffID" type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="staffCode" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="branch" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -44,10 +44,18 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="staffRole" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
+                                <select formControlName="staffRole" class="form-control">
+                                    <option>General Manager</option>
+                                    <option>Administrator/Technician</option>
+                                    <option>Head Manager</option>
+                                    <option>Branch Manager</option>
+                                    <option>Assistant Branch manager</option>
+                                    <option>Head Chef</option>
+                                    <option>Branch Chef</option>
+                                    <option>Assistant Branch Chef</option>
+                                    <option>Waiter/Waitress</option>
+                                    <option>Kitchen Staff</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -71,4 +79,8 @@
 
 <!-- delete confirmation modal component -->
 
-<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteRole()"></app-delete-modal-one>
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteUserRole()"></app-delete-modal-one>
+
+<!-- select branch window component -->
+
+<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)"></app-select-branch>

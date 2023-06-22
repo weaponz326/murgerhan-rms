@@ -42,16 +42,16 @@ export class AllUsersComponent {
   }
 
   ngOnInit(): void {
-    this.getBasicUserList();
+    this.getUserRoleList();
   }
 
-  getBasicUserList(){
+  getUserRoleList(){
     this.isFetchingData = true;
 
-    this.usersApi.getBasicUserList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getUserRoleList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
       .then(
         (res: any) => {
-          console.log(res);
+          console.log(res.docs);
           this.userListData = res.docs;
           this.isFetchingData = false;
 
@@ -76,7 +76,7 @@ export class AllUsersComponent {
 
   changePage(page: any){
     this.currentPageNumber = page;
-    this.getBasicUserList();
+    this.getUserRoleList();
   }
   
 }

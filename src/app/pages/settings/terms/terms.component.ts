@@ -19,6 +19,7 @@ export class TermsComponent {
 
   isFetchingData = false;
   isSavingBasic = false;
+  showPrompt = false;
 
   termsAcceptanceStatus: boolean = false;
 
@@ -30,6 +31,7 @@ export class TermsComponent {
 
   getBasicProfile() {
     this.isFetchingData = true;
+
     const id = localStorage.getItem('uid') as string;
 
     this.usersApi.getBasicUser(id)
@@ -49,14 +51,14 @@ export class TermsComponent {
   updateBasic() {
     this.isSavingBasic = true;
     
-    const id = sessionStorage.getItem('user_basic_id') as string;
-
+    const id = localStorage.getItem('uid') as string;
     let data = { terms_acceptance_status: true }
 
     this.usersApi.updateBasicUser(id, data)
       .then((res) => {
         console.log(res);
         this.isSavingBasic = false;
+        this.showPrompt = true;
       })
       .catch((err) => {
         console.log(err);

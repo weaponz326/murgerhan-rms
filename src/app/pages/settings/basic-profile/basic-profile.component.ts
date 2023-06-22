@@ -62,7 +62,7 @@ export class BasicProfileComponent {
   updateBasic() {
     this.isSavingBasic = true;
     
-    const id = sessionStorage.getItem('user_basic_id') as string;
+    const id = localStorage.getItem('uid') as string;
 
     let data: UserBasicProfile = {
       created_at: this.basicData.data().created_at,
@@ -74,6 +74,7 @@ export class BasicProfileComponent {
       email: this.basicForm.controls.email.value as string,
       phone: this.basicForm.controls.phone.value as string,
       address: this.basicForm.controls.address.value as string,
+      profile_photo: this.basicData.data().profile_photo,
     }
 
     this.usersApi.updateBasicUser(id, data)

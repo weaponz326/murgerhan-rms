@@ -53,6 +53,8 @@ export class ViewInvitationComponent {
       .then((res) => {
         console.log(res);
         this.isSavingInvitation = false;
+        // TODO: init user role
+        // TODO: implement with cloud function
       })
       .catch((err) => {
         console.log(err);

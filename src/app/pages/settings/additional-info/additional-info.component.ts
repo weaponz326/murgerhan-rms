@@ -61,7 +61,7 @@ export class AdditionalInfoComponent {
   updateAdditional() {
     this.isSavingAdditional = true;
     
-    const id = sessionStorage.getItem('user_additional_id') as string;
+    const id = localStorage.getItem('uid') as string;
 
     let data: UserAdditionalProfile = {
       created_at: this.additionalData.data().created_at,
@@ -77,7 +77,7 @@ export class AdditionalInfoComponent {
       .then((res) => {
         console.log(res);
         this.isSavingAdditional = false;
-        this.router.navigateByUrl('/settings/availability');
+        this.router.navigateByUrl('/settings/photo');
       })
       .catch((err) => {
         console.log(err);
@@ -87,11 +87,11 @@ export class AdditionalInfoComponent {
   }
 
   setAdditionalData(){
-    this.additionalForm.controls.nationality.setValue(this.additionalData.data().full_name);
-    this.additionalForm.controls.religion.setValue(this.additionalData.data().date_of_birth);
-    this.additionalForm.controls.maritalStatus.setValue(this.additionalData.data().ni_number);
-    this.additionalForm.controls.eContactName.setValue(this.additionalData.data().email);
-    this.additionalForm.controls.eContactNumber.setValue(this.additionalData.data().phone);
+    this.additionalForm.controls.nationality.setValue(this.additionalData.data().nationality);
+    this.additionalForm.controls.religion.setValue(this.additionalData.data().religion);
+    this.additionalForm.controls.maritalStatus.setValue(this.additionalData.data().marital_status);
+    this.additionalForm.controls.eContactName.setValue(this.additionalData.data().e_contact_name);
+    this.additionalForm.controls.eContactNumber.setValue(this.additionalData.data().e_contact_number);
   }
 
 }

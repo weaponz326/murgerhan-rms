@@ -1,0 +1,34 @@
+<div class="card shadow-lg border-0 rounded-lg mt-5 p-4">
+    <div class="card-body">
+        <h3 class="text-center font-weight-light my-4">Profile Photo</h3>
+        <hr>
+        
+        <!-- <input type="file" (change)="onFileSelected($event)" />
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Preview" />
+        <button (click)="uploadImage()">Upload</button> -->
+
+        <!-- <div>
+            <label class="custom-file-upload">
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                <i class="bi bi-cloud-upload"></i>
+                <span>{{ imageUrl ? 'Image Uploaded' : 'Upload Image' }}</span>
+            </label>
+            <img *ngIf="imageUrl" [src]="imageUrl" alt="Preview" />
+            <button [disabled]="!selectedImage" (click)="uploadImage()">Upload</button>
+        </div> -->
+
+        <input #imageInput [hidden]="true" type="file" requiredFileType="image" class="d-none" (change)="onFileSelected($event) "/>
+
+        <div class="card border rounded mx-auto my-4 img-pointer" [style.width.px]="200" [style.height.px]="250"  (click)="imageInput.click()">
+            <div class="card-img-top">
+                <img class="border rounded" [src]="imageUrl" [width]="200" [height]="250" />
+            </div>
+        </div>
+
+          
+        <div class="mt-4">
+            <button [disabled]="isSavingPhoto" class="btn btn-sm btn-secondary float-start form-control-btn" routerLink="/settings/additional">Back</button>
+            <button [disabled]="isSavingPhoto" class="btn btn-sm btn-primary float-end form-control-btn" routerLink="/settings/availability">Next</button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
+import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+
+import { ConnectionToastComponent } from '../module-utilities/connection-toast/connection-toast.component';
+
 
 @Component({
   selector: 'app-main-navbar',
@@ -10,7 +15,10 @@ export class MainNavbarComponent {
 
   constructor(
     private authApi: AuthApiService,
+    private usersApi: UsersApiService
   ) { }
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
@@ -19,8 +27,13 @@ export class MainNavbarComponent {
   email: string = "";
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
 
+  userRoleData: any;
+  basicProfileData: any;
+
   ngOnInit(): void {
     this.getAuth();
+    this.getBasicUser();
+    this.getUserRole();
   }
 
   getAuth(){
@@ -41,10 +54,41 @@ export class MainNavbarComponent {
         },
         (err: any) => {
           console.log(err);
+          this.connectionToast.openToast();
           this.isLoggedIn = false;
           this.isAuthLoading = false;
         }
       )
+  }
+
+  getUserRole() {
+    const id = localStorage.getItem('uid') as string;
+
+    this.usersApi.getUserRole(id)
+      .then((res) => {
+        console.log(res);
+        this.userRoleData = res;
+        localStorage.setItem("user_branch", JSON.stringify(this.userRoleData.data().branch))
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+      };
+  }
+
+  getBasicUser() {
+    const id = localStorage.getItem('uid') as string;
+
+    this.usersApi.getBasicUser(id)
+      .then((res) => {
+        console.log(res);
+        this.basicProfileData = res;
+        // TODO: set name and profile pic in navbar
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+      };
   }
 
   logout(){
@@ -59,6 +103,7 @@ export class MainNavbarComponent {
         },
         (err: any) => {
           console.log(err);
+          this.connectionToast.openToast();
         }
       )
   }
