@@ -23,6 +23,7 @@ export class MainNavbarComponent {
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
 
+  branchName = "";
   name: string = "";
   email: string = "";
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
@@ -66,10 +67,11 @@ export class MainNavbarComponent {
 
     this.usersApi.getUserRole(id)
       .then((res) => {
-        console.log(res);
+        console.log(res.data());
         this.userRoleData = res;
-        localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch))
-        localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()))
+        this.branchName = this.userRoleData.data().branch.data.branch_name;
+        localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch));
+        localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
       }),
       (err: any) => {
         console.log(err);
