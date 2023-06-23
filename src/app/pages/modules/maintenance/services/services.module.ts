@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ServicesRoutingModule } from './services-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { MaintenanceWindowsModule } from 'src/app/components/select-windows/maintenance-windows/maintenance-windows.module';
 
 import { ServicesPage } from './services.page';
 import { AllMaintenanceServicesComponent } from './all-maintenance-services/all-maintenance-services.component';
@@ -24,7 +25,8 @@ import { MaintenanceServiceFormComponent } from './maintenance-service-form/main
     CommonModule,
     ReactiveFormsModule,
     ServicesRoutingModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
+    MaintenanceWindowsModule
   ]
 })
 export class ServicesModule { }

@@ -23,11 +23,11 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Contractor :</label></div>
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
                 <div class="col-md-8">
-                    <div formControlName="contractor" class="input-group input-group-sm w-100">
-                        <input class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="systemCode" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -35,11 +35,11 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System :</label></div>
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="system" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <input formControlName="systemName" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -50,6 +50,18 @@
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Service Cost :</label></div>
                 <div class="col-md-8">
                     <input formControlName="cost" type="number" min="0" step="0.01" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Contractor :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="contractor" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openContractorWindow.emit()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 

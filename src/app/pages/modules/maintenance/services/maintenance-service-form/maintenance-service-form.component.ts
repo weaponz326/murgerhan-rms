@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,12 +9,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class MaintenanceServiceFormComponent {
 
+  @Output() openSystemWindow = new EventEmitter<any>();
+  @Output() openContractorWindow = new EventEmitter<any>();
+
   serviceForm = new FormGroup({
     serviceCode: new FormControl(''),
     serviceSubject: new FormControl(''),
     serviceType: new FormControl(''),
-    contractor: new FormControl(''),
-    system: new FormControl(''),
+    contractor: new FormControl({value: '', disabled: true}),
+    systemCode: new FormControl({value: '', disabled: true}),
+    systemName: new FormControl({value: '', disabled: true}),
     cost: new FormControl(0.00),
     description: new FormControl(''),
     serviceStatus: new FormControl(''),

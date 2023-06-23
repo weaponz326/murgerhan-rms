@@ -3,7 +3,7 @@
 </ol>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="card shadow-sm">
             <div class="card-body">
                 
@@ -32,7 +32,10 @@
                                         <app-table-sorting [fieldTitle]="'Service Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
                                     </th>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Service Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                        <app-table-sorting [fieldTitle]="'Date From'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'Date To'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
                                     </th>
                                     <th scope="col">
                                         <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
@@ -43,18 +46,19 @@
                                 <tr *ngFor="let data of serviceListData" (dblclick)="viewService(data.id)">
                                     <td>{{data?.data().service_code}}</td>
                                     <td>{{data?.data().service_subject}}</td>
-                                    <td>{{data?.data().service_date}}</td>
-                                    <td>{{data?.data().contractor.data.contrctor_name}}</td>
+                                    <td>{{data?.data().date_from}}</td>
+                                    <td>{{data?.data().date_to}}</td>
+                                    <td>{{data?.data().contractor.data.contractor_name}}</td>
                                 </tr> 
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="4">
+                                    <td colspan="5">
                                         <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="5">
                                         <app-table-paginator
                                         (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getServiceList()"
                                         ></app-table-paginator>
@@ -70,3 +74,7 @@
         </div>
     </div>
 </div>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

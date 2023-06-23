@@ -31,6 +31,7 @@ export class AddOrderComponent {
 
   selectedVendorId: any;
   selectedVendorData: any;
+  
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   orderForm = new FormGroup({

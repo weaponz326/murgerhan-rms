@@ -8,6 +8,8 @@ import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-
 import { MaintenanceServiceFormComponent } from '../maintenance-service-form/maintenance-service-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { SelectSystemComponent } from 'src/app/components/select-windows/maintenance-windows/select-system/select-system.component';
+import { SelectContractorComponent } from 'src/app/components/select-windows/maintenance-windows/select-contractor/select-contractor.component';
 
 
 @Component({
@@ -25,11 +27,17 @@ export class ViewMaintenanceServiceComponent {
   @ViewChild('maintenanceServiceFormComponentReference', { read: MaintenanceServiceFormComponent, static: false }) serviceForm!: MaintenanceServiceFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+  @ViewChild('selectSystemComponentReference', { read: SelectSystemComponent, static: false }) selectSystem!: SelectSystemComponent;
+  @ViewChild('selectContractorComponentReference', { read: SelectContractorComponent, static: false }) selectContractor!: SelectContractorComponent;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+
+  selectedSystemId: any;
+  selectedSystemData: any;  
+  selectedContractorId: any;
+  selectedContractorData: any;
 
   serviceData: any;
-  selectedBranchData: any;
-  selectedContractorData: any;
-  selectedSystemData: any;
 
   isFetchingData = false;
   isSavingService = false;
@@ -75,17 +83,17 @@ export class ViewMaintenanceServiceComponent {
       service_status: this.serviceForm.serviceForm.controls.serviceStatus.value as string,
       comments: this.serviceForm.serviceForm.controls.comments.value as string,
       contractor: {
-        id: this.selectedContractorData.id,
+        id: this.selectedContractorId,
         data: {
-          contractor_code: this.selectedContractorData.data.contractor_code,
-          contractor_name: this.selectedContractorData.data.contractor_name,
+          contractor_code: this.selectedContractorData.contractor_code,
+          contractor_name: this.selectedContractorData.contractor_name,
         }
       },
       system: {
-        id: this.selectedSystemData.id,
+        id: this.selectedSystemId,
         data: {
-          system_code: this.selectedSystemData.data.system_code,
-          system_name: this.selectedSystemData.data.system_name,
+          system_code: this.selectedSystemData.system_code,
+          system_name: this.selectedSystemData.system_name,
         }
       },
       branch: {
@@ -132,17 +140,55 @@ export class ViewMaintenanceServiceComponent {
     this.serviceForm.serviceForm.controls.serviceSubject.setValue(this.serviceData.data().service_subject);
     this.serviceForm.serviceForm.controls.serviceType.setValue(this.serviceData.data().service_type);
     this.serviceForm.serviceForm.controls.contractor.setValue(this.serviceData.data().contractor.data.contractor_name);
-    this.serviceForm.serviceForm.controls.system.setValue(this.serviceData.data().system.data.system_name);
+    this.serviceForm.serviceForm.controls.systemCode.setValue(this.serviceData.data().system.data.system_code);
+    this.serviceForm.serviceForm.controls.systemName.setValue(this.serviceData.data().system.data.system_name);
     this.serviceForm.serviceForm.controls.cost.setValue(this.serviceData.data().cost);
     this.serviceForm.serviceForm.controls.description.setValue(this.serviceData.data().description);
     this.serviceForm.serviceForm.controls.serviceStatus.setValue(this.serviceData.data().service_status);
     this.serviceForm.serviceForm.controls.dateFrom.setValue(this.serviceData.data().date_from);
     this.serviceForm.serviceForm.controls.dateTo.setValue(this.serviceData.data().date_to);
     this.serviceForm.serviceForm.controls.comments.setValue(this.serviceData.data().comments);
+
+    this.selectedSystemId = this.serviceData.data().system.id;
+    this.selectedSystemData = this.serviceData.data().system.data;
+    this.selectedContractorId = this.serviceData.data().contractor.id;
+    this.selectedContractorData = this.serviceData.data().contractor.data;
   }
 
   confirmDelete(){
     this.deleteModal.openModal();
   }
+
+  openSystemWindow(){
+    console.log("You are opening select system window")
+    this.selectSystem.openModal();
+  }
+
+  onSystemSelected(systemData: any){
+    console.log(systemData);
+
+    this.selectedSystemData = systemData;
+    this.serviceForm.serviceForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.serviceForm.serviceForm.controls.systemName.setValue(systemData.data().system_name);
+
+    this.selectedSystemId = systemData.id;
+    this.selectedSystemData = systemData.data();
+  }
+
+  openContractorWindow(){
+    console.log("You are opening select contractor window")
+    this.selectContractor.openModal();
+  }
+
+  onContractorSelected(contractorData: any){
+    console.log(contractorData);
+
+    this.selectedContractorData = contractorData;
+    this.serviceForm.serviceForm.controls.contractor.setValue(contractorData.data().contractor_name);
+
+    this.selectedContractorId = contractorData.id;
+    this.selectedContractorData = contractorData.data();
+  }
+
   
 }

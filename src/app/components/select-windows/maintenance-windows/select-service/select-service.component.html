@@ -22,9 +22,6 @@
                                 <app-table-sorting [fieldTitle]="'Service Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
                             </th>
                             <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Service Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                            </th>
-                            <th scope="col">
                                 <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
                             </th>
                         </tr>
@@ -33,18 +30,17 @@
                         <tr *ngFor="let data of serviceListData" (dblclick)="selectRow(data)">
                             <td>{{data?.data().service_code}}</td>
                             <td>{{data?.data().service_subject}}</td>
-                            <td>{{data?.data().service_date}}</td>
                             <td>{{data?.data().contractor.data.contrctor_name}}</td>
                         </tr> 
                         <tr *ngIf="isFetchingData || !isDataAvailable">
-                            <td colspan="4">
+                            <td colspan="3">
                                 <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="4">
+                            <td colspan="3">
                                 <app-table-paginator
                                 (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getServiceList()"
                                 ></app-table-paginator>
