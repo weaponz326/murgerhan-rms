@@ -25,7 +25,7 @@ export class NewAttendanceComponent {
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingAttendance = false;
 
@@ -67,7 +67,7 @@ export class NewAttendanceComponent {
 
         if(res.id){
           sessionStorage.setItem('attendance_attendance_id', res.id);
-          this.router.navigateByUrl("/modules/attendance/attendance/view-attendance");
+          this.router.navigateByUrl("/modules/attendance/attendance/general_attendance");
         }
         this.isSavingAttendance = false;
       })

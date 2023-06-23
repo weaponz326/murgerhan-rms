@@ -57,6 +57,9 @@ export class AllAttendanceComponent {
           console.log(res);
           this.attendanceListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);
@@ -70,7 +73,7 @@ export class AllAttendanceComponent {
     console.log(attendanceId);
 
     sessionStorage.setItem("attendance_attendance_id", attendanceId);
-    this.router.navigateByUrl("/modules/attendance/attendance/view-attendance");
+    this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
   }
 
   changePage(page: any){

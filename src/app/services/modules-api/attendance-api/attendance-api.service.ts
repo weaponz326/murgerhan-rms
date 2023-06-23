@@ -135,9 +135,11 @@ export class AttendanceApiService {
 
   getAttendanceList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.attendanceRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
 
 }

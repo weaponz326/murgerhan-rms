@@ -1,1 +1,80 @@
-<p>user-attendance-records works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/attendance/attendance/all-attendance">All Attendance</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/attendance/attendance/general-attendance">General Attendance</a>
+    </li>
+    <li class="breadcrumb-item active">Staff Attendance </li>
+</ol>
+
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Staff Attendance</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <form [formGroup]="userForm">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Staff ID :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="staffCode" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Staff Name :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="fullName" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Staff Role :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="staffRole" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+                                                                
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Staff Attendance Sheet</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- user sheet component -->
+
+                        <app-user-attendance-sheet></app-user-attendance-sheet>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>    
+</div>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
