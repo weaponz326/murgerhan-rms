@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,13 +9,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class MaintenanceIssueFormComponent {
 
+  @Output() openSystemWindow = new EventEmitter<any>();
+  @Output() openUserRoleWindow = new EventEmitter<any>();
+
   issueForm = new FormGroup({
     issueCode: new FormControl(''),
     issueSubject: new FormControl(''),
     issueType: new FormControl(''),
     issueDate: new FormControl(),
-    system: new FormControl(''),
-    reportedTo: new FormControl(''),
+    systemCode: new FormControl({value: '', disabled: true}),
+    systemName: new FormControl({value: '', disabled: true}),
+    reportedTo: new FormControl({value: '', disabled: true}),
     description: new FormControl(''),
     issueStatus: new FormControl(''),
     comments: new FormControl(''),

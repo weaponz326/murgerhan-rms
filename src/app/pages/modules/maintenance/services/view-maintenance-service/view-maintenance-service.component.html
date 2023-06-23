@@ -17,7 +17,7 @@
 
                         <!-- maintenance service form component -->
                         
-                        <app-maintenance-service-form #maintenanceServiceFormComponentReference></app-maintenance-service-form>
+                        <app-maintenance-service-form #maintenanceServiceFormComponentReference (openSystemWindow)="openSystemWindow()" (openContractorWindow)="openContractorWindow()"></app-maintenance-service-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
@@ -42,3 +42,11 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteService()"></app-delete-modal-one>
+
+<!-- select system window -->
+
+<app-select-system #selectSystemComponentReference (rowSelected)="onSystemSelected($event)"></app-select-system>
+
+<!-- select contractor window -->
+
+<app-select-contractor #selectContractorComponentReference (rowSelected)="onContractorSelected($event)"></app-select-contractor>

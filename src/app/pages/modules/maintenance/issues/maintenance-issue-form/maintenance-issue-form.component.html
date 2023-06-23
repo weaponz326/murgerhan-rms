@@ -25,33 +25,33 @@
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Issue Date :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="issueDate" type="date" class="form-control form-control-sm w-100">
+                    <input formControlName="issueDate" type="datetime-local" class="form-control form-control-sm w-100">
                 </div>
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System :</label></div>
-                <div class="col-md-8">
-                    <div formControlName="system" class="input-group input-group-sm w-100">
-                        <input class="form-control">
-                        <button type="button" class="btn btn-secondary">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Reported to :</label></div>
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="reportedTo" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <input formControlName="systemCode" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
                 </div>
             </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="systemName" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>            
 
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Issue Description :</label></div>
@@ -67,6 +67,18 @@
                 </div>
             </div>        
             
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Reported to :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="reportedTo" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openUserRoleWindow.emit()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Comments on Issue :</label></div>
                 <div class="col-md-8">

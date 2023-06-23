@@ -5,10 +5,17 @@ export class Issue {
     issue_subject!: string;
     issue_type!: string;
     issue_date!: string;
-    reported_to!: string;
     description!: string;
     issue_status!: string;
     comments!: string;
+    reported_to!: {
+        id: string;
+        data: {
+            staff_code: string;
+            full_name: string;
+            staff_role: string;
+        }
+    };
     system!: {
         id: string;
         data: {

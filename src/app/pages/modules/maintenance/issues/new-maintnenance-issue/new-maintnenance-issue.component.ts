@@ -7,6 +7,8 @@ import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { MaintenanceIssueFormComponent } from '../maintenance-issue-form/maintenance-issue-form.component';
+import { SelectSystemComponent } from 'src/app/components/select-windows/maintenance-windows/select-system/select-system.component';
+import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
 
 
 @Component({
@@ -23,11 +25,21 @@ export class NewMaintnenanceIssueComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('maintenanceIssueFormComponentReference', { read: MaintenanceIssueFormComponent, static: false }) issueForm!: MaintenanceIssueFormComponent;
+  @ViewChild('selectSystemComponentReference', { read: SelectSystemComponent, static: false }) selectSystem!: SelectSystemComponent;
+  @ViewChild('selectUserRoleComponentReference', { read: SelectUserRoleComponent, static: false }) selectUserRole!: SelectUserRoleComponent;
 
-  selectedBranchData: any;
-  selectedSystemData: any;
-  
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+
+  selectedSystemId: any;
+  selectedSystemData: any;  
+  selectedUserRoleId: any;
+  selectedUserRoleData: any;
+
   isSavingIssue = false;
+
+  ngAfterViewInit(){
+    this.issueForm.issueForm.controls.issueDate.setValue(new Date().toISOString().slice(0, 16));
+  }
 
   createIssue() {
     this.isSavingIssue = true;
@@ -39,15 +51,22 @@ export class NewMaintnenanceIssueComponent {
       issue_subject: this.issueForm.issueForm.controls.issueSubject.value as string,
       issue_type: this.issueForm.issueForm.controls.issueType.value as string,
       issue_date: this.issueForm.issueForm.controls.issueDate.value,
-      reported_to: this.issueForm.issueForm.controls.reportedTo.value as string,
       description: this.issueForm.issueForm.controls.description.value as string,
       issue_status: this.issueForm.issueForm.controls.issueStatus.value as string,
       comments: this.issueForm.issueForm.controls.comments.value as string,
-      system: {
-        id: this.selectedSystemData.id,
+      reported_to: {
+        id: this.selectedUserRoleId,
         data: {
-          system_code: this.selectedSystemData.data.system_code,
-          system_name: this.selectedSystemData.data.system_name,
+          staff_code: this.selectedUserRoleData.staff_code,
+          full_name: this.selectedUserRoleData.full_name,
+          staff_role: this.selectedUserRoleData.staff_role,
+        }
+      },
+      system: {
+        id: this.selectedSystemId,
+        data: {
+          system_code: this.selectedSystemData.system_code,
+          system_name: this.selectedSystemData.system_name,
         }
       },
       branch: {
@@ -78,4 +97,34 @@ export class NewMaintnenanceIssueComponent {
       });
   }
   
+  openSystemWindow(){
+    console.log("You are opening select system window")
+    this.selectSystem.openModal();
+  }
+
+  onSystemSelected(systemData: any){
+    console.log(systemData);
+
+    this.selectedSystemData = systemData;
+    this.issueForm.issueForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.issueForm.issueForm.controls.systemName.setValue(systemData.data().system_name);
+
+    this.selectedSystemId = systemData.id;
+    this.selectedSystemData = systemData.data();
+  }
+
+  openUserRoleWindow(){
+    console.log("You are opening select user role window")
+    this.selectUserRole.openModal();
+  }
+
+  onUserRoleSelected(userRoleData: any){
+    console.log(userRoleData);
+    this.selectedUserRoleData = userRoleData;
+    this.issueForm.issueForm.controls.reportedTo.setValue(userRoleData.data().full_name);
+
+    this.selectedUserRoleId = userRoleData.id;
+    this.selectedUserRoleData = userRoleData.data();
+  }
+
 }

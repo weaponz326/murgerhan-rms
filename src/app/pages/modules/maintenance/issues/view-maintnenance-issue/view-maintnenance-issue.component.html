@@ -17,7 +17,7 @@
 
                         <!-- maintenance issue form component -->
                         
-                        <app-maintenance-issue-form #maintenanceIssueFormComponentReference></app-maintenance-issue-form>
+                        <app-maintenance-issue-form #maintenanceIssueFormComponentReference (openSystemWindow)="openSystemWindow()" (openUserRoleWindow)="openUserRoleWindow()"></app-maintenance-issue-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
@@ -42,3 +42,11 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteIssue()"></app-delete-modal-one>
+
+<!-- select system window -->
+
+<app-select-system #selectSystemComponentReference (rowSelected)="onSystemSelected($event)"></app-select-system>
+
+<!-- select user role window -->
+
+<app-select-user-role #selectUserRoleComponentReference (rowSelected)="onUserRoleSelected($event)"></app-select-user-role>
