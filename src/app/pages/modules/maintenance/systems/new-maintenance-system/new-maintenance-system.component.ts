@@ -24,8 +24,7 @@ export class NewMaintenanceSystemComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('maintenanceSystemFormComponentReference', { read: MaintenanceSystemFormComponent, static: false }) systemForm!: MaintenanceSystemFormComponent;
 
-  selectedBranchData: any;
-  selectedSystemData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingSystem = false;
 

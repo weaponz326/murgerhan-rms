@@ -54,6 +54,9 @@ export class AllContractorsComponent {
           console.log(res);
           this.contractorListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);
@@ -67,7 +70,7 @@ export class AllContractorsComponent {
     console.log(contractorId);
 
     sessionStorage.setItem("maintenance_contractor_id", contractorId);
-    this.router.navigateByUrl("/modules/maintenance/contractors/view-contractor");
+    this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
   }
 
   changePage(page: any){

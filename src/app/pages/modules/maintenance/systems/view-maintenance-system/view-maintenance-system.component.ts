@@ -27,8 +27,8 @@ export class ViewMaintenanceSystemComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   systemData: any;
-  selectedBranchData: any;
-  selectedSystemData: any;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingSystem = false;
@@ -78,6 +78,8 @@ export class ViewMaintenanceSystemComponent {
         }
       }
     }
+
+    console.log(this.systemForm.systemForm.controls.systemCode.value)
 
     this.maintenanceApi.updateSystem(id, data)
       .then((res) => {

@@ -27,8 +27,8 @@ export class EditContractorsComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   contractorData: any;
-  selectedBranchData: any;
-  selectedSystemData: any;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingContractor = false;

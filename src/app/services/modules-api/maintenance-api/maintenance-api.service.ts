@@ -86,9 +86,11 @@ export class MaintenanceApiService {
 
   getContractorList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.contractorRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
 
   // system
@@ -111,9 +113,11 @@ export class MaintenanceApiService {
 
   getSystemList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.systemRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
 
 }

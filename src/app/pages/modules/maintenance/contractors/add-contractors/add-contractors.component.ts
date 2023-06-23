@@ -24,8 +24,7 @@ export class AddContractorsComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('contractorFormComponentReference', { read: ContractorFormComponent, static: false }) contractorForm!: ContractorFormComponent;
 
-  selectedBranchData: any;
-  selectedSystemData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingContractor = false;
 
@@ -59,7 +58,7 @@ export class AddContractorsComponent {
 
         if(res.id){
           sessionStorage.setItem('maintenance_contractor_id', res.id);
-          this.router.navigateByUrl("/modules/maintenance/contractors/view-contractor");
+          this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
         }
         this.isSavingContractor = false;
       })
