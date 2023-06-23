@@ -70,13 +70,7 @@ export class Supplier {
 export class SupplierItem {
     created_at!: any;
     updated_at!: any;
-    supplier!: {
-        id: string;
-        data: {
-            supplier_code: string;
-            supplier_name: string;
-        }
-    }
+    supplier!: string;
     stock_item!: {
         id: string;
         data: {

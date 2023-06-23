@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SuppliersRoutingModule } from './suppliers-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { InventoryWindowsModule } from 'src/app/components/select-windows/inventory-windows/inventory-windows.module';
 
 import { SuppliersPage } from './suppliers.page';
 import { AllSuppliersComponent } from './all-suppliers/all-suppliers.component';
@@ -29,6 +30,7 @@ import { SupplierHistoryComponent } from './supplier-history/supplier-history.co
     ReactiveFormsModule,
     SuppliersRoutingModule,
     ModuleUtilitiesModule,
+    InventoryWindowsModule
   ]
 })
 export class SuppliersModule { }

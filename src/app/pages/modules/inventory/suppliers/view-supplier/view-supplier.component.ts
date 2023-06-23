@@ -27,7 +27,8 @@ export class ViewSupplierComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   supplierData: any;
-  selectedBranchData: any;
+
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
   isSavingSupplier = false;

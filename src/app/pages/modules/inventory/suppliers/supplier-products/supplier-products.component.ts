@@ -6,6 +6,7 @@ import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
+import { SelectStockItemComponent } from 'src/app/components/select-windows/inventory-windows/select-stock-item/select-stock-item.component';
 
 
 @Component({
@@ -21,10 +22,10 @@ export class SupplierProductsComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
+  @ViewChild('selectStockItemComponentReference', { read: SelectStockItemComponent, static: false }) selectStockItem!: SelectStockItemComponent;
 
   supplierItemListData: any[] = [];
-  selectedItemData: any;
-  supplierData: any;
+  selectedStockItemData: any;
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -43,7 +44,7 @@ export class SupplierProductsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.supplierItemListData = res;
+          this.supplierItemListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
@@ -58,19 +59,13 @@ export class SupplierProductsComponent {
     let data: SupplierItem = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      supplier: {
-        id: this.supplierData.id,
-        data: {
-          supplier_code: this.supplierData.data.supplier_code,
-          supplier_name: this.supplierData.data.supplier_name,
-        } 
-      },
+      supplier: sessionStorage.getItem('inventory_supplier_id') as string,
       stock_item: {
-        id: this.selectedItemData.id,
+        id: this.selectedStockItemData.id,
         data: {
-          item_code: this.selectedItemData.data.item_code,
-          item_name: this.selectedItemData.data.item_name,
-          unit_price: this.selectedItemData.data.price,
+          item_code: this.selectedStockItemData.data().item_code,
+          item_name: this.selectedStockItemData.data().item_name,
+          unit_price: this.selectedStockItemData.data().unit_price,
         }
       }
     }
@@ -110,6 +105,17 @@ export class SupplierProductsComponent {
   confirmDelete(id: any){
     this.deleteId = id;
     this.deleteModal.openModal();
+  }
+
+  openItemWindow(){
+    console.log("You are opening select item window")
+    this.selectStockItem.openModal();
+  }
+
+  onItemSelected(itemData: any){
+    console.log(itemData);
+    this.selectedStockItemData = itemData;
+    this.createSupplierItem();
   }
 
 }

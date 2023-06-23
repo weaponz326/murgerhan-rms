@@ -37,11 +37,11 @@ export class HousekeepingApiService {
 
   getUnitList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.unitRef.ref
-    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-    .orderBy("created_at")
-    .startAt((defaultPageSize * currentPageNumber) + 1)
-    .limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
 
   // incident
@@ -64,11 +64,11 @@ export class HousekeepingApiService {
 
   getIncidentList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.incidentRef.ref
-    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-    .orderBy("created_at")
-    .startAt((defaultPageSize * currentPageNumber) + 1)
-    .limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
  
   // task
@@ -91,11 +91,11 @@ export class HousekeepingApiService {
 
   getTaskList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.taskRef.ref
-    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-    .orderBy("created_at")
-    .startAt((defaultPageSize * currentPageNumber) + 1)
-    .limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
 
   // task items
@@ -118,8 +118,8 @@ export class HousekeepingApiService {
 
   getTaskItemList(){
     return this.taskItemRef.ref
-    .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
-    .get();
+      .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .get();
   }
 
 }

@@ -44,9 +44,9 @@ export class UsersApiService {
 
   getBasicUserList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.usersBasicRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", localStorage.getItem("selected_branch"))
+      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+      .get();
   }
 
   // user additional profile
@@ -149,9 +149,9 @@ export class UsersApiService {
 
   getInvitationList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.usersInvitationRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", localStorage.getItem("selected_branch"))
+      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+      .get();
   }
 
   // profile photo

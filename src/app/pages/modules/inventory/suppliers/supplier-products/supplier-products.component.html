@@ -15,7 +15,7 @@
                                     <th width="53%" scope="col">Item Name</th>
                                     <th width="20%" scope="col">Price</th>
                                     <th width="7%" class="p-0 min-width-2">
-                                        <button class="btn btn-primary btn-sm w-100">
+                                        <button class="btn btn-primary btn-sm w-100" (click)="openItemWindow()">
                                             <i class="bi bi-plus"></i>
                                         </button>
                                     </th>
@@ -23,11 +23,11 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of supplierItemListData">
-                                    <td>{{data?.item?.data?.item_code}}</td>
-                                    <td>{{data?.item?.data?.item_name}}</td>
-                                    <td>{{data?.item?.data?.unit_price}}</td>
+                                    <td>{{data?.data().stock_item?.data?.item_code}}</td>
+                                    <td>{{data?.data().stock_item?.data?.item_name}}</td>
+                                    <td>{{data?.data().stock_item?.data?.unit_price}}</td>
                                     <td class="p-0">
-                                        <button (click)="confirmDelete(data.item?.id)" [disabled]="isItemDeleting" class="btn btn-danger btn-sm border w-100">
+                                        <button (click)="confirmDelete(data.data().id)" [disabled]="isItemDeleting" class="btn btn-danger btn-sm border w-100">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
@@ -46,3 +46,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteSupplierItem()"></app-delete-modal-two>
+
+<!-- select stock item component -->
+
+<app-select-stock-item #selectStockItemComponentReference (rowSelected)="onItemSelected($event)"></app-select-stock-item>

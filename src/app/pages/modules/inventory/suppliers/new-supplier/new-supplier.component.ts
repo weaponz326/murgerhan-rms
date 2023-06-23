@@ -24,7 +24,7 @@ export class NewSupplierComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('supplierFormComponentReference', { read: SupplierFormComponent, static: false }) supplierForm!: SupplierFormComponent;
 
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingSupplier = false;
 
