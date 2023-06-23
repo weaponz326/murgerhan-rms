@@ -44,7 +44,7 @@ export class PurchasingItemsComponent {
   calculateTotalPrice(){
     this.totalPrice = 0;
     for (let item of this.purchasingItemListData){
-      this.totalPrice += item.product.data.price * item.quantity;
+      this.totalPrice += item.data().stock_item.data.unit_price * item.data().quantity;
     }
 
     this.patchTotalAmount();
@@ -58,11 +58,11 @@ export class PurchasingItemsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.purchasingItemListData = res;
+          this.purchasingItemListData = res.docs;
 
           this.calculateTotalPrice();
 
-          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
 
           this.isFetchingData = false;
@@ -75,12 +75,12 @@ export class PurchasingItemsComponent {
       )
   }
 
-  createPurchasing(data: any) {
+  createPurchasingItem(data: any) {
     this.addPurchasingItem.isItemSaving = true;
 
     console.log(data);
 
-    this.inventoryApi.createPurchasing(data)
+    this.inventoryApi.createPurchasingItem(data)
       .then((res: any) => {
         console.log(res);
 
@@ -99,12 +99,10 @@ export class PurchasingItemsComponent {
       });
   }
 
-  updatePurchasing(purchasing_item: any) {
+  updatePurchasingItem(purchasing_item: any) {
     this.editPurchasingItem.isItemSaving = true;
     
-    const id = sessionStorage.getItem('inventory_purchasing_id') as string;
-
-    this.inventoryApi.updatePurchasing(purchasing_item.id, purchasing_item.data)
+    this.inventoryApi.updatePurchasingItem(purchasing_item.id, purchasing_item.data)
       .then((res) => {
         console.log(res);
         this.editPurchasingItem.isItemSaving = false;

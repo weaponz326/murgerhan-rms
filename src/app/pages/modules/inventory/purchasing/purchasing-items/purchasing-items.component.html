@@ -26,14 +26,16 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of purchasingItemListData">
-                                    <td>{{data?.item_number}}</td>
-                                    <td>{{data?.item?.data?.item_name}}</td>
-                                    <td>{{data?.item?.data?.unit_price}}</td>
-                                    <td>{{data?.quantity}}</td>
-                                    <td>{{data?.item.price * data?.quantity}}</td>
+                                    <td>{{data?.data().item_number}}</td>
+                                    <td>{{data?.data().stock_item?.data?.item_name}}</td>
+                                    <td>{{data?.data().stock_item?.data?.unit_price}}</td>
+                                    <td>{{data?.data().quantity}}</td>
+                                    <td>{{data?.data().stock_item?.data?.unit_price * data?.data().quantity}}</td>
                                     <td class="p-0">
-                                        <button class="btn btn-sm btn-success bpurchasing w-50"><i class="bi bi-pen"></i></button>
-                                        <button class="btn btn-sm btn-danger bpurchasing w-50">
+                                        <button class="btn btn-sm btn-success bpurchasing w-50" (click)="openEditItem(data)">
+                                            <i class="bi bi-pen"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger bpurchasing w-50" (click)="confirmDelete(data.id)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
@@ -77,6 +79,10 @@
 
 <!-- add and edit item modal components -->
 
-<app-add-purchasing-item #addPurchasingItemComponentReference></app-add-purchasing-item>
+<app-add-purchasing-item #addPurchasingItemComponentReference (saveItemEvent)="createPurchasingItem($event)"></app-add-purchasing-item>
 
-<app-edit-purchasing-item #editPurchasingItemComponentReference></app-edit-purchasing-item>
+<app-edit-purchasing-item #editPurchasingItemComponentReference (saveItemEvent)="updatePurchasingItem($event)"></app-edit-purchasing-item>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deletePurchasingItem()"></app-delete-modal-two>

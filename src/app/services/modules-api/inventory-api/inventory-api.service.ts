@@ -165,12 +165,14 @@ export class InventoryApiService {
 
   getPurchasingList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.purchasingRef.ref
-      .where("branch.id", "==", localStorage.getItem("selected_branch"))
-      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
       .get();
   }
 
-  // supplier
+  // purchasing item
 
   createPurchasingItem(data: any){
     return this.purchasingItemRef.add(data);
@@ -189,7 +191,9 @@ export class InventoryApiService {
   }
 
   getPurchasingItemList(){
-    return this.purchasingItemRef.ref.get();
+    return this.purchasingItemRef.ref
+    .where("purchasing", "==", sessionStorage.getItem("inventory_purchasing_id"))
+    .get();
   }
 
 }

@@ -15,7 +15,7 @@
 
                 <!-- item purchasing component -->
 
-                <app-purchasing-item-form #purchasingItemFormComponentReference></app-purchasing-item-form>
+                <app-purchasing-item-form #purchasingItemFormComponentReference (openItemWindow)="openItemWindow()"></app-purchasing-item-form>
 
             </div>
 
@@ -28,3 +28,6 @@
     </div>
 </div>
 
+<!-- select product window -->
+
+<app-select-stock-item #selectStockItemComponentReference (rowSelected)="onItemSelected($event)" [closeTarget]="'#editItemModal'"></app-select-stock-item>

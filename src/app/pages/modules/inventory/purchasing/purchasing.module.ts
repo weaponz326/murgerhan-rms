@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { PurchasingRoutingModule } from './purchasing-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { InventoryWindowsModule } from 'src/app/components/select-windows/inventory-windows/inventory-windows.module';
 
 import { PurchasingPage } from './purchasing.page';
 import { AllPurchasingComponent } from './all-purchasing/all-purchasing.component';
@@ -33,6 +34,7 @@ import { PurchasingItemFormComponent } from './purchasing-item-form/purchasing-i
     ReactiveFormsModule,
     PurchasingRoutingModule,
     ModuleUtilitiesModule,
+    InventoryWindowsModule
   ]
 })
 export class PurchasingModule { }

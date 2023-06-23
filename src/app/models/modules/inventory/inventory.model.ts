@@ -87,8 +87,17 @@ export class Purchasing {
     purchasing_code!: string;
     purchasing_date!: any;
     purchasing_status!: string;
-    delivery_date!: any;
     total_price!: number;
+    date_received!: any;
+    comments!: string;
+    received_by!: {
+        id: string;
+        data: {
+            staff_code: string;
+            full_name: string;
+            staff_role: string;
+        }
+    };
     supplier!: {
         id: string;
         data: {

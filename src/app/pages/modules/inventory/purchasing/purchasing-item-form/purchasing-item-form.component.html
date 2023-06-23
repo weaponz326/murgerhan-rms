@@ -5,7 +5,7 @@
             <label class="float-md-end float-sm-start mt-1">Item No. :</label>
         </div>
         <div class="col-md-8">
-            <input type="number" min="1" formControlName="itemNumber" class="form-control form-control-sm w-100">
+            <input formControlName="itemNumber" type="number" min="1" class="form-control form-control-sm w-100">
         </div>
     </div>
 
@@ -15,8 +15,8 @@
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="itmeCode" class="form-control">
-                <button type="button" class="btn btn-secondary">
+                <input formControlName="itemCode" class="form-control">
+                <button type="button" class="btn btn-secondary" (click)="openItemWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
@@ -30,7 +30,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="itemName" class="form-control">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" (click)="openItemWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>

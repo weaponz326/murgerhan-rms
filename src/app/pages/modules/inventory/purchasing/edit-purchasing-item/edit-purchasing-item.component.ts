@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { PurchasingItem } from 'src/app/models/modules/inventory/inventory.model';
 
 import { PurchasingItemFormComponent } from '../purchasing-item-form/purchasing-item-form.component';
+import { SelectStockItemComponent } from 'src/app/components/select-windows/inventory-windows/select-stock-item/select-stock-item.component';
 
 
 @Component({
@@ -18,14 +19,14 @@ export class EditPurchasingItemComponent {
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('purchasingItemFormComponentReference', { read: PurchasingItemFormComponent, static: false }) purchasingItemForm!: PurchasingItemFormComponent;
+  @ViewChild('selectStockItemComponentReference', { read: SelectStockItemComponent, static: false }) selectItem!: SelectStockItemComponent;
 
   purchasingItemData: any;
-  selectedProductData: any;
+
+  selectedItemId: any;
+  selectedItemData: any;
 
   isItemSaving = false;
-
-  ngOnInit(): void {
-  }
 
   openModal(data: any){
     this.purchasingItemData = data;
@@ -42,11 +43,11 @@ export class EditPurchasingItemComponent {
       purchasing: sessionStorage.getItem('inventory_purchasing_id') as string,
       quantity: this.purchasingItemForm.purchasingItemForm.controls.quantity.value as number,
       stock_item: {
-        id: this.selectedProductData.id,
+        id: this.selectedItemData.id,
         data: {
-          item_code: this.selectedProductData.data.product_code,
-          item_name: this.selectedProductData.data.product_name,
-          unit_price: this.selectedProductData.data.price,
+          item_code: this.selectedItemData.item_code,
+          item_name: this.selectedItemData.item_name,
+          unit_price: this.selectedItemData.unit_price,
         }
       },
     }
@@ -60,12 +61,31 @@ export class EditPurchasingItemComponent {
   }
 
   setPurchasingItemData(data: any){
-    this.purchasingItemForm.purchasingItemForm.controls.itemNumber.setValue(data.item_number);
-    this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(data.product?.product_code);
-    this.purchasingItemForm.purchasingItemForm.controls.itemName.setValue(data.product?.product_name);
-    this.purchasingItemForm.purchasingItemForm.controls.unitPrice.setValue(data.product.price);
-    this.purchasingItemForm.purchasingItemForm.controls.quantity.setValue(data.quantity);
-    this.selectedProductData = data.product;
+    this.purchasingItemForm.purchasingItemForm.controls.itemNumber.setValue(data.data().item_number);
+    this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(data.data().stock_item?.data.item_code);
+    this.purchasingItemForm.purchasingItemForm.controls.itemName.setValue(data.data().stock_item?.data.item_name);
+    this.purchasingItemForm.purchasingItemForm.controls.unitPrice.setValue(data.data().stock_item?.data.unit_price);
+    this.purchasingItemForm.purchasingItemForm.controls.quantity.setValue(data.data().quantity);
+    
+    this.selectedItemId = data.data().stock_item.id;
+    this.selectedItemData = data.data().stock_item.data;
+  }
+
+  openItemWindow(){
+    console.log("You are opening select item window")
+    this.selectItem.openModal();
+  }
+
+  onItemSelected(itemData: any){
+    console.log(itemData);
+
+    this.selectedItemData = itemData;
+    this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(itemData.data().item_code);
+    this.purchasingItemForm.purchasingItemForm.controls.itemName.setValue(itemData.data().item_name);
+    this.purchasingItemForm.purchasingItemForm.controls.unitPrice.setValue(itemData.data().unit_price);
+
+    this.selectedItemId = itemData.id;
+    this.selectedItemData = itemData.data();
   }
   
 }

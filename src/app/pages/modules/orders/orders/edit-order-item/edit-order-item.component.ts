@@ -64,7 +64,6 @@ export class EditOrderItemComponent {
   }
 
   setOrderItemData(data: any){
-    console.log(data.data())
     this.orderItemForm.orderItemForm.controls.itemNumber.setValue(data.data().item_number);
     this.orderItemForm.orderItemForm.controls.productCode.setValue(data.data().product?.data.product_code);
     this.orderItemForm.orderItemForm.controls.productName.setValue(data.data().product?.data.product_name);
