@@ -45,7 +45,7 @@ export class AllShiftsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.rosterShiftListData = res;
+          this.rosterShiftListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {

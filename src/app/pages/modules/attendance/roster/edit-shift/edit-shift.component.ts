@@ -54,9 +54,9 @@ export class EditShiftComponent {
   }
 
   setRosterShiftData(data: any){
-    this.rosterShiftForm.controls.shiftName.setValue(data.shift_name);
-    this.rosterShiftForm.controls.startTime.setValue(data.start_time);
-    this.rosterShiftForm.controls.endTime.setValue(data.end_time);
+    this.rosterShiftForm.controls.shiftName.setValue(data.data().shift_name);
+    this.rosterShiftForm.controls.startTime.setValue(data.data().start_time);
+    this.rosterShiftForm.controls.endTime.setValue(data.data().end_time);
   }
   
 }

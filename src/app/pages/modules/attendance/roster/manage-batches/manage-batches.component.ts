@@ -41,8 +41,8 @@ export class ManageBatchesComponent {
   isItemDeleting = false;
 
   rosterForm = new FormGroup({
-    rosterCode: new FormControl(''),
-    rosterName: new FormControl(''),
+    rosterCode: new FormControl({value: '', disabled: true}),
+    rosterName: new FormControl({value: '', disabled: true}),
   })
   
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class ManageBatchesComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.rosterBatchListData = res;
+          this.rosterBatchListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {

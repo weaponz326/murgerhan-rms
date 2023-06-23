@@ -25,7 +25,7 @@ export class NewRosterComponent {
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingRoster = false;
 
@@ -69,6 +69,8 @@ export class NewRosterComponent {
           sessionStorage.setItem('attendance_roster_id', res.id);
           this.router.navigateByUrl("/modules/attendance/roster/view-roster");
         }
+
+        this.dismissButton.nativeElement.click();
         this.isSavingRoster = false;
       })
       .catch((err: any) => {

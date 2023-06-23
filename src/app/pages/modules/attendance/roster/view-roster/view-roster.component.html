@@ -35,14 +35,14 @@
                             <div class="row mb-1">
                                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
                                 <div class="col-md-8">
-                                    <input type="datetime-local" formControlName="fromDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
         
                             <div class="row mb-1">
                                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
                                 <div class="col-md-8">
-                                    <input type="datetime-local" formControlName="toDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
                             
@@ -121,3 +121,7 @@
         </div>
     </div>
 </div>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteRoster()"></app-delete-modal-one>

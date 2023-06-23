@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { RosterRoutingModule } from './roster-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { UsersWindowsModule } from 'src/app/components/select-windows/users-windows/users-windows.module';
+import { AttendanceWindowsModule } from 'src/app/components/select-windows/attendance-windows/attendance-windows.module';
 
 import { RosterPage } from './roster.page';
 import { AllRosterComponent } from './all-roster/all-roster.component';
@@ -19,6 +21,7 @@ import { EditPersonnelComponent } from './edit-personnel/edit-personnel.componen
 import { ManageBatchesComponent } from './manage-batches/manage-batches.component';
 import { AddBatchComponent } from './add-batch/add-batch.component';
 import { EditBatchComponent } from './edit-batch/edit-batch.component';
+import { PersonnelFormComponent } from './personnel-form/personnel-form.component';
 
 
 @NgModule({
@@ -36,13 +39,16 @@ import { EditBatchComponent } from './edit-batch/edit-batch.component';
     EditPersonnelComponent,
     ManageBatchesComponent,
     AddBatchComponent,
-    EditBatchComponent
+    EditBatchComponent,
+    PersonnelFormComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RosterRoutingModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
+    UsersWindowsModule,
+    AttendanceWindowsModule
   ]
 })
 export class RosterModule { }

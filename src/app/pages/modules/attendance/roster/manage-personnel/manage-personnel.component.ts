@@ -45,7 +45,7 @@ export class ManagePersonnelComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.rosterPersonnelListData = res;
+          this.rosterPersonnelListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {

@@ -15,53 +15,23 @@
 
                 <!-- personnel form component -->
 
-                <form [formGroup]="rosterPersonnelForm">
-
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">User ID :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="staffCode" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">User Name :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="fullName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="batchSymbol" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                </form>                
-
+                <app-personnel-form #personnelFormComponentReference (openUserRoleWindow)="openUserRoleWindow()" (openBatchWindow)="openBatchWindow()"></app-personnel-form>
+          
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-sm btn-success form-contorl-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
-                <button type="button" class="btn btn-sm btn-warning form-contorl-btn" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
+                <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<!-- select batch window -->
+
+<app-select-batch #selectBatchComponentReference (rowSelected)="onBatchSelected($event)" [closeTarget]="'#addPersonnelModal'"></app-select-batch>
+
+<!-- select userrole window -->
+
+<app-select-user-role #selectUserRoleComponentReference (rowSelected)="onUserRoleSelected($event)" [closeTarget]="'#addPersonnelModal'"></app-select-user-role>

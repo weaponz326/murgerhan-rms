@@ -38,8 +38,9 @@ export class RosterPersonnel {
     personnel!: {
         id: string;
         data: {
-            staff_id: string;
+            staff_code: string;
             full_name: string;
+            staff_role: string;
         };
     };
     batch!:{

@@ -13,12 +13,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of rosterShiftListData">
-            <td>{{data?.shift_name}}</td>
-            <td>{{data?.start_time}}</td>
-            <td>{{data?.end_time}}</td>
+            <td>{{data?.data().shift_name}}</td>
+            <td>{{data?.data().start_time}}</td>
+            <td>{{data?.data().end_time}}</td>
             <td class="p-0">
-                <button class="btn btn-sm border w-50"><i class="bi bi-pen"></i></button>
-                <button class="btn btn-sm border w-50"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
+                    <i class="bi bi-pen"></i>
+                </button>
+                <button class="btn btn-sm btn-danger border w-50" (click)="confirmDelete(data.id)">
+                    <i class="bi bi-trash"></i>
+                </button>
             </td>
         </tr>
     </tbody>
@@ -26,9 +30,9 @@
 
 <!-- add and edit shift modal components -->
 
-<app-add-shift #addShiftComponentReference></app-add-shift>
+<app-add-shift #addShiftComponentReference (saveItemEvent)="createRosterShift($event)"></app-add-shift>
 
-<app-edit-shift #editShiftComponentReference></app-edit-shift>
+<app-edit-shift #editShiftComponentReference (saveItemEvent)="updateRosterShift($event)"></app-edit-shift>
 
 <!-- delete confirmation modal component -->
 

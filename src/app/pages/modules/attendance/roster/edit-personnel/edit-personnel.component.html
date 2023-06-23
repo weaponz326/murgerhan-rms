@@ -1,13 +1,13 @@
-<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editPersonnelModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="addPersonnelModal" tabindex="-1" aria-labelledby="addPersonnelModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="editPersonnelModal" tabindex="-1" aria-labelledby="editPersonnelModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="addPersonnelModalLabel">Edit Personnel</span>
+                <span class="modal-title" id="editPersonnelModalLabel">Edit Personnel</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -15,46 +15,8 @@
 
                 <!-- personnel form component -->
 
-                <form [formGroup]="rosterPersonnelForm">
-
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">User ID :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="staffCode" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">User Name :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="fullName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch :</label></div>
-                        <div class="col-md-8">
-                            <div class="input-group input-group-sm w-100">
-                                <input formControlName="batchSymbol" class="form-control">
-                                <button type="button" class="btn btn-secondary">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                
-                </form>
-
+                <app-personnel-form #personnelFormComponentReference (openUserRoleWindow)="openUserRoleWindow()" (openBatchWindow)="openBatchWindow()"></app-personnel-form>
+          
             </div>
 
             <div class="modal-footer">
@@ -65,3 +27,11 @@
         </div>
     </div>
 </div>
+
+<!-- select batch window -->
+
+<app-select-batch #selectBatchComponentReference (rowSelected)="onBatchSelected($event)" [closeTarget]="'#editPersonnelModal'"></app-select-batch>
+
+<!-- select userrole window -->
+
+<app-select-user-role #selectUserRoleComponentReference (rowSelected)="onUserRoleSelected($event)" [closeTarget]="'#editPersonnelModal'"></app-select-user-role>

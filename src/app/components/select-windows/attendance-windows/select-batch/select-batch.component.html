@@ -12,7 +12,7 @@
             </div>
 
             <div class="modal-body overflow-auto">
-                <table class="table table-bordered table-sm w-100 page-table">
+                <table class="table table-hover table-bordered table-sm w-100 page-table">
                     <thead>
                         <tr class="bg-light">
                             <th class="min-width-3">Batch Name</th>
@@ -21,8 +21,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of rosterBatchListData" (dblclick)="selectRow(data)">
-                            <td>{{data?.batch_name}}</td>
-                            <td>{{data?.batch_symbol}}</td>
+                            <td>{{data.data()?.batch_name}}</td>
+                            <td>{{data.data()?.batch_symbol}}</td>
                         </tr>
                     </tbody>
                 </table>                                       

@@ -70,11 +70,15 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of rosterBatchListData">
-                                        <td>{{data?.batch_name}}</td>
-                                        <td>{{data?.batch_symbol}}</td>
+                                        <td>{{data?.data().batch_name}}</td>
+                                        <td>{{data?.data().batch_symbol}}</td>
                                         <td class="p-0">
-                                            <button class="btn btn-sm border btn-success w-50"><i class="bi bi-pen"></i></button>
-                                            <button class="btn btn-sm border btn-danger w-50"><i class="bi bi-trash"></i></button>
+                                            <button class="btn btn-sm border btn-success w-50" (click)="openEditItem(data)">
+                                                <i class="bi bi-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm border btn-danger w-50" (click)="confirmDelete(data.id)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -95,6 +99,7 @@
                 <p class="lead">Roster Personnel</p>                                
 
                 <!-- manage personnel component -->
+
                 <app-manage-personnel></app-manage-personnel>
 
             </div>
@@ -104,5 +109,11 @@
 </div>
 
 <!-- add and edit batch modal components -->
-<app-add-batch #addBatchComponentReference></app-add-batch>
-<app-edit-batch #editBatchComponentReference></app-edit-batch>
+
+<app-add-batch #addBatchComponentReference (saveItemEvent)="createRosterBatch($event)"></app-add-batch>
+
+<app-edit-batch #editBatchComponentReference (saveItemEvent)="updateRosterBatch($event)"></app-edit-batch>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteRosterBatch()"></app-delete-modal-one>

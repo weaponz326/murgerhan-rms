@@ -36,9 +36,11 @@ export class AttendanceApiService {
 
   getRosterList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.rosterRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at")
+      .startAt((defaultPageSize * currentPageNumber) + 1)
+      .limit(defaultPageSize)
+      .get();
   }
  
   // roster shift
@@ -60,7 +62,9 @@ export class AttendanceApiService {
   }
 
   getRosterShiftList(){
-    return this.rosterShiftRef.ref.get();
+    return this.rosterShiftRef.ref
+      .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .get();
   }
  
   // roster batch
@@ -82,7 +86,9 @@ export class AttendanceApiService {
   }
 
   getRosterBatchList(){
-    return this.rosterBatchRef.ref.get();
+    return this.rosterBatchRef.ref
+      .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .get();
   }
 
   // roster personnel
@@ -104,7 +110,9 @@ export class AttendanceApiService {
   }
 
   getRosterPersonnelList(){
-    return this.rosterPersonnelRef.ref.get();
+    return this.rosterPersonnelRef.ref
+      .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .get();
   }
 
   // attendance

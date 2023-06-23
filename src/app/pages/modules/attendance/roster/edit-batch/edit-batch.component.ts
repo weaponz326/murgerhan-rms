@@ -18,7 +18,6 @@ export class EditBatchComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   rosterShiftData: any;
-  selectedUnitData: any;
 
   isItemSaving = false;
 
@@ -52,8 +51,8 @@ export class EditBatchComponent {
   }
 
   setRosterShiftData(data: any){
-    this.rosterBatchForm.controls.batchName.setValue(data.batch_name);
-    this.rosterBatchForm.controls.batchSymbol.setValue(data.batch_symbol);
+    this.rosterBatchForm.controls.batchName.setValue(data.data().batch_name);
+    this.rosterBatchForm.controls.batchSymbol.setValue(data.data().batch_symbol);
   }
 
 }
