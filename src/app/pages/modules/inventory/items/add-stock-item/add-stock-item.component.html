@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
                 
-                <app-stock-item-form></app-stock-item-form>                
+                <app-stock-item-form #stockItemFormComponentReference (openCategoryWindow)="openItemCategoryWindow()"></app-stock-item-form>                
 
             </div>
 
@@ -27,3 +27,5 @@
         </div>
     </div>
 </div>
+
+<app-select-item-category #selectItemCategoryComponentReference (rowSelected)="onItemCategorySelected($event)" [closeTarget]="'#addInventoryModal'"></app-select-item-category>

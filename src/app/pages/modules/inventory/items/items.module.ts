@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ItemsRoutingModule } from './items-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { InventoryWindowsModule } from 'src/app/components/select-windows/inventory-windows/inventory-windows.module';
 
 import { ItemsPage } from './items.page';
 import { AllStockItemsComponent } from './all-stock-items/all-stock-items.component';
@@ -25,6 +26,7 @@ import { StockItemFormComponent } from './stock-item-form/stock-item-form.compon
     ReactiveFormsModule,
     ItemsRoutingModule,
     ModuleUtilitiesModule,
+    InventoryWindowsModule
   ]
 })
 export class ItemsModule { }

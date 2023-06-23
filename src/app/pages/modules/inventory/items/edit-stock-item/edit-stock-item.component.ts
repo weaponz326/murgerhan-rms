@@ -1,7 +1,11 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 import { serverTimestamp } from 'firebase/firestore';
+
 import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
+
+import { SelectItemCategoryComponent } from 'src/app/components/select-windows/inventory-windows/select-item-category/select-item-category.component';
+
 
 @Component({
   selector: 'app-edit-stock-item',
@@ -16,10 +20,14 @@ export class EditStockItemComponent {
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
+  @ViewChild('selectItemCategoryComponentReference', { read: SelectItemCategoryComponent, static: false }) selectItemCategory!: SelectItemCategoryComponent;
 
   stockItemData: any;
+  
+  selectedItemCategoryId: any;
   selectedItemCategoryData: any;
-  selectedBranchData: any;
+  
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isItemSaving = false;
   isItemDeleting = false;
@@ -49,10 +57,10 @@ export class EditStockItemComponent {
       manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
       expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
       item_category: {
-        id: this.selectedItemCategoryData.id,
+        id: this.selectedItemCategoryId,
         data: {
-          category_code: this.selectedItemCategoryData.data.category_code,
-          category_name: this.selectedItemCategoryData.data.category_name,
+          category_code: this.selectedItemCategoryData.category_code,
+          category_name: this.selectedItemCategoryData.category_name,
         }
       },
       branch: {
@@ -77,9 +85,9 @@ export class EditStockItemComponent {
   }
 
   setStockItemData(data: any){
-    this.stockItemForm.stockItemForm.controls.itemCode.setValue(data.item_number);
+    this.stockItemForm.stockItemForm.controls.itemCode.setValue(data.item_code);
     this.stockItemForm.stockItemForm.controls.itemName.setValue(data.item_name);
-    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(data.item_category);
+    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(data.item_category.data.category_name);
     this.stockItemForm.stockItemForm.controls.unitPrice.setValue(data.unit_price);
     this.stockItemForm.stockItemForm.controls.stock.setValue(data.stock);
     this.stockItemForm.stockItemForm.controls.refillOrdered.setValue(data.refill_ordered);
@@ -88,7 +96,24 @@ export class EditStockItemComponent {
     this.stockItemForm.stockItemForm.controls.batchNumber.setValue(data.batch_number);
     this.stockItemForm.stockItemForm.controls.manufacturingDate.setValue(data.manufacturing_date);
     this.stockItemForm.stockItemForm.controls.expiryDate.setValue(data.expiry_date);
-    this.selectedItemCategoryData = data.item_category;
+    
+    this.selectedItemCategoryId = data.item_category.id;
+    this.selectedItemCategoryData = data.item_category.data;
+  }
+
+  openItemCategoryWindow(){
+    console.log("You are opening select itemcategory window")
+    this.selectItemCategory.openModal();
+  }
+
+  onItemCategorySelected(categoryData: any){
+    console.log(categoryData);
+
+    this.selectedItemCategoryData = categoryData;
+    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(categoryData.data().category_name);
+
+    this.selectedItemCategoryId = categoryData.id;
+    this.selectedItemCategoryData = categoryData.data();
   }
 
 }

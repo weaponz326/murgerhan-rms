@@ -22,7 +22,7 @@ export class SelectStockItemComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  stockitemListData: any[] = [];
+  stockItemListData: any[] = [];
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -44,7 +44,7 @@ export class SelectStockItemComponent {
   }
 
   openModal(){
-    this.stockitemListData = [];
+    this.stockItemListData = [];
     this.getStockItemList();
     this.openButton.nativeElement.click();
   }
@@ -56,7 +56,7 @@ export class SelectStockItemComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.stockitemListData = res.docs;
+          this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
           this.currentPageSize = res.docs.length;

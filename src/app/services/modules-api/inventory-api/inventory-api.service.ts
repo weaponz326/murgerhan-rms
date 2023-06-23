@@ -38,8 +38,10 @@ export class InventoryApiService {
 
   getStockItemList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.stockItemRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
 
@@ -63,8 +65,10 @@ export class InventoryApiService {
 
   getItemCategoryList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
     return this.itemCategoryRef.ref
-    .where("branch.id", "==", localStorage.getItem("selected_branch"))
-    .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+    .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+    .orderBy("created_at")
+    .startAt((defaultPageSize * currentPageNumber) + 1)
+    .limit(defaultPageSize)
     .get();
   }
 
@@ -87,7 +91,9 @@ export class InventoryApiService {
   }
 
   getCategoryChecklistList(){
-    return this.categoryChecklistRef.ref.get();
+    return this.categoryChecklistRef.ref
+    .where("category", "==", sessionStorage.getItem("inventory_category_id"))
+    .get();
   }
 
   // supplier

@@ -56,8 +56,13 @@ export class AllStockItemsComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.stockItemListData = res;
+          this.stockItemListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
+          else
+            this.isDataAvailable = true
         },
         (err: any) => {
           console.log(err);
@@ -134,4 +139,9 @@ export class AllStockItemsComponent {
     this.deleteModal.openModal();
   }
   
+  changePage(page: any){
+    this.currentPageNumber = page;
+    this.getStockItemList();
+  }
+
 }

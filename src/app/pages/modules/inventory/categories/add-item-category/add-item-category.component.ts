@@ -24,7 +24,7 @@ export class AddItemCategoryComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('itemCategoryFormComponentReference', { read: ItemCategoryFormComponent, static: false }) categoryForm!: ItemCategoryFormComponent;
 
-  selectedBranchData: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingCategory = false;
 
@@ -41,7 +41,7 @@ export class AddItemCategoryComponent {
         id: this.selectedBranchData.id,
         data: {
           branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
+          location: this.selectedBranchData.data.location
         }
       }
     }
@@ -53,8 +53,8 @@ export class AddItemCategoryComponent {
         console.log(res);
 
         if(res.id){
-          sessionStorage.setItem('inventory_itemcategory_id', res.id);
-          this.router.navigateByUrl("/modules/inventory/category/edit-category");
+          sessionStorage.setItem('inventory_category_id', res.id);
+          this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
         }
         this.isSavingCategory = false;
       })

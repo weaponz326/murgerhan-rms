@@ -54,6 +54,9 @@ export class AllItemCategoriesComponent {
           console.log(res);
           this.itemcategoryListData = res.docs;
           this.isFetchingData = false;
+
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
         },
         (err: any) => {
           console.log(err);
@@ -67,7 +70,7 @@ export class AllItemCategoriesComponent {
     console.log(itemCategoryId);
 
     sessionStorage.setItem("inventory_category_id", itemCategoryId);
-    this.router.navigateByUrl("/modules/inventory/category/edit-category");
+    this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
   }
 
   changePage(page: any){

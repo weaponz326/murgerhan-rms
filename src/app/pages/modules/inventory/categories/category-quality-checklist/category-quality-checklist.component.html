@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col">
-        <table class="table w-100 page-table">
+        <table class="table table-hover w-100 page-table">
             <thead>
                 <tr class="bg-light">
                     <td>Item No.</td>
@@ -14,9 +14,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of checklistListData">
-                    <td>{{data?.item_number}}</td>
-                    <td>{{data?.description}}</td>
+                <tr *ngFor="let data of checklistListData" (dblclick)="openEditItem(data)">
+                    <td>{{data?.data().item_number}}</td>
+                    <td>{{data?.data().description}}</td>
                 </tr>
             </tbody>
         </table>

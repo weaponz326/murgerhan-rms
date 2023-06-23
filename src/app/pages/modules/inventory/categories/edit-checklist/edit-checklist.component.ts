@@ -57,8 +57,8 @@ export class EditChecklistComponent {
   }
   
   setChecklistData(data: any){
-    this.checklistForm.controls.itemNumber.setValue(data.item_number);
-    this.checklistForm.controls.description.setValue(data.description);
+    this.checklistForm.controls.itemNumber.setValue(data.data().item_number);
+    this.checklistForm.controls.description.setValue(data.data().description);
   }
   
 }

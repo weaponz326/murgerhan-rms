@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
+import { SelectItemCategoryComponent } from 'src/app/components/select-windows/inventory-windows/select-item-category/select-item-category.component';
 
 
 @Component({
@@ -18,11 +19,14 @@ export class AddStockItemComponent {
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
+  @ViewChild('selectItemCategoryComponentReference', { read: SelectItemCategoryComponent, static: false }) selectItemCategory!: SelectItemCategoryComponent;
 
   isItemSaving = false;
 
+  selectedItemCategoryId: any;
   selectedItemCategoryData: any;
-  selectedBranchData: any;
+  
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   openModal(){
     this.addButton.nativeElement.click();
@@ -43,10 +47,10 @@ export class AddStockItemComponent {
       manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
       expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
       item_category: {
-        id: this.selectedItemCategoryData.id,
+        id: this.selectedItemCategoryId,
         data: {
-          category_code: this.selectedItemCategoryData.data.category_code,
-          category_name: this.selectedItemCategoryData.data.category_name,
+          category_code: this.selectedItemCategoryData.category_code,
+          category_name: this.selectedItemCategoryData.category_name,
         }
       },
       branch: {
@@ -76,4 +80,19 @@ export class AddStockItemComponent {
     this.selectedItemCategoryData = null;
   }
 
+  openItemCategoryWindow(){
+    console.log("You are opening select itemcategory window")
+    this.selectItemCategory.openModal();
+  }
+
+  onItemCategorySelected(categoryData: any){
+    console.log(categoryData);
+
+    this.selectedItemCategoryData = categoryData;
+    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(categoryData.data().category_name);
+
+    this.selectedItemCategoryId = categoryData.id;
+    this.selectedItemCategoryData = categoryData.data();
+  }
+  
 }

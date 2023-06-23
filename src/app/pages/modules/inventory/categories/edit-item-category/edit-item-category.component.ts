@@ -24,8 +24,9 @@ export class EditItemCategoryComponent {
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   itemcategoryData: any;
-  selectedBranchData: any;
 
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+  
   isFetchingData = false;
   isSavingCategory = false;
   isDeletingCategory = false;
@@ -67,7 +68,7 @@ export class EditItemCategoryComponent {
         id: this.selectedBranchData.id,
         data: {
           branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
+          location: this.selectedBranchData.data.location
         }
       }
     }
@@ -92,7 +93,7 @@ export class EditItemCategoryComponent {
     this.inventoryApi.deleteItemCategory(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/inventory/categories/all-categories')
+        this.router.navigateByUrl('modules/inventory/categories/all-item-categories')
         this.isDeletingCategory = false;
       })
       .catch((err) => {

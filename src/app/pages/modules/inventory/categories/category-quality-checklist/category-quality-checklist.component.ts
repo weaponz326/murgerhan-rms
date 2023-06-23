@@ -41,9 +41,9 @@ export class CategoryQualityChecklistComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.checklistListData = res;
+          this.checklistListData = res.docs;
 
-          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
 
           this.isFetchingData = false;

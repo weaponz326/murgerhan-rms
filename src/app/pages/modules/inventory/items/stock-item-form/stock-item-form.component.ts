@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -9,10 +9,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class StockItemFormComponent {
 
+  @Output() openCategoryWindow = new EventEmitter<any>();
+
   stockItemForm = new FormGroup({
     itemCode: new FormControl(),
     itemName: new FormControl(''),
-    itemCategory: new FormControl(''),
+    itemCategory: new FormControl({value: '', disabled: true}),
     unitPrice: new FormControl(0.00),
     stock: new FormControl(0),
     refillOrdered: new FormControl(0),
