@@ -1,0 +1,111 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/housekeeping/tasks/all-tasks">All Tasks</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/housekeeping/tasks/view-task">View Task</a>
+    </li>
+    <li class="breadcrumb-item active">Inspect Task</li>
+</ol>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Task Details</p>
+                                                
+                <form [formGroup]="taskForm">
+
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task ID :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="taskCode" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="taskName" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm w-100">
+                                        <input formControlName="primaryAssignee" class="form-control">
+                                        <button type="button" class="btn btn-secondary">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Type :</label></div>
+                                <div class="col-md-8">
+                                    <select formControlName="taskType" class="form-control form-control-sm w-100">
+                                        <option value="Chore">Chore</option>
+                                        <option value="Inspection">Inspection</option>
+                                        <option value="Drill">Drill</option>
+                                    </select>
+                                </div>
+                            </div>
+                                                    
+                        </div>                                                  
+                    </div>
+
+                </form>                  
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead">Task Inspection Checks</p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Task Description</th>
+                            <th scope="col">Unit Name</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Lorem Task Item 4</td>
+                            <td>kjnkxjncvx</td>
+                            <td><input type="checkbox" class="form-check-input"></td>
+                        </tr> 
+                        <tr>
+                            <td>2</td>
+                            <td>Lorem Ipsum Task Item 3</td>
+                            <td>ksudhkjsd fksndfsf</td>
+                            <td><input type="checkbox" class="form-check-input"></td>
+                        </tr> 
+                        <tr>
+                            <td>3</td>
+                            <td>Ipsum Task Item 7</td>
+                            <td>ksudhkjsd fksndfsf</td>
+                            <td><input type="checkbox" class="form-check-input"></td>
+                        </tr>                                                
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

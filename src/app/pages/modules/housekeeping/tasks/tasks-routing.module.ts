@@ -6,6 +6,8 @@ import { AllTasksComponent } from './all-tasks/all-tasks.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
 import { TaskItemsComponent } from './task-items/task-items.component';
+import { InspectTaskComponent } from './inspect-task/inspect-task.component';
+import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
 
 
 const routes: Routes = [
@@ -18,8 +20,8 @@ const routes: Routes = [
       { path: "new-task", component: NewTaskComponent },
       { path: "view-task", component: ViewTaskComponent },
       { path: "task-items", component: TaskItemsComponent },
-      // { path: "inspect_task", component: InspectTaskComponent },
-      // { path: "task-schedule", component: TaskScheduleComponent },
+      { path: "inspect-task", component: InspectTaskComponent },
+      { path: "task-schedule", component: TaskScheduleComponent },
     ]
   }
 ];

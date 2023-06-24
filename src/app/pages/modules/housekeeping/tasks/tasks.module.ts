@@ -15,6 +15,8 @@ import { AddTaskItemComponent } from './add-task-item/add-task-item.component';
 import { EditTaskItemComponent } from './edit-task-item/edit-task-item.component';
 import { TaskItemFormComponent } from './task-item-form/task-item-form.component';
 import { TaskItemsComponent } from './task-items/task-items.component';
+import { InspectTaskComponent } from './inspect-task/inspect-task.component';
+import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { TaskItemsComponent } from './task-items/task-items.component';
     AddTaskItemComponent,
     EditTaskItemComponent,
     TaskItemFormComponent,
-    TaskItemsComponent
+    TaskItemsComponent,
+    InspectTaskComponent,
+    TaskScheduleComponent
   ],
   imports: [
     CommonModule,
