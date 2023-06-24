@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Vendor } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 
 import { VendorFormComponent } from '../vendor-form/vendor-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,7 +20,8 @@ export class ViewVendorComponent {
 
   constructor(
     private router: Router,
-    private ordersApi: OrdersApiService
+    private ordersApi: OrdersApiService,
+    private ordersPrint: OrdersPrintService
   ) {}
 
   @ViewChild('vendorFormComponentReference', { read: VendorFormComponent, static: false }) vendorForm!: VendorFormComponent;
@@ -119,4 +121,9 @@ export class ViewVendorComponent {
     this.deleteModal.openModal();
   }
   
+  onPrint(){
+    console.log("lets start printing...");
+    this.ordersPrint.printVendor();
+  }
+
 }

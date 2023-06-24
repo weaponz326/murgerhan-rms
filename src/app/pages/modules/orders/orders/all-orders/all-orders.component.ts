@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 
 import { AddOrderComponent } from '../add-order/add-order.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -17,6 +18,7 @@ export class AllOrdersComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
+    private ordersPrint: OrdersPrintService
   ) { }
 
   @ViewChild('addOrderComponentReference', { read: AddOrderComponent, static: false }) addOrder!: AddOrderComponent;
@@ -78,6 +80,11 @@ export class AllOrdersComponent {
   changePage(page: any){
     this.currentPageNumber = page;
     this.getOrderList();
+  }
+
+  onPrint(){
+    console.log("lets start printing...");
+    this.ordersPrint.printOrderList();
   }
 
 }
