@@ -7,18 +7,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TableSortingComponent {
 
+  @Input() sortField: string = ""; // TODO: remove
+  @Input() currentField: string = ""; // TODO: remove
+  
   @Input() fieldTitle: string = "";
-  @Input() sortField: string = "";
-  @Input() currentField: string = "";
-  @Output() sortDirection = new EventEmitter<string>();
+  @Input() thisColumn: string = "";
+  @Input() sortColumn: string = "";
+  @Input() sortDirection: string = "";
+  @Output() sortColumnChange = new EventEmitter<string>();
+  @Output() sortDirectionChange = new EventEmitter<string>();
+  @Output() sortData = new EventEmitter<string>();
 
-  ngOnInit(): void {
-  }
-
-  setSort(direction: any){
-    this.sortDirection.emit(direction);
-
-    console.log(this.currentField)
+  doSort(direction: string){
+    this.sortColumnChange.emit(this.thisColumn);
+    this.sortDirectionChange.emit(direction);
+    this.sortData.emit();
   }  
   
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -17,7 +18,8 @@ export class AllProductsComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService
+    private ordersPrint: OrdersPrintService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -27,19 +29,13 @@ export class AllProductsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['product_code', 'product_name', 'price'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 1;
+  totalPages = 0;
+  pageSize = 2;
 
   ngOnInit(): void {
     this.getProductList();
@@ -48,15 +44,19 @@ export class AllProductsComponent {
   getProductList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getProductList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getProductList()
       .then(
         (res: any) => {
           console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
+          this.aggregateData();
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +73,11 @@ export class AllProductsComponent {
     this.router.navigateByUrl("/modules/orders/products/view-product");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getProductList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.productListData = this.aggregateTable.filterData(this.productListData, this.filterText, this.tableColumns);
+    this.productListData = this.aggregateTable.sortData(this.productListData, this.sortColumn, this.sortDirection);
+    this.productListData = this.aggregateTable.paginateData(this.productListData, this.currentPage, this.pageSize);
   }
 
   onPrint(){

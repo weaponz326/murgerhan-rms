@@ -17,7 +17,7 @@ export class OrdersPrintService {
   // print all products
 
   async printProductList(){
-    const productListData: any = await this.ordersApi.getProductList(250, 1, {}, {});
+    const productListData: any = await this.ordersApi.getProductList();
 
     var body = [['Product ID', 'Product Name', 'Price']];
 

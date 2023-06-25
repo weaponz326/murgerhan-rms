@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 
 @Component({
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectProductComponent {
 
-  constructor(private ordersApi: OrdersApiService) { }
+  constructor(
+    private ordersApi: OrdersApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -52,7 +56,7 @@ export class SelectProductComponent {
   getProductList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getProductList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getProductList()
       .then(
         (res: any) => {
           console.log(res);
