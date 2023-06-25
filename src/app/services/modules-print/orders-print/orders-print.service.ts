@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { OrdersApiService } from '../../modules-api/orders-api/orders-api.service';
-import { PrintPdfService } from '../../print-pdf/print-pdf.service';
+import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
 
 
 @Injectable({

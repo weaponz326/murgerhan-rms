@@ -31,13 +31,11 @@ export class AllProductsComponent {
   currentPageNumber = 0;
   defaultPageSize = 25;
   sorting = {
-    created_at: "desc",
     log_code: "",
     user: "",
     activity: ""
   };
   querying = {
-    created_at: "",
     log_code: "",
     user: "",
     activity: ""

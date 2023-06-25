@@ -48,7 +48,7 @@
                                     <td>{{data?.data().order_code}}</td>
                                     <td>{{data?.data().order_date}}</td>
                                     <td>{{data?.data().vendor?.data.vendor_name}}</td>
-                                    <td>{{data?.data().total_price}}</td>
+                                    <td>{{data?.data().total_price | currency}}</td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
                                     <td colspan="4">

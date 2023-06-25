@@ -36,15 +36,40 @@ export class OrdersApiService {
     return this.productRef.doc(id).ref.get();
   }
 
-  getProductList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
-    return this.productRef.ref
-      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
-      .get();
-  }
+  // getProductList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  //   return this.productRef.ref
+  //     .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+  //     .orderBy("created_at", "desc")
+  //     .startAt((defaultPageSize * currentPageNumber) + 1)
+  //     .limit(defaultPageSize)
+  //     .get();
+  // }
  
+  getProductList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any) {
+    let query = this.productRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc");
+  
+    // if (sorting) {
+    //   Object.keys(sorting).forEach((field) => {
+    //     query = query.orderBy(field, sorting[field]);
+    //   });
+    // }
+  
+    // // Querying
+    // if (querying) {
+    //   Object.keys(querying).forEach((field) => {
+    //     query = query.where(field, "==", querying[field]);
+    //   });
+    // }
+  
+    // query = query.startAfter(defaultPageSize * currentPageNumber)
+    query = query.endBefore(0)
+      .limit(defaultPageSize);
+  
+    return query.get();
+  }
+  
   // order
 
   createOrder(data: any){

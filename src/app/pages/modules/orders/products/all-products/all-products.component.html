@@ -44,7 +44,7 @@
                                 <tr *ngFor="let data of productListData" (dblclick)="viewProduct(data?.id)">
                                     <td>{{data?.data().product_code}}</td>
                                     <td>{{data?.data().product_name}}</td>
-                                    <td>{{data?.data().price}}</td>
+                                    <td>{{data?.data().price | currency}}</td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
                                     <td colspan="3">

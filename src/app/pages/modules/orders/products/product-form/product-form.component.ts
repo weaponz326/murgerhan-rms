@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
+import { FormatCurrencyService } from 'src/app/services/module-utilities/format-currency/format-currency.service';
+
 
 @Component({
   selector: 'app-product-form',
@@ -8,6 +10,10 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent {
+
+  constructor(
+    private formatCurrency: FormatCurrencyService
+  ) { }
 
   productForm = new FormGroup({
     productCode: new FormControl(''),
