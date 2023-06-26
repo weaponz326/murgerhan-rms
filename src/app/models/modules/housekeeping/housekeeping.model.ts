@@ -70,6 +70,7 @@ export class TaskItem {
     updated_at!: any;
     item_number!: number;
     task_description!: string;
+    item_status!: boolean;
     task!: string;
     unit!: {
         id: string;
@@ -78,4 +79,11 @@ export class TaskItem {
             unit_name: string;
         }
     };
+}
+
+export class TaskImage {
+    created_at!: any;
+    updated_at!: any;
+    task!: string;
+    url!: string;
 }

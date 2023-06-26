@@ -19,7 +19,7 @@
 
         <input #imageInput [hidden]="true" type="file" requiredFileType="image" class="d-none" (change)="onFileSelected($event) "/>
 
-        <div class="card border rounded mx-auto my-4 img-pointer" [style.width.px]="200" [style.height.px]="250"  (click)="imageInput.click()">
+        <div class="card border rounded mx-auto my-4 img-pointer" [style.width.px]="200" [style.height.px]="250" (click)="imageInput.click()">
             <div class="card-img-top">
                 <img class="border rounded" [src]="imageUrl" [width]="200" [height]="250" />
             </div>

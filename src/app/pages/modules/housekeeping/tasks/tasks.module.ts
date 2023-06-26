@@ -17,6 +17,7 @@ import { TaskItemFormComponent } from './task-item-form/task-item-form.component
 import { TaskItemsComponent } from './task-items/task-items.component';
 import { InspectTaskComponent } from './inspect-task/inspect-task.component';
 import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
+import { TaskImagesComponent } from './task-images/task-images.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
     TaskItemFormComponent,
     TaskItemsComponent,
     InspectTaskComponent,
-    TaskScheduleComponent
+    TaskScheduleComponent,
+    TaskImagesComponent
   ],
   imports: [
     CommonModule,

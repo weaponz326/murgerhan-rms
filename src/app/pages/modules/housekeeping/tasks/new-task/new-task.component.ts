@@ -42,8 +42,8 @@ export class NewTaskComponent {
     toDate: new FormControl(),
     taskStatus: new FormControl(''),
     description: new FormControl(''),
-    occurance: new FormControl(''),
-    frequency: new FormControl(''),
+    occurance: new FormControl('Non-Recurring'),
+    frequency: new FormControl({value: '', disabled: true}),
   })
 
   openModal(){
@@ -113,6 +113,18 @@ export class NewTaskComponent {
     this.selectedUserRoleId = userRoleData.id;
     this.selectedUserRoleData = userRoleData.data();
     this.taskForm.controls.primaryAssignee.setValue(userRoleData.data().full_name);
+  }
+
+  enableFrequencyInput(e: any){
+    console.log(e.target.value)
+    if(e.target.value == 'Non-Recurring'){
+      this.taskForm.controls.frequency.disable();
+      this.taskForm.controls.frequency.setValue('');
+    }
+    else{
+      this.taskForm.controls.frequency.enable();
+      this.taskForm.controls.frequency.setValue('Daily');
+    }
   }
 
 }

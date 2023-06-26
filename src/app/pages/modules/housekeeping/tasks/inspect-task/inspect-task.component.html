@@ -68,7 +68,7 @@
 </div>
 
 <div class="row mb-4">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <div class="card shadow-sm">
             <div class="card-body">
 
@@ -84,26 +84,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Lorem Task Item 4</td>
-                            <td>kjnkxjncvx</td>
-                            <td><input type="checkbox" class="form-check-input"></td>
-                        </tr> 
-                        <tr>
-                            <td>2</td>
-                            <td>Lorem Ipsum Task Item 3</td>
-                            <td>ksudhkjsd fksndfsf</td>
-                            <td><input type="checkbox" class="form-check-input"></td>
-                        </tr> 
-                        <tr>
-                            <td>3</td>
-                            <td>Ipsum Task Item 7</td>
-                            <td>ksudhkjsd fksndfsf</td>
-                            <td><input type="checkbox" class="form-check-input"></td>
-                        </tr>                                                
+                        <tr *ngFor="let data of taskItemListData">
+                            <td>{{data?.data().item_number}}</td>
+                            <td>{{data?.data().task_description}}</td>
+                            <td>{{data?.data().unit?.data?.unit_name}}</td>
+                            <td><input [checked]="data?.data().item_status" type="checkbox" class="form-check-input" (change)="updateTaskItem($event, data.id)" [disabled]="isItemSaving"></td>
+                        </tr>      
                     </tbody>
                 </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <p class="lead mb-4">Inspection Pictures</p>
+
+                <div class="row mb-4 text-center">
+                    <div *ngFor="let data of taskImageListData.slice(0,4)" class="col-md-6 mb-4">
+                        <img class="image-thumbnail border" [src]="data?.data().url" style="width: 120px; height: 100px;"/>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col">
+                        <button class="btn btn-light bordered" routerLink="/modules/housekeeping/tasks/task-images">
+                            View All Pictures
+                            <i class="bi bi-arrow-right ms-3"></i>
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -38,6 +38,7 @@ export class AddTaskItemComponent {
       item_number: this.taskItemForm.taskItemForm.controls.itemNumber.value as number,
       task: sessionStorage.getItem('housekeeping_task_id') as string,
       task_description: this.taskItemForm.taskItemForm.controls.taskDescription.value as string,
+      item_status: false,
       unit: {
         id: this.selectedUnitId,
         data: {

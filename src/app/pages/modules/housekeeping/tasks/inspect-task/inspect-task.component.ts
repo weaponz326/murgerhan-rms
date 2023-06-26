@@ -7,8 +7,6 @@ import { Task } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
-import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
 
 
 @Component({
@@ -26,8 +24,12 @@ export class InspectTaskComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   taskData: any;
+  taskItemListData: any[] = [];
+  taskImageListData: any[] = [];
 
-  isFetchingData = false;
+  isFetchingData: boolean =  false;
+  isDataAvailable: boolean =  true;
+  isItemSaving: boolean =  false;
 
   taskForm = new FormGroup({
     taskCode: new FormControl({value: '', disabled: true}),
@@ -38,6 +40,8 @@ export class InspectTaskComponent {
   
   ngOnInit(): void {
     this.getTask();
+    this.getTaskItemList();
+    this.getTaskImageList();
   }
 
   getTask() {
@@ -58,6 +62,56 @@ export class InspectTaskComponent {
       };
   }
 
+  getTaskItemList(){
+    this.isFetchingData = true;
+
+    this.housekeepingApi.getTaskItemList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          this.taskItemListData = res.docs;
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
+  updateTaskItem(event: any, itemId: any) {
+    this.isItemSaving = true;
+
+    let data = { item_status: event.target.checked };
+    
+    this.housekeepingApi.updateTaskItem(itemId, data)
+      .then((res) => {
+        console.log(res);
+        this.isItemSaving = false;
+        this.getTaskItemList();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isItemSaving = false;
+      });
+  }
+
+  getTaskImageList(){
+    this.housekeepingApi.getTaskImageList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          this.taskImageListData = res.docs;
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+
   setTaskData(){
     this.taskForm.controls.taskCode.setValue(this.taskData.data().task_code);
     this.taskForm.controls.taskName.setValue(this.taskData.data().task_name);
@@ -66,3 +120,4 @@ export class InspectTaskComponent {
   }
 
 }
+

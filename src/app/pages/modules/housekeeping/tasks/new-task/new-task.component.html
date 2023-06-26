@@ -86,7 +86,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
                         <div class="col-md-8">
-                            <select formControlName="occurance" class="form-control form-control-sm w-100">
+                            <select formControlName="occurance" class="form-control form-control-sm w-100" (input)="enableFrequencyInput($event)">
                                 <option value="Non-Recurring" selected>Non-Recurring</option>
                                 <option value="Recurring">Recurring</option>
                             </select>

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs';
 
 
 @Injectable({
@@ -10,12 +12,14 @@ export class HousekeepingApiService {
 
   constructor(
     private firestore: AngularFirestore,
+    private storage: AngularFireStorage
   ) { }
 
   unitRef = this.firestore.collection('housekeeping_unit');
   incidentRef = this.firestore.collection('housekeeping_incident');
   taskRef = this.firestore.collection('housekeeping_task');
   taskItemRef = this.firestore.collection('housekeeping_task_item');
+  taskImageRef = this.firestore.collection('housekeeping_task_image');
 
   // unit
 
@@ -115,6 +119,59 @@ export class HousekeepingApiService {
       .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
       .orderBy("created_at", "asc")
       .get();
+  }
+
+  // task images
+
+  createTaskImage(data: any){
+    return this.taskImageRef.add(data);
+  }
+
+  updateTaskImage(id:any, data: any){
+    return this.taskImageRef.doc(id).update(data);
+  }
+
+  deleteTaskImage(id: any){
+    return this.taskImageRef.doc(id).delete();
+  }
+
+  getTaskImage(id: any){
+    return this.taskImageRef.doc(id).ref.get();
+  }
+
+  getTaskImageList(){
+    return this.taskImageRef.ref
+      .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
+  // image uploads
+
+  uploadTaskImage(images: File[], data: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const uploadTasks: Promise<string>[] = [];
+
+      images.forEach((image) => {
+        const filePath = `images/housekeeping/task/${Date.now()}_${image.name}`;
+        const fileRef = this.storage.ref(filePath);
+        const uploadTask = this.storage.upload(filePath, image);
+
+        uploadTask
+          .then(() => fileRef.getDownloadURL().toPromise())
+          .then((downloadUrl) => {
+            const dataWithImages = { ...data, url: downloadUrl };
+            return this.createTaskImage(dataWithImages);
+          })
+          .then(() => uploadTasks.push())
+          .catch((error) => reject(error));
+      });
+
+      // Wait for all upload tasks to complete
+      Promise.all(uploadTasks)
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
   }
 
 }

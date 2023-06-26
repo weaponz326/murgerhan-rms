@@ -8,6 +8,7 @@ import { ViewTaskComponent } from './view-task/view-task.component';
 import { TaskItemsComponent } from './task-items/task-items.component';
 import { InspectTaskComponent } from './inspect-task/inspect-task.component';
 import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
+import { TaskImagesComponent } from './task-images/task-images.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: "task-items", component: TaskItemsComponent },
       { path: "inspect-task", component: InspectTaskComponent },
       { path: "task-schedule", component: TaskScheduleComponent },
+      { path: "task-images", component: TaskImagesComponent },
     ]
   }
 ];

@@ -30,6 +30,7 @@ export class ViewOrderComponent {
   @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
   orderData: any;
+  orderTotal = 0.00;
 
   selectedVendorId: any;
   selectedVendorData: any;
@@ -136,6 +137,8 @@ export class ViewOrderComponent {
     this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor.data.vendor_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
+
+    this.orderTotal = this.orderData.data().total_price;
 
     this.selectedVendorId = this.orderData.data().vendor.id;
     this.selectedVendorData = this.orderData.data().vendor.data;

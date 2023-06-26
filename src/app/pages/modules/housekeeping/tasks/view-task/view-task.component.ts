@@ -46,8 +46,8 @@ export class ViewTaskComponent {
     toDate: new FormControl(),
     taskStatus: new FormControl(''),
     description: new FormControl(''),
-    occurance: new FormControl(''),
-    frequency: new FormControl(''),
+    occurance: new FormControl({value: '', disabled: true}),
+    frequency: new FormControl({value: '', disabled: true}),
   })
   
   ngOnInit(): void {
