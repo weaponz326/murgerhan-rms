@@ -34,12 +34,10 @@ export class AttendanceApiService {
     return this.rosterRef.doc(id).ref.get();
   }
 
-  getRosterList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getRosterList(){
     return this.rosterRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
  
@@ -64,6 +62,7 @@ export class AttendanceApiService {
   getRosterShiftList(){
     return this.rosterShiftRef.ref
       .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .orderBy("created_at", "asc")
       .get();
   }
  
@@ -88,6 +87,7 @@ export class AttendanceApiService {
   getRosterBatchList(){
     return this.rosterBatchRef.ref
       .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .orderBy("created_at", "asc")
       .get();
   }
 
@@ -112,6 +112,7 @@ export class AttendanceApiService {
   getRosterPersonnelList(){
     return this.rosterPersonnelRef.ref
       .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
+      .orderBy("created_at", "asc")
       .get();
   }
 
@@ -133,12 +134,10 @@ export class AttendanceApiService {
     return this.attendanceRef.doc(id).ref.get();
   }
 
-  getAttendanceList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getAttendanceList(){
     return this.attendanceRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 

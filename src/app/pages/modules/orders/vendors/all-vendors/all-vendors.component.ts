@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -17,7 +18,8 @@ export class AllVendorsComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService
+    private ordersPrint: OrdersPrintService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -27,21 +29,13 @@ export class AllVendorsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['vendor_code', 'vendor_name', 'phone'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getVendorList();
@@ -50,15 +44,20 @@ export class AllVendorsComponent {
   getVendorList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getVendorList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getVendorList()
       .then(
         (res: any) => {
           console.log(res);
           this.vendorListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -75,9 +74,11 @@ export class AllVendorsComponent {
     this.router.navigateByUrl("/modules/orders/vendors/view-vendor");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getVendorList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.vendorListData = this.aggregateTable.filterData(this.vendorListData, this.filterText, this.tableColumns);
+    this.vendorListData = this.aggregateTable.sortData(this.vendorListData, this.sortColumn, this.sortDirection);
+    this.vendorListData = this.aggregateTable.paginateData(this.vendorListData, this.currentPage, this.pageSize);
   }
 
   onPrint(){

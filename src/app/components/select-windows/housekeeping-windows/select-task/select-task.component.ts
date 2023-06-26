@@ -52,7 +52,7 @@ export class SelectTaskComponent {
   getTaskList(){
     this.isFetchingData = true;
 
-    this.housekeepingApi.getTaskList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.housekeepingApi.getTaskList()
       .then(
         (res: any) => {
           console.log(res);

@@ -52,7 +52,7 @@ export class SelectOrderComponent {
   getOrderList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getOrderList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getOrderList()
       .then(
         (res: any) => {
           console.log(res);

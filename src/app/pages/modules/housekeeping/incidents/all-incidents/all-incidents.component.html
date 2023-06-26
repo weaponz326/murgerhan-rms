@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/housekeeping/incidents/new-incident">New Incident</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search incidents">
+                        <input [(ngModel)]="filterText" (change)="getIncidentList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search incidents">
                         <button [disabled]="isFetchingData" (click)="getIncidentList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,47 +22,50 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Incident ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Incident Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Incident Date'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Incident Status'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of incidentListData" (dblclick)="viewIncident(data?.id)">
-                                    <td>{{data?.data().incident_code}}</td>
-                                    <td>{{data?.data().incident_subject}}</td>
-                                    <td>{{data?.data().incident_date}}</td>
-                                    <td>{{data?.data().incident_status}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="4">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getIncidentList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Incident ID'" [thisColumn]="'incident_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Incident Subject'" [thisColumn]="'incident_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Incident Date'" [thisColumn]="'incident_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Incident Status'" [thisColumn]="'incident_status'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of incidentListData" (dblclick)="viewIncident(data?.id)">
+                                        <td>{{data?.data().incident_code}}</td>
+                                        <td>{{data?.data().incident_subject}}</td>
+                                        <td>{{data?.data().incident_date | date: 'short'}}</td>
+                                        <td>{{data?.data().incident_status}}</td>
+                                    </tr>
+                                </tbody> 
+                                <tbody>
+                                    <tr *ngIf="isFetchingData || !isDataAvailable">
+                                        <td colspan="4">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>                               
+                            </table>
+                        </div>
                 
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getIncidentList()"></app-table-paginator>
+                        
                     </div>
                 </div>
 

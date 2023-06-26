@@ -52,7 +52,7 @@ export class SelectIncidentComponent {
   getIncidentList(){
     this.isFetchingData = true;
 
-    this.housekeepingApi.getIncidentList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.housekeepingApi.getIncidentList()
       .then(
         (res: any) => {
           console.log(res);

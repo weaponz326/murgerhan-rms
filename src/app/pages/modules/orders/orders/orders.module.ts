@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -30,6 +30,7 @@ import { OrderItemFormComponent } from './order-item-form/order-item-form.compon
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     OrdersRoutingModule,
     ModuleUtilitiesModule,
     OrdersWindowsModule

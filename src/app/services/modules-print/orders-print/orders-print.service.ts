@@ -83,7 +83,7 @@ export class OrdersPrintService {
   // print all orders
 
   async printOrderList(){
-    const orderListData: any = await this.ordersApi.getOrderList(250, 1, {}, {});
+    const orderListData: any = await this.ordersApi.getOrderList();
 
     var body = [['Order ID', 'Order Date', 'Vendor', 'Total Price']];
 
@@ -177,7 +177,7 @@ export class OrdersPrintService {
   // print all vendors
 
   async printVendorList(){
-    const vendorListData: any = await this.ordersApi.getVendorList(250, 1, {}, {});
+    const vendorListData: any = await this.ordersApi.getVendorList();
 
     var body = [['Vendor ID', 'Vendor Name', 'Phone No.', 'Email']];
 

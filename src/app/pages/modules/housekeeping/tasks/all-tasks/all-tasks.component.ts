@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { NewTaskComponent } from '../new-task/new-task.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -16,6 +17,7 @@ export class AllTasksComponent {
   constructor(
     private router: Router,
     private housekeepingApi: HousekeepingApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('newTaskComponentReference', { read: NewTaskComponent, static: false }) newTask!: NewTaskComponent;
@@ -26,21 +28,13 @@ export class AllTasksComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['task_code', 'task_name', 'task_date', 'task_type', 'task_status'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getTaskList();
@@ -49,15 +43,20 @@ export class AllTasksComponent {
   getTaskList(){
     this.isFetchingData = true;
 
-    this.housekeepingApi.getTaskList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.housekeepingApi.getTaskList()
       .then(
         (res: any) => {
           console.log(res);
           this.taskListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -74,9 +73,11 @@ export class AllTasksComponent {
     this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getTaskList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.taskListData = this.aggregateTable.filterData(this.taskListData, this.filterText, this.tableColumns);
+    this.taskListData = this.aggregateTable.sortData(this.taskListData, this.sortColumn, this.sortDirection);
+    this.taskListData = this.aggregateTable.paginateData(this.taskListData, this.currentPage, this.pageSize);
   }
 
 }

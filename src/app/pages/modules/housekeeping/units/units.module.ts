@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UnitsRoutingModule } from './units-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -23,6 +23,7 @@ import { UnitFormComponent } from './unit-form/unit-form.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     UnitsRoutingModule,
     ModuleUtilitiesModule,
   ]

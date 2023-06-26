@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="newRoster.openModal()">New Roster</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search roster">
+                        <input [(ngModel)]="filterText" (change)="getRosterList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search roster">
                         <button [disabled]="isFetchingData" (click)="getRosterList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,39 +22,42 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Roster ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Roster Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of rosterListData" (dblclick)="viewRoster(data?.id)">
-                                    <td>{{data?.data().roster_code}}</td>
-                                    <td>{{data?.data().roster_name}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="2">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getRosterList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">                    
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Roster ID'" [thisColumn]="'roster_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Roster Name'" [thisColumn]="'roster_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of rosterListData" (dblclick)="viewRoster(data?.id)">
+                                        <td>{{data?.data().roster_code}}</td>
+                                        <td>{{data?.data().roster_name}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="2">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getRosterList()"></app-table-paginator>
+                        
                     </div>
                 </div>
 

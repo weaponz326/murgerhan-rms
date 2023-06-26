@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="newAttendance.openModal()">New Attendance</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search attendance">
+                        <input [(ngModel)]="filterText" (change)="getAttendanceList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search attendance">
                         <button [disabled]="isFetchingData" (click)="getAttendanceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,39 +22,42 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Attendance ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Attendance Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of attendanceListData" (dblclick)="viewAttendance(data?.id)">
-                                    <td>{{data?.data().attendance_code}}</td>
-                                    <td>{{data?.data().attendance_name}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="2">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getAttendanceList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">                    
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Attendance ID'" [thisColumn]="'attendance_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getAttendanceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Attendance Name'" [thisColumn]="'attendance_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getAttendanceList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of attendanceListData" (dblclick)="viewAttendance(data?.id)">
+                                        <td>{{data?.data().attendance_code}}</td>
+                                        <td>{{data?.data().attendance_name}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="2">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getAttendanceList()"></app-table-paginator>
+                        
                     </div>
                 </div>
 

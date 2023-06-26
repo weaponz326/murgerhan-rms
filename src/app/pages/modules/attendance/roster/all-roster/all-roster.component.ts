@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { NewRosterComponent } from '../new-roster/new-roster.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -18,6 +19,7 @@ export class AllRosterComponent {
   constructor(
     private router: Router,
     private attendanceApi: AttendanceApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('newRosterComponentReference', { read: NewRosterComponent, static: false }) newRoster!: NewRosterComponent;
@@ -28,21 +30,13 @@ export class AllRosterComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['roster_code', 'roster_name'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getRosterList();
@@ -51,15 +45,20 @@ export class AllRosterComponent {
   getRosterList(){
     this.isFetchingData = true;
 
-    this.attendanceApi.getRosterList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.attendanceApi.getRosterList()
       .then(
         (res: any) => {
           console.log(res);
           this.rosterListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -76,9 +75,11 @@ export class AllRosterComponent {
     this.router.navigateByUrl("/modules/attendance/roster/view-roster");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getRosterList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.rosterListData = this.aggregateTable.filterData(this.rosterListData, this.filterText, this.tableColumns);
+    this.rosterListData = this.aggregateTable.sortData(this.rosterListData, this.sortColumn, this.sortDirection);
+    this.rosterListData = this.aggregateTable.paginateData(this.rosterListData, this.currentPage, this.pageSize);
   }
 
 }

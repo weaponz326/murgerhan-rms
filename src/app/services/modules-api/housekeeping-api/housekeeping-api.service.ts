@@ -35,12 +35,10 @@ export class HousekeepingApiService {
     return this.unitRef.doc(id).ref.get();
   }
 
-  getUnitList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getUnitList(){
     return this.unitRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -62,12 +60,10 @@ export class HousekeepingApiService {
     return this.incidentRef.doc(id).ref.get();
   }
 
-  getIncidentList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getIncidentList(){
     return this.incidentRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
  
@@ -89,12 +85,10 @@ export class HousekeepingApiService {
     return this.taskRef.doc(id).ref.get();
   }
 
-  getTaskList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getTaskList(){
     return this.taskRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -119,6 +113,7 @@ export class HousekeepingApiService {
   getTaskItemList(){
     return this.taskItemRef.ref
       .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .orderBy("created_at", "asc")
       .get();
   }
 

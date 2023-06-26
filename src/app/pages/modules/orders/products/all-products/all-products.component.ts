@@ -33,9 +33,9 @@ export class AllProductsComponent {
   filterText = "";
   sortDirection = "";
   sortColumn = "";
-  currentPage = 1;
+  currentPage = 0;
   totalPages = 0;
-  pageSize = 2;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getProductList();
@@ -50,13 +50,14 @@ export class AllProductsComponent {
           console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
-          this.aggregateData();
 
           this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
           else
             this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);

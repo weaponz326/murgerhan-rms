@@ -52,7 +52,7 @@ export class SelectVendorComponent {
   getVendorList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getVendorList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getVendorList()
       .then(
         (res: any) => {
           console.log(res);

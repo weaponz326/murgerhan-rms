@@ -52,7 +52,7 @@ export class SelectAttendanceComponent {
   getAttendanceList(){
     this.isFetchingData = true;
 
-    this.attendanceApi.getAttendanceList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.attendanceApi.getAttendanceList()
       .then(
         (res: any) => {
           console.log(res);

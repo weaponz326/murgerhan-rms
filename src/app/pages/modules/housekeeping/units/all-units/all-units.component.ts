@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllUnitsComponent {
   constructor(
     private router: Router,
     private housekeepingApi: HousekeepingApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllUnitsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['unit_code', 'unit_name', 'unit_type'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getUnitList();
@@ -48,15 +42,20 @@ export class AllUnitsComponent {
   getUnitList(){
     this.isFetchingData = true;
 
-    this.housekeepingApi.getUnitList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.housekeepingApi.getUnitList()
       .then(
         (res: any) => {
           console.log(res);
           this.unitListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +72,11 @@ export class AllUnitsComponent {
     this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getUnitList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.unitListData = this.aggregateTable.filterData(this.unitListData, this.filterText, this.tableColumns);
+    this.unitListData = this.aggregateTable.sortData(this.unitListData, this.sortColumn, this.sortDirection);
+    this.unitListData = this.aggregateTable.paginateData(this.unitListData, this.currentPage, this.pageSize);
   }
 
 }

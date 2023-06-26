@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -27,6 +27,7 @@ import { UserAttendanceSheetComponent } from './user-attendance-sheet/user-atten
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     AttendanceRoutingModule,
     ModuleUtilitiesModule
   ]

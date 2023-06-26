@@ -52,7 +52,7 @@ export class SelectUnitComponent {
   getUnitList(){
     this.isFetchingData = true;
 
-    this.housekeepingApi.getUnitList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.housekeepingApi.getUnitList()
       .then(
         (res: any) => {
           console.log(res);

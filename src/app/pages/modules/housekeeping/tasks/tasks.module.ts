@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -35,6 +35,7 @@ import { TaskScheduleComponent } from './task-schedule/task-schedule.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     TasksRoutingModule,
     ModuleUtilitiesModule,
     UsersWindowsModule,

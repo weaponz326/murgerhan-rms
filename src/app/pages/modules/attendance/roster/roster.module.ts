@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RosterRoutingModule } from './roster-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -45,6 +45,7 @@ import { PersonnelFormComponent } from './personnel-form/personnel-form.componen
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     RosterRoutingModule,
     ModuleUtilitiesModule,
     UsersWindowsModule,

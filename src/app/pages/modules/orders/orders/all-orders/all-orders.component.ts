@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { AddOrderComponent } from '../add-order/add-order.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -18,7 +19,8 @@ export class AllOrdersComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService
+    private ordersPrint: OrdersPrintService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('addOrderComponentReference', { read: AddOrderComponent, static: false }) addOrder!: AddOrderComponent;
@@ -29,21 +31,13 @@ export class AllOrdersComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['order_code', 'order_date', 'vendor_name', 'total_price'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getOrderList();
@@ -52,15 +46,20 @@ export class AllOrdersComponent {
   getOrderList(){
     this.isFetchingData = true;
 
-    this.ordersApi.getOrderList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.ordersApi.getOrderList()
       .then(
         (res: any) => {
           console.log(res);
           this.orderListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -77,9 +76,11 @@ export class AllOrdersComponent {
     this.router.navigateByUrl("/modules/orders/orders/view-order");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getOrderList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
+    this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
+    this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
   }
 
   onPrint(){

@@ -52,7 +52,7 @@ export class SelectRosterComponent {
   getRosterList(){
     this.isFetchingData = true;
 
-    this.attendanceApi.getRosterList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.attendanceApi.getRosterList()
       .then(
         (res: any) => {
           console.log(res);
