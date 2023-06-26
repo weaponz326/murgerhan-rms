@@ -12,6 +12,7 @@ import { AllMaintenanceIssuesComponent } from './all-maintenance-issues/all-main
 import { NewMaintnenanceIssueComponent } from './new-maintnenance-issue/new-maintnenance-issue.component';
 import { ViewMaintnenanceIssueComponent } from './view-maintnenance-issue/view-maintnenance-issue.component';
 import { MaintenanceIssueFormComponent } from './maintenance-issue-form/maintenance-issue-form.component';
+import { IssueImagesComponent } from './issue-images/issue-images.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MaintenanceIssueFormComponent } from './maintenance-issue-form/maintena
     AllMaintenanceIssuesComponent,
     NewMaintnenanceIssueComponent,
     ViewMaintnenanceIssueComponent,
-    MaintenanceIssueFormComponent
+    MaintenanceIssueFormComponent,
+    IssueImagesComponent
   ],
   imports: [
     CommonModule,

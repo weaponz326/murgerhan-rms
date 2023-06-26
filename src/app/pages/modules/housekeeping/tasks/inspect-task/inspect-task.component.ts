@@ -103,7 +103,8 @@ export class InspectTaskComponent {
       .then(
         (res: any) => {
           console.log(res);
-          this.taskImageListData = res.docs;
+          if(res.docs.length != 0)
+            this.taskImageListData = res.docs.slice(0,4);
         },
         (err: any) => {
           console.log(err);

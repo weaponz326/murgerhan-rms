@@ -44,7 +44,7 @@
                                     <tr *ngFor="let data of issueListData" (dblclick)="viewIssue(data?.id)">
                                         <td>{{data?.data().issue_code}}</td>
                                         <td>{{data?.data().issue_subject}}</td>
-                                        <td>{{data?.data().issue_date}}</td>
+                                        <td>{{data?.data().issue_date | date: 'short'}}</td>
                                         <td>{{data?.data().system.data.system_name}}</td>
                                     </tr> 
                                 </tbody>

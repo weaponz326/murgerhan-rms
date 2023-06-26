@@ -15,25 +15,23 @@
 
                 <p class="lead">System Details</p>
                 
-                <div class="row">
-                    <div class="col">
+                <form [formGroup]="systemForm">
 
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
-                            <div class="col-md-8">
-                                <input class="form-control form-control-sm w-100">
-                            </div>
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="systemCode" class="form-control form-control-sm w-100">
                         </div>
-                        
-                        <div class="row mb-1">
-                            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
-                            <div class="col-md-8">
-                                <input class="form-control form-control-sm w-100">
-                            </div>
-                        </div>
-                        
                     </div>
-                </div>
+                    
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="systemName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                </form>
 
             </div>
         </div>
@@ -49,8 +47,9 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search system history">
-                        <button class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/maintenance/services/new-service">New Service</button>
+                        <input [(ngModel)]="filterText" (change)="getSystemServiceList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance services">
+                        <button [disabled]="isFetchingData" (click)="getSystemServiceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -59,31 +58,58 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Service ID</th>
-                                    <th scope="col">Service Title</th>
-                                    <th scope="col">Service Date</th>
-                                    <th scope="col">Cost</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>SE9233</td>
-                                    <td>Kitechen plumbing</td>
-                                    <td>04-06-2023</td>
-                                    <td>1240.00</td>
-                                </tr>
-                                <tr>
-                                    <td>SE9233</td>
-                                    <td>Kitechen plumbing</td>
-                                    <td>04-06-2023</td>
-                                    <td>1240.00</td>
-                                </tr>                            
-                            </tbody>
-                        </table>
+                        <div class="overflow-auto">                    
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col" width="8%" class="p-0">
+                                            <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of serviceListData">
+                                        <td>{{data?.data().service_code}}</td>
+                                        <td>{{data?.data().service_subject}}</td>
+                                        <td>{{data?.data().date_from | date: 'short'}}</td>
+                                        <td>{{data?.data().date_to | date: 'short'}}</td>
+                                        <td class="p-0">
+                                            <button class="btn btn-sm btn-success border w-100" (click)="gotoService(data.id)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr> 
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="5">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getSystemServiceList()"></app-table-paginator>
+                        
                     </div>
                 </div>
 

@@ -32,6 +32,13 @@ export class Issue {
     };
 }
 
+export class IssueImage {
+    created_at!: any;
+    updated_at!: any;
+    issue!: string;
+    url!: string;
+}
+
 export class Service {
     created_at!: any;
     updated_at!: any;

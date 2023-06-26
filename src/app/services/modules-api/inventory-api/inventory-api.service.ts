@@ -168,6 +168,14 @@ export class InventoryApiService {
       .get();
   }
 
+  getSupplierPurchasingList(){
+    return this.purchasingRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .where("supplier.id", "==", sessionStorage.getItem("inventory_supplier_id"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   // purchasing item
 
   createPurchasingItem(data: any){

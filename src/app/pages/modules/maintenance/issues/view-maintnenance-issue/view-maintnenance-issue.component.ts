@@ -38,6 +38,7 @@ export class ViewMaintnenanceIssueComponent {
   selectedUserRoleData: any;
 
   issueData: any;
+  issueImageListData: any;
 
   isFetchingData = false;
   isSavingIssue = false;
@@ -45,6 +46,7 @@ export class ViewMaintnenanceIssueComponent {
 
   ngOnInit(): void {
     this.getIssue();
+    this.getIssueImageList();
   }
 
   getIssue() {
@@ -134,6 +136,21 @@ export class ViewMaintnenanceIssueComponent {
       });
   }
 
+  getIssueImageList(){
+    this.maintenanceApi.getIssueImageList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          if(res.docs.length != 0)
+            this.issueImageListData = res.docs.slice(0,4);
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+  
   setIssueData(){
     this.issueForm.issueForm.controls.issueCode.setValue(this.issueData.data().issue_code);
     this.issueForm.issueForm.controls.issueSubject.setValue(this.issueData.data().issue_subject);

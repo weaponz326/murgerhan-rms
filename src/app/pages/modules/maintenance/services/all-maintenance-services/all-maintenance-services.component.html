@@ -47,8 +47,8 @@
                                     <tr *ngFor="let data of serviceListData" (dblclick)="viewService(data.id)">
                                         <td>{{data?.data().service_code}}</td>
                                         <td>{{data?.data().service_subject}}</td>
-                                        <td>{{data?.data().date_from}}</td>
-                                        <td>{{data?.data().date_to}}</td>
+                                        <td>{{data?.data().date_from | date: 'short'}}</td>
+                                        <td>{{data?.data().date_to | date: 'short'}}</td>
                                         <td>{{data?.data().contractor.data.contractor_name}}</td>
                                     </tr> 
                                 </tbody>
