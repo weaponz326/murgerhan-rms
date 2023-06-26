@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IssuesRoutingModule } from './issues-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -25,6 +25,7 @@ import { MaintenanceIssueFormComponent } from './maintenance-issue-form/maintena
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     IssuesRoutingModule,
     ModuleUtilitiesModule,
     MaintenanceWindowsModule,

@@ -52,7 +52,7 @@ export class SelectPurchasingComponent {
   getPurchasingList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getPurchasingList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getPurchasingList()
       .then(
         (res: any) => {
           console.log(res);

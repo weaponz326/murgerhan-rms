@@ -34,12 +34,10 @@ export class MaintenanceApiService {
     return this.maintenanceIssueRef.doc(id).ref.get();
   }
 
-  getIssueList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getIssueList(){
     return this.maintenanceIssueRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -61,12 +59,10 @@ export class MaintenanceApiService {
     return this.maintenanceServiceRef.doc(id).ref.get();
   }
 
-  getServiceList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getServiceList(){
     return this.maintenanceServiceRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -88,12 +84,10 @@ export class MaintenanceApiService {
     return this.contractorRef.doc(id).ref.get();
   }
 
-  getContractorList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getContractorList(){
     return this.contractorRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -115,12 +109,10 @@ export class MaintenanceApiService {
     return this.systemRef.doc(id).ref.get();
   }
 
-  getSystemList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getSystemList(){
     return this.systemRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 

@@ -52,7 +52,7 @@ export class SelectContractorComponent {
   getContractorList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getContractorList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getContractorList()
       .then(
         (res: any) => {
           console.log(res);

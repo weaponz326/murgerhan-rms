@@ -52,7 +52,7 @@ export class SelectSupplierComponent {
   getSupplierList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getSupplierList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getSupplierList()
       .then(
         (res: any) => {
           console.log(res);

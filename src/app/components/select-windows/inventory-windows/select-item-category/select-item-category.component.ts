@@ -52,7 +52,7 @@ export class SelectItemCategoryComponent {
   getItemCategoryList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getItemCategoryList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getItemCategoryList()
       .then(
         (res: any) => {
           console.log(res);

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ItemsRoutingModule } from './items-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -24,6 +24,7 @@ import { StockItemFormComponent } from './stock-item-form/stock-item-form.compon
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     ItemsRoutingModule,
     ModuleUtilitiesModule,
     InventoryWindowsModule

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllMaintenanceServicesComponent {
   constructor(
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllMaintenanceServicesComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['service_code', 'service_subject', 'date_from', 'date_to', 'contractor_name'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getServiceList();
@@ -48,15 +42,20 @@ export class AllMaintenanceServicesComponent {
   getServiceList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getServiceList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getServiceList()
       .then(
         (res: any) => {
           console.log(res);
           this.serviceListData = res.docs;
           this.isFetchingData = false;
           
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +72,11 @@ export class AllMaintenanceServicesComponent {
     this.router.navigateByUrl("/modules/maintenance/services/view-service");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getServiceList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.serviceListData = this.aggregateTable.filterData(this.serviceListData, this.filterText, this.tableColumns);
+    this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.sortColumn, this.sortDirection);
+    this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.currentPage, this.pageSize);
   }
 
 }

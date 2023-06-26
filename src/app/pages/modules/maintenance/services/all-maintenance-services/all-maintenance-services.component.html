@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/maintenance/services/new-service">New Service</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance services">
+                        <input [(ngModel)]="filterText" (change)="getServiceList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance services">
                         <button [disabled]="isFetchingData" (click)="getServiceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,54 +22,57 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Service ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Service Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Date From'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Date To'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of serviceListData" (dblclick)="viewService(data.id)">
-                                    <td>{{data?.data().service_code}}</td>
-                                    <td>{{data?.data().service_subject}}</td>
-                                    <td>{{data?.data().date_from}}</td>
-                                    <td>{{data?.data().date_to}}</td>
-                                    <td>{{data?.data().contractor.data.contractor_name}}</td>
-                                </tr> 
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="5">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getServiceList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of serviceListData" (dblclick)="viewService(data.id)">
+                                        <td>{{data?.data().service_code}}</td>
+                                        <td>{{data?.data().service_subject}}</td>
+                                        <td>{{data?.data().date_from}}</td>
+                                        <td>{{data?.data().date_to}}</td>
+                                        <td>{{data?.data().contractor.data.contractor_name}}</td>
+                                    </tr> 
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="5">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getServiceList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

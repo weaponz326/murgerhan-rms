@@ -52,7 +52,7 @@ export class SelectSystemComponent {
   getSystemList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getSystemList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getSystemList()
       .then(
         (res: any) => {
           console.log(res);

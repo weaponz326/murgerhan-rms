@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/maintenance/contractors/add-contractor">Add Contractor</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search contractors">
+                        <input [(ngModel)]="filterText" (change)="getContractorList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search contractors">
                         <button [disabled]="isFetchingData" (click)="getContractorList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,46 +22,49 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Contractor ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Phone No.'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of contractorListData" (dblclick)="viewContractor(data?.id)">
-                                    <td>{{data?.data().contractor_code}}</td>
-                                    <td>{{data?.data().contractor_name}}</td>
-                                    <td>{{data?.data().phone}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="3">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getContractorList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Contractor ID'" [thisColumn]="'contractor_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Phone No.'" [thisColumn]="'phone'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of contractorListData" (dblclick)="viewContractor(data?.id)">
+                                        <td>{{data?.data().contractor_code}}</td>
+                                        <td>{{data?.data().contractor_name}}</td>
+                                        <td>{{data?.data().phone}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="3">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getContractorList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

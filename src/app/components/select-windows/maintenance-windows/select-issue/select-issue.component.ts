@@ -52,7 +52,7 @@ export class SelectIssueComponent {
   getIssueList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getIssueList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getIssueList()
       .then(
         (res: any) => {
           console.log(res);

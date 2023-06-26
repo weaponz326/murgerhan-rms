@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { NewPurchasingComponent } from '../new-purchasing/new-purchasing.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -17,6 +18,7 @@ export class AllPurchasingComponent {
   constructor(
     private router: Router,
     private inventoryApi: InventoryApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('newPurchasingComponentReference', { read: NewPurchasingComponent, static: false }) newPurchasing!: NewPurchasingComponent;
@@ -27,21 +29,13 @@ export class AllPurchasingComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['purchasing_code', 'purchasing_date', 'supplier_name', 'total_price'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getPurchasingList();
@@ -50,15 +44,20 @@ export class AllPurchasingComponent {
   getPurchasingList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getPurchasingList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getPurchasingList()
       .then(
         (res: any) => {
           console.log(res);
           this.purchasingListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -75,9 +74,11 @@ export class AllPurchasingComponent {
     this.router.navigateByUrl("/modules/inventory/purchasing/view-purchasing");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getPurchasingList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.purchasingListData = this.aggregateTable.filterData(this.purchasingListData, this.filterText, this.tableColumns);
+    this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
+    this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
   }
 
 }

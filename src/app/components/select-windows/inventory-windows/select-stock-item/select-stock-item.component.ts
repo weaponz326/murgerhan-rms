@@ -52,7 +52,7 @@ export class SelectStockItemComponent {
   getStockItemList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getStockItemList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
           console.log(res);

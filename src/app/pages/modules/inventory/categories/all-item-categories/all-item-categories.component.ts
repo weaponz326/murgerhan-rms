@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllItemCategoriesComponent {
   constructor(
     private router: Router,
     private inventoryApi: InventoryApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllItemCategoriesComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['category_code', 'category_name'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getItemCategoryList();
@@ -48,15 +42,20 @@ export class AllItemCategoriesComponent {
   getItemCategoryList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getItemCategoryList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getItemCategoryList()
       .then(
         (res: any) => {
           console.log(res);
           this.itemcategoryListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +72,11 @@ export class AllItemCategoriesComponent {
     this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getItemCategoryList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.itemcategoryListData = this.aggregateTable.filterData(this.itemcategoryListData, this.filterText, this.tableColumns);
+    this.itemcategoryListData = this.aggregateTable.sortData(this.itemcategoryListData, this.sortColumn, this.sortDirection);
+    this.itemcategoryListData = this.aggregateTable.paginateData(this.itemcategoryListData, this.currentPage, this.pageSize);
   }
 
 }

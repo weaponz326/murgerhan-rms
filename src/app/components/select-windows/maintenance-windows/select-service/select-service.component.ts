@@ -52,7 +52,7 @@ export class SelectServiceComponent {
   getServiceList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getServiceList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getServiceList()
       .then(
         (res: any) => {
           console.log(res);

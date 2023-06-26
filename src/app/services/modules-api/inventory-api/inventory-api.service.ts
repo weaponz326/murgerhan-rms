@@ -36,12 +36,10 @@ export class InventoryApiService {
     return this.stockItemRef.doc(id).ref.get();
   }
 
-  getStockItemList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getStockItemList(){
     return this.stockItemRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -63,12 +61,10 @@ export class InventoryApiService {
     return this.itemCategoryRef.doc(id).ref.get();
   }
 
-  getItemCategoryList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getItemCategoryList(){
     return this.itemCategoryRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -93,6 +89,7 @@ export class InventoryApiService {
   getCategoryChecklistList(){
     return this.categoryChecklistRef.ref
       .where("category", "==", sessionStorage.getItem("inventory_category_id"))
+      .orderBy("created_at", "asc")
       .get();
   }
 
@@ -114,12 +111,10 @@ export class InventoryApiService {
     return this.supplierRef.doc(id).ref.get();
   }
 
-  getSupplierList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getSupplierList(){
     return this.supplierRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -142,7 +137,10 @@ export class InventoryApiService {
   }
 
   getSupplierItemList(){
-    return this.supplierItemRef.ref.get();
+    return this.supplierItemRef.ref
+      .where("supplier", "==", sessionStorage.getItem("inventory_supplier_id"))
+      .orderBy("created_at", "asc")
+      .get();
   }
 
   // purchasing
@@ -163,12 +161,10 @@ export class InventoryApiService {
     return this.purchasingRef.doc(id).ref.get();
   }
 
-  getPurchasingList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getPurchasingList(){
     return this.purchasingRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .orderBy("created_at")
-      .startAt((defaultPageSize * currentPageNumber) + 1)
-      .limit(defaultPageSize)
+      .orderBy("created_at", "desc")
       .get();
   }
 
@@ -192,8 +188,9 @@ export class InventoryApiService {
 
   getPurchasingItemList(){
     return this.purchasingItemRef.ref
-    .where("purchasing", "==", sessionStorage.getItem("inventory_purchasing_id"))
-    .get();
+      .where("purchasing", "==", sessionStorage.getItem("inventory_purchasing_id"))
+      .orderBy("created_at", "asc")
+      .get();
   }
 
 }

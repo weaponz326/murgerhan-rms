@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllContractorsComponent {
   constructor(
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllContractorsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['contractor_code', 'contractor_name', 'phone'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getContractorList();
@@ -48,15 +42,20 @@ export class AllContractorsComponent {
   getContractorList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getContractorList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getContractorList()
       .then(
         (res: any) => {
           console.log(res);
           this.contractorListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +72,11 @@ export class AllContractorsComponent {
     this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getContractorList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.contractorListData = this.aggregateTable.filterData(this.contractorListData, this.filterText, this.tableColumns);
+    this.contractorListData = this.aggregateTable.sortData(this.contractorListData, this.sortColumn, this.sortDirection);
+    this.contractorListData = this.aggregateTable.paginateData(this.contractorListData, this.currentPage, this.pageSize);
   }
-
+  
 }

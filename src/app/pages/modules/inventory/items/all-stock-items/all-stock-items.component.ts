@@ -1,9 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
+
+import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+
 import { EditStockItemComponent } from '../edit-stock-item/edit-stock-item.component';
 import { AddStockItemComponent } from '../add-stock-item/add-stock-item.component';
-import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
+
 
 @Component({
   selector: 'app-all-stock-items',
@@ -14,6 +18,7 @@ export class AllStockItemsComponent {
 
   constructor(
     private inventoryApi: InventoryApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -29,21 +34,13 @@ export class AllStockItemsComponent {
   deleteId = "";
   isItemDeleting = false;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['item_code', 'item_name', 'unit_price', 'stock', 'location', 'item_category'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getStockItemList();
@@ -52,17 +49,20 @@ export class AllStockItemsComponent {
   getStockItemList(){
     this.isFetchingData = true;
 
-    this.inventoryApi.getStockItemList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
           console.log(res);
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
           else
-            this.isDataAvailable = true
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -96,10 +96,10 @@ export class AllStockItemsComponent {
       });
   }
 
-  updateStockItem(stockitem_item: any) {
+  updateStockItem(item: any) {
     this.editStockItem.isItemSaving = true;
     
-    this.inventoryApi.updateStockItem(stockitem_item.id, stockitem_item.data)
+    this.inventoryApi.updateStockItem(item.id, item.data)
       .then((res) => {
         console.log(res);
         this.editStockItem.isItemSaving = false;
@@ -139,9 +139,11 @@ export class AllStockItemsComponent {
     this.deleteModal.openModal();
   }
   
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getStockItemList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
+    this.stockItemListData = this.aggregateTable.sortData(this.stockItemListData, this.sortColumn, this.sortDirection);
+    this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);
   }
 
 }

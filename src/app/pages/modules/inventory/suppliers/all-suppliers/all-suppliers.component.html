@@ -12,7 +12,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/inventory/suppliers/new-supplier">New Supplier</button>
-                        <input class="form-control form-control-sm w-25 float-end" type="search" placeholder="search suppliers">
+                        <input [(ngModel)]="filterText" (change)="getSupplierList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search suppliers">
                         <button [disabled]="isFetchingData" (click)="getSupplierList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -22,46 +22,49 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Supplier ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Supplier Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Phone No.'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of supplierListData" (dblclick)="viewSupplier(data?.id)">
-                                    <td>{{data?.data().supplier_code}}</td>
-                                    <td>{{data?.data().supplier_name}}</td>
-                                    <td>{{data?.data().phone}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="3">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getSupplierList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Supplier ID'" [thisColumn]="'supplier_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Supplier Name'" [thisColumn]="'supplier_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierList()"></app-table-sorting>
+                                        </th>
+                                        <th scope="col">
+                                            <app-table-sorting [fieldTitle]="'Phone No.'" [thisColumn]="'phone'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of supplierListData" (dblclick)="viewSupplier(data?.id)">
+                                        <td>{{data?.data().supplier_code}}</td>
+                                        <td>{{data?.data().supplier_name}}</td>
+                                        <td>{{data?.data().phone}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="3">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getSupplierList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

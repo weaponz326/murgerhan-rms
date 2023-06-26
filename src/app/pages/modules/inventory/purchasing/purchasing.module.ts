@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PurchasingRoutingModule } from './purchasing-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -31,6 +31,7 @@ import { PurchasingItemFormComponent } from './purchasing-item-form/purchasing-i
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     PurchasingRoutingModule,
     ModuleUtilitiesModule,

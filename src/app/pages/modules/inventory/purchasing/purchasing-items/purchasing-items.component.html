@@ -28,9 +28,9 @@
                                 <tr *ngFor="let data of purchasingItemListData">
                                     <td>{{data?.data().item_number}}</td>
                                     <td>{{data?.data().stock_item?.data?.item_name}}</td>
-                                    <td>{{data?.data().stock_item?.data?.unit_price}}</td>
+                                    <td>{{data?.data().stock_item?.data?.unit_price | currency}}</td>
                                     <td>{{data?.data().quantity}}</td>
-                                    <td>{{data?.data().stock_item?.data?.unit_price * data?.data().quantity}}</td>
+                                    <td>{{data?.data().stock_item?.data?.unit_price * data?.data().quantity | currency}}</td>
                                     <td class="p-0">
                                         <button class="btn btn-sm btn-success bpurchasing w-50" (click)="openEditItem(data)">
                                             <i class="bi bi-pen"></i>
@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr class="bg-light">
                                     <td colspan="4"></td>
-                                    <td>{{totalPrice}}</td>
+                                    <td>{{totalPrice | currency}}</td>
                                     <td></td>
                                 </tr>
                             </tbody>

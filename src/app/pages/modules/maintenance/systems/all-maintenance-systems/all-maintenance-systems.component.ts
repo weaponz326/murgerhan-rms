@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllMaintenanceSystemsComponent {
   constructor(
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllMaintenanceSystemsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['system_code', 'system_name', 'system_type'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   ngOnInit(): void {
     this.getSystemList();
@@ -48,15 +42,20 @@ export class AllMaintenanceSystemsComponent {
   getSystemList(){
     this.isFetchingData = true;
 
-    this.maintenanceApi.getSystemList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.maintenanceApi.getSystemList()
       .then(
         (res: any) => {
           console.log(res);
           this.systemListData = res.docs;
           this.isFetchingData = false;
 
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -73,9 +72,11 @@ export class AllMaintenanceSystemsComponent {
     this.router.navigateByUrl("/modules/maintenance/systems/view-system");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getSystemList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.systemListData = this.aggregateTable.filterData(this.systemListData, this.filterText, this.tableColumns);
+    this.systemListData = this.aggregateTable.sortData(this.systemListData, this.sortColumn, this.sortDirection);
+    this.systemListData = this.aggregateTable.paginateData(this.systemListData, this.currentPage, this.pageSize);
   }
   
 }
