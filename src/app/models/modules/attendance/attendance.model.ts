@@ -52,6 +52,21 @@ export class RosterPersonnel {
     };
 }
 
+export class RosterSheet {
+    created_at!: any;
+    updated_at!: any;
+    roster!: string;
+    shift!: string;
+    date!: any;
+    batch!:{
+        id: string;
+        data: {
+            batch_name: string;
+            batch_symbol: string;        
+        };
+    };
+}
+
 export class Attendance {
     created_at!: any;
     updated_at!: any;

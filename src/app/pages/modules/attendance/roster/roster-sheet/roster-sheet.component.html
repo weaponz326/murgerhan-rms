@@ -1,1 +1,44 @@
-<p>roster-sheet works!</p>
+<div class="row">
+    <div class="col">
+
+        <div class="row mb-3">
+            <div class="col">
+                <span class="text-info float-start">
+                    <i class="bi bi-info-circle me-2"></i> Double-click cell to edit
+                </span>
+                <button (click)="refereshSheet()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-auto">                    
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr class="bg-light">
+                        <th class="shift-header">Shifts</th>
+                        <th class="date-header" *ngFor="let date of sheetDates">{{date | date: 'dd/MM/yy'}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: creating and updating are messed up -->
+                    <tr *ngFor="let shift of rosterShiftListData">
+                        <td>{{shift.data().shift_name}}</td>
+                        <td class="batch-cell" *ngFor="let date of sheetDates" (dblclick)="saveSheet(shift.id, date, null)">
+                            <span *ngFor="let sheetData of rosterSheetListData">
+                                <span *ngIf="sheetData.data().shift == shift.id && sheetData.data().date == dateFormat(date)" (dblclick)="saveSheet(shift.id, date, sheetData.id)" class="h-100 w-100">
+                                    {{sheetData.data().batch.data.batch_symbol}}
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- select batch window -->
+
+<app-select-batch #selectBatchComponentReference (rowSelected)="onBatchSelected($event)"></app-select-batch>

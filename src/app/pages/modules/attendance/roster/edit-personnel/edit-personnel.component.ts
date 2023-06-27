@@ -84,9 +84,7 @@ export class EditPersonnelComponent {
   onBatchSelected(batchData: any){
     console.log(batchData);
 
-    this.selectedBatchData = batchData;
     this.personnelForm.personnelForm.controls.batchSymbol.setValue(batchData.data().batch_symbol);
-
     this.selectedBatchId = batchData.id;
     this.selectedBatchData = batchData.data();
   }

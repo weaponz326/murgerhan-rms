@@ -14,6 +14,7 @@ export class AttendanceApiService {
   rosterShiftRef = this.firestore.collection('attendance_roster_shift');
   rosterBatchRef = this.firestore.collection('attendance_roster_batch');
   rosterPersonnelRef = this.firestore.collection('attendance_roster_personnel');
+  rosterSheetRef = this.firestore.collection('attendance_roster_sheet');
   attendanceRef = this.firestore.collection('attendance_attendance');
 
   // roster
@@ -113,6 +114,30 @@ export class AttendanceApiService {
     return this.rosterPersonnelRef.ref
       .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
       .orderBy("created_at", "asc")
+      .get();
+  }
+
+  // roster sheet
+
+  createRosterSheet(data: any){
+    return this.rosterSheetRef.add(data);
+  }
+
+  updateRosterSheet(id:any, data: any){
+    return this.rosterSheetRef.doc(id).update(data);
+  }
+
+  deleteRosterSheet(id: any){
+    return this.rosterSheetRef.doc(id).delete();
+  }
+
+  getRosterSheet(id: any){
+    return this.rosterSheetRef.doc(id).ref.get();
+  }
+
+  getRosterSheetList(){
+    return this.rosterSheetRef.ref
+      .where("roster", "==", sessionStorage.getItem("attendance_roster_id"))
       .get();
   }
 
