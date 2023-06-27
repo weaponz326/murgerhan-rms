@@ -42,6 +42,10 @@ export class TaskScheduleComponent {
     this.generateCalendar();
   }
 
+  selectDay(day: any){
+    console.log(day);
+  }
+
   generateCalendar() {
     console.log(this.currentMonth)
     const year = this.currentMonth.getFullYear();
@@ -115,7 +119,6 @@ export class TaskScheduleComponent {
     }
   
     this.displayedQuarter = quarter + ", " + year
-    // return `${quarter} ${year}`;
   }
 
   private generateWeeks(): string[] {

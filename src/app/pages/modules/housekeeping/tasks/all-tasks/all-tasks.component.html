@@ -3,7 +3,7 @@
 </ol>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="card shadow-sm">
             <div class="card-body">
                 
@@ -32,7 +32,10 @@
                                         <app-table-sorting [fieldTitle]="'Task Name'" [thisColumn]="'task_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Task Date'" [thisColumn]="'task_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
+                                        <app-table-sorting [fieldTitle]="'From Date'" [thisColumn]="'from_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
+                                    </th>
+                                    <th scope="col">
+                                        <app-table-sorting [fieldTitle]="'To Date'" [thisColumn]="'to_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
                                     <th scope="col">
                                         <app-table-sorting [fieldTitle]="'Task Type'" [thisColumn]="'task_type'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
@@ -46,20 +49,29 @@
                                 <tr *ngFor="let data of taskListData" (dblclick)="viewTask(data?.id)">
                                     <td>{{data?.data().task_code}}</td>
                                     <td>{{data?.data().task_name}}</td>
-                                    <td>{{data?.data().task_date | date: 'short'}}</td>
+                                    <td>{{data?.data().from_date | date: 'short'}}</td>
+                                    <td>{{data?.data().to_date | date: 'short'}}</td>
                                     <td>{{data?.data().task_type}}</td>
                                     <td>{{data?.data().task_status}}</td>
                                 </tr>
                             </tbody>
                             <tbody *ngIf="isFetchingData || !isDataAvailable">
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                 
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getTaskList()"></app-table-paginator>
+                        
                     </div>
                 </div>
 

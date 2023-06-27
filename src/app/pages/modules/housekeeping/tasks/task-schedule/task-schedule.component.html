@@ -19,40 +19,42 @@
                 <!-- months -->
 
                 <div class="calendar-container">
-                    <div class="month-navigation">
+                    <div class="navigation">
                         <button (click)="previousMonth()">Previous</button>
-                        <!-- <h2>{{ currentMonth | date: 'MMMM yyyy' }}</h2> -->
                         <h2>{{displayedMonth}}, {{displayedYear}}</h2>
                         <button (click)="nextMonth()">Next</button>
                     </div>
                 </div>
-                <table>
-                    <thead class="calendar-table">
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let week of days">
-                            <td *ngFor="let day of week">
-                                {{ day | date: 'd' }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="text-center">
+                    <table class="w-100 calendar-table">
+                        <thead>
+                            <tr>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let week of days">
+                                <td *ngFor="let day of week" (click)="selectDay(day)" class="h6 p-4">
+                                    {{ day | date: 'd' }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
+                <hr>
                 <hr>
 
                 <!-- quarters -->
 
                 <div class="calendar-container">
-                    <div class="quarter-navigation">
+                    <div class="navigation">
                       <button (click)="previousQuarter()">Previous</button>
                       <h2>{{ displayedQuarter }}</h2>
                       <button (click)="nextQuarter()">Next</button>
@@ -62,27 +64,28 @@
                         <tr>
                             <th>Week</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
                         <tr *ngFor="let week of weeks" (click)="selectWeek(week)">
-                            <td>{{ week }}</td>
+                            <td class="p-3">{{ week }}</td>
                         </tr>
                     </tbody>
                 </table>
                 </div>
                   
                 <hr>
+                <hr>
 
                 <!-- years -->
 
                 <div class="calendar-container">
-                    <div class="year-navigation">
+                    <div class="navigation">
                         <button (click)="previousYear()">Previous</button>
                         <h2>{{ currentYear }}</h2>
                         <button (click)="nextYear()">Next</button>
                     </div>
                     <div class="months-container">
-                        <div *ngFor="let month of months" class="month" (click)="selectMonth(month)">
+                        <div *ngFor="let month of months" class="m-3 month" (click)="selectMonth(month)">
                             {{ month }}
                         </div>
                     </div>

@@ -21,18 +21,13 @@ export class ProfilePhotoComponent {
 
   isSavingPhoto = false;
 
-  onFileSelected(event: any) {
-    this.selectedImage = event.target.files[0];
-    this.previewImage();
-    this.uploadImage();
+  ngOnInit(): void {
+    this.getBasicProfile();
   }
 
-  previewImage() {
-    const reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
-    };
-    reader.readAsDataURL(this.selectedImage as File);
+  onFileSelected(event: any) {
+    this.selectedImage = event.target.files[0];
+    this.uploadImage();
   }
 
   uploadImage() {
@@ -65,6 +60,21 @@ export class ProfilePhotoComponent {
         this.connectionToast.openToast();
         this.isSavingPhoto = false;
       });
+  }
+
+  getBasicProfile() {
+    const id = localStorage.getItem('uid') as string;
+
+    this.usersApi.getBasicUser(id)
+      .then((res) => {
+        console.log(res);
+        let resData: any = res;
+        this.imageUrl = resData.data().profile_photo;
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+      };
   }
 
 }
