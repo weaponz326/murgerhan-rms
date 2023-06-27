@@ -58,11 +58,11 @@ export class NewPurchasingComponent {
       comments: "",
       total_price: 0.00,
       received_by: {
-        id: this.selectedUserData.id,
+        id: localStorage.getItem('uid') as string,
         data: {
-          staff_code: this.selectedUserData.data.staff_code as string,
-          full_name: this.selectedUserData.data.full_name as string,
-          staff_role: this.selectedUserData.data.staff_role as string,
+          staff_code: this.selectedUserData.staff_code as string,
+          full_name: this.selectedUserData.full_name as string,
+          staff_role: this.selectedUserData.staff_role as string,
         }
       },
       supplier: {

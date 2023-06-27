@@ -48,6 +48,13 @@ export class EditPurchasingItemComponent {
           item_code: this.selectedItemData.item_code,
           item_name: this.selectedItemData.item_name,
           unit_price: this.selectedItemData.unit_price,
+          item_category: {
+            id: this.selectedItemData.item_category.id,
+            data: {
+              category_code: this.selectedItemData.item_category.data.category_code,
+              category_name: this.selectedItemData.item_category.data.category_name,
+            }
+          }
         }
       },
     }

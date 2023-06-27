@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="card shadow-sm">
             <div class="card-body">
                 
@@ -13,10 +13,11 @@
                             <thead>
                                 <tr class="bg-light">
                                     <th width="5%" class="min-width-1">No.</th>
-                                    <th width="35%" class="min-width-3">Item Name</th>
-                                    <th width="15%" class="min-width-2">Price</th>
+                                    <th width="30%" class="min-width-3">Item Name</th>
+                                    <th width="10%" class="min-width-2">Price</th>
                                     <th width="10%" class="min-width-2">Quantity</th>
                                     <th width="15%" class="min-width-2">Total Price</th>
+                                    <th width="10%" class="min-width-2">Checks</th>
                                     <th width="10%" class="p-0 min-width-2">
                                         <button class="btn btn-primary btn-sm w-100" (click)="addPurchasingItem.openModal(lastItem)">
                                             <i class="bi bi-plus"></i>
@@ -32,6 +33,12 @@
                                     <td>{{data?.data().quantity}}</td>
                                     <td>{{data?.data().stock_item?.data?.unit_price * data?.data().quantity | currency}}</td>
                                     <td class="p-0">
+                                        <button class="btn btn-sm btn-light bpurchasing w-100" (click)="gotoChecks(data.id)">
+                                            <i class="bi bi-card-checklist me-2"></i>
+                                            <i class="bi bi-arrow-right"></i>
+                                        </button>
+                                    </td>
+                                    <td class="p-0">
                                         <button class="btn btn-sm btn-success bpurchasing w-50" (click)="openEditItem(data)">
                                             <i class="bi bi-pen"></i>
                                         </button>
@@ -41,14 +48,14 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                     </td>
                                 </tr>
                                 <tr class="bg-light">
                                     <td colspan="4"></td>
                                     <td>{{totalPrice | currency}}</td>
-                                    <td></td>
+                                    <td colspan="2"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -60,7 +67,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
 
@@ -74,7 +81,7 @@
             </div>
         </div>
     </div>
-    
+     -->
 </div>
 
 <!-- add and edit item modal components -->

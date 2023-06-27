@@ -146,6 +146,11 @@ export class PurchasingItemsComponent {
       });
   }
 
+  gotoChecks(itemId: any){
+    sessionStorage.setItem('inventory_purchasing_item_id', itemId);
+    this.router.navigateByUrl('/modules/inventory/purchasing/quality-checks');
+  }
+
   openEditItem(data: any){
     console.log(data);
     this.editPurchasingItem.openModal(data);

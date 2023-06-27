@@ -126,7 +126,27 @@ export class PurchasingItem {
             item_code: string;
             item_name: string;
             unit_price: number;
-        }
+            item_category: {
+                id: string;
+                data: {
+                    category_code: string;
+                    category_name: string;
+                }
+            };
+        };
     };
 }
 
+export class PurchasingCheck{
+    created_at!: any;
+    updated_at!: any;
+    comments!: string;
+    checks!: any[];
+}
+
+export class PurchasingCheckImage {
+    created_at!: any;
+    updated_at!: any;
+    purchasing_check!: string;
+    url!: string;
+}

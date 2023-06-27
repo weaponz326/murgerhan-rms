@@ -6,6 +6,7 @@ import { AllPurchasingComponent } from './all-purchasing/all-purchasing.componen
 import { AddPurchasingItemComponent } from './add-purchasing-item/add-purchasing-item.component';
 import { ViewPurchasingComponent } from './view-purchasing/view-purchasing.component';
 import { PurchasingQualityChecksComponent } from './purchasing-quality-checks/purchasing-quality-checks.component';
+import { PurchasingCheckImagesComponent } from './purchasing-check-images/purchasing-check-images.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: "add-purchasing", component: AddPurchasingItemComponent },
       { path: "view-purchasing", component: ViewPurchasingComponent },
       { path: "quality-checks", component: PurchasingQualityChecksComponent },
+      { path: "quality-check-images", component: PurchasingCheckImagesComponent },
     ]
   }
 ];

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +10,7 @@ export class InventoryApiService {
 
   constructor(
     private firestore: AngularFirestore,
+    private storage: AngularFireStorage
   ) { }
 
   stockItemRef = this.firestore.collection('inventory_stock_item');
@@ -17,6 +20,8 @@ export class InventoryApiService {
   supplierItemRef = this.firestore.collection('inventory_supplier_item');
   purchasingRef = this.firestore.collection('inventory_purchasing');
   purchasingItemRef = this.firestore.collection('inventory_purchasing_item');
+  purchasingCheckRef = this.firestore.collection('inventory_purchasing_check');
+  purchasingCheckImageRef = this.firestore.collection('inventory_purchasing_check_image');
 
   // stock item
 
@@ -199,6 +204,92 @@ export class InventoryApiService {
       .where("purchasing", "==", sessionStorage.getItem("inventory_purchasing_id"))
       .orderBy("created_at", "asc")
       .get();
+  }
+
+  // purchasing check
+
+  createPurchasingCheck(data: any){
+    return this.purchasingCheckRef.add(data);
+  }
+
+  updatePurchasingCheck(id:any, data: any){
+    return this.purchasingCheckRef.doc(id).update(data);
+  }
+
+  deletePurchasingCheck(id: any){
+    return this.purchasingCheckRef.doc(id).delete();
+  }
+
+  setPurchasingCheck(id:any, data: any){
+    return this.purchasingCheckRef.doc(id).set(data);
+  }
+
+  getPurchasingCheck(id: any){
+    return this.purchasingCheckRef.doc(id).ref.get();
+  }
+
+  getPurchasingChecListk(){
+    return this.purchasingCheckRef.ref
+      .where("purchasing", "==", sessionStorage.getItem("inventory_purchasing_id"))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
+  // purchasing check image
+
+  createPurchasingCheckImage(data: any){
+    return this.purchasingCheckImageRef.add(data);
+  }
+
+  updatePurchasingCheckImage(id:any, data: any){
+    return this.purchasingCheckImageRef.doc(id).update(data);
+  }
+
+  deletePurchasingCheckImage(id: any){
+    return this.purchasingCheckImageRef.doc(id).delete();
+  }
+
+  setPurchasingCheckImage(id:any, data: any){
+    return this.purchasingCheckImageRef.doc(id).set(data);
+  }
+
+  getPurchasingCheckImage(id: any){
+    return this.purchasingCheckImageRef.doc(id).ref.get();
+  }
+
+  getPurchasingCheckImageList(){
+    return this.purchasingCheckImageRef.ref
+      .where("purchasing_check", "==", String(sessionStorage.getItem('inventory_purchasing_id')) + String(sessionStorage.getItem('inventory_purchasing_item_id')))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
+  // image uploads
+
+  uploadPurchasingCheckImage(images: File[], data: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const uploadIssues: Promise<string>[] = [];
+
+      images.forEach((image) => {
+        const filePath = `images/inventory/purchasing/${Date.now()}_${image.name}`;
+        const fileRef = this.storage.ref(filePath);
+        const uploadIssue = this.storage.upload(filePath, image);
+
+        uploadIssue
+          .then(() => fileRef.getDownloadURL().toPromise())
+          .then((downloadUrl) => {
+            const dataWithImages = { ...data, url: downloadUrl };
+            return this.createPurchasingCheckImage(dataWithImages);
+          })
+          .then(() => uploadIssues.push())
+          .catch((error) => reject(error));
+      });
+
+      // Wait for all upload issues to complete
+      Promise.all(uploadIssues)
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
   }
 
 }

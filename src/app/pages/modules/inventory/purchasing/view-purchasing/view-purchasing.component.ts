@@ -129,7 +129,7 @@ export class ViewPurchasingComponent {
     this.inventoryApi.deletePurchasing(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/inventory/purchasinge/all-purchasinges')
+        this.router.navigateByUrl('modules/inventory/purchasing/all-purchasing')
         this.isDeletingPurchasing = false;
       })
       .catch((err) => {

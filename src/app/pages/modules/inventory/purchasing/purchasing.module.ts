@@ -15,6 +15,7 @@ import { AddPurchasingItemComponent } from './add-purchasing-item/add-purchasing
 import { EditPurchasingItemComponent } from './edit-purchasing-item/edit-purchasing-item.component';
 import { PurchasingQualityChecksComponent } from './purchasing-quality-checks/purchasing-quality-checks.component';
 import { PurchasingItemFormComponent } from './purchasing-item-form/purchasing-item-form.component';
+import { PurchasingCheckImagesComponent } from './purchasing-check-images/purchasing-check-images.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PurchasingItemFormComponent } from './purchasing-item-form/purchasing-i
     AddPurchasingItemComponent,
     EditPurchasingItemComponent,
     PurchasingQualityChecksComponent,
-    PurchasingItemFormComponent
+    PurchasingItemFormComponent,
+    PurchasingCheckImagesComponent
   ],
   imports: [
     CommonModule,
