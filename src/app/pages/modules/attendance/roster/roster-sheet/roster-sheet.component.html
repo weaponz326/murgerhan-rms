@@ -26,9 +26,9 @@
                         <td>{{shift.data().shift_name}}</td>
                         <td class="batch-cell" *ngFor="let date of sheetDates" (dblclick)="saveSheet(shift.id, date, null)">
                             <span *ngFor="let sheetData of rosterSheetListData">
-                                <span *ngIf="sheetData.data().shift == shift.id && sheetData.data().date == dateFormat(date)" (dblclick)="saveSheet(shift.id, date, sheetData.id)" class="h-100 w-100">
+                                <div *ngIf="sheetData.data().shift == shift.id && sheetData.data().date == dateFormat(date)" (dblclick)="saveSheet(shift.id, date, sheetData.id)" class="h-100 w-100">
                                     {{sheetData.data().batch.data.batch_symbol}}
-                                </span>
+                                </div>
                             </span>
                         </td>
                     </tr>

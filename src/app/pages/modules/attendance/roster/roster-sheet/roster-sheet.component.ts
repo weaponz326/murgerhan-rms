@@ -64,6 +64,7 @@ export class RosterSheetComponent {
         (res: any) => {
           console.log(res);
           this.rosterShiftListData = res.docs;
+
           this.getRosterSheetList();
         },
         (err: any) => {
@@ -109,6 +110,7 @@ export class RosterSheetComponent {
       .then((res: any) => {
         console.log(res);
         this.isSavingSheet = false;
+
         this.getRosterSheetList();
       })
       .catch((err: any) => {
@@ -142,6 +144,8 @@ export class RosterSheetComponent {
       .then((res: any) => {
         console.log(res);
         this.isSavingSheet = false;
+        this.selectedSheetId = null;
+
         this.getRosterSheetList();
       })
       .catch((err: any) => {
@@ -170,9 +174,9 @@ export class RosterSheetComponent {
     this.selectedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
     if(sheetId) 
       this.selectedSheetId = sheetId;
-    else
-      this.selectedSheetId = null;
 
+    console.log(this.selectedSheetId);
+    
     this.openBatchWindow();
   }
 
