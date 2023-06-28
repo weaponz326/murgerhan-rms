@@ -120,7 +120,7 @@
 
         <div class="mt-4">
             <button [disabled]="isSavingAvailability" class="btn btn-sm btn-secondary float-start form-control-btn" routerLink="/settings/photo">Back</button>
-            <button [disabled]="isFetchingData || isSavingAvailability" (click)="updateAvailability()" class="btn btn-sm btn-primary float-end form-control-btn">Next</button>
+            <button [disabled]="isFetchingData || isSavingAvailability" (click)="setAvailability()" class="btn btn-sm btn-primary float-end form-control-btn">Next</button>
         </div>
 
     </div>

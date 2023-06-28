@@ -1,7 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { serverTimestamp } from 'firebase/firestore';
+
+import { UserRole } from 'src/app/models/modules/users/users.model';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 
 @Component({
   selector: 'app-view-invitation',
@@ -18,6 +23,8 @@ export class ViewInvitationComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   invitationData: any;
+  basicUserData: any;
+  invitationEmail = "";
 
   isFetchingData = false;
   isSavingInvitation = false;
@@ -35,6 +42,10 @@ export class ViewInvitationComponent {
         console.log(res);
         this.invitationData = res;
         this.isFetchingData = false;
+
+        this.invitationEmail = this.invitationData.data().invitee_email;
+        if (this.invitationData.data().invitation_status == "Accepted")
+          this.getBasicuserWithEmail();
       }),
       (err: any) => {
         console.log(err);
@@ -43,20 +54,66 @@ export class ViewInvitationComponent {
       };
   }
 
-  updateInvitation(invitaionStatus: any) {
+  getBasicuserWithEmail() {
+    this.usersApi.getBasicUserWithEmail(this.invitationEmail)
+      .then((res) => {
+        console.log(res);
+        this.basicUserData = res.docs;
+        this.isFetchingData = false;
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
+  }
+
+  updateInvitation() {
     this.isSavingInvitation = true;
     
     const id = sessionStorage.getItem('users_invitation_id') as string;
-    let data = { invitation_status: invitaionStatus };
+    let data = { invitation_status: "Approved" };
 
     this.usersApi.updateInvitation(id, data)
       .then((res) => {
         console.log(res);
-        this.isSavingInvitation = false;
-        // TODO: init user role
-        // TODO: implement with cloud function
+        this.setUserRole();
+        // this.isSavingInvitation = false;
       })
       .catch((err) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isSavingInvitation = false;
+      });
+  }
+
+  setUserRole() {
+    let id = this.basicUserData[0].id;
+
+    let data: UserRole = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      full_name: "",
+      staff_code: "",
+      staff_role: "",
+      branch: {
+        id: "",
+        data: {
+            branch_name: "",
+            location: "",
+        }
+      }
+    }
+
+    this.usersApi.setUserRole(id, data)
+      .then((res: any) => {
+        console.log(res);
+        sessionStorage.setItem('users_user_id', id);
+        this.router.navigateByUrl("/modules/users/users/view-user");
+
+        this.isSavingInvitation = false;
+      })
+      .catch((err: any) => {
         console.log(err);
         this.connectionToast.openToast();
         this.isSavingInvitation = false;

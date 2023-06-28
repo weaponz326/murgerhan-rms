@@ -26,13 +26,15 @@ export class InviteUserComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
   isSavingInvitation = false;
+  defaultEmailSubject = "Invitation to Murger Han Hub";
+  defaultEmailMessage = "Thank you for expressing your interest in being a staff at Murger Han. We would like to invite you to visit our operations website to register with us.";
 
   invitationForm = new FormGroup({
     invitationCode: new FormControl(''),
     inviteeName: new FormControl(''),
     inviteeEmail: new FormControl(''),
-    emailSubject: new FormControl(''),
-    emailMessage: new FormControl(''),
+    emailSubject: new FormControl(this.defaultEmailSubject),
+    emailMessage: new FormControl(this.defaultEmailMessage),
   })
 
   openModal(){
@@ -65,6 +67,8 @@ export class InviteUserComponent {
           sessionStorage.setItem('users_invitation_id', res.id);
           this.router.navigateByUrl("/modules/users/invitations/view-invitation");
         }
+
+        this.dismissButton.nativeElement.click();
         this.isSavingInvitation = false;
       })
       .catch((err: any) => {

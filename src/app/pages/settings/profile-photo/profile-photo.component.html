@@ -3,25 +3,12 @@
         <h3 class="text-center font-weight-light my-4">Profile Photo</h3>
         <hr>
         
-        <!-- <input type="file" (change)="onFileSelected($event)" />
-        <img *ngIf="imageUrl" [src]="imageUrl" alt="Preview" />
-        <button (click)="uploadImage()">Upload</button> -->
-
-        <!-- <div>
-            <label class="custom-file-upload">
-                <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-                <i class="bi bi-cloud-upload"></i>
-                <span>{{ imageUrl ? 'Image Uploaded' : 'Upload Image' }}</span>
-            </label>
-            <img *ngIf="imageUrl" [src]="imageUrl" alt="Preview" />
-            <button [disabled]="!selectedImage" (click)="uploadImage()">Upload</button>
-        </div> -->
-
         <input #imageInput [hidden]="true" type="file" requiredFileType="image" class="d-none" (change)="onFileSelected($event) "/>
 
-        <div class="card border rounded mx-auto my-4 img-pointer" [style.width.px]="200" [style.height.px]="250" (click)="imageInput.click()">
-            <div class="card-img-top">
-                <img class="border rounded" [src]="imageUrl" [width]="200" [height]="250" />
+        <div class="card border rounded mx-auto mt-4 img-pointer" [style.width.px]="200" [style.height.px]="250" (click)="imageInput.click()">
+            <div class="card-img-top text-center m-auto">
+                <img *ngIf="imageUrl" class="border rounded" [src]="imageUrl" [width]="200" [height]="250" />
+                <i *ngIf="!imageUrl || imageUrl == ''" class="bi bi-camera fs-1 p-3 border rounded"></i>
             </div>
         </div>
 

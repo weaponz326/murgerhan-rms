@@ -47,6 +47,7 @@ export class MainNavbarComponent {
           this.isAuthLoading = false;
 
           localStorage.setItem('uid', res.uid);
+          localStorage.setItem('email', res.email);
 
           if (res.uid){
             this.isLoggedIn = true;
@@ -69,9 +70,14 @@ export class MainNavbarComponent {
       .then((res) => {
         console.log(res.data());
         this.userRoleData = res;
-        this.branchName = this.userRoleData.data().branch.data.branch_name;
-        localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch));
-        localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
+        try{
+          this.branchName = this.userRoleData.data().branch.data.branch_name;
+          localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch));
+          localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
+        }
+        catch{
+          console.log("probably not logged in!");
+        }
       }),
       (err: any) => {
         console.log(err);

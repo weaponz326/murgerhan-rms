@@ -52,7 +52,7 @@ export class SelectBasicUserComponent {
   getBasicUserList(){
     this.isFetchingData = true;
 
-    this.usersApi.getBasicUserList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getBasicUserList()
       .then(
         (res: any) => {
           console.log(res);

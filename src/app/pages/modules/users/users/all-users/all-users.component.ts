@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class AllUsersComponent {
   constructor(
     private router: Router,
     private usersApi: UsersApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -25,21 +27,13 @@ export class AllUsersComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['staff_code', 'full_name', 'branch_name', 'staff_role'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 15;
 
   ngOnInit(): void {
     this.getUserRoleList();
@@ -48,16 +42,20 @@ export class AllUsersComponent {
   getUserRoleList(){
     this.isFetchingData = true;
 
-    this.usersApi.getUserRoleList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getUserRoleList()
       .then(
         (res: any) => {
           console.log(res.docs);
           this.userListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -74,9 +72,11 @@ export class AllUsersComponent {
     this.router.navigateByUrl("/modules/users/users/view-user");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getUserRoleList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.userListData = this.aggregateTable.filterData(this.userListData, this.filterText, this.tableColumns);
+    this.userListData = this.aggregateTable.sortData(this.userListData, this.sortColumn, this.sortDirection);
+    this.userListData = this.aggregateTable.paginateData(this.userListData, this.currentPage, this.pageSize);
   }
   
 }

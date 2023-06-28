@@ -2,7 +2,7 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Additional Info</h3>
         <hr>
-        <form [formGroup]="additionalForm" (ngSubmit)="updateAdditional()">
+        <form [formGroup]="additionalForm" (ngSubmit)="setAdditionalUser()">
             <div class="mb-3">
                 <label for="nationalityInput" class="form-label">Nationality</label>
                 <input formControlName="nationality" type="text" class="form-control form-control-sm" id="nationalityInput">

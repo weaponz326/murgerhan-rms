@@ -52,7 +52,7 @@ export class SelectUserRoleComponent {
   getUserRoleList(){
     this.isFetchingData = true;
 
-    this.usersApi.getUserRoleList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getUserRoleList()
       .then(
         (res: any) => {
           console.log(res);

@@ -52,7 +52,7 @@ export class SelectInvitationComponent {
   getInvitationList(){
     this.isFetchingData = true;
 
-    this.usersApi.getInvitationList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getInvitationList()
       .then(
         (res: any) => {
           console.log(res);

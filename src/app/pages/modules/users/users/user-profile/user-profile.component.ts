@@ -33,7 +33,7 @@ export class UserProfileComponent {
 
   getBasicUser() {
     this.isFetchingData = true;
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
@@ -50,7 +50,7 @@ export class UserProfileComponent {
 
   getAdditionalUser() {
     this.isFetchingData = true;
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     this.usersApi.getAdditionalUser(id)
       .then((res) => {
@@ -67,7 +67,7 @@ export class UserProfileComponent {
 
   getAvailability() {
     this.isFetchingData = true;
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     this.usersApi.getAvailability(id)
       .then((res) => {

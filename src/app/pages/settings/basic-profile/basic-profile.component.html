@@ -2,7 +2,7 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Basic Profile</h3>
         <hr>
-        <form [formGroup]="basicForm" (ngSubmit)="updateBasic()">
+        <form [formGroup]="basicForm" (ngSubmit)="setBasicUser()">
             <div class="mb-3">
                 <label for="nameInput" class="form-label">Full Name</label>
                 <input formControlName="fullName" type="text" class="form-control form-control-sm" id="nameInput">

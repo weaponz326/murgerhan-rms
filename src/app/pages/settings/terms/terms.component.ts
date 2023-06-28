@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { serverTimestamp } from 'firebase/firestore';
+
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 
 @Component({
   selector: 'app-terms',
@@ -16,6 +20,9 @@ export class TermsComponent {
   ) {}
   
   basicData: any;
+  invitationData: any;
+  invitationEmail = "";
+  InvitationId = "";
 
   isFetchingData = false;
   isSavingBasic = false;
@@ -38,8 +45,10 @@ export class TermsComponent {
       .then((res) => {
         console.log(res);
         this.basicData = res;
-        this.isFetchingData = false;
-        this.termsAcceptanceStatus = this.basicData.data().terms_acceptance_status;   
+
+        this.termsAcceptanceStatus = this.basicData.data().terms_acceptance_status;  
+        this.invitationEmail = this.basicData.data().email;
+        this.getInvitationWithEmail();
       }),
       (err: any) => {
         console.log(err);
@@ -59,11 +68,42 @@ export class TermsComponent {
         console.log(res);
         this.isSavingBasic = false;
         this.showPrompt = true;
+
+        this.updateInvitation();
       })
       .catch((err) => {
         console.log(err);
         this.connectionToast.openToast();
         this.isSavingBasic = false;
+      });
+  }
+
+  getInvitationWithEmail() {
+    this.usersApi.getInvitationWithEmail(this.invitationEmail)
+      .then((res) => {
+        console.log(res.docs[0]);
+        this.invitationData = res.docs;
+        this.isFetchingData = false;
+      }),
+      (err: any) => {
+        console.log(err);
+      };
+  }
+
+  updateInvitation() {    
+    const id = this.invitationData[0].id;
+    let data = { 
+      date_accepted: serverTimestamp(),
+      invitation_status: "Accepted",
+    };
+
+    this.usersApi.updateInvitation(id, data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.connectionToast.openToast();
       });
   }
   

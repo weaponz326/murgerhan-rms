@@ -38,10 +38,10 @@ export class BasicProfileComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
   ngOnInit(): void {
-    this.getBasicProfile();
+    this.getBasicUser();
   }
 
-  getBasicProfile() {
+  getBasicUser() {
     this.isFetchingData = true;
     const id = localStorage.getItem('uid') as string;
 
@@ -59,25 +59,37 @@ export class BasicProfileComponent {
       };
   }
 
-  updateBasic() {
-    this.isSavingBasic = true;
+  setBasicUser() {
+    this.isSavingBasic = true;    
     
+    let created_at: any;
+    if (this.basicData.data()) created_at = this.basicData.data().created_at;
+    else created_at = serverTimestamp();
+
+    let terms_acceptance_status: any;
+    if (this.basicData.data()) terms_acceptance_status = this.basicData.data().terms_acceptance_status;
+    else terms_acceptance_status = false;
+
+    let profile_photo: any;
+    if (this.basicData.data()) profile_photo = this.basicData.data().profile_photo;
+    else profile_photo = null;
+
     const id = localStorage.getItem('uid') as string;
 
     let data: UserBasicProfile = {
-      created_at: this.basicData.data().created_at,
+      created_at: created_at,
       updated_at: serverTimestamp(),
-      terms_acceptance_status: this.basicData.data().terms_acceptance_status,
+      terms_acceptance_status: terms_acceptance_status,
       full_name: this.basicForm.controls.fullName.value as string,
       date_of_birth: this.basicForm.controls.dateOfBirth.value,
       ni_number: this.basicForm.controls.niNumber.value as string,
       email: this.basicForm.controls.email.value as string,
       phone: this.basicForm.controls.phone.value as string,
       address: this.basicForm.controls.address.value as string,
-      profile_photo: this.basicData.data().profile_photo,
+      profile_photo: profile_photo,
     }
 
-    this.usersApi.updateBasicUser(id, data)
+    this.usersApi.setBasicUser(id, data)
       .then((res) => {
         console.log(res);
         this.isSavingBasic = false;
@@ -91,12 +103,20 @@ export class BasicProfileComponent {
   }
 
   setBasicData(){
-    this.basicForm.controls.fullName.setValue(this.basicData.data().full_name);
-    this.basicForm.controls.dateOfBirth.setValue(this.basicData.data().date_of_birth);
-    this.basicForm.controls.niNumber.setValue(this.basicData.data().ni_number);
-    this.basicForm.controls.email.setValue(this.basicData.data().email);
-    this.basicForm.controls.phone.setValue(this.basicData.data().phone);
-    this.basicForm.controls.address.setValue(this.basicData.data().address);
+    try{
+      if (this.basicData.data()) this.basicForm.controls.email.setValue(this.basicData.data().email);
+      else this.basicForm.controls.email.setValue(localStorage.getItem('email'));
+      console.log(localStorage.getItem('email'))
+      
+      this.basicForm.controls.fullName.setValue(this.basicData.data().full_name);
+      this.basicForm.controls.dateOfBirth.setValue(this.basicData.data().date_of_birth);
+      this.basicForm.controls.niNumber.setValue(this.basicData.data().ni_number);      
+      this.basicForm.controls.phone.setValue(this.basicData.data().phone);
+      this.basicForm.controls.address.setValue(this.basicData.data().address);      
+    }
+    catch{
+      console.log('first time here eh?...');
+    }
   }
 
 }

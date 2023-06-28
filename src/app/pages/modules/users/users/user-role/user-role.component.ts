@@ -24,13 +24,14 @@ export class UserRoleComponent {
   ) {}
   
   roleData: any;
+  basicProfileData: any;
 
   isFetchingData = false;
   isSavingRole = false;
   isDeletingRole = false;
 
   roleForm = new FormGroup({
-    fullName: new FormControl(''),
+    fullName: new FormControl({value: '', disabled: true}),
     staffCode: new FormControl(''),
     branch: new FormControl({value: '', disabled: true}),
     staffRole: new FormControl(''),
@@ -48,14 +49,36 @@ export class UserRoleComponent {
 
   getUserRole() {
     this.isFetchingData = true;
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     this.usersApi.getUserRole(id)
       .then((res) => {
         console.log(res);
         this.roleData = res;
         this.isFetchingData = false;
-        this.setRoleData();        
+        this.setRoleData();
+        
+        if (this.roleData.data().full_name == "")
+          this.getBasicUser();
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
+  }
+
+  getBasicUser() {
+    this.isFetchingData = true;
+    const id = sessionStorage.getItem('users_user_id') as string;
+
+    this.usersApi.getBasicUser(id)
+      .then((res) => {
+        console.log(res);
+        this.basicProfileData = res;
+        this.isFetchingData = false;
+
+        this.roleForm.controls.fullName.setValue(this.basicProfileData.data().full_name);
       }),
       (err: any) => {
         console.log(err);
@@ -67,7 +90,7 @@ export class UserRoleComponent {
   updateUserRole() {
     this.isSavingRole = true;
     
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     let data: UserRole = {
       created_at: this.roleData.data().created_at,
@@ -101,7 +124,7 @@ export class UserRoleComponent {
   deleteUserRole(){
     this.isDeletingRole = true;
 
-    const id = localStorage.getItem('uid') as string;
+    const id = sessionStorage.getItem('users_user_id') as string;
 
     this.usersApi.deleteUserRole(id)
       .then((res) => {

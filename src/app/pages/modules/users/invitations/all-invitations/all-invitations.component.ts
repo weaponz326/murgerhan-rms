@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { InviteUserComponent } from '../invite-user/invite-user.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -17,6 +18,7 @@ export class AllInvitationsComponent {
   constructor(
     private router: Router,
     private usersApi: UsersApiService,
+    private aggregateTable: AggregateTableService,
   ) { }
 
   @ViewChild('inviteUserComponentReference', { read: InviteUserComponent, static: false }) inviteUser!: InviteUserComponent;
@@ -27,21 +29,13 @@ export class AllInvitationsComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['invition_code', 'invitation_date', 'invitee_name', 'invitee_email', 'invitation_status'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 15;
 
   ngOnInit(): void {
     this.getInvitationList();
@@ -50,12 +44,20 @@ export class AllInvitationsComponent {
   getInvitationList(){
     this.isFetchingData = true;
 
-    this.usersApi.getInvitationList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.usersApi.getInvitationList()
       .then(
         (res: any) => {
           console.log(res);
           this.invitationListData = res.docs;
           this.isFetchingData = false;
+
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
+          if(res.docs.length == 0)
+            this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -72,9 +74,11 @@ export class AllInvitationsComponent {
     this.router.navigateByUrl("/modules/users/invitations/view-invitation");
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getInvitationList();
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.invitationListData = this.aggregateTable.filterData(this.invitationListData, this.filterText, this.tableColumns);
+    this.invitationListData = this.aggregateTable.sortData(this.invitationListData, this.sortColumn, this.sortDirection);
+    this.invitationListData = this.aggregateTable.paginateData(this.invitationListData, this.currentPage, this.pageSize);
   }
 
 }

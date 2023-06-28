@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminWindowsModule } from 'src/app/components/select-windows/admin-windows/admin-windows.module';
 
 import { UsersPage } from './users.page';
@@ -24,6 +24,7 @@ import { UserRoleComponent } from './user-role/user-role.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     UsersRoutingModule,
     ModuleUtilitiesModule,
     AdminWindowsModule

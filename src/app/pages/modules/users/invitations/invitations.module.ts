@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InvitationsRoutingModule } from './invitations-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
@@ -21,6 +21,7 @@ import { ViewInvitationComponent } from './view-invitation/view-invitation.compo
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     InvitationsRoutingModule,
     ModuleUtilitiesModule
   ]

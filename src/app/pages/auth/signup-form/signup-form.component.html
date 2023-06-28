@@ -2,7 +2,13 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Sign Up</h3>
         
-        <form *ngIf="!showPrompt" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="isLoading" class="text-center">
+            <div class="spinner-border text-primary m-5" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <form *ngIf="!showPrompt && !isLoading" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div class="form-floating mb-3">
                 <input class="form-control" formControlName="email" id="inputEmail" type="email" />
                 <label for="inputEmail">Email address</label>

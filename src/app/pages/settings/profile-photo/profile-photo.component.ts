@@ -22,7 +22,7 @@ export class ProfilePhotoComponent {
   isSavingPhoto = false;
 
   ngOnInit(): void {
-    this.getBasicProfile();
+    this.getBasicUser();
   }
 
   onFileSelected(event: any) {
@@ -31,12 +31,13 @@ export class ProfilePhotoComponent {
   }
 
   uploadImage() {
+    const id = localStorage.getItem('uid') as string;
+
     if (this.selectedImage) {
-      this.usersApi.uploadImage(this.selectedImage)
-        .then((url: string) => {
-          console.log('Image URL:', url);
-          // Do something with the URL, like saving it to Firestore
-          this.updateBasic(url);
+      this.usersApi.uploadImage(id, this.selectedImage)
+        .then(() => {
+          console.log("image uploaded...");
+          this.getBasicUser();
         })
         .catch((error: any) => {
           console.error('Error uploading image:', error);
@@ -44,30 +45,12 @@ export class ProfilePhotoComponent {
     }
   }
 
-  updateBasic(url: string) {
-    this.isSavingPhoto = true;
-    
-    const id = localStorage.getItem('uid') as string;
-    let data = {profile_photo: url}
-
-    this.usersApi.updateBasicUser(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingPhoto = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingPhoto = false;
-      });
-  }
-
-  getBasicProfile() {
+  getBasicUser() {
     const id = localStorage.getItem('uid') as string;
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        console.log(res.data());
         let resData: any = res;
         this.imageUrl = resData.data().profile_photo;
       }),

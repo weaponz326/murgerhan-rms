@@ -27,29 +27,29 @@ export class AvailabilityComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
-  contractType: any;
+  contractType: any = null;
 
-  mondayAvailability: any;
-  mondayTimeFrom: any;
-  mondayTimeTo: any;
-  tuesdayAvailability: any;
-  tuesdayTimeFrom: any;
-  tuesdayTimeTo: any;
-  wednesdayAvailability: any;
-  wednesdayTimeFrom: any;
-  wednesdayTimeTo: any;
-  thursdayAvailability: any;
-  thursdayTimeFrom: any;
-  thursdayTimeTo: any;
-  fridayAvailability: any;
-  fridayTimeFrom: any;
-  fridayTimeTo: any;
-  saturdayAvailability: any;
-  saturdayTimeFrom: any;
-  saturdayTimeTo: any;
-  sundayAvailability: any;
-  sundayTimeFrom: any;
-  sundayTimeTo: any;
+  mondayAvailability: any = null;
+  mondayTimeFrom: any = null;
+  mondayTimeTo: any = null;
+  tuesdayAvailability: any = null;
+  tuesdayTimeFrom: any = null;
+  tuesdayTimeTo: any = null;
+  wednesdayAvailability: any = null;
+  wednesdayTimeFrom: any = null;
+  wednesdayTimeTo: any = null;
+  thursdayAvailability: any = null;
+  thursdayTimeFrom: any = null;
+  thursdayTimeTo: any = null;
+  fridayAvailability: any = null;
+  fridayTimeFrom: any = null;
+  fridayTimeTo: any = null;
+  saturdayAvailability: any = null;
+  saturdayTimeFrom: any = null;
+  saturdayTimeTo: any = null;
+  sundayAvailability: any = null;
+  sundayTimeFrom: any = null;
+  sundayTimeTo: any = null;
 
   ngOnInit(): void {
     this.getAvailabilityProfile();
@@ -73,13 +73,17 @@ export class AvailabilityComponent {
       };
   }
 
-  updateAvailability() {
+  setAvailability() {
     this.isSavingAvailability = true;
     
+    let created_at: any;
+    if (this.availabilityData.data()) created_at = this.availabilityData.data().created_at;
+    else created_at = serverTimestamp();
+
     const id = localStorage.getItem('uid') as string;
 
     let data: UserAvailabilty = {
-      created_at: this.availabilityData.data().created_at,
+      created_at: created_at,
       updated_at: serverTimestamp(),
       contract_type: this.contractType,
       availability: {
@@ -93,7 +97,7 @@ export class AvailabilityComponent {
       }
     }
 
-    this.usersApi.updateAvailability(id, data)
+    this.usersApi.setAvailability(id, data)
       .then((res) => {
         console.log(res);
         this.isSavingAvailability = false;
@@ -107,29 +111,34 @@ export class AvailabilityComponent {
   }
 
   setAvailabilityData(){
-    this.contractType = this.availabilityData.data().contract_type;
+    try{
+      this.contractType = this.availabilityData.data().contract_type;
 
-    this.mondayAvailability = this.availabilityData.data().availability.monday.available;
-    this.mondayTimeFrom = this.availabilityData.data().availability.monday.time_from;
-    this.mondayTimeTo = this.availabilityData.data().availability.monday.time_to;
-    this.tuesdayAvailability = this.availabilityData.data().availability.tuesday.available;
-    this.tuesdayTimeFrom = this.availabilityData.data().availability.tuesday.time_from;
-    this.tuesdayTimeTo = this.availabilityData.data().availability.tuesday.time_to;
-    this.wednesdayAvailability = this.availabilityData.data().availability.wednesday.available;
-    this.wednesdayTimeFrom = this.availabilityData.data().availability.wednesday.time_from;
-    this.wednesdayTimeTo = this.availabilityData.data().availability.wednesday.time_to;
-    this.thursdayAvailability = this.availabilityData.data().availability.thursday.available;
-    this.thursdayTimeFrom = this.availabilityData.data().availability.thursday.time_from;
-    this.thursdayTimeTo = this.availabilityData.data().availability.thursday.time_to;
-    this.fridayAvailability = this.availabilityData.data().availability.friday.available;
-    this.fridayTimeFrom = this.availabilityData.data().availability.friday.time_from;
-    this.fridayTimeTo = this.availabilityData.data().availability.friday.time_to;
-    this.saturdayAvailability = this.availabilityData.data().availability.saturday.available;
-    this.saturdayTimeFrom = this.availabilityData.data().availability.saturday.time_from;
-    this.saturdayTimeTo = this.availabilityData.data().availability.saturday.time_to;
-    this.sundayAvailability = this.availabilityData.data().availability.sunday.available;
-    this.sundayTimeFrom = this.availabilityData.data().availability.sunday.time_from;
-    this.sundayTimeTo = this.availabilityData.data().availability.sunday.time_to;
+      this.mondayAvailability = this.availabilityData.data().availability.monday.available;
+      this.mondayTimeFrom = this.availabilityData.data().availability.monday.time_from;
+      this.mondayTimeTo = this.availabilityData.data().availability.monday.time_to;
+      this.tuesdayAvailability = this.availabilityData.data().availability.tuesday.available;
+      this.tuesdayTimeFrom = this.availabilityData.data().availability.tuesday.time_from;
+      this.tuesdayTimeTo = this.availabilityData.data().availability.tuesday.time_to;
+      this.wednesdayAvailability = this.availabilityData.data().availability.wednesday.available;
+      this.wednesdayTimeFrom = this.availabilityData.data().availability.wednesday.time_from;
+      this.wednesdayTimeTo = this.availabilityData.data().availability.wednesday.time_to;
+      this.thursdayAvailability = this.availabilityData.data().availability.thursday.available;
+      this.thursdayTimeFrom = this.availabilityData.data().availability.thursday.time_from;
+      this.thursdayTimeTo = this.availabilityData.data().availability.thursday.time_to;
+      this.fridayAvailability = this.availabilityData.data().availability.friday.available;
+      this.fridayTimeFrom = this.availabilityData.data().availability.friday.time_from;
+      this.fridayTimeTo = this.availabilityData.data().availability.friday.time_to;
+      this.saturdayAvailability = this.availabilityData.data().availability.saturday.available;
+      this.saturdayTimeFrom = this.availabilityData.data().availability.saturday.time_from;
+      this.saturdayTimeTo = this.availabilityData.data().availability.saturday.time_to;
+      this.sundayAvailability = this.availabilityData.data().availability.sunday.available;
+      this.sundayTimeFrom = this.availabilityData.data().availability.sunday.time_from;
+      this.sundayTimeTo = this.availabilityData.data().availability.sunday.time_to;
+    }
+    catch{
+      console.log("Just a bit more, first timer :)");
+    }
   }
 
 }

@@ -42,10 +42,15 @@ export class UsersApiService {
     return this.usersBasicRef.doc(id).ref.get();
   }
 
-  getBasicUserList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getBasicUserWithEmail(email: any){
+    return this.usersBasicRef.ref
+      .where("email", "==", email)
+      .get();
+  }
+
+  getBasicUserList(){
     return this.usersBasicRef.ref
       .where("branch.id", "==", localStorage.getItem("selected_branch"))
-      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
       .get();
   }
 
@@ -123,10 +128,10 @@ export class UsersApiService {
     return this.usersRoleRef.doc(id).ref.get();
   }
 
-  getUserRoleList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getUserRoleList(){
     return this.usersRoleRef.ref
-    // .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
-    .get();
+      .orderBy("created_at", "desc")
+      .get();
   }
 
   // invitations
@@ -147,31 +152,36 @@ export class UsersApiService {
     return this.usersInvitationRef.doc(id).ref.get();
   }
 
-  getInvitationList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any){
+  getInvitationWithEmail(email: any){
     return this.usersInvitationRef.ref
-      .where("branch.id", "==", localStorage.getItem("selected_branch"))
-      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
+      .where("invitee_email", "==", email)
+      .get();
+  }
+
+  getInvitationList(){
+    return this.usersInvitationRef.ref
+      .orderBy("created_at", "desc")
       .get();
   }
 
   // profile photo
 
-  uploadImage(file: File): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      const filePath = `images/users/${Date.now()}_${file.name}`;
+  uploadImage(id: any, image: File): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const filePath = `images/users/${Date.now()}_${image.name}`;
       const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, file);
-
-      task.snapshotChanges()
-        .pipe(
-          finalize(() => {
-            fileRef.getDownloadURL().subscribe(
-              (url: string) => resolve(url),
-              (error: any) => reject(error)
-            );
-          })
-        ).subscribe();
+      const uploadTask = this.storage.upload(filePath, image);
+  
+      uploadTask
+        .then(() => fileRef.getDownloadURL().toPromise())
+        .then((downloadUrl) => {
+          const dataWithImage = { profile_photo: downloadUrl };
+          return this.updateBasicUser(id, dataWithImage);
+        })
+        .then(() => resolve())
+        .catch((error) => reject(error));
     });
   }
+  
 
 }

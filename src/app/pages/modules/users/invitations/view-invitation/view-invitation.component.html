@@ -13,47 +13,46 @@
                 <p class="lead">Invitation Details</p>
 
                 <div *ngIf="!isFetchingData"> 
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Invitation ID :</div>
-                        <div class="col-md-8">{{invitationData.data().invitaion_code}}</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Invitation ID :</span></div>
+                        <div class="col-md-8">{{invitationData.data().invitation_code}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Invitation Date :</div>
-                        <div class="col-md-8">{{invitationData.data().invitaion_date}}</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Invitation Date :</span></div>
+                        <div class="col-md-8">{{invitationData.data().invitation_date.toDate() | date}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Invitee Name :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Invitee Name :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitee_name}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Invitee Email :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Invitee Email :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitee_email}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Invitation Status :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Invitation Status :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitation_status}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Date Accepted :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Date Accepted :</span></div>
                         <div class="col-md-8">{{invitationData.data().date_accepted}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Email Subejct :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Email Subejct :</span></div>
                         <div class="col-md-8">{{invitationData.data().email_subject}}</div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 text-muted">Email Message :</div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Email Message :</span></div>
                         <div class="col-md-8">{{invitationData.data().email_message}}</div>
                     </div>
 
-                    <div class="row text-center mt-4">
+                    <div class="row text-center my-4">
                         <div class="col">
-                            <button *ngIf="invitationData.data().invitaionStatus == 'Awaiting'" class="btn btn-warning" (click)="updateInvitation('Cancelled')">
-                                Cancel Invitation
-                            </button>
-                            <!-- <button *ngIf="invitationData.data().invitaionStatus == 'Accepted'" class="btn btn-success" (click)="updateInvitation('Added to users')">
+                            <button [disabled]="invitationData.data().invitation_status != 'Accepted' || isSavingInvitation" class="btn btn-success mb-2" (click)="updateInvitation()">
                                 Add to Users
-                            </button> -->
+                            </button>
+                            <p *ngIf="invitationData.data().invitation_status == 'Awaiting'" class="small text-muted">Awaiting acceptance</p>
+                            <p *ngIf="invitationData.data().invitation_status == 'Approved'" class="small text-muted">Already added to users</p>
                         </div>
                     </div>
                 </div>

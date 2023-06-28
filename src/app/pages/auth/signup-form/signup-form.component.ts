@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
 import { UserAdditionalProfile, UserAvailabilty, UserBasicProfile } from 'src/app/models/modules/users/users.model';
@@ -15,12 +16,13 @@ import { UsersApiService } from 'src/app/services/modules-api/users-api/users-ap
 export class SignupFormComponent {
 
   constructor(
+    private route: ActivatedRoute,
     private authApi: AuthApiService,
     private usersApi: UsersApiService,
   ) { }
 
   signupForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
     password1: new FormControl('', Validators.required),
     password2: new FormControl('', Validators.required),
   })
@@ -30,8 +32,39 @@ export class SignupFormComponent {
   passwordMismatch = false;
 
   saved: boolean = false;
+  isLoading: boolean = true;
   isSending: boolean = false;
   showPrompt: boolean = false;
+
+  invitationId = "";
+
+  ngOnInit(): void {
+    this.getParams();
+  }
+
+  getParams() {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.invitationId = params['id'];
+      this.getInvitation();
+    })
+  }
+
+  getInvitation() {
+    this.usersApi.getInvitation(this.invitationId)
+      .then((res) => {
+        console.log(res);
+
+        let invitationData: any = res;
+        if(invitationData.data().invitation_status == 'Awaiting'){
+          this.signupForm.controls.email.setValue(invitationData.data().invitee_email);
+          this.isLoading = false;
+        }
+      }),
+      (err: any) => {
+        console.log(err);
+      };
+  }
 
   onSubmit(){
     this.saved = true;
@@ -50,7 +83,6 @@ export class SignupFormComponent {
             this.isSending = false;
             this.showPrompt = true;
             localStorage.setItem('uid', res.user.uid);
-            this.initUserData();
           },
           (err: any) => {
             console.log(err);
@@ -67,87 +99,6 @@ export class SignupFormComponent {
     }
 
     console.log(this.signupForm.value);
-  }
-
-  initUserData(){
-    // TODO:implement with cloud functions
-    this.setBasicUser();
-    this.setAdditionalUser();
-    this.setAvailability();
-  }
-
-  setBasicUser() {    
-    const id = localStorage.getItem('uid') as string;
-
-    let data: UserBasicProfile = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      terms_acceptance_status: false,
-      full_name: "",
-      date_of_birth: "",
-      ni_number: "",
-      email: this.signupForm.controls.email.value as string,
-      phone: "",
-      address: "",
-      profile_photo: "",
-    }
-
-    this.usersApi.setBasicUser(id, data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  
-  setAdditionalUser() {    
-    const id = localStorage.getItem('uid') as string;
-
-    let data: UserAdditionalProfile = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      nationality: "",
-      religion: "",
-      marital_status: "",
-      e_contact_name: "",
-      e_contact_number: "",
-    }
-
-    this.usersApi.setAdditionalUser(id, data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  setAvailability() {    
-    const id = localStorage.getItem('uid') as string;
-
-    let data: UserAvailabilty = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      contract_type: "",
-      availability: {
-        monday: { available: false, time_from: null, time_to: null },
-        tuesday: { available: false, time_from: null, time_to: null },
-        wednesday: { available: false, time_from: null, time_to: null },
-        thursday: { available: false, time_from: null, time_to: null },
-        friday: { available: false, time_from: null, time_to: null },
-        saturday: { available: false, time_from: null, time_to: null },
-        sunday: { available: false, time_from: null, time_to: null },
-      }
-    }
-
-    this.usersApi.setAvailability(id, data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
 }
