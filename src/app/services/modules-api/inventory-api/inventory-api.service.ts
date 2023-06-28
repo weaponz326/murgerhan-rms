@@ -268,25 +268,25 @@ export class InventoryApiService {
 
   uploadPurchasingCheckImage(images: File[], data: any): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      const uploadIssues: Promise<string>[] = [];
+      const uploadChecks: Promise<string>[] = [];
 
       images.forEach((image) => {
         const filePath = `images/inventory/purchasing/${Date.now()}_${image.name}`;
         const fileRef = this.storage.ref(filePath);
-        const uploadIssue = this.storage.upload(filePath, image);
+        const uploadCheck = this.storage.upload(filePath, image);
 
-        uploadIssue
+        uploadCheck
           .then(() => fileRef.getDownloadURL().toPromise())
           .then((downloadUrl) => {
             const dataWithImages = { ...data, url: downloadUrl };
             return this.createPurchasingCheckImage(dataWithImages);
           })
-          .then(() => uploadIssues.push())
+          .then(() => uploadChecks.push())
           .catch((error) => reject(error));
       });
 
       // Wait for all upload issues to complete
-      Promise.all(uploadIssues)
+      Promise.all(uploadChecks)
         .then(() => resolve())
         .catch((error) => reject(error));
     });

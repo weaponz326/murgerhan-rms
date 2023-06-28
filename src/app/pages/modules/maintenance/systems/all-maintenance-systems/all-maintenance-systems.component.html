@@ -26,13 +26,13 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="20%" scope="col">
                                             <app-table-sorting [fieldTitle]="'System ID'" [thisColumn]="'system_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="45%" scope="col">
                                             <app-table-sorting [fieldTitle]="'System Name'" [thisColumn]="'system_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="35%" scope="col">
                                             <app-table-sorting [fieldTitle]="'System Type'" [thisColumn]="'system_type'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemList()"></app-table-sorting>
                                         </th>
                                     </tr>

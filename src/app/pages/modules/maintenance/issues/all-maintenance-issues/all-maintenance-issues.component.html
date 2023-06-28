@@ -3,7 +3,7 @@
 </ol>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="card shadow-sm">
             <div class="card-body">
                 
@@ -26,16 +26,16 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="15%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="35%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="20%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="30%" scope="col">
                                             <app-table-sorting [fieldTitle]="'System'" [thisColumn]="'system_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
                                     </tr>

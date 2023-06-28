@@ -30,13 +30,13 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="25%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Product ID'" [thisColumn]="'product_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="50%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Product Name'" [thisColumn]="'product_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="25%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Price'" [thisColumn]="'price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
                                     </tr>

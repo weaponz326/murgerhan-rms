@@ -62,19 +62,19 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="15%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="38%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="20%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="20%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" width="8%" class="p-0">
+                                        <th width="7%" scope="col" class="p-0">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>

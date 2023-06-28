@@ -26,7 +26,7 @@
                             <table class="table table-sm table-hover table-bordered w-100 page-table">
                                 <thead>
                                     <tr class="bg-light">
-                                        <th width="15%" class="min-width-2">
+                                        <th width="10%" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Item ID'" [thisColumn]="'item_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>                                
                                         <th width="25%" class="min-width-2">
@@ -41,7 +41,7 @@
                                         <th width="20%" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Location'" [thisColumn]="'location'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>
-                                        <th width="15%" class="min-width-3">
+                                        <th width="20%" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>    
                                     </tr>

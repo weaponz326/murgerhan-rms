@@ -24,9 +24,9 @@
                             <div class="col">
                                 <!-- <button (click)="onPrint()" class="btn btn-light btn-sm border float-start page-refresh-btn me-3"><i class="bi bi-printer"></i></button> -->
                                 
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn float-end" [disabled]="isFetchingData || isSavingVendor" (click)="updateVendor()">Save</button>
-                                <button class="btn btn-sm btn-danger ms-2 form-control-btn float-end" [disabled]="isFetchingData || isDeletingVendor" (click)="confirmDelete()">Delete</button>
                                 <button class="btn btn-sm btn-warning ms-2 form-control-btn float-end" routerLink="/modules/orders/vendors">Cancel</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn float-end" [disabled]="isFetchingData || isDeletingVendor" (click)="confirmDelete()">Delete</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn float-end" [disabled]="isFetchingData || isSavingVendor" (click)="updateVendor()">Save</button>
                             </div>
                         </div>                        
 
@@ -43,7 +43,7 @@
 
                 <p class="lead">Vendor History</p>
                 
-                <button class="btn btn-light bordered" routerLink="/modules/orders/vendors/vendor-history">
+                <button class="btn btn-light border" routerLink="/modules/orders/vendors/vendor-history">
                     View Vendor History
                     <i class="bi bi-arrow-right ms-3"></i>
                 </button>

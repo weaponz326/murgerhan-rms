@@ -25,10 +25,10 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">
+                                    <th width="30%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Category ID'" [thisColumn]="'category_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="70%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
                                     </th>
                                 </tr>

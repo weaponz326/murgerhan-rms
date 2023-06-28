@@ -61,16 +61,16 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="30" scope="col">
                                             <app-table-sorting [fieldTitle]="'Purchasing ID'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
-                                            <app-table-sorting [fieldTitle]="'Purchasing Date'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
+                                        <th width="32" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Purchasing Date'" [thisColumn]="'purchasing_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
-                                            <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
+                                        <th width="30" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" width="8%" class="p-0">
+                                        <th width="8%" scope="col" class="p-0">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>

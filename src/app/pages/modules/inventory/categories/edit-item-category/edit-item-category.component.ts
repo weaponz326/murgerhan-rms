@@ -56,7 +56,7 @@ export class EditItemCategoryComponent {
   updateItemCategory() {
     this.isSavingCategory = true;
     
-    const id = sessionStorage.getItem('inventory_itemcategory_id') as string;
+    const id = sessionStorage.getItem('inventory_category_id') as string;
 
     let data: ItemCategory = {
       created_at: this.itemcategoryData.data().created_at,

@@ -57,10 +57,13 @@ export class AllStockItemsComponent {
           this.isFetchingData = false;
 
           this.totalPages = Math.ceil(res.docs.length / this.pageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
-            this.currentPage = 1
+          }
+          else{
+            this.currentPage = 1;
+            this.isDataAvailable = true;
+          }
 
           this.aggregateData();
         },

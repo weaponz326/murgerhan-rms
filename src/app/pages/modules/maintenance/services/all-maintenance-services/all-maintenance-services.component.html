@@ -26,19 +26,19 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="15%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="30%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="15%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="15%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="25%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
                                     </tr>
