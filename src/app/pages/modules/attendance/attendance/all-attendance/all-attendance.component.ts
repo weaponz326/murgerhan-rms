@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';

@@ -55,4 +55,11 @@ export class AggregateTableService {
     return data.slice(startIndex, endIndex);
   }
 
+  getDataRange(data: any[], startDate: Date, endDate: Date): any[] {
+    return data.filter(item => {
+      const createdAt = new Date(item.data().created_at.toDate());
+      return createdAt >= startDate && createdAt <= endDate;
+    });
+  }
+
 }

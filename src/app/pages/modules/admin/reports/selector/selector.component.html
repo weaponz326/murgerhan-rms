@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col">
+
+        <div class="row mb-1">
+            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Branch :</label></div>
+            <div class="col-md-8">
+                <div class="input-group input-group-sm w-100">
+                    <input [(ngModel)]="selectedBranch" class="form-control" disabled="">
+                    <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Module :</label></div>
+            <div class="col-md-8">
+                <select class="form-control form-control-sm w-100" [(ngModel)]="selectedModule" (ngModelChange)="onModuleChange()" [disabled]="isModuleDisabled">
+                    <option *ngFor="let module of modules" [value]="module">{{module}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Range :</label></div>
+            <div class="col-md-8">
+                <select class="form-control form-control-sm w-100" [(ngModel)]="selectedRange" (ngModelChange)="onRangeChange()" [disabled]="isRangeDisabled">
+                    <option value="days">Days</option>
+                    <option value="weeks">Weeks</option>
+                    <option value="months">Months</option>
+                    <option value="quarters">Quarters</option>
+                    <option value="years">Years</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Days :</label></div>
+            <div class="col-md-8">
+                <select class="form-control form-control-sm w-100" [(ngModel)]="selectedDay" (ngModelChange)="onDaysChange()" [disabled]="isDaysDisabled">
+                    <option *ngFor="let value of selectedDays" [value]="value">{{ value }}</option>
+                </select>
+            </div>
+        </div>              
+
+    </div>
+</div>
+
+<!-- select branch component -->
+
+<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)"></app-select-branch>

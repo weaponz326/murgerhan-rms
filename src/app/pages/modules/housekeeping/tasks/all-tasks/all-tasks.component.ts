@@ -7,6 +7,7 @@ import { AggregateTableService } from 'src/app/services/module-utilities/aggrega
 import { NewTaskComponent } from '../new-task/new-task.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+
 @Component({
   selector: 'app-all-tasks',
   templateUrl: './all-tasks.component.html',

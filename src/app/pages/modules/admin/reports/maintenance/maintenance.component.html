@@ -1,1 +1,163 @@
-<p>maintenance works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Maintenance Reports</li>
+</ol>
+
+<div class="row">
+
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Select Report</p>
+
+                <!-- selector component -->
+
+                <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getIssueList()"></app-selector>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedModule == 'Issues'" class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Issues</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input [(ngModel)]="issueFilterText" (change)="getIssueList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance issues">
+                        <button [disabled]="isFetchingData" (click)="getIssueList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">                    
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                        </th>
+                                        <th width="35%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                        </th>
+                                        <th width="20%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                        </th>
+                                        <th width="30%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'System'" [thisColumn]="'system_name'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of issueListData">
+                                        <td>{{data?.data().issue_code}}</td>
+                                        <td>{{data?.data().issue_subject}}</td>
+                                        <td>{{data?.data().issue_date | date: 'short'}}</td>
+                                        <td>{{data?.data().system.data.system_name}}</td>
+                                    </tr> 
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="4">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="issueCurrentPage" [pageSize]="issuePageSize" [totalPages]="issueTotalPages" (pageData)="getIssueList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedModule == 'Services'" class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                
+                <p class="lead">Services</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input [(ngModel)]="serviceFilterText" (change)="getServiceList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search maintenance services">
+                        <button [disabled]="isFetchingData" (click)="getServiceList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th width="30%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th width="15%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th width="15%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                        <th width="25%" scope="col">
+                                            <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of serviceListData">
+                                        <td>{{data?.data().service_code}}</td>
+                                        <td>{{data?.data().service_subject}}</td>
+                                        <td>{{data?.data().date_from | date: 'short'}}</td>
+                                        <td>{{data?.data().date_to | date: 'short'}}</td>
+                                        <td>{{data?.data().contractor.data.contractor_name}}</td>
+                                    </tr> 
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="5">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="serviceCurrentPage" [pageSize]="servicePageSize" [totalPages]="serviceTotalPages" (pageData)="getServiceList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
