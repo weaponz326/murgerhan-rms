@@ -68,7 +68,12 @@
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Service Status :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="serviceStatus" class="form-control form-control-sm w-100">
+                    <select formControlName="serviceStatus" class="form-control form-control-sm w-100">
+                        <option value=""></option>
+                        <option value="Requested">Requested</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Finished">Finished</option>
+                    </select>
                 </div>
             </div>
         </div>

@@ -5,15 +5,65 @@
 <div class="row">
 
     <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                
-                <p class="lead">Select Report</p>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        
+                        <p class="lead">Select Report</p>
 
-                <!-- selector component -->
+                        <!-- selector component -->
 
-                <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getIssueList()"></app-selector>
+                        <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getIssueList()"></app-selector>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Issues'" class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">No. of Issues</div>
+                        <div class="h4 mb-0">{{numberOfIssues}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Issues - Needs Fixing</div>
+                        <div class="h4 mb-0">{{issuesNeedsFixing}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Services'" class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">No. of Services</div>
+                        <div class="h4 mb-0">{{numberOfServices}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Services - Ongoing</div>
+                        <div class="h4 mb-0">{{ongoingServices}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Total Services Cost</div>
+                        <div class="h4 mb-0">{{totalServicesCost | currency}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -28,6 +28,10 @@ export class HousekeepingComponent {
   startDate: any;
   endDate: any;
 
+  numberOfTasks: any;
+  todoTasks: any;
+  numberOfIncidents: any;
+  unresolvedIncidents: any;
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -74,6 +78,7 @@ export class HousekeepingComponent {
             this.taskCurrentPage = 1
 
           this.aggregateTaskData();
+          this.getTaskMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -100,6 +105,7 @@ export class HousekeepingComponent {
             this.incidentCurrentPage = 1
 
           this.aggregateIncidentData();
+          this.getIncidentMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -123,6 +129,16 @@ export class HousekeepingComponent {
     this.incidentListData = this.aggregateTable.sortData(this.incidentListData, this.incidentSortColumn, this.incidentSortDirection);
     this.incidentListData = this.aggregateTable.paginateData(this.incidentListData, this.incidentCurrentPage, this.incidentPageSize);
     this.incidentListData = this.aggregateTable.getDataRange(this.incidentListData, this.startDate, this.endDate);
+  }
+
+  getTaskMetrics(){
+    this.numberOfTasks = this.taskListData.length;
+    this.todoTasks = this.taskListData.filter(obj => obj.data().task_status === "To Do").length;
+  }
+
+  getIncidentMetrics(){
+    this.numberOfIncidents = this.incidentListData.length;
+    this.unresolvedIncidents = this.incidentListData.filter(obj => obj.data().incident_status === "Unresolved").length;
   }
 
 }

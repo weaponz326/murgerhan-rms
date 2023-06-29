@@ -28,6 +28,9 @@ export class InventoryComponent {
   startDate: any;
   endDate: any;
 
+  numberOfPurchasings: any;
+  totalPurchased: any;
+
   purchasingListData: any[] = [];
 
   isFetchingData: boolean =  false;
@@ -62,6 +65,7 @@ export class InventoryComponent {
             this.currentPage = 1
 
           this.aggregateData();
+          this.getMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -77,6 +81,11 @@ export class InventoryComponent {
     this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
     this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
     this.purchasingListData = this.aggregateTable.getDataRange(this.purchasingListData, this.startDate, this.endDate);
+  }
+
+  getMetrics(){
+    this.numberOfPurchasings = this.purchasingListData.length;
+    this.totalPurchased = this.purchasingListData.reduce((accumulator, currentObject) => accumulator + currentObject.data().total_price, 0);
   }
 
 }

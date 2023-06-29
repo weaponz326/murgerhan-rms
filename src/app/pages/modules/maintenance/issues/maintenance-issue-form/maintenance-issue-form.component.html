@@ -63,7 +63,13 @@
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Issue Status :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="issueStatus" class="form-control form-control-sm w-100">
+                    <select formControlName="issueStatus" class="form-control form-control-sm w-100">
+                        <option value=""></option>
+                        <option value="Fixed">Fixed</option>
+                        <option value="Undergoing Maintenance">Undergoing Maintenance</option>
+                        <option value="Needs Fixing">Needs Fixing</option>
+                        <option value="System Discarded">System Discarded</option>
+                    </select>
                 </div>
             </div>        
             

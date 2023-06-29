@@ -30,6 +30,9 @@ export class OrdersComponent {
   startDate: any;
   endDate: any;
 
+  numberOfOrders: any;
+  totalSales: any;
+
   orderListData: any[] = [];
 
   isFetchingData: boolean =  false;
@@ -64,6 +67,7 @@ export class OrdersComponent {
             this.currentPage = 1
 
           this.aggregateData();
+          this.getMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -79,6 +83,11 @@ export class OrdersComponent {
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
     this.orderListData = this.aggregateTable.getDataRange(this.orderListData, this.startDate, this.endDate);
+  }
+
+  getMetrics(){
+    this.numberOfOrders = this.orderListData.length;
+    this.totalSales = this.orderListData.reduce((accumulator, currentObject) => accumulator + currentObject.data().total_price, 0);
   }
 
   onPrint(){

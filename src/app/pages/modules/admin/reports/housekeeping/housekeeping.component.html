@@ -5,15 +5,57 @@
 <div class="row">
 
     <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                
-                <p class="lead">Select Report</p>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        
+                        <p class="lead">Select Report</p>
 
-                <!-- selector component -->
+                        <!-- selector component -->
 
-                <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getTaskList()"></app-selector>
+                        <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getTaskList()"></app-selector>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Tasks'" class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">No. of Tasks</div>
+                        <div class="h4 mb-0">{{numberOfTasks}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Tasks - To Do</div>
+                        <div class="h4 mb-0">{{todoTasks}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Incidents'" class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">No. of Incidents</div>
+                        <div class="h4 mb-0">{{numberOfIncidents}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Unresolved Incidents</div>
+                        <div class="h4 mb-0">{{unresolvedIncidents}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -28,6 +28,12 @@ export class MaintenanceComponent {
   startDate: any;
   endDate: any;
 
+  numberOfIssues: any;
+  issuesNeedsFixing: any;
+  numberOfServices: any;
+  ongoingServices: any;
+  totalServicesCost: any;
+
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
@@ -73,6 +79,7 @@ export class MaintenanceComponent {
             this.issueCurrentPage = 1
 
           this.aggregateIssueData();
+          this.getIssueMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -99,6 +106,7 @@ export class MaintenanceComponent {
             this.serviceCurrentPage = 1
 
           this.aggregateServiceData();
+          this.getServiceMetrics();
         },
         (err: any) => {
           console.log(err);
@@ -122,6 +130,17 @@ export class MaintenanceComponent {
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.serviceSortColumn, this.serviceSortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.serviceCurrentPage, this.servicePageSize);
     this.serviceListData = this.aggregateTable.getDataRange(this.serviceListData, this.startDate, this.endDate);
+  }
+
+  getIssueMetrics(){
+    this.numberOfIssues = this.issueListData.length;
+    this.issuesNeedsFixing = this.issueListData.filter(obj => obj.data().task_status === "Needs Fixing").length;
+  }
+
+  getServiceMetrics(){
+    this.numberOfServices = this.serviceListData.length;
+    this.ongoingServices = this.serviceListData.filter(obj => obj.data().task_status === "Ongoing").length;
+    this.totalServicesCost = this.serviceListData.reduce((accumulator, currentObject) => accumulator + currentObject.data().cost, 0);
   }
 
 }
