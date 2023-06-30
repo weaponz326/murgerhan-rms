@@ -58,14 +58,14 @@
                             <div class="row mb-1">
                                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
                                 <div class="col-md-8">
-                                    <input type="datetime-local" formControlName="fromDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
         
                             <div class="row mb-1">
                                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
                                 <div class="col-md-8">
-                                    <input type="datetime-local" formControlName="toDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
 
@@ -149,10 +149,18 @@
         <div *ngIf="this.taskForm.controls.occurance.value == 'Recurring'" class="card shadow-sm">
             <div class="card-body">
 
-                <p class="lead">Task Scehdule</p>
+                <p class="lead">Inspect / Check Task</p>
             
-                <button class="btn btn-light border" routerLink="/modules/housekeeping/tasks/task-schedule">
-                    View Task Scehdule
+                <div class="mb-4">
+                    <label for="inputEmail">Select Period</label>
+                    <select [(ngModel)]="selectedPeriod" class="form-control form-control-sm w-100">
+                        <option value=""></option>
+                        <option *ngFor="let period of generatedPeriods" [value]="period">{{period}}</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-light border" (click)="gotoInspectRecurringTask()">
+                    Inpect Task
                     <i class="bi bi-arrow-right ms-3"></i>
                 </button>
 
@@ -162,9 +170,9 @@
         <div *ngIf="this.taskForm.controls.occurance.value == 'Non-Recurring'" class="card shadow-sm">
             <div class="card-body">
 
-                <p class="lead">Inspect/Check Task</p>
+                <p class="lead">Inspect / Check Task</p>
             
-                <button class="btn btn-light border" routerLink="/modules/housekeeping/tasks/inspect-task">
+                <button class="btn btn-light border" (click)="gotoInspectRecurringTask()">
                     Inspect Task
                     <i class="bi bi-arrow-right ms-3"></i>
                 </button>

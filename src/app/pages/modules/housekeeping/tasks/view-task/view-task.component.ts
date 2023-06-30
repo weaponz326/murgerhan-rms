@@ -9,6 +9,7 @@ import { HousekeepingApiService } from 'src/app/services/modules-api/housekeepin
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { SelectUserRoleComponent } from 'src/app/components/select-windows/users
 export class ViewTaskComponent {
 
   constructor(
+    private datePipe: DatePipe,
     private router: Router,
     private housekeepingApi: HousekeepingApiService
   ) {}
@@ -37,13 +39,16 @@ export class ViewTaskComponent {
   isSavingTask = false;
   isDeletingTask = false;
 
+  generatedPeriods: any[] = []
+  selectedPeriod: any;
+
   taskForm = new FormGroup({
     taskCode: new FormControl(''),
     taskName: new FormControl(''),
     taskType: new FormControl(''),
     primaryAssignee: new FormControl({value: '', disabled: true}),
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
+    fromDate: new FormControl({value: null, disabled: true}),
+    toDate: new FormControl({value: null, disabled: true}),
     taskStatus: new FormControl(''),
     description: new FormControl(''),
     occurance: new FormControl({value: '', disabled: true}),
@@ -63,7 +68,8 @@ export class ViewTaskComponent {
         console.log(res);
         this.taskData = res;
         this.isFetchingData = false;
-        this.setTaskData();        
+        this.setTaskData();
+        this.generatePeriods();   
       }),
       (err: any) => {
         console.log(err);
@@ -155,5 +161,79 @@ export class ViewTaskComponent {
   confirmDelete(){
     this.deleteModal.openModal();
   }
+
+  gotoInspectTask(){
+    this.router.navigateByUrl('/modules/housekeeping/tasks/inspect-task');
+  }
+
+  gotoInspectRecurringTask(){
+    let id = sessionStorage.getItem('housekeeping_task_id') + ' - ' + this.selectedPeriod;
+    sessionStorage.setItem('housekeeping_task_inspection_id', id);
+    console.log(id);
+
+    if(this.selectedPeriod)
+      this.router.navigateByUrl('/modules/housekeeping/tasks/inspect-task');
+  }
+
+  // generate periods
+
+  generatePeriods(){
+    console.log(this.taskData.data().frequency);
+    if(this.taskData.data().frequency == "Daily") this.generateDays();
+    else if(this.taskData.data().frequency == "Weekly") this.generateWeeks();
+    else if(this.taskData.data().frequency == "Monthly") this.generateMonths();
+  }
+
+  generateDays() {
+    const firstDate = new Date(this.taskData.data().from_date);
+    const lastDate = new Date(this.taskData.data().to_date);
+  
+    const days: any = [];
+    for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
+      const startDate = new Date(date);
+      const endDate = new Date(date);
+      days.push(
+        `${this.datePipe.transform(startDate, 'yyyy-MM-dd')} to ${this.datePipe.transform(endDate, 'yyyy-MM-dd')}`
+      );
+    }
+    this.generatedPeriods = days;
+  }
+  
+  generateWeeks() {
+    const firstDate = new Date(this.taskData.data().from_date);
+    const lastDate = new Date(this.taskData.data().to_date);
+
+    const weeks: any = [];
+    for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
+      const dayOfWeek = date.getDay();
+      if (dayOfWeek === 0) {
+        // Sunday - start of a week
+        const startDate = new Date(date);
+        const endDate = new Date(date);
+        endDate.setDate(date.getDate() + 6);
+        weeks.push(
+          `${this.datePipe.transform(startDate, 'yyyy-MM-dd')} to ${this.datePipe.transform(endDate, 'yyyy-MM-dd')}`
+        );
+      }
+    }
+  
+    this.generatedPeriods = weeks;
+  }
+  
+  generateMonths() {
+    const firstMonth = new Date(this.taskData.data().from_date).getMonth();
+    const lastMonth = new Date(this.taskData.data().to_date).getMonth();
+
+    const months = [];
+    for (let month = firstMonth; month <= lastMonth; month++) {
+      const firstDayOfMonth = new Date(2023, month, 1);
+      const lastDayOfMonth = new Date(2023, month + 1, 0);
+      months.push(
+        `${this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd')} to ${this.datePipe.transform(lastDayOfMonth, 'yyyy-MM-dd')}`
+      );
+    }
+    this.generatedPeriods = months;
+  }
+  
   
 }

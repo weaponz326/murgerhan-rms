@@ -36,6 +36,24 @@ export class EditTaskItemComponent {
   }
 
   saveItem(){
+    let unitData = {
+      id: "",
+      data: {
+        unit_code: "",
+        unit_name: "",
+      }
+    };
+
+    if(this.selectedUnitId){
+      unitData = {
+        id: this.selectedUnitId,
+        data: {
+          unit_code: this.selectedUnitData.unit_code,
+          unit_name: this.selectedUnitData.unit_name,
+        }
+      }
+    }
+
     let data: TaskItem = {
       created_at: this.taskItemData.data().created_at,
       updated_at: serverTimestamp(),
@@ -43,13 +61,7 @@ export class EditTaskItemComponent {
       task: sessionStorage.getItem('housekeeping_task_id') as string,
       task_description: this.taskItemForm.taskItemForm.controls.taskDescription.value as string,
       item_status: this.taskItemData.data().task_status,
-      unit: {
-        id: this.selectedUnitId,
-        data: {
-          unit_code: this.selectedUnitData.unit_code,
-          unit_name: this.selectedUnitData.unit_name,
-        }
-      },
+      unit: unitData
     }
 
     let item = {

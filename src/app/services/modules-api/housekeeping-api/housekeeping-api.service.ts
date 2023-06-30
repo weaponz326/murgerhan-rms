@@ -110,6 +110,10 @@ export class HousekeepingApiService {
     return this.taskItemRef.doc(id).delete();
   }
 
+  setTaskItem(id:any, data: any){
+    return this.taskItemRef.doc(id).set(data);
+  }
+
   getTaskItem(id: any){
     return this.taskItemRef.doc(id).ref.get();
   }
@@ -117,6 +121,13 @@ export class HousekeepingApiService {
   getTaskItemList(){
     return this.taskItemRef.ref
       .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
+  getRecurringTaskItemList(){
+    return this.taskItemRef.ref
+      .where("task", "==", sessionStorage.getItem("housekeeping_task_inspection_id"))
       .orderBy("created_at", "asc")
       .get();
   }
@@ -140,6 +151,13 @@ export class HousekeepingApiService {
   }
 
   getTaskImageList(){
+    return this.taskImageRef.ref
+      .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
+  getRecurringTaskImageList(){
     return this.taskImageRef.ref
       .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
       .orderBy("created_at", "asc")

@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
-import { Task } from 'src/app/models/modules/housekeeping/housekeeping.model';
+import { Task, TaskItem } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -39,9 +39,7 @@ export class InspectTaskComponent {
   })
   
   ngOnInit(): void {
-    this.getTask();
-    this.getTaskItemList();
-    this.getTaskImageList();
+    this.getTask();    
   }
 
   getTask() {
@@ -53,7 +51,9 @@ export class InspectTaskComponent {
         console.log(res);
         this.taskData = res;
         this.isFetchingData = false;
-        this.setTaskData();        
+        this.setTaskData();      
+        
+        this.getTaskItemList();
       }),
       (err: any) => {
         console.log(err);
@@ -68,9 +68,39 @@ export class InspectTaskComponent {
     this.housekeepingApi.getTaskItemList()
       .then(
         (res: any) => {
-          console.log(res);
-          this.taskItemListData = res.docs;
+          console.log(res.docs);
           this.isFetchingData = false;
+          this.taskItemListData = res.docs;
+          this.getTaskImageList();
+
+          if(this.taskData.data().occurance == "Recurring")
+            this.getRecurringTaskItemList()
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
+  getRecurringTaskItemList(){
+    this.isFetchingData = true;
+
+    this.housekeepingApi.getRecurringTaskItemList()
+      .then(
+        (res: any) => {
+          console.log(res.docs);
+          this.isFetchingData = false;
+
+          if(res.docs.length == 0){
+            this.initRecurringItems();
+          }
+          else{
+            this.taskItemListData = [];
+            this.taskItemListData = res.docs;
+            this.getRecurringTaskImageList();
+          }
         },
         (err: any) => {
           console.log(err);
@@ -89,7 +119,11 @@ export class InspectTaskComponent {
       .then((res) => {
         console.log(res);
         this.isItemSaving = false;
-        this.getTaskItemList();
+
+        if(this.taskData.data().occurance == "Non-Recurring")
+          this.getTaskItemList();
+        else
+          this.getRecurringTaskItemList();
       })
       .catch((err) => {
         console.log(err);
@@ -111,6 +145,54 @@ export class InspectTaskComponent {
           this.connectionToast.openToast();
         }
       )
+  }
+
+  getRecurringTaskImageList(){
+    this.housekeepingApi.getRecurringTaskImageList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          if(res.docs.length != 0)
+            this.taskImageListData = res.docs.slice(0,4);
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+
+  initRecurringItems(){
+    console.log("initting recurring task items");
+
+    this.taskItemListData.forEach((item: any) => {      
+      let data: TaskItem = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        item_number: item.data().item_number,
+        task: sessionStorage.getItem('housekeeping_task_inspection_id') as string,
+        task_description: item.data().task_description,
+        item_status: false,
+        unit: {
+          id: item.data().unit.id,
+          data: {
+            unit_code: item.data().unit.data.unit_code,
+            unit_name: item.data().unit.data.unit_name,
+          }
+        }
+      }
+
+      this.housekeepingApi.createTaskItem(data)
+      .then((res: any) => {
+        console.log(res);
+        this.getRecurringTaskItemList();
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+      });
+      
+    });
   }
 
   setTaskData(){

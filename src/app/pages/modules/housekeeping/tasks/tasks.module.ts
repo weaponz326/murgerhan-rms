@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TasksRoutingModule } from './tasks-routing.module';
@@ -42,6 +42,7 @@ import { TaskImagesComponent } from './task-images/task-images.component';
     ModuleUtilitiesModule,
     UsersWindowsModule,
     HousekeepingWindowsModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class TasksModule { }

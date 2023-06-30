@@ -22,9 +22,10 @@ export class TaskImagesComponent {
 
   selectedFiles: File[] = [];
   taskImageListData: any;
+  taskData: any;
 
   ngOnInit(): void {
-    this.getTaskImageList();
+    this.getTask();
   }
 
   onFileSelected(e: any): void {
@@ -32,11 +33,40 @@ export class TaskImagesComponent {
     this.uploadTaskImage();
   }
 
+  getImages(){
+    if(this.taskData.data().occurance == "Non-Recurring") 
+      this.getTaskImageList();
+    else
+      this.getRecurringTaskImageList();
+  }
+
+  getTask() {
+    const id = sessionStorage.getItem('housekeeping_task_id') as string;
+
+    this.housekeepingApi.getTask(id)
+      .then((res) => {
+        console.log(res);
+        this.taskData = res;
+        this.getImages();    
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+      };
+  }
+
   uploadTaskImage() {
-    const data = {
+    let taskId: any;
+
+    if(this.taskData.data().occurance == "Non-Recurring") 
+      taskId = sessionStorage.getItem('housekeeping_task_id') as string;
+    else
+      sessionStorage.getItem('housekeeping_task_inpection_id') as string
+
+    let data = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      task: sessionStorage.getItem('housekeeping_task_id') as string,
+      task: taskId,
     };
 
     this.housekeepingApi.uploadTaskImage(this.selectedFiles, data)
@@ -44,7 +74,7 @@ export class TaskImagesComponent {
         console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
-        this.getTaskImageList();
+        this.getImages();
       })
       .catch((error) => {
         console.error('Error uploading images', error);
@@ -53,6 +83,20 @@ export class TaskImagesComponent {
 
   getTaskImageList(){
     this.housekeepingApi.getTaskImageList()
+      .then(
+        (res: any) => {
+          console.log(res);
+          this.taskImageListData = res.docs;
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+
+  getRecurringTaskImageList(){
+    this.housekeepingApi.getRecurringTaskImageList()
       .then(
         (res: any) => {
           console.log(res);
