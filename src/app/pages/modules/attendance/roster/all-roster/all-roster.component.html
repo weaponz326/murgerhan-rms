@@ -26,10 +26,10 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="30%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Roster ID'" [thisColumn]="'roster_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="70%" scope="col">
                                             <app-table-sorting [fieldTitle]="'Roster Name'" [thisColumn]="'roster_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
                                         </th>
                                     </tr>
