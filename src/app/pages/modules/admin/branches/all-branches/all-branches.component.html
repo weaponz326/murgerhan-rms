@@ -49,8 +49,29 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm pb-4">
+            <div class="card-body">
+
+                <p class="lead">Select Admin Branch</p>
+                                        
+                <div class="input-group input-group-sm w-100">
+                    <input [(ngModel)]="selectedBranch" class="form-control" disabled="">
+                    <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select branch component -->
+
+<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)"></app-select-branch>

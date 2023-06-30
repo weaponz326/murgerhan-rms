@@ -41,7 +41,15 @@ export class SelectorComponent {
   onBranchSelected(branchData: any){
     console.log(branchData);
     this.selectedBranch = branchData.data().branch_name;
-    localStorage.setItem("selected_branch", JSON.stringify({id: branchData.id}));
+    
+    let data = {
+      id: branchData.id,
+      data: {
+        branch_name: branchData.data().branch_name,
+        location: branchData.data().location,
+      }
+    }
+    localStorage.setItem("selected_branch", JSON.stringify(data));
 
     this.isModuleDisabled = false;
     this.selectedModule = "";
