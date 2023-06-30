@@ -67,7 +67,7 @@ export class NewAttendanceComponent {
 
         if(res.id){
           sessionStorage.setItem('attendance_attendance_id', res.id);
-          this.router.navigateByUrl("/modules/attendance/attendance/general_attendance");
+          this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
         }
         this.isSavingAttendance = false;
       })
