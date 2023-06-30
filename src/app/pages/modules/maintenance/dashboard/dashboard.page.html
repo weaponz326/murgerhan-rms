@@ -10,7 +10,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Systems</div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{numberOfSystems}}</div>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Issues <span class="text-muted">| this week</span></div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{issuesThisWeek}}</div>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Services <span class="text-muted">| this week</span></div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{servicesThisWeek}}</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Contractors</div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{numberOfContractors}}</div>
                     </div>
                 </div>
             </div>
@@ -61,11 +61,11 @@
     <div class="col-md-8">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="h6 mb-3">Issues <span class="text-muted">| this week</span></div>
+        
+                <div class="h6 mb-3">Issues <span class="text-muted">| this month</span></div>
 
-                <div class="chart-area">
-                    <canvas id="issuesLineChart"></canvas>
-                </div>
+                <canvas id="issuesLineChart"></canvas>
+
             </div>
         </div>
     </div>
@@ -75,11 +75,11 @@
     <div class="col-md-8">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="h6 mb-3">Services <span class="text-muted">| this week</span></div>
 
-                <div class="chart-area">
-                    <canvas id="servicesLineChart"></canvas>
-                </div>
+                <div class="h6 mb-3">Services <span class="text-muted">| this month</span></div>
+
+                <canvas id="servicesLineChart"></canvas>
+
             </div>
         </div>
     </div>

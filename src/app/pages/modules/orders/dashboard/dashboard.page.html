@@ -10,7 +10,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Products</div>
-                        <div class="h4 mb-0"></div>
+                        <div class="h4 mb-0">{{numberOfProducts}}</div>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Orders <span class="text-muted">| today</span></div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{ordersToday}}</div>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Sales <span class="text-muted">| today</span></div>
-                        <div class="h3 mb-0"></div>
+                        <div class="h3 mb-0">{{salesToday | currency}}</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="row g-0 align-items-center">
                     <div class="col mr-2">
                         <div class="h6 mb-3">Vendors</div>
-                        <div class="h4 mb-0"></div>
+                        <div class="h4 mb-0">{{numberOfVendors}}</div>
                     </div>
                 </div>
             </div>
@@ -61,11 +61,11 @@
     <div class="col-md-6">
         <div class="card shadow mb-4">
             <div class="card-body">
+                
                 <div class="h6 mb-3">Orders <span class="text-muted">| this week</span></div>
 
-                <div class="chart-area">
-                    <canvas id="ordersLineChart"></canvas>
-                </div>
+                <canvas id="ordersLineChart"></canvas>
+
             </div>
         </div>
     </div>
@@ -73,11 +73,11 @@
     <div class="col-md-6">
         <div class="card shadow mb-4">
             <div class="card-body">
+        
                 <div class="h6 mb-3">Sales <span class="text-muted">| this week</span></div>
 
-                <div class="chart-area">
-                    <canvas id="salesLineChart"></canvas>
-                </div>
+                <canvas id="salesLineChart"></canvas>
+
             </div>
         </div>
     </div>
