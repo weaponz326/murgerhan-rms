@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
@@ -20,6 +20,8 @@ export class OrderItemsComponent {
     private router: Router,
     private ordersApi: OrdersApiService,
   ) { }
+
+  @Output() setOrderTotal = new EventEmitter<any>();
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
@@ -48,6 +50,7 @@ export class OrderItemsComponent {
     }
 
     this.patchTotalAmount();
+    this.setOrderTotal.emit(this.totalPrice);
     console.log(this.totalPrice);
   }
 
@@ -76,44 +79,48 @@ export class OrderItemsComponent {
   }
 
   createOrderItem(data: any) {
-    this.addOrderItem.isItemSaving = true;
-
     console.log(data);
 
-    this.ordersApi.createOrderItem(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.addOrderItem.selectedProductId){
+      this.addOrderItem.isItemSaving = true;
 
-        if(res.id){
-          this.getOrderItemList();
+      this.ordersApi.createOrderItem(data)
+        .then((res: any) => {
+          console.log(res);
 
+          if(res.id){
+            this.getOrderItemList();
+
+            this.addOrderItem.isItemSaving = false;
+            this.addOrderItem.dismissButton.nativeElement.click();
+            this.addOrderItem.resetForm();
+          }
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
           this.addOrderItem.isItemSaving = false;
-          this.addOrderItem.dismissButton.nativeElement.click();
-          this.addOrderItem.resetForm();
-        }
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.addOrderItem.isItemSaving = false;
-      });
+        });
+    }
   }
 
   updateOrderItem(order_item: any) {
-    this.editOrderItem.isItemSaving = true;
-    
-    this.ordersApi.updateOrderItem(order_item.id, order_item.data)
-      .then((res) => {
-        console.log(res);
-        this.editOrderItem.isItemSaving = false;
-        this.editOrderItem.dismissButton.nativeElement.click();
-        this.getOrderItemList();
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.editOrderItem.isItemSaving = false;
-      });
+    if(this.editOrderItem.selectedProductId){
+      this.editOrderItem.isItemSaving = true;
+      
+      this.ordersApi.updateOrderItem(order_item.id, order_item.data)
+        .then((res) => {
+          console.log(res);
+          this.editOrderItem.isItemSaving = false;
+          this.editOrderItem.dismissButton.nativeElement.click();
+          this.getOrderItemList();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.editOrderItem.isItemSaving = false;
+        });
+    }
   }
 
   deleteOrderItem() {

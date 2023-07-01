@@ -57,9 +57,7 @@ export class ViewVendorComponent {
       };
   }
 
-  updateVendor() {
-    this.isSavingVendor = true;
-    
+  updateVendor() {    
     const id = sessionStorage.getItem('orders_vendor_id') as string;
 
     let data: Vendor = {
@@ -79,16 +77,20 @@ export class ViewVendorComponent {
       }
     }
 
-    this.ordersApi.updateVendor(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingVendor = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingVendor = false;
-      });
+    if(this.vendorForm.vendorForm.valid){
+      this.isSavingVendor = true;
+
+      this.ordersApi.updateVendor(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingVendor = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingVendor = false;
+        });
+    }
   }
 
   deleteVendor() {

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -37,8 +37,8 @@ export class AddOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}),
-    vendorName: new FormControl({value: '', disabled: true}),
+    vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
+    vendorName: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
   openModal(){
@@ -73,7 +73,7 @@ export class AddOrderComponent {
 
     console.log(data);
 
-    if(this.selectedBranchData.id){
+    if(this.orderForm.valid){
       this.isSavingOrder = true;
 
       this.ordersApi.createOrder(data)

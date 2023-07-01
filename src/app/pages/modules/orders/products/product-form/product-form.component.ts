@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormatCurrencyService } from 'src/app/services/module-utilities/format-currency/format-currency.service';
 
@@ -17,9 +17,9 @@ export class ProductFormComponent {
 
   productForm = new FormGroup({
     productCode: new FormControl(''),
-    productName: new FormControl(''),
+    productName: new FormControl('', Validators.required),
     productType: new FormControl(''),
-    price: new FormControl(),
+    price: new FormControl(0.00),
     description: new FormControl(''),
   })
 

@@ -25,11 +25,11 @@
 
     <div class="row mb-1">
         <div class="col-md-4">
-            <label class="float-md-end float-sm-start mt-1">Product Name :</label>
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Product Name :</label>
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="productName" class="form-control">
+                <input formControlName="productName" class="form-control" required>
                 <button type="button" class="btn btn-secondary" (click)="openProductWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>

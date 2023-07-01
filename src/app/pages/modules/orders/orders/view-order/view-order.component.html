@@ -32,10 +32,12 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor ID :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Vendor ID :</label>
+                                </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
-                                        <input formControlName="vendorCode" class="form-control">
+                                        <input formControlName="vendorCode" class="form-control" required>
                                         <button type="button" class="btn btn-secondary">
                                             <i class="bi bi-three-dots"></i>
                                         </button>
@@ -44,10 +46,12 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor Name :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Vendor Name :</label>
+                                </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
-                                        <input formControlName="vendorName" class="form-control">
+                                        <input formControlName="vendorName" class="form-control" required>
                                         <button type="button" class="btn btn-secondary">
                                             <i class="bi bi-three-dots"></i>
                                         </button>
@@ -109,7 +113,7 @@
 
 <!-- order items comonent reference -->
 
-<app-order-items></app-order-items>
+<app-order-items (setOrderTotal)="orderTotal = $event"></app-order-items>
 
 <!-- connection error toast component -->
 

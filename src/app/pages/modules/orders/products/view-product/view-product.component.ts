@@ -57,9 +57,7 @@ export class ViewProductComponent {
       };
   }
 
-  updateProduct() {
-    this.isSavingProduct = true;
-    
+  updateProduct() {    
     const id = sessionStorage.getItem('orders_product_id') as string;
 
     let data: Product = {
@@ -79,16 +77,20 @@ export class ViewProductComponent {
       }
     }
 
-    this.ordersApi.updateProduct(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingProduct = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingProduct = false;
-      });
+    if(this.productForm.productForm.valid){
+      this.isSavingProduct = true;
+
+      this.ordersApi.updateProduct(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingProduct = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingProduct = false;
+        });
+    }
   }
 
   deleteProduct() {

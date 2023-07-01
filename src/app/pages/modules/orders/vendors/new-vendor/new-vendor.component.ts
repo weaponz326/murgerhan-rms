@@ -29,8 +29,6 @@ export class NewVendorComponent {
   isSavingVendor = false;
 
   createVendor() {
-    this.isSavingVendor = true;
-
     let data: Vendor = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -48,21 +46,25 @@ export class NewVendorComponent {
       }
     }
 
-    this.ordersApi.createVendor(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.vendorForm.vendorForm.valid){
+      this.isSavingVendor = true;
 
-        if(res.id){
-          sessionStorage.setItem('orders_vendor_id', res.id);
-          this.router.navigateByUrl("/modules/orders/vendors/view-vendor");
-        }
-        this.isSavingVendor = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingVendor = false;
-      });
+      this.ordersApi.createVendor(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('orders_vendor_id', res.id);
+            this.router.navigateByUrl("/modules/orders/vendors/view-vendor");
+          }
+          this.isSavingVendor = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingVendor = false;
+        });
+    }
   }
   
 }

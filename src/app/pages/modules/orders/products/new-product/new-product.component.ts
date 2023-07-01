@@ -29,8 +29,6 @@ export class NewProductComponent {
   isSavingProduct = false;
 
   createProduct() {
-    this.isSavingProduct = true;
-
     let data: Product = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -50,21 +48,25 @@ export class NewProductComponent {
 
     console.log(data);
 
-    this.ordersApi.createProduct(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.productForm.productForm.valid){
+      this.isSavingProduct = true;
 
-        if(res.id){
-          sessionStorage.setItem('orders_product_id', res.id);
-          this.router.navigateByUrl("/modules/orders/products/view-product");
-        }
-        this.isSavingProduct = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingProduct = false;
-      });
+      this.ordersApi.createProduct(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('orders_product_id', res.id);
+            this.router.navigateByUrl("/modules/orders/products/view-product");
+          }
+          this.isSavingProduct = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingProduct = false;
+        });
+    }
   }
   
 }

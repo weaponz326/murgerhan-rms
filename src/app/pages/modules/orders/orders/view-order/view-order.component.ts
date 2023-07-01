@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -43,8 +43,8 @@ export class ViewOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}),
-    vendorName: new FormControl({value: '', disabled: true}),
+    vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
+    vendorName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
     deliveryDate: new FormControl(),
   })
@@ -71,9 +71,7 @@ export class ViewOrderComponent {
       };
   }
 
-  updateOrder() {
-    this.isSavingOrder = true;
-    
+  updateOrder() {    
     const id = sessionStorage.getItem('orders_order_id') as string;
 
     let data: Order = {
@@ -100,16 +98,20 @@ export class ViewOrderComponent {
       },
     }
 
-    this.ordersApi.updateOrder(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingOrder = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingOrder = false;
-      });
+    if(this.orderForm.valid){
+      this.isSavingOrder = true;
+
+      this.ordersApi.updateOrder(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingOrder = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingOrder = false;
+        });
+    }
   }
 
   deleteOrder() {
