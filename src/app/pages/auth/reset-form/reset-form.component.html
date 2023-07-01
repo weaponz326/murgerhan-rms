@@ -2,19 +2,22 @@
     <div class="card-body">
         <h3 class="text-center font-weight-light my-4">Reset Password</h3>
         <form *ngIf="!showPrompt" [formGroup]="resetForm" (ngSubmit)="onSubmit()">
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="inputPassword">Password</label>
                 <input class="form-control" id="inputPassword" type="password" />
-                <label for="inputPassword">Password</label>
             </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
+            <div class="mb-3">
                 <label for="inputPassword">Password</label>
+                <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
                 <div *ngIf="errorCode == 'auth/weak-password'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
+            <div class="mb-3">
                 <label for="inputPasswordConfirm">Confirm Password</label>
+                <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
                 <div *ngIf="passwordMismatch" class="invalid-feedback">Passwords do not match</div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button [disabled]="isSending" class="btn btn-primary btn">Rsest</button>
             </div>
         </form>
 
@@ -24,7 +27,7 @@
                 <p class="lead">Password reset successful</p>
                 <p class="lead">Continue to login</p>
                 <div class="d-grid gap-2 mt-5">
-                    <button routerLink="/auth/login" class="btn btn-primary btn-lg">Login</button>
+                    <button routerLink="/auth/login" class="btn btn-primary btn">Login</button>
                 </div>
             </div>
         </div>

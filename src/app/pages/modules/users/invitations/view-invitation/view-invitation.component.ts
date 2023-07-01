@@ -26,6 +26,8 @@ export class ViewInvitationComponent {
   basicUserData: any;
   invitationEmail = "";
 
+  termsFile = "#";
+
   isFetchingData = false;
   isSavingInvitation = false;
 
@@ -44,8 +46,7 @@ export class ViewInvitationComponent {
         this.isFetchingData = false;
 
         this.invitationEmail = this.invitationData.data().invitee_email;
-        if (this.invitationData.data().invitation_status == "Accepted")
-          this.getBasicuserWithEmail();
+        this.getBasicuserWithEmail();
       }),
       (err: any) => {
         console.log(err);
@@ -58,7 +59,8 @@ export class ViewInvitationComponent {
     this.usersApi.getBasicUserWithEmail(this.invitationEmail)
       .then((res) => {
         console.log(res);
-        this.basicUserData = res.docs;
+        this.basicUserData = res.docs[0];
+        this.termsFile = this.basicUserData.data().terms_file;
         this.isFetchingData = false;
       }),
       (err: any) => {
@@ -78,7 +80,6 @@ export class ViewInvitationComponent {
       .then((res) => {
         console.log(res);
         this.setUserRole();
-        // this.isSavingInvitation = false;
       })
       .catch((err) => {
         console.log(err);
@@ -88,7 +89,7 @@ export class ViewInvitationComponent {
   }
 
   setUserRole() {
-    let id = this.basicUserData[0].id;
+    let id = this.basicUserData.id;
 
     let data: UserRole = {
       created_at: serverTimestamp(),

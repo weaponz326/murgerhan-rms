@@ -4,18 +4,19 @@
         <hr>
 
         <div *ngIf="!showPrompt">
-            <div class="text-center mt-4 mb-2">
-                <!-- TODO: implement forms upload functionality -->
-                <button class="btn btn-success px-4">
-                    <i class="bi bi-download me-3"></i>
-                    Download Terms
+            <div class="text-center mt-4 mb-4">
+                <input #fileInput [hidden]="true" type="file" accept=".pdf" class="d-none" (change)="onFileSelected($event) "/>
+                <button [disabled]="isUploadingFile" class="btn btn-outline-success px-4 mb-2" (click)="fileInput.click()">
+                    <i class="bi bi-upload me-3"></i>
+                    Upload Terms
                 </button>
+                <p *ngIf="selectedFileName">{{selectedFileName}}</p>
             </div>
             <div class="row justify-content-center mb-3">
                 <div class="col-auto">
                     <div class="form-check">
-                        <input [(ngModel)]="termsAcceptanceStatus" [disabled]="isFetchingData" class="form-check-input" type="checkbox" id="exampleCheckbox">
-                        <label class="form-check-label" for="exampleCheckbox">
+                        <input [(ngModel)]="termsAcceptanceStatus" [disabled]="isFetchingData" class="form-check-input mt-2" type="checkbox" id="exampleCheckbox">
+                        <label class="fs-5 form-check-label" for="exampleCheckbox">
                             Accept the terms of contract
                         </label>
                     </div>
@@ -24,7 +25,7 @@
 
             <div class="page-form-btn mt-4">
                 <button [disabled]="isSavingBasic" class="btn btn-sm btn-secondary float-start form-control-btn" routerLink="/settings/availability">Back</button>
-                <button [disabled]="!termsAcceptanceStatus || isSavingBasic || isFetchingData" (click)="updateBasic()" class="btn btn-sm btn-primary float-end form-control-btn">Submit</button>
+                <button [disabled]="!termsAcceptanceStatus || isSavingBasic || isFetchingData || !isFileUploaded" (click)="updateBasic()" class="btn btn-sm btn-primary float-end form-control-btn">Submit</button>
             </div>
         </div>
             

@@ -175,13 +175,31 @@ export class UsersApiService {
       uploadTask
         .then(() => fileRef.getDownloadURL().toPromise())
         .then((downloadUrl) => {
-          const dataWithImage = { profile_photo: downloadUrl };
-          return this.updateBasicUser(id, dataWithImage);
+          const data = { profile_photo: downloadUrl };
+          return this.updateBasicUser(id, data);
         })
         .then(() => resolve())
         .catch((error) => reject(error));
     });
   }
   
+  // terms file
+
+  uploadTermsFile(id: any, image: File): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const filePath = `files/users/${Date.now()}_${image.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, image);
+  
+      uploadTask
+        .then(() => fileRef.getDownloadURL().toPromise())
+        .then((downloadUrl) => {
+          const data = { terms_file: downloadUrl };
+          return this.updateBasicUser(id, data);
+        })
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
+  }
 
 }

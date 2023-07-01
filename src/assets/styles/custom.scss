@@ -10,7 +10,8 @@
 	cursor: pointer;
 }
 
-.table tbody td{
+.table td,
+.table th{
   white-space: nowrap;
   table-layout: fixed;
   overflow: hidden;

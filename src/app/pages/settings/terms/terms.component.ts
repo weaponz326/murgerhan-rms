@@ -26,14 +26,24 @@ export class TermsComponent {
 
   isFetchingData = false;
   isSavingBasic = false;
+  isUploadingFile = false;
+  isFileUploaded = false;
   showPrompt = false;
 
+  selectedFile: any;
+  selectedFileName = "";
   termsAcceptanceStatus: boolean = false;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
   ngOnInit(): void {
     this.getBasicProfile();
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.selectedFileName = this.selectedFile.name;
+    this.uploadFile();
   }
 
   getBasicProfile() {
@@ -55,6 +65,25 @@ export class TermsComponent {
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
+  }
+
+  uploadFile() {
+    this.isUploadingFile = true;
+
+    const id = localStorage.getItem('uid') as string;
+
+    if (this.selectedFile) {
+      this.usersApi.uploadTermsFile(id, this.selectedFile)
+        .then(() => {
+          console.log("file uploaded...");
+          this.isUploadingFile = false;
+          this.isFileUploaded = true;
+        })
+        .catch((error: any) => {
+          console.error('Error uploading file:', error);
+          this.isUploadingFile = false;
+        });
+    }
   }
 
   updateBasic() {

@@ -66,20 +66,23 @@ export class BasicProfileComponent {
     if (this.basicData.data()) created_at = this.basicData.data().created_at;
     else created_at = serverTimestamp();
 
+    let profile_photo: any;
+    if (this.basicData.data()) profile_photo = this.basicData.data().profile_photo;
+    else profile_photo = null;
+
     let terms_acceptance_status: any;
     if (this.basicData.data()) terms_acceptance_status = this.basicData.data().terms_acceptance_status;
     else terms_acceptance_status = false;
 
-    let profile_photo: any;
-    if (this.basicData.data()) profile_photo = this.basicData.data().profile_photo;
-    else profile_photo = null;
+    let terms_file: any;
+    if (this.basicData.data()) terms_file = this.basicData.data().term_file;
+    else terms_file = false;
 
     const id = localStorage.getItem('uid') as string;
 
     let data: UserBasicProfile = {
       created_at: created_at,
       updated_at: serverTimestamp(),
-      terms_acceptance_status: terms_acceptance_status,
       full_name: this.basicForm.controls.fullName.value as string,
       date_of_birth: this.basicForm.controls.dateOfBirth.value,
       ni_number: this.basicForm.controls.niNumber.value as string,
@@ -87,6 +90,8 @@ export class BasicProfileComponent {
       phone: this.basicForm.controls.phone.value as string,
       address: this.basicForm.controls.address.value as string,
       profile_photo: profile_photo,
+      terms_acceptance_status: terms_acceptance_status,
+      terms_file: terms_file,
     }
 
     this.usersApi.setBasicUser(id, data)

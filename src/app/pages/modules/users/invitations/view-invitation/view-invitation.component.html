@@ -19,7 +19,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Invitation Date :</span></div>
-                        <div class="col-md-8">{{invitationData.data().invitation_date.toDate() | date}}</div>
+                        <div class="col-md-8">{{invitationData.data().invitation_date.toDate() | date: 'short'}}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Invitee Name :</span></div>
@@ -33,9 +33,17 @@
                         <div class="col-md-4 text-muted"><span class="float-end">Invitation Status :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitation_status}}</div>
                     </div>
+                    <div *ngIf="invitationData.data().invitation_status != 'Awaiting'" class="row mb-3">
+                        <div class="col-md-4 text-muted"><span class="float-end">Acceptance File :</span></div>
+                        <div class="col-md-8">
+                            <a [href]="termsFile" target="_blank">
+                                <button class="btn btn-sm btn-outline-success py-0"><i class="bi bi-download me-3"></i>Download</button>
+                            </a>
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Date Accepted :</span></div>
-                        <div class="col-md-8">{{invitationData.data().date_accepted}}</div>
+                        <div class="col-md-8">{{invitationData.data().date_accepted.toDate() | date: 'short'}}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Email Subejct :</span></div>
@@ -48,7 +56,7 @@
 
                     <div class="row text-center my-4">
                         <div class="col">
-                            <button [disabled]="invitationData.data().invitation_status != 'Accepted' || isSavingInvitation" class="btn btn-success mb-2" (click)="updateInvitation()">
+                            <button [disabled]="invitationData.data().invitation_status != 'Accepted' || isSavingInvitation" class="btn btn-primary mb-2" (click)="updateInvitation()">
                                 Add to Users
                             </button>
                             <p *ngIf="invitationData.data().invitation_status == 'Awaiting'" class="small text-muted">Awaiting acceptance</p>

@@ -25,19 +25,19 @@
                         <table class="table table-sm table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">
+                                    <th width="15%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Invitation ID'" [thisColumn]="'invitation_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getInvitationList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="15%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Invitation Date'" [thisColumn]="'invitation_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getInvitationList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="30%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Invitee Name'" [thisColumn]="'invitee_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getInvitationList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="25%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Invitee Email'" [thisColumn]="'invitee_email'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getInvitationList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="15%" scope="col">
                                         <app-table-sorting [fieldTitle]="'invitation Status'" [thisColumn]="'invitation_status'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getInvitationList()"></app-table-sorting>
                                     </th>
                                 </tr>

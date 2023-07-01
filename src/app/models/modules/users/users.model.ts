@@ -1,7 +1,6 @@
 export class UserBasicProfile {
     created_at!: any;
     updated_at!: any;
-    terms_acceptance_status!: boolean;
     full_name!: string;
     date_of_birth!: any;
     ni_number!: string;
@@ -9,6 +8,8 @@ export class UserBasicProfile {
     phone!: string;
     address!: string;
     profile_photo!: string;
+    terms_acceptance_status!: boolean;
+    terms_file!: string;
 }
 
 export class UserAdditionalProfile {
