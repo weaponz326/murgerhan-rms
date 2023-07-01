@@ -33,7 +33,7 @@ export class RecoveryFormComponent {
 
     let email = this.recoveryForm.controls.email.value as string
 
-    if (this.recoveryForm.valid){
+    // if (this.recoveryForm.valid){
       this.isSending = true;
 
       console.log(this.recoveryForm.value);
@@ -52,10 +52,10 @@ export class RecoveryFormComponent {
             console.log(this.errorCode, this.errorMessage)
           }
         )
-    }
-    else{
-      console.log("form is invalid");
-    }
+    // }
+    // else{
+    //   console.log("form is invalid");
+    // }
   }
   
 }

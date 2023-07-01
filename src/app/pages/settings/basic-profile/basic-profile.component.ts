@@ -75,7 +75,7 @@ export class BasicProfileComponent {
     else terms_acceptance_status = false;
 
     let terms_file: any;
-    if (this.basicData.data()) terms_file = this.basicData.data().term_file;
+    if (this.basicData.data()) terms_file = this.basicData.data().terms_file;
     else terms_file = false;
 
     const id = localStorage.getItem('uid') as string;

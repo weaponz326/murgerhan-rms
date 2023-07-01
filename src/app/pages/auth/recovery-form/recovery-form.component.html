@@ -6,7 +6,7 @@
         <form *ngIf="!showPrompt" [formGroup]="recoveryForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="inputEmail">Email address</label>
-                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                <input formControlName="email" class="form-control" id="inputEmail" type="email" placeholder="name@example.com" required>
                 <div *ngIf="errorCode == 'auth/invalid-email'" class="invalid-feedback">{{errorMessage}}</div>
             </div>
             <div class="d-grid gap-2 mt-4">
