@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Branches</p>
@@ -21,28 +21,30 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Branch Name</th>
-                                    <th scope="col">Location</th>
-                                    <th scope="col">Manager</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)">
-                                    <td class="py-3">{{data?.data().branch_name}}</td>
-                                    <td class="py-3">{{data?.data().location}}</td>
-                                    <td class="py-3">{{data?.data().manager.manager}}</td>
-                                </tr>
-                                <tr *ngIf="isFetchingData || !isDataAvailable">
-                                    <td colspan="3">
-                                        <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                
+                        <div class="overflow-auto">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="40%" scope="col" class="min-wdith-4">Branch Name</th>
+                                        <th width="30%" scope="col" class="min-wdith-3">Location</th>
+                                        <th width="30%" scope="col" class="min-wdith-3">Manager</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)">
+                                        <td class="py-3">{{data?.data().branch_name}}</td>
+                                        <td class="py-3">{{data?.data().location}}</td>
+                                        <td class="py-3">{{data?.data().manager.manager}}</td>
+                                    </tr>
+                                    <tr *ngIf="isFetchingData || !isDataAvailable">
+                                        <td colspan="3">
+                                            <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
 
@@ -51,7 +53,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow-sm pb-4">
+        <div class="card shadow-sm mb-4 pb-4">
             <div class="card-body">
 
                 <p class="lead">Select Admin Branch</p>

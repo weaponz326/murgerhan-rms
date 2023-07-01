@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Item Categories</p>
@@ -22,31 +22,33 @@
                 <div class="row">
                     <div class="col">
                 
-                        <table class="table table-sm table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="30%" scope="col">
-                                        <app-table-sorting [fieldTitle]="'Category ID'" [thisColumn]="'category_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
-                                    </th>
-                                    <th width="70%" scope="col">
-                                        <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="!isFetchingData">
-                                <tr *ngFor="let data of itemcategoryListData" (dblclick)="viewItemCategory(data?.id)">
-                                    <td>{{data?.data().category_code}}</td>
-                                    <td>{{data?.data().category_name}}</td>
-                                </tr> 
-                            </tbody>
-                            <tbody *ngIf="isFetchingData || !isDataAvailable">
-                                <tr>
-                                    <td colspan="2">
-                                        <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="30%" scope="col" class="min-width-2">
+                                            <app-table-sorting [fieldTitle]="'Category ID'" [thisColumn]="'category_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
+                                        </th>
+                                        <th width="70%" scope="col" class="min-width-4">
+                                            <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of itemcategoryListData" (dblclick)="viewItemCategory(data?.id)">
+                                        <td>{{data?.data().category_code}}</td>
+                                        <td>{{data?.data().category_name}}</td>
+                                    </tr> 
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="2">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 
                     </div>
                 </div>

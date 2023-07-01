@@ -5,10 +5,10 @@
     <li class="breadcrumb-item active">View task</li>
 </ol>
 
-<div class="row mb-4">
+<div class="row">
 
     <div class="col">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">View Task</p>
@@ -140,9 +140,9 @@
 
 </div>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
     
                 <p class="lead">Task Items</p>
@@ -156,7 +156,7 @@
     </div>
 
     <div class="col-md-4">
-        <div *ngIf="this.taskForm.controls.occurance.value == 'Recurring'" class="card shadow-sm">
+        <div *ngIf="this.taskForm.controls.occurance.value == 'Recurring'" class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Inspect / Check Task</p>
@@ -177,7 +177,7 @@
             </div>
         </div>
 
-        <div *ngIf="this.taskForm.controls.occurance.value == 'Non-Recurring'" class="card shadow-sm">
+        <div *ngIf="this.taskForm.controls.occurance.value == 'Non-Recurring'" class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Inspect / Check Task</p>

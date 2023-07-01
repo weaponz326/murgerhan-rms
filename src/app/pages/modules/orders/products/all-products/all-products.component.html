@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Products</p>
@@ -30,13 +30,13 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="25%" scope="col">
+                                        <th width="25%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Product ID'" [thisColumn]="'product_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
-                                        <th width="50%" scope="col">
+                                        <th width="50%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Product Name'" [thisColumn]="'product_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
-                                        <th width="25%" scope="col">
+                                        <th width="25%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Price'" [thisColumn]="'price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
                                         </th>
                                     </tr>

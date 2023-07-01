@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-9">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Incidents</p>
@@ -26,16 +26,16 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Incident ID'" [thisColumn]="'incident_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="min-width-5">
                                             <app-table-sorting [fieldTitle]="'Incident Subject'" [thisColumn]="'incident_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Incident Date'" [thisColumn]="'incident_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Incident Status'" [thisColumn]="'incident_status'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
                                     </tr>

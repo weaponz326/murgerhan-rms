@@ -8,9 +8,9 @@
     <li class="breadcrumb-item active">Contractor History</li>
 </ol>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Contractor Details</p>
@@ -47,7 +47,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Contractor's Maintenance Services History</p>
@@ -69,19 +69,19 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="17%" scope="col">
+                                        <th width="17%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="35%" scope="col">
+                                        <th width="35%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="8%" scope="col" width="8%" class="p-0">
+                                        <th width="8%" scope="col" width="8%" class="p-0 min-width-1">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>

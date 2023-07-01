@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Stock Items</p>
@@ -29,16 +29,16 @@
                                         <th width="10%" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Item ID'" [thisColumn]="'item_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>                                
-                                        <th width="25%" class="min-width-2">
+                                        <th width="25%" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Item Name'" [thisColumn]="'item_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>
-                                        <th width="15%" class="min-width-2">
+                                        <th width="15%" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Unit Price'" [thisColumn]="'unit_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>
                                         <th width="10%" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Stock'" [thisColumn]="'stock'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" class="min-width-2">
+                                        <th width="20%" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Location'" [thisColumn]="'location'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                         </th>
                                         <th width="20%" class="min-width-3">

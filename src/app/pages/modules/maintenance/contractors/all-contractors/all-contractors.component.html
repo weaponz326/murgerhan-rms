@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Contractors</p>
@@ -26,13 +26,13 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="25%" scope="col">
+                                        <th width="25%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Contractor ID'" [thisColumn]="'contractor_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
                                         </th>
-                                        <th width="50%" scope="col">
+                                        <th width="50%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
                                         </th>
-                                        <th width="25%" scope="col">
+                                        <th width="25%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Phone No.'" [thisColumn]="'phone'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getContractorList()"></app-table-sorting>
                                         </th>
                                     </tr>

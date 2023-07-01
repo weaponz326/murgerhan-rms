@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Roster</p>
@@ -26,10 +26,10 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="30%" scope="col">
+                                        <th width="30%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Roster ID'" [thisColumn]="'roster_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
                                         </th>
-                                        <th width="70%" scope="col">
+                                        <th width="70%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Roster Name'" [thisColumn]="'roster_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getRosterList()"></app-table-sorting>
                                         </th>
                                     </tr>

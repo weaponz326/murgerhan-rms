@@ -1,35 +1,37 @@
 <div class="row">
     <div class="col">
 
-        <table class="table table-bordered table-sm w-100 page-table">
-            <thead>
-                <tr class="bg-light">
-                    <th width="10%" class="min-width-1">No.</th>
-                    <th width="48%" class="min-width-3">Task Description</th>
-                    <th width="30%" class="min-width-2">Unit Name</th>
-                    <th width="12%" class="p-0 min-width-2">
-                        <button class="btn btn-primary btn-sm w-100" (click)="addTaskItem.openModal(lastItem)">
-                            <i class="bi bi-plus"></i>
-                        </button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of taskItemListData">
-                    <td>{{data?.data().item_number}}</td>
-                    <td>{{data?.data().task_description}}</td>
-                    <td>{{data?.data().unit?.data?.unit_name}}</td>
-                    <td class="p-0">
-                        <button class="btn btn-sm btn-success btask w-50" (click)="openEditItem(data)">
-                            <i class="bi bi-pen"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger btask w-50" (click)="confirmDelete(data.id)">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr>                                
-            </tbody>
-        </table>
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="10%" class="min-width-1">No.</th>
+                        <th width="48%" class="min-width-4">Task Description</th>
+                        <th width="30%" class="min-width-2">Unit Name</th>
+                        <th width="12%" class="p-0 min-width-2">
+                            <button class="btn btn-primary btn-sm w-100" (click)="addTaskItem.openModal(lastItem)">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of taskItemListData">
+                        <td>{{data?.data().item_number}}</td>
+                        <td>{{data?.data().task_description}}</td>
+                        <td>{{data?.data().unit?.data?.unit_name}}</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm btn-success btask w-50" (click)="openEditItem(data)">
+                                <i class="bi bi-pen"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger btask w-50" (click)="confirmDelete(data.id)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>                                
+                </tbody>
+            </table>
+        </div>
         
     </div>
 </div>

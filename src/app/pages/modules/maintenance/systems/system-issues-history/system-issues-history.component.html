@@ -8,9 +8,9 @@
     <li class="breadcrumb-item active">Issues History</li>
 </ol>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">System Details</p>
@@ -40,7 +40,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">System Maintenance Issues History</p>
@@ -62,16 +62,16 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="40%" scope="col">
+                                        <th width="40%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="23%" scope="col">
+                                        <th width="23%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSystemIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="7%" scope="col" class="p-0">
+                                        <th width="7%" scope="col" class="p-0 min-width-1">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>

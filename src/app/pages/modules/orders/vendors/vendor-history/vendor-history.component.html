@@ -8,9 +8,9 @@
     <li class="breadcrumb-item active">Vendor History</li>
 </ol>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Vendor Details</p>
@@ -46,7 +46,7 @@
 
 <div class="row">
     <div class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Vendor Orders History</p>
@@ -64,19 +64,19 @@
                     <div class="col">
                 
                         <div class="overflow-auto">
-                            <table class="table table-sm table-hover table-bordered">
+                            <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="27%" scope="col">
+                                        <th width="27%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Order ID'" [thisColumn]="'order_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
-                                        <th width="35%" scope="col">
+                                        <th width="35%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Order Date'" [thisColumn]="'order_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
-                                        <th width="30%" scope="col">
+                                        <th width="30%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
-                                        <th width="8%" scope="col" class="p-0">
+                                        <th width="8%" scope="col" class="p-0 min-width-1">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>

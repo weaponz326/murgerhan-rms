@@ -8,9 +8,9 @@
     <li class="breadcrumb-item active">Supplier History</li>
 </ol>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
 
                 <p class="lead">Supplier Details</p>
@@ -40,7 +40,7 @@
 
 <div class="row">
     <div class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Supplier Purchasing History</p>
@@ -61,16 +61,16 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="30" scope="col">
+                                        <th width="30" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Purchasing ID'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="32" scope="col">
+                                        <th width="32" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Purchasing Date'" [thisColumn]="'purchasing_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="30" scope="col">
+                                        <th width="30" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getSupplierPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="8%" scope="col" class="p-0">
+                                        <th width="8%" scope="col" class="p-0 min-width-1">
                                             <button class="btn btn-sm w-100"><i class="bi bi-eye"></i></button>                                      
                                         </th>
                                     </tr>
