@@ -1,11 +1,17 @@
-import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateChildFn, Router } from '@angular/router';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  if (!!localStorage.getItem('uid')){
-    return true;
-  }
-  else{
-    // this.router.navigateByUrl('/auth/login');
-    return false;
-  }
-};
+
+export function authGuard(): CanActivateChildFn {
+  return () => {
+    
+    if (!!localStorage.getItem('uid')) {
+      console.log(true);
+      return true;
+    }
+    else{
+      console.log(false)
+      return false;
+    }
+  };
+}

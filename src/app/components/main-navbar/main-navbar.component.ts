@@ -108,6 +108,7 @@ export class MainNavbarComponent {
       .then(
         (res: any) => {
           console.log(res);
+          localStorage.clear();
           window.location.href = "/";
         },
         (err: any) => {

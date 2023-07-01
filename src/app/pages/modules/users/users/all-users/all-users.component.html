@@ -24,16 +24,16 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">
+                                    <th width="15%" scope="col">
                                         <app-table-sorting [fieldTitle]="'User ID'" [thisColumn]="'staff_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getUserRoleList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="35%" scope="col">
                                         <app-table-sorting [fieldTitle]="'User Name'" [thisColumn]="'full_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getUserRoleList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="25%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Branch'" [thisColumn]="'branch_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getUserRoleList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="20%" scope="col">
                                         <app-table-sorting [fieldTitle]="'Staff Role'" [thisColumn]="'staff_role'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getUserRoleList()"></app-table-sorting>
                                     </th>
                                 </tr>
