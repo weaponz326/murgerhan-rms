@@ -56,9 +56,7 @@ export class EditContractorsComponent {
       };
   }
 
-  updateContractor() {
-    this.isSavingContractor = true;
-    
+  updateContractor() {    
     const id = sessionStorage.getItem('maintenance_contractor_id') as string;
 
     let data: Contractor = {
@@ -80,16 +78,20 @@ export class EditContractorsComponent {
       }
     }
 
-    this.maintenanceApi.updateContractor(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingContractor = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingContractor = false;
-      });
+    if(this.contractorForm.contractorForm.valid){
+      this.isSavingContractor = true;
+
+      this.maintenanceApi.updateContractor(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingContractor = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingContractor = false;
+        });
+    }
   }
 
   deleteContractor() {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,12 +14,12 @@ export class MaintenanceIssueFormComponent {
 
   issueForm = new FormGroup({
     issueCode: new FormControl(''),
-    issueSubject: new FormControl(''),
+    issueSubject: new FormControl('', Validators.required),
     issueType: new FormControl(''),
     issueDate: new FormControl(),
-    systemCode: new FormControl({value: '', disabled: true}),
-    systemName: new FormControl({value: '', disabled: true}),
-    reportedTo: new FormControl({value: '', disabled: true}),
+    systemCode: new FormControl({value: '', disabled: true}, Validators.required),
+    systemName: new FormControl({value: '', disabled: true}, Validators.required),
+    reportedTo: new FormControl({value: '', disabled: true}, Validators.required),
     description: new FormControl(''),
     issueStatus: new FormControl(''),
     comments: new FormControl(''),

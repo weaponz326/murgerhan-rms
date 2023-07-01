@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -37,11 +37,12 @@ export class NewPurchasingComponent {
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
     purchasingDate: new FormControl(),
-    supplierCode: new FormControl({value: '', disabled: true}),
-    supplierName: new FormControl({value: '', disabled: true}),
+    supplierCode: new FormControl({value: '', disabled: true}, Validators.required),
+    supplierName: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
   openModal(){
+    this.purchasingForm.controls.purchasingDate.setValue(new Date().toISOString().slice(0, 16));
     this.newButton.nativeElement.click();
   }
 
@@ -83,23 +84,25 @@ export class NewPurchasingComponent {
 
     console.log(data);
 
-    this.inventoryApi.createPurchasing(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.purchasingForm.valid){
+      this.inventoryApi.createPurchasing(data)
+        .then((res: any) => {
+          console.log(res);
 
-        if(res.id){
-          sessionStorage.setItem('inventory_purchasing_id', res.id);
-          this.router.navigateByUrl("/modules/inventory/purchasing/view-purchasing");
-        }
+          if(res.id){
+            sessionStorage.setItem('inventory_purchasing_id', res.id);
+            this.router.navigateByUrl("/modules/inventory/purchasing/view-purchasing");
+          }
 
-        this.dismissButton.nativeElement.click();
-        this.isSavingPurchasing = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingPurchasing = false;
-      });
+          this.dismissButton.nativeElement.click();
+          this.isSavingPurchasing = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingPurchasing = false;
+        });
+      }
   }
   
   openSupplierWindow(){

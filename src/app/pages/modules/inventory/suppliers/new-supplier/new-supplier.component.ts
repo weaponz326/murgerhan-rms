@@ -29,8 +29,6 @@ export class NewSupplierComponent {
   isSavingSupplier = false;
 
   createSupplier() {
-    this.isSavingSupplier = true;
-
     let data: Supplier = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -50,21 +48,25 @@ export class NewSupplierComponent {
 
     console.log(data);
 
-    this.inventoryApi.createSupplier(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.supplierForm.supplierForm.valid){
+      this.isSavingSupplier = true;
 
-        if(res.id){
-          sessionStorage.setItem('inventory_supplier_id', res.id);
-          this.router.navigateByUrl("/modules/inventory/suppliers/view-supplier");
-        }
-        this.isSavingSupplier = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingSupplier = false;
-      });
+      this.inventoryApi.createSupplier(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('inventory_supplier_id', res.id);
+            this.router.navigateByUrl("/modules/inventory/suppliers/view-supplier");
+          }
+          this.isSavingSupplier = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingSupplier = false;
+        });
+      }
   }
   
 }

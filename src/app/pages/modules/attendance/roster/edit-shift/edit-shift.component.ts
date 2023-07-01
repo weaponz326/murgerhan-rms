@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { RosterShift } from 'src/app/models/modules/attendance/attendance.model';
@@ -23,7 +23,7 @@ export class EditShiftComponent {
   isItemSaving = false;
 
   rosterShiftForm = new FormGroup({
-    shiftName: new FormControl(''),
+    shiftName: new FormControl('', Validators.required),
     startTime: new FormControl(),
     endTime: new FormControl(),
   })
@@ -50,7 +50,8 @@ export class EditShiftComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.rosterShiftForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   setRosterShiftData(data: any){

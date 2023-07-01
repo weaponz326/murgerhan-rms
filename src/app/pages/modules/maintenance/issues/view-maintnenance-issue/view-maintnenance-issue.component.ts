@@ -67,9 +67,7 @@ export class ViewMaintnenanceIssueComponent {
       };
   }
 
-  updateIssue() {
-    this.isSavingIssue = true;
-    
+  updateIssue() {    
     const id = sessionStorage.getItem('maintenance_issue_id') as string;
 
     let data: Issue = {
@@ -106,16 +104,20 @@ export class ViewMaintnenanceIssueComponent {
       }
     }
 
-    this.maintenanceApi.updateIssue(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingIssue = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingIssue = false;
-      });
+    if(this.issueForm.issueForm.valid){
+      this.isSavingIssue = true;
+      
+      this.maintenanceApi.updateIssue(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingIssue = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingIssue = false;
+        });
+    }
   }
 
   deleteIssue() {

@@ -26,17 +26,21 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Task Name :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Task Name :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <input formControlName="taskName" class="form-control form-control-sm w-100">
+                                    <input formControlName="taskName" class="form-control form-control-sm w-100" required>
                                 </div>
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Primary Asignee :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Primary Asignee :</label>
+                                </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
-                                        <input formControlName="primaryAssignee" class="form-control">
+                                        <input formControlName="primaryAssignee" class="form-control" required>
                                         <button type="button" class="btn btn-secondary">
                                             <i class="bi bi-three-dots"></i>
                                         </button>
@@ -56,16 +60,20 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>From Date :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100" required>
                                 </div>
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>To Date :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100" required>
                                 </div>
                             </div>
 
@@ -91,9 +99,11 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occurance :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Occurance :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <select formControlName="occurance" class="form-control form-control-sm w-100">
+                                    <select formControlName="occurance" class="form-control form-control-sm w-100" required>
                                         <option value="Non-Recurring" selected>Non-Recurring</option>
                                         <option value="Recurring">Recurring</option>
                                     </select>
@@ -172,7 +182,7 @@
 
                 <p class="lead">Inspect / Check Task</p>
             
-                <button class="btn btn-light border" (click)="gotoInspectRecurringTask()">
+                <button class="btn btn-light border" (click)="gotoInspectTask()">
                     Inspect Task
                     <i class="bi bi-arrow-right ms-3"></i>
                 </button>

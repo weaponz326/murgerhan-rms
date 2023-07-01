@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -44,14 +44,14 @@ export class ViewTaskComponent {
 
   taskForm = new FormGroup({
     taskCode: new FormControl(''),
-    taskName: new FormControl(''),
+    taskName: new FormControl('', Validators.required),
     taskType: new FormControl(''),
-    primaryAssignee: new FormControl({value: '', disabled: true}),
-    fromDate: new FormControl({value: null, disabled: true}),
-    toDate: new FormControl({value: null, disabled: true}),
+    primaryAssignee: new FormControl({value: '', disabled: true}, Validators.required),
+    fromDate: new FormControl({value: null, disabled: true}, Validators.required),
+    toDate: new FormControl({value: null, disabled: true}, Validators.required),
     taskStatus: new FormControl(''),
     description: new FormControl(''),
-    occurance: new FormControl({value: '', disabled: true}),
+    occurance: new FormControl({value: '', disabled: true}, Validators.required),
     frequency: new FormControl({value: '', disabled: true}),
   })
   
@@ -78,9 +78,7 @@ export class ViewTaskComponent {
       };
   }
 
-  updateTask() {
-    this.isSavingTask = true;
-    
+  updateTask() {    
     const id = sessionStorage.getItem('housekeeping_task_id') as string;
 
     let data: Task = {
@@ -112,16 +110,20 @@ export class ViewTaskComponent {
       }
     }
 
-    this.housekeepingApi.updateTask(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingTask = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingTask = false;
-      });
+    if(this.taskForm.valid){
+      this.isSavingTask = true;
+
+      this.housekeepingApi.updateTask(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingTask = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingTask = false;
+        });
+    }
   }
 
   deleteTask() {

@@ -81,46 +81,42 @@ export class OrderItemsComponent {
   createOrderItem(data: any) {
     console.log(data);
 
-    if(this.addOrderItem.selectedProductId){
-      this.addOrderItem.isItemSaving = true;
+    this.addOrderItem.isItemSaving = true;
 
-      this.ordersApi.createOrderItem(data)
-        .then((res: any) => {
-          console.log(res);
+    this.ordersApi.createOrderItem(data)
+      .then((res: any) => {
+        console.log(res);
 
-          if(res.id){
-            this.getOrderItemList();
+        if(res.id){
+          this.getOrderItemList();
 
-            this.addOrderItem.isItemSaving = false;
-            this.addOrderItem.dismissButton.nativeElement.click();
-            this.addOrderItem.resetForm();
-          }
-        })
-        .catch((err: any) => {
-          console.log(err);
-          this.connectionToast.openToast();
           this.addOrderItem.isItemSaving = false;
-        });
-    }
+          this.addOrderItem.dismissButton.nativeElement.click();
+          this.addOrderItem.resetForm();
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.addOrderItem.isItemSaving = false;
+      });
   }
 
   updateOrderItem(order_item: any) {
-    if(this.editOrderItem.selectedProductId){
-      this.editOrderItem.isItemSaving = true;
-      
-      this.ordersApi.updateOrderItem(order_item.id, order_item.data)
-        .then((res) => {
-          console.log(res);
-          this.editOrderItem.isItemSaving = false;
-          this.editOrderItem.dismissButton.nativeElement.click();
-          this.getOrderItemList();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-          this.editOrderItem.isItemSaving = false;
-        });
-    }
+    this.editOrderItem.isItemSaving = true;
+    
+    this.ordersApi.updateOrderItem(order_item.id, order_item.data)
+      .then((res) => {
+        console.log(res);
+        this.editOrderItem.isItemSaving = false;
+        this.editOrderItem.dismissButton.nativeElement.click();
+        this.getOrderItemList();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.editOrderItem.isItemSaving = false;
+      });
   }
 
   deleteOrderItem() {

@@ -38,8 +38,6 @@ export class NewMaintenanceServiceComponent {
   isSavingService = false;
 
   createService() {
-    this.isSavingService = true;
-
     let data: Service = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -77,21 +75,25 @@ export class NewMaintenanceServiceComponent {
 
     console.log(data);
 
-    this.maintenanceApi.createService(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.serviceForm.serviceForm.valid){
+      this.isSavingService = true;
 
-        if(res.id){
-          sessionStorage.setItem('maintenance_service_id', res.id);
-          this.router.navigateByUrl("/modules/maintenance/services/view-service");
-        }
-        this.isSavingService = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingService = false;
-      });
+      this.maintenanceApi.createService(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('maintenance_service_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/services/view-service");
+          }
+          this.isSavingService = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingService = false;
+        });
+    }
   }
   
   openSystemWindow(){

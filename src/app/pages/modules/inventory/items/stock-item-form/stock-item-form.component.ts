@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,8 +13,8 @@ export class StockItemFormComponent {
 
   stockItemForm = new FormGroup({
     itemCode: new FormControl(),
-    itemName: new FormControl(''),
-    itemCategory: new FormControl({value: '', disabled: true}),
+    itemName: new FormControl('', Validators.required),
+    itemCategory: new FormControl({value: '', disabled: true}, Validators.required),
     unitPrice: new FormControl(0.00),
     stock: new FormControl(0),
     refillOrdered: new FormControl(0),

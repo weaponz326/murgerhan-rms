@@ -58,9 +58,7 @@ export class ViewIncidentComponent {
       };
   }
 
-  updateIncident() {
-    this.isSavingIncident = true;
-    
+  updateIncident() {    
     const id = sessionStorage.getItem('housekeeping_incident_id') as string;
 
     let data: Incident = {
@@ -83,16 +81,20 @@ export class ViewIncidentComponent {
       }
     }
 
-    this.housekeepingApi.updateIncident(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingIncident = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingIncident = false;
-      });
+    if(this.incidentForm.incidentForm.valid){
+      this.isSavingIncident = true;
+
+      this.housekeepingApi.updateIncident(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingIncident = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingIncident = false;
+        });
+    }
   }
 
   deleteIncident() {

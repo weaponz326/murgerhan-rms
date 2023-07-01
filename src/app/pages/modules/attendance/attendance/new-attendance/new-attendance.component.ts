@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -31,9 +31,9 @@ export class NewAttendanceComponent {
 
   attendanceForm = new FormGroup({
     attendanceCode: new FormControl(''),
-    attendanceName: new FormControl(''),
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
+    attendanceName: new FormControl('', Validators.required),
+    fromDate: new FormControl(null, Validators.required),
+    toDate: new FormControl(null, Validators.required),
   })
 
   openModal(){

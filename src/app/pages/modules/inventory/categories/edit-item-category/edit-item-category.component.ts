@@ -53,9 +53,7 @@ export class EditItemCategoryComponent {
       };
   }
 
-  updateItemCategory() {
-    this.isSavingCategory = true;
-    
+  updateItemCategory() {    
     const id = sessionStorage.getItem('inventory_category_id') as string;
 
     let data: ItemCategory = {
@@ -73,18 +71,22 @@ export class EditItemCategoryComponent {
       }
     }
 
-    this.inventoryApi.updateItemCategory(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingCategory = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingCategory = false;
-      });
-  }
+    if(this.categoryForm.categoryForm.valid){
+      this.isSavingCategory = true;
 
+      this.inventoryApi.updateItemCategory(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingCategory = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingCategory = false;
+        });
+    }
+  }
+  
   deleteItemCategory() {
     this.isDeletingCategory = true;
 

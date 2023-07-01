@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,7 +11,7 @@ export class UnitFormComponent {
 
   unitForm = new FormGroup({
     unitCode: new FormControl(''),
-    unitName: new FormControl(''),
+    unitName: new FormControl('', Validators.required),
     unitType: new FormControl(''),
     location: new FormControl(''),
     condition: new FormControl(''),

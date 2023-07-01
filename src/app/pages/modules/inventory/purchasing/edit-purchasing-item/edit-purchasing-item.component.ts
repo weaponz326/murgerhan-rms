@@ -64,7 +64,8 @@ export class EditPurchasingItemComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.purchasingItemForm.purchasingItemForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   setPurchasingItemData(data: any){

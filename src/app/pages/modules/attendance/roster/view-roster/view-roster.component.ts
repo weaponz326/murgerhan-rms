@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -34,10 +34,10 @@ export class ViewRosterComponent {
   isDeletingRoster = false;
 
   rosterForm = new FormGroup({
-    rosterCode: new FormControl(''),
-    rosterName: new FormControl(''),
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
+    rosterCode: new FormControl('', Validators.required),
+    rosterName: new FormControl('', Validators.required),
+    fromDate: new FormControl({value: null, disabled: true}, Validators.required),
+    toDate: new FormControl({value: null, disabled: true}, Validators.required),
   })
   
   ngOnInit(): void {
@@ -62,9 +62,7 @@ export class ViewRosterComponent {
       };
   }
 
-  updateRoster() {
-    this.isSavingRoster = true;
-    
+  updateRoster() {    
     const id = sessionStorage.getItem('attendance_roster_id') as string;
 
     let data: Roster = {
@@ -83,16 +81,20 @@ export class ViewRosterComponent {
       }
     }
 
-    this.attendanceApi.updateRoster(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingRoster = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingRoster = false;
-      });
+    if(this.rosterForm.valid){
+      this.isSavingRoster = true;
+      
+      this.attendanceApi.updateRoster(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingRoster = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingRoster = false;
+        });
+    }
   }
 
   deleteRoster() {

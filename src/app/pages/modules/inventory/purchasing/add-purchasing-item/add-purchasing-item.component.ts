@@ -58,7 +58,7 @@ export class AddPurchasingItemComponent {
       },
     }
 
-    if(this.selectedItemData.id != "")
+    if(this.purchasingItemForm.purchasingItemForm.valid)
       this.saveItemEvent.emit(data);
   }
 

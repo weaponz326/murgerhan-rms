@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,7 +11,7 @@ export class IncidentFormComponent {
 
   incidentForm = new FormGroup({
     incidentCode: new FormControl(''),
-    incidentSubject: new FormControl(''),
+    incidentSubject: new FormControl('', Validators.required),
     incidentType: new FormControl(''),
     incidentDate: new FormControl(),
     incidentStatus: new FormControl(''),

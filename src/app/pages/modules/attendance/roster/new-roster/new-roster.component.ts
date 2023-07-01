@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -31,9 +31,9 @@ export class NewRosterComponent {
 
   rosterForm = new FormGroup({
     rosterCode: new FormControl(''),
-    rosterName: new FormControl(''),
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
+    rosterName: new FormControl('', Validators.required),
+    fromDate: new FormControl(null, Validators.required),
+    toDate: new FormControl(null, Validators.required),
   })
 
   openModal(){
@@ -41,8 +41,6 @@ export class NewRosterComponent {
   }
 
   createRoster() {
-    this.isSavingRoster = true;
-
     let data: Roster = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -61,23 +59,27 @@ export class NewRosterComponent {
 
     console.log(data);
 
-    this.attendanceApi.createRoster(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.rosterForm.valid){
+      this.isSavingRoster = true;
 
-        if(res.id){
-          sessionStorage.setItem('attendance_roster_id', res.id);
-          this.router.navigateByUrl("/modules/attendance/roster/view-roster");
-        }
+      this.attendanceApi.createRoster(data)
+        .then((res: any) => {
+          console.log(res);
 
-        this.dismissButton.nativeElement.click();
-        this.isSavingRoster = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingRoster = false;
-      });
+          if(res.id){
+            sessionStorage.setItem('attendance_roster_id', res.id);
+            this.router.navigateByUrl("/modules/attendance/roster/view-roster");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingRoster = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingRoster = false;
+        });
+    }
   }
   
 }

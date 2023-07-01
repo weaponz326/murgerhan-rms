@@ -29,8 +29,6 @@ export class NewMaintenanceSystemComponent {
   isSavingSystem = false;
 
   createSystem() {
-    this.isSavingSystem = true;
-
     let data: System = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -51,21 +49,25 @@ export class NewMaintenanceSystemComponent {
 
     console.log(data);
 
-    this.maintenanceApi.createSystem(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.systemForm.systemForm.valid){
+      this.isSavingSystem = true;
 
-        if(res.id){
-          sessionStorage.setItem('maintenance_system_id', res.id);
-          this.router.navigateByUrl("/modules/maintenance/systems/view-system");
-        }
-        this.isSavingSystem = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingSystem = false;
-      });
+      this.maintenanceApi.createSystem(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('maintenance_system_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/systems/view-system");
+          }
+          this.isSavingSystem = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingSystem = false;
+        });
+    }
   }
   
 }

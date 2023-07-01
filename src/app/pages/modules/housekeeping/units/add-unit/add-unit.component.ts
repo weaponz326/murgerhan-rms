@@ -29,8 +29,6 @@ export class AddUnitComponent {
   isSavingUnit = false;
 
   createUnit() {
-    this.isSavingUnit = true;
-
     let data: Unit = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -51,21 +49,25 @@ export class AddUnitComponent {
 
     console.log(data);
 
-    this.housekeepingApi.createUnit(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.unitForm.unitForm.valid){
+      this.isSavingUnit = true;
 
-        if(res.id){
-          sessionStorage.setItem('housekeeping_unit_id', res.id);
-          this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
-        }
-        this.isSavingUnit = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingUnit = false;
-      });
+      this.housekeepingApi.createUnit(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('housekeeping_unit_id', res.id);
+            this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
+          }
+          this.isSavingUnit = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingUnit = false;
+        });
+    }
   }
   
 }

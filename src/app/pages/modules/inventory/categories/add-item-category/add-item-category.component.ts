@@ -29,8 +29,6 @@ export class AddItemCategoryComponent {
   isSavingCategory = false;
 
   createItemCategory() {
-    this.isSavingCategory = true;
-
     let data: ItemCategory = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -48,21 +46,25 @@ export class AddItemCategoryComponent {
 
     console.log(data);
 
-    this.inventoryApi.createItemCategory(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.categoryForm.categoryForm.valid){
+      this.isSavingCategory = true;
 
-        if(res.id){
-          sessionStorage.setItem('inventory_category_id', res.id);
-          this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
-        }
-        this.isSavingCategory = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingCategory = false;
-      });
+      this.inventoryApi.createItemCategory(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('inventory_category_id', res.id);
+            this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
+          }
+          this.isSavingCategory = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingCategory = false;
+        });
+    } 
   }
   
 }

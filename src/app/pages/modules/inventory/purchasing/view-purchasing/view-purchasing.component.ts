@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -41,8 +41,8 @@ export class ViewPurchasingComponent {
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
     purchasingDate: new FormControl(),
-    supplierCode: new FormControl({value: '', disabled: true}),
-    supplierName: new FormControl({value: '', disabled: true}),
+    supplierCode: new FormControl({value: '', disabled: true}, Validators.required),
+    supplierName: new FormControl({value: '', disabled: true}, Validators.required),
     receivedBy: new FormControl({value: '', disabled: true}),
     purchasingStatus: new FormControl(''),
     dateReceived: new FormControl(),

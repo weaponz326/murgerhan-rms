@@ -30,13 +30,7 @@ export class AddPersonnelComponent {
   selectedBatchData: any;  
   selectedUserRoleId: any;
   selectedUserRoleData: any;
-  
-  rosterPersonnelForm = new FormGroup({
-    staffCode: new FormControl(''),
-    fullName: new FormControl(''),
-    batchSymbol: new FormControl(''),
-  })
-  
+    
   openModal(){
     this.addButton.nativeElement.click();
   }
@@ -63,7 +57,8 @@ export class AddPersonnelComponent {
       },
     }
 
-    this.saveItemEvent.emit(data);
+    if(this.personnelForm.personnelForm.valid)
+      this.saveItemEvent.emit(data);
   }
 
   resetForm(){

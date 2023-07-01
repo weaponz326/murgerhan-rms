@@ -56,9 +56,7 @@ export class ViewMaintenanceSystemComponent {
       };
   }
 
-  updateSystem() {
-    this.isSavingSystem = true;
-    
+  updateSystem() {    
     const id = sessionStorage.getItem('maintenance_system_id') as string;
 
     let data: System = {
@@ -81,16 +79,19 @@ export class ViewMaintenanceSystemComponent {
 
     console.log(this.systemForm.systemForm.controls.systemCode.value)
 
-    this.maintenanceApi.updateSystem(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingSystem = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingSystem = false;
-      });
+    if(this.systemForm.systemForm.valid){
+      this.isSavingSystem = true;
+      this.maintenanceApi.updateSystem(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingSystem = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingSystem = false;
+        });
+    }
   }
 
   deleteSystem() {

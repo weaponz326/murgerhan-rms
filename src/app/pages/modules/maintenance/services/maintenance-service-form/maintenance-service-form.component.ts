@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,11 +14,11 @@ export class MaintenanceServiceFormComponent {
 
   serviceForm = new FormGroup({
     serviceCode: new FormControl(''),
-    serviceSubject: new FormControl(''),
+    serviceSubject: new FormControl('', Validators.required),
     serviceType: new FormControl(''),
-    contractor: new FormControl({value: '', disabled: true}),
-    systemCode: new FormControl({value: '', disabled: true}),
-    systemName: new FormControl({value: '', disabled: true}),
+    contractor: new FormControl({value: '', disabled: true}, Validators.required),
+    systemCode: new FormControl({value: '', disabled: true}, Validators.required),
+    systemName: new FormControl({value: '', disabled: true}, Validators.required),
     cost: new FormControl(0.00),
     description: new FormControl(''),
     serviceStatus: new FormControl(''),

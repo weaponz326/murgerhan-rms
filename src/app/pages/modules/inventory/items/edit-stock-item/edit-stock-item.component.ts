@@ -32,9 +32,6 @@ export class EditStockItemComponent {
   isItemSaving = false;
   isItemDeleting = false;
 
-  ngOnInit(): void {
-  }
-
   openModal(data: any){
     this.stockItemData = data;
     this.setStockItemData(data.data());
@@ -77,7 +74,8 @@ export class EditStockItemComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.stockItemForm.stockItemForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   deleteItem(){

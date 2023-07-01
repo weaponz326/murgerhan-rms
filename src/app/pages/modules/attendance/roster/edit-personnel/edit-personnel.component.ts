@@ -67,7 +67,8 @@ export class EditPersonnelComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.personnelForm.personnelForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   setRosterShiftData(data: any){

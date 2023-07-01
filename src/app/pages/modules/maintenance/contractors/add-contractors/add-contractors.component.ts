@@ -29,8 +29,6 @@ export class AddContractorsComponent {
   isSavingContractor = false;
 
   createContractor() {
-    this.isSavingContractor = true;
-
     let data: Contractor = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -52,21 +50,25 @@ export class AddContractorsComponent {
 
     console.log(data);
 
-    this.maintenanceApi.createContractor(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.contractorForm.contractorForm.valid){
+      this.isSavingContractor = true;
 
-        if(res.id){
-          sessionStorage.setItem('maintenance_contractor_id', res.id);
-          this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
-        }
-        this.isSavingContractor = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingContractor = false;
-      });
+      this.maintenanceApi.createContractor(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('maintenance_contractor_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
+          }
+          this.isSavingContractor = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingContractor = false;
+        });
+    }
   }
 
 }

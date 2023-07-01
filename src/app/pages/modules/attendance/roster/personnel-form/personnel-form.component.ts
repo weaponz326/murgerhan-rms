@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,9 +13,9 @@ export class PersonnelFormComponent {
   @Output() openBatchWindow = new EventEmitter<any>();
 
   personnelForm = new FormGroup({
-    staffCode: new FormControl({value: '', disabled: true}),
-    fullName: new FormControl({value: '', disabled: true}),
-    batchSymbol: new FormControl({value: '', disabled: true}),
+    staffCode: new FormControl({value: '', disabled: true}, Validators.required),
+    fullName: new FormControl({value: '', disabled: true}, Validators.required),
+    batchSymbol: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
 }

@@ -56,9 +56,7 @@ export class EditUnitComponent {
       };
   }
 
-  updateUnit() {
-    this.isSavingUnit = true;
-    
+  updateUnit() {    
     const id = sessionStorage.getItem('housekeeping_unit_id') as string;
 
     let data: Unit = {
@@ -79,16 +77,20 @@ export class EditUnitComponent {
       }
     }
 
-    this.housekeepingApi.updateUnit(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingUnit = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingUnit = false;
-      });
+    if(this.unitForm.unitForm.valid){
+      this.isSavingUnit = true;
+
+      this.housekeepingApi.updateUnit(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingUnit = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingUnit = false;
+        });
+    }
   }
 
   deleteUnit() {

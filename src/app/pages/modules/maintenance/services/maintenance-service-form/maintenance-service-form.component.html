@@ -9,9 +9,10 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Service Subject :</label></div>
+                <div class="col-md-4">
+                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Service Subject :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="serviceSubject" class="form-control form-control-sm w-100">
+                    <input formControlName="serviceSubject" class="form-control form-control-sm w-100" required>
                 </div>
             </div>
 
@@ -23,10 +24,12 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System ID :</label></div>
+                <div class="col-md-4">
+                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>System ID :</label>
+                </div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="systemCode" class="form-control">
+                        <input formControlName="systemCode" class="form-control" required>
                         <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
@@ -35,10 +38,12 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">System Name :</label></div>
+                <div class="col-md-4">
+                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>System Name :</label>
+                </div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="systemName" class="form-control">
+                        <input formControlName="systemName" class="form-control" required>
                         <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
@@ -54,10 +59,12 @@
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Contractor :</label></div>
+                <div class="col-md-4">
+                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Contractor :</label>
+                </div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="contractor" class="form-control">
+                        <input formControlName="contractor" class="form-control" required>
                         <button type="button" class="btn btn-secondary" (click)="openContractorWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { RosterBatch } from 'src/app/models/modules/attendance/attendance.model';
@@ -22,8 +22,8 @@ export class EditBatchComponent {
   isItemSaving = false;
 
   rosterBatchForm = new FormGroup({
-    batchName: new FormControl(''),
-    batchSymbol: new FormControl(''),
+    batchName: new FormControl('', Validators.required),
+    batchSymbol: new FormControl('', Validators.required),
   })
   
   openModal(data: any){
@@ -47,7 +47,8 @@ export class EditBatchComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.rosterBatchForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   setRosterShiftData(data: any){

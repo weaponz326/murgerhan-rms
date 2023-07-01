@@ -62,7 +62,8 @@ export class AddStockItemComponent {
       },
     }
 
-    this.saveItemEvent.emit(data);
+    if(this.stockItemForm.stockItemForm.valid)
+      this.saveItemEvent.emit(data);
   }
 
   resetForm(){

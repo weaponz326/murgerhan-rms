@@ -8,20 +8,22 @@
     </div>
 
     <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Item Name :</label></div>
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Item Name :</label>
+        </div>
         <div class="col-md-8">
-            <input formControlName="itemName" class="form-control form-control-sm w-100">
+            <input formControlName="itemName" class="form-control form-control-sm w-100" required>
         </div>
     </div>
 
     <div class="row mb-1">
         <div class="col-md-4">
-            <label class="float-md-end float-sm-start mt-1">Item Category :</label>
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Item Category :</label>
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="itemCategory" class="form-control">
-                <button type="button" class="btn btn-secondary" (click)="openCategoryWindow.emit()">
+                <input formControlName="itemCategory" class="form-control" required>
+                <button type="button" class="btn btn-secondary" (click)="openCategoryWindow.emit()" requi>
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>

@@ -65,9 +65,7 @@ export class ViewMaintenanceServiceComponent {
       };
   }
 
-  updateService() {
-    this.isSavingService = true;
-    
+  updateService() {    
     const id = sessionStorage.getItem('maintenance_service_id') as string;
 
     let data: Service = {
@@ -105,16 +103,20 @@ export class ViewMaintenanceServiceComponent {
       }
     }
 
-    this.maintenanceApi.updateService(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingService = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingService = false;
-      });
+    if(this.serviceForm.serviceForm.valid){
+      this.isSavingService = true;
+
+      this.maintenanceApi.updateService(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingService = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingService = false;
+        });
+    }
   }
 
   deleteService() {

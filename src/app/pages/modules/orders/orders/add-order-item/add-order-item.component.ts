@@ -53,7 +53,7 @@ export class AddOrderItemComponent {
 
     console.log(this.selectedProductId)
 
-    if(this.selectedProductId != "")
+    if(this.orderItemForm.orderItemForm.valid)
       this.saveItemEvent.emit(data);
   }
 

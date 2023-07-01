@@ -42,8 +42,6 @@ export class NewMaintnenanceIssueComponent {
   }
 
   createIssue() {
-    this.isSavingIssue = true;
-
     let data: Issue = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -80,23 +78,27 @@ export class NewMaintnenanceIssueComponent {
 
     console.log(data);
 
-    this.maintenanceApi.createIssue(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.issueForm.issueForm.valid){
+      this.isSavingIssue = true;
+      
+      this.maintenanceApi.createIssue(data)
+        .then((res: any) => {
+          console.log(res);
 
-        if(res.id){
-          sessionStorage.setItem('maintenance_issue_id', res.id);
-          this.router.navigateByUrl("/modules/maintenance/issues/view-issue");
-        }
-        this.isSavingIssue = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingIssue = false;
-      });
+          if(res.id){
+            sessionStorage.setItem('maintenance_issue_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/issues/view-issue");
+          }
+          this.isSavingIssue = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingIssue = false;
+        });
+      }
   }
-  
+
   openSystemWindow(){
     console.log("You are opening select system window")
     this.selectSystem.openModal();

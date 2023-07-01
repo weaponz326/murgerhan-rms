@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -35,14 +35,14 @@ export class NewTaskComponent {
 
   taskForm = new FormGroup({
     taskCode: new FormControl(''),
-    taskName: new FormControl(''),
+    taskName: new FormControl('', Validators.required),
     taskType: new FormControl(''),
-    primaryAssignee: new FormControl({value: '', disabled: true}),
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
+    primaryAssignee: new FormControl({value: '', disabled: true}, Validators.required),
+    fromDate: new FormControl(null, Validators.required),
+    toDate: new FormControl(null, Validators.required),
     taskStatus: new FormControl(''),
     description: new FormControl(''),
-    occurance: new FormControl('Non-Recurring'),
+    occurance: new FormControl('Non-Recurring', Validators.required),
     frequency: new FormControl({value: '', disabled: true}),
   })
 
@@ -51,8 +51,6 @@ export class NewTaskComponent {
   }
 
   createTask() {
-    this.isSavingTask = true;
-
     let data: Task = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -84,23 +82,27 @@ export class NewTaskComponent {
 
     console.log(data);
 
-    this.housekeepingApi.createTask(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.taskForm.valid){
+      this.isSavingTask = true;
 
-        if(res.id){
-          sessionStorage.setItem('housekeeping_task_id', res.id);
-          this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
-        }
+      this.housekeepingApi.createTask(data)
+        .then((res: any) => {
+          console.log(res);
 
-        this.dismissButton.nativeElement.click();
-        this.isSavingTask = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingTask = false;
-      });
+          if(res.id){
+            sessionStorage.setItem('housekeeping_task_id', res.id);
+            this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingTask = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingTask = false;
+        });
+    }
   }
 
   openUserRoleWindow(){

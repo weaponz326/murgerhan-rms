@@ -60,7 +60,8 @@ export class EditOrderItemComponent {
       data: data
     }
 
-    this.saveItemEvent.emit(item);
+    if(this.orderItemForm.orderItemForm.valid)
+      this.saveItemEvent.emit(item);
   }
 
   setOrderItemData(data: any){

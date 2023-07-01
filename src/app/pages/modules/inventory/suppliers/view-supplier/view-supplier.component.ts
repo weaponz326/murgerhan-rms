@@ -56,9 +56,7 @@ export class ViewSupplierComponent {
       };
   }
 
-  updateSupplier() {
-    this.isSavingSupplier = true;
-    
+  updateSupplier() {    
     const id = sessionStorage.getItem('inventory_supplier_id') as string;
 
     let data: Supplier = {
@@ -78,16 +76,19 @@ export class ViewSupplierComponent {
       }
     }
 
-    this.inventoryApi.updateSupplier(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingSupplier = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingSupplier = false;
-      });
+    if(this.supplierForm.supplierForm.valid){
+      this.isSavingSupplier = true;
+      this.inventoryApi.updateSupplier(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingSupplier = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingSupplier = false;
+        });
+    }
   }
 
   deleteSupplier() {
