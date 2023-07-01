@@ -5,7 +5,11 @@ import { DashboardPage } from './dashboard.page';
 
 
 const routes: Routes = [
-  { path: "", component: DashboardPage }
+  { 
+    path: "", 
+    component: DashboardPage,
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
+  }
 ];
 
 @NgModule({

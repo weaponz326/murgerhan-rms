@@ -11,6 +11,7 @@ const routes: Routes = [
   { 
     path: "", 
     component: AttendancePage,
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
     children: [
       { path: "", component: AllAttendanceComponent },
       { path: "all-attendance", component: AllAttendanceComponent },

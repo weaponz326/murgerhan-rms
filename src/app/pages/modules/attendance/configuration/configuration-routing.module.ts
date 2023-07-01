@@ -5,7 +5,11 @@ import { ConfigurationPage } from './configuration.page';
 
 
 const routes: Routes = [
-  { path: "", component: ConfigurationPage }
+  { 
+    path: "", 
+    component: ConfigurationPage, 
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
+  }
 ];
 
 @NgModule({

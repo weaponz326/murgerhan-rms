@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './guards/auth/auth.guard';
 
+// TODO: implement guards with guard components
 const routes: Routes = [
   {
     path: "",
@@ -14,7 +15,7 @@ const routes: Routes = [
   {
     path: "settings",
     loadChildren: () => import("./pages/settings/settings.module").then(m => m.SettingsModule),
-    canActivateChild: [authGuard]
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
   }
 ];
 

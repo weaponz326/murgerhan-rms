@@ -10,6 +10,7 @@ const routes: Routes = [
   { 
     path: "", 
     component: LogsPage,
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
     children: [
       { path: "", component: AllLogsComponent },
       { path: "all-logs", component: AllLogsComponent },

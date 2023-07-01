@@ -13,6 +13,7 @@ const routes: Routes = [
   { 
     path: "", 
     component: PurchasingPage,
+    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
     children: [
       { path: "", component: AllPurchasingComponent },
       { path: "all-purchasing", component: AllPurchasingComponent },
