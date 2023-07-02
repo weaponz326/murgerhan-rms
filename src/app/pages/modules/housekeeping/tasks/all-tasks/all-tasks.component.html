@@ -26,22 +26,22 @@
                             <table class="table table-sm table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="min-width-2">
+                                        <th width="10%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Task ID'" [thisColumn]="'task_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" class="min-width-4">
+                                        <th width="30%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Task Name'" [thisColumn]="'task_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" class="min-width-3">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'From Date'" [thisColumn]="'from_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" class="min-width-3">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'To Date'" [thisColumn]="'to_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" class="min-width-3">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Task Type'" [thisColumn]="'task_type'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col" class="min-width-3">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Task Status'" [thisColumn]="'task_status'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                         </th>
                                     </tr>

@@ -15,39 +15,34 @@
                 <table class="table table-sm table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Service ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            <th width="25%" scope="col" class="min-with-2">
+                                <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                             </th>
-                            <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Service Subject'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            <th width="50%" scope="col" class="min-with-5">
+                                <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                             </th>
-                            <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Contractor Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            <th width="35%" scope="col" class="min-with-4">
+                                <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getServiceList()"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="!isFetchingData">
                         <tr *ngFor="let data of serviceListData" (dblclick)="selectRow(data)">
                             <td>{{data?.data().service_code}}</td>
                             <td>{{data?.data().service_subject}}</td>
-                            <td>{{data?.data().contractor.data.contrctor_name}}</td>
+                            <td>{{data?.data().date_from | date: 'short'}}</td>
+                            <td>{{data?.data().date_to | date: 'short'}}</td>
+                            <td>{{data?.data().contractor.data.contractor_name}}</td>
                         </tr> 
-                        <tr *ngIf="isFetchingData || !isDataAvailable">
-                            <td colspan="3">
+                    </tbody>
+                    <tbody *ngIf="isFetchingData || !isDataAvailable">
+                        <tr>
+                            <td colspan="5">
                                 <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3">
-                                <app-table-paginator
-                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getServiceList()"
-                                ></app-table-paginator>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>                                      
+                </table>
             </div>
 
             <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">

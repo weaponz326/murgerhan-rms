@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectRosterComponent {
 
-  constructor(private attendanceApi: AttendanceApiService) { }
+  constructor(
+    private attendanceApi: AttendanceApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectRosterComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['roster_code', 'roster_name'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.rosterListData = [];
@@ -59,9 +55,13 @@ export class SelectRosterComponent {
           this.rosterListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectRosterComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getRosterList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
+  }
+  
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.rosterListData = this.aggregateTable.filterData(this.rosterListData, this.filterText, this.tableColumns);
+    this.rosterListData = this.aggregateTable.sortData(this.rosterListData, this.sortColumn, this.sortDirection);
+    this.rosterListData = this.aggregateTable.paginateData(this.rosterListData, this.currentPage, this.pageSize);
   }
   
 }

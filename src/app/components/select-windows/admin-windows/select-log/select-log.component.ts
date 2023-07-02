@@ -27,22 +27,6 @@ export class SelectLogComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
-
   openModal(){
     this.logListData = [];
     this.getLogList();
@@ -52,16 +36,12 @@ export class SelectLogComponent {
   getLogList(){
     this.isFetchingData = true;
 
-    this.adminApi.getLogList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.adminApi.getLogList()
       .then(
         (res: any) => {
           console.log(res);
           this.logListData = res.docs;
-          this.isFetchingData = false;
-
-          this.currentPageSize = res.docs.length;
-          if(res.docs.length == 0)
-            this.isDataAvailable = false;
+          this.isFetchingData = false;          
         },
         (err: any) => {
           console.log(err);
@@ -69,11 +49,6 @@ export class SelectLogComponent {
           this.isFetchingData = false;
         }
       )
-  }
-
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getLogList();
   }
 
   selectRow(row: any){

@@ -31,21 +31,13 @@ export class SelectProductComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['product_code', 'product_name', 'price'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.productListData = [];
@@ -63,9 +55,13 @@ export class SelectProductComponent {
           this.productListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -75,15 +71,17 @@ export class SelectProductComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getProductList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
+  }
+  
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.productListData = this.aggregateTable.filterData(this.productListData, this.filterText, this.tableColumns);
+    this.productListData = this.aggregateTable.sortData(this.productListData, this.sortColumn, this.sortDirection);
+    this.productListData = this.aggregateTable.paginateData(this.productListData, this.currentPage, this.pageSize);
   }
   
 }

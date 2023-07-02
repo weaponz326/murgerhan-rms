@@ -30,13 +30,15 @@
                                         <th width="30%" scope="col" class="min-wdith-3">Manager</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of branchListData" (dblclick)="editBranch(data?.id)">
                                         <td class="py-3">{{data?.data().branch_name}}</td>
                                         <td class="py-3">{{data?.data().location}}</td>
                                         <td class="py-3">{{data?.data().manager.manager}}</td>
                                     </tr>
-                                    <tr *ngIf="isFetchingData || !isDataAvailable">
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
                                         <td colspan="3">
                                             <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                         </td>

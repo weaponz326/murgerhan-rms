@@ -15,35 +15,28 @@
                 <table class="table table-sm table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Category ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            <th width="30%" scope="col" class="min-width-2">
+                                <app-table-sorting [fieldTitle]="'Category ID'" [thisColumn]="'category_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
                             </th>
-                            <th scope="col">
-                                <app-table-sorting [fieldTitle]="'Category Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                            <th width="70%" scope="col" class="min-width-4">
+                                <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getItemCategoryList()"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="!isFetchingData">
                         <tr *ngFor="let data of itemcategoryListData" (dblclick)="selectRow(data)">
                             <td>{{data?.data().category_code}}</td>
                             <td>{{data?.data().category_name}}</td>
                         </tr> 
-                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                    </tbody>
+                    <tbody *ngIf="isFetchingData || !isDataAvailable">
+                        <tr>
                             <td colspan="2">
                                 <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">
-                                <app-table-paginator
-                                (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getItemCategoryList()"
-                                ></app-table-paginator>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>                              
+                </table>                            
             </div>
 
             <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">

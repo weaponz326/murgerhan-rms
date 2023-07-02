@@ -48,7 +48,7 @@ export class AllLogsComponent {
   getLogList(){
     this.isFetchingData = true;
 
-    this.adminApi.getLogList(this.defaultPageSize, this.currentPageNumber, this.sorting, this.querying)
+    this.adminApi.getLogList()
       .then(
         (res: any) => {
           console.log(res);

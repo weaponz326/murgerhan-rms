@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectStockItemComponent {
 
-  constructor(private inventoryApi: InventoryApiService) { }
+  constructor(
+    private inventoryApi: InventoryApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectStockItemComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['item_code', 'item_name', 'unit_price', 'item_category'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.stockItemListData = [];
@@ -59,9 +55,16 @@ export class SelectStockItemComponent {
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
-          if(res.docs.length == 0)
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
+          }
+          else{
+            this.currentPage = 1;
+            this.isDataAvailable = true;
+          }
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +74,17 @@ export class SelectStockItemComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getStockItemList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
   }
 
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
+    this.stockItemListData = this.aggregateTable.sortData(this.stockItemListData, this.sortColumn, this.sortDirection);
+    this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);
+  }
+  
 }

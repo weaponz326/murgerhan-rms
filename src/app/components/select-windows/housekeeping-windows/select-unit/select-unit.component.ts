@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectUnitComponent {
 
-  constructor(private housekeepingApi: HousekeepingApiService) { }
+  constructor(
+    private housekeepingApi: HousekeepingApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectUnitComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['unit_code', 'unit_name', 'unit_type'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.unitListData = [];
@@ -59,9 +55,13 @@ export class SelectUnitComponent {
           this.unitListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectUnitComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getUnitList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
+  }
+  
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.unitListData = this.aggregateTable.filterData(this.unitListData, this.filterText, this.tableColumns);
+    this.unitListData = this.aggregateTable.sortData(this.unitListData, this.sortColumn, this.sortDirection);
+    this.unitListData = this.aggregateTable.paginateData(this.unitListData, this.currentPage, this.pageSize);
   }
   
 }

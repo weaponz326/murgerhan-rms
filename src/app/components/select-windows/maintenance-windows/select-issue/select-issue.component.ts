@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 
 @Component({
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectIssueComponent {
 
-  constructor(private maintenanceApi: MaintenanceApiService) { }
+  constructor(
+    private maintenanceApi: MaintenanceApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectIssueComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['issue_code', 'issue_date', 'issue_subject', 'system_name'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.issueListData = [];
@@ -59,9 +55,13 @@ export class SelectIssueComponent {
           this.issueListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectIssueComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getIssueList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
+  }
+  
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.issueListData = this.aggregateTable.filterData(this.issueListData, this.filterText, this.tableColumns);
+    this.issueListData = this.aggregateTable.sortData(this.issueListData, this.sortColumn, this.sortDirection);
+    this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.currentPage, this.pageSize);
   }
   
 }

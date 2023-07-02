@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectOrderComponent {
 
-  constructor(private ordersApi: OrdersApiService) { }
+  constructor(
+    private ordersApi: OrdersApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectOrderComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['order_code', 'order_date', 'vendor_name', 'total_price'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 25;
 
   openModal(){
     this.orderListData = [];
@@ -59,9 +55,13 @@ export class SelectOrderComponent {
           this.orderListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectOrderComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getOrderList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
+  }
+
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
+    this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
+    this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
   }
   
 }

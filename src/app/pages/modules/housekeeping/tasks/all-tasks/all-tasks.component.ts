@@ -29,7 +29,7 @@ export class AllTasksComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  tableColumns = ['task_code', 'task_name', 'from_data', 'to_date', 'task_type', 'task_status'];
+  tableColumns = ['task_code', 'task_name', 'from_date', 'to_date', 'task_type', 'task_status'];
   filterText = "";
   sortDirection = "";
   sortColumn = "";

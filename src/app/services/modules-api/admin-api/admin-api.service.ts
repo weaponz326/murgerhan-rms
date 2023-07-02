@@ -61,35 +61,10 @@ export class AdminApiService {
     return this.logRef.doc(id).ref.get();
   }
 
-  getLogList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any ){
+  getLogList(){
     return this.logRef.ref
       .where("branch.id", "==", localStorage.getItem("selected_branch"))
-      .startAt((defaultPageSize * currentPageNumber) + 1).limit(defaultPageSize)
       .get();
   }
-
-  // TODO: implement sorting and quwerying
-  // getLogList(defaultPageSize: number, currentPageNumber: number, sorting: any, querying: any ){
-  //   let queryRef = this.logRef.ref;    
-
-  //   queryRef.where("branch.id", "==", localStorage.getItem("selected_branch"));
-
-  //   for (const key in querying) {
-  //     if (querying.hasOwnProperty(key)) {
-  //       queryRef.where(key, '==', querying[key]);
-  //     }
-  //   }
-
-  //   for (const key in sorting) {
-  //     if (querying.hasOwnProperty(key)) {
-  //       queryRef.orderBy(key, sorting);
-  //     }
-  //   }    
-    
-  //   const startIndex = (defaultPageSize * currentPageNumber) + 1;
-  //   queryRef.startAt(startIndex).limit(defaultPageSize);
-
-  //   return queryRef.get();
-  // }
 
 }
