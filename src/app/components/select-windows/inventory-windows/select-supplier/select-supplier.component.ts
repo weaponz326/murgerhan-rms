@@ -37,7 +37,7 @@ export class SelectSupplierComponent {
   sortColumn = "";
   currentPage = 0;
   totalPages = 0;
-  pageSize = 25;
+  pageSize = 15;
 
   openModal(){
     this.supplierListData = [];

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ModuleUtilitiesModule } from '../../module-utilities/module-utilities.module';
 
@@ -17,6 +18,7 @@ import { SelectUserRoleComponent } from './select-user-role/select-user-role.com
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ModuleUtilitiesModule,
   ],
   exports: [

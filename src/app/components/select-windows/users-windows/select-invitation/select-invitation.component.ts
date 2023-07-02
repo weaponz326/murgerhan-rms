@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectInvitationComponent {
 
-  constructor(private usersApi: UsersApiService) { }
+  constructor(
+    private usersApi: UsersApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,21 +31,13 @@ export class SelectInvitationComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['invition_code', 'invitation_date', 'invitee_name', 'invitation_status'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 15;
 
   openModal(){
     this.invitationListData = [];
@@ -59,9 +55,13 @@ export class SelectInvitationComponent {
           this.invitationListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectInvitationComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getInvitationList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
   }
 
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.invitationListData = this.aggregateTable.filterData(this.invitationListData, this.filterText, this.tableColumns);
+    this.invitationListData = this.aggregateTable.sortData(this.invitationListData, this.sortColumn, this.sortDirection);
+    this.invitationListData = this.aggregateTable.paginateData(this.invitationListData, this.currentPage, this.pageSize);
+  }
+  
 }

@@ -37,7 +37,7 @@ export class SelectUnitComponent {
   sortColumn = "";
   currentPage = 0;
   totalPages = 0;
-  pageSize = 25;
+  pageSize = 15;
 
   openModal(){
     this.unitListData = [];

@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -12,7 +13,10 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 })
 export class SelectBasicUserComponent {
 
-  constructor(private usersApi: UsersApiService) { }
+  constructor(
+    private usersApi: UsersApiService,
+    private aggregateTable: AggregateTableService,
+  ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -27,41 +31,37 @@ export class SelectBasicUserComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  currentPageSize = 0;
-  currentPageNumber = 0;
-  defaultPageSize = 25;
-  sorting = {
-    created_at: "desc",
-    log_code: "",
-    user: "",
-    activity: ""
-  };
-  querying = {
-    created_at: "",
-    log_code: "",
-    user: "",
-    activity: ""
-  }
+  tableColumns = ['staff_code', 'full_name', 'branch_name', 'staff_role'];
+  filterText = "";
+  sortDirection = "";
+  sortColumn = "";
+  currentPage = 0;
+  totalPages = 0;
+  pageSize = 10;
 
   openModal(){
     this.userListData = [];
-    this.getBasicUserList();
+    this.getUserRoleList();
     this.openButton.nativeElement.click();
   }
 
-  getBasicUserList(){
+  getUserRoleList(){
     this.isFetchingData = true;
 
-    this.usersApi.getBasicUserList()
+    this.usersApi.getUserRoleList()
       .then(
         (res: any) => {
-          console.log(res);
+          console.log(res.docs);
           this.userListData = res.docs;
           this.isFetchingData = false;
 
-          this.currentPageSize = res.docs.length;
+          this.totalPages = Math.ceil(res.docs.length / this.pageSize);
           if(res.docs.length == 0)
             this.isDataAvailable = false;
+          else
+            this.currentPage = 1
+
+          this.aggregateData();
         },
         (err: any) => {
           console.log(err);
@@ -71,15 +71,17 @@ export class SelectBasicUserComponent {
       )
   }
 
-  changePage(page: any){
-    this.currentPageNumber = page;
-    this.getBasicUserList();
-  }
-
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
     console.log(row);
   }
   
+  aggregateData(){
+    console.log("lets aggregate this table's data...");
+    this.userListData = this.aggregateTable.filterData(this.userListData, this.filterText, this.tableColumns);
+    this.userListData = this.aggregateTable.sortData(this.userListData, this.sortColumn, this.sortDirection);
+    this.userListData = this.aggregateTable.paginateData(this.userListData, this.currentPage, this.pageSize);
+  }
+
 }

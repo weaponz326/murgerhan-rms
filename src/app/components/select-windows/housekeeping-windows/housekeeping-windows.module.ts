@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ModuleUtilitiesModule } from '../../module-utilities/module-utilities.module';
 
@@ -17,6 +18,7 @@ import { SelectIncidentComponent } from './select-incident/select-incident.compo
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ModuleUtilitiesModule,
   ],
   exports: [

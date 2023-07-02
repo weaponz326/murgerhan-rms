@@ -6,9 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./table-sorting.component.scss']
 })
 export class TableSortingComponent {
-
-  @Input() sortField: string = ""; // TODO: remove
-  @Input() currentField: string = ""; // TODO: remove
   
   @Input() fieldTitle: string = "";
   @Input() thisColumn: string = "";

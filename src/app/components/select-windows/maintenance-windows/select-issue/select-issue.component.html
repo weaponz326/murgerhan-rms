@@ -12,39 +12,60 @@
             </div>
 
             <div class="modal-body overflow-auto">
-                <table class="table table-sm table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th width="15%" scope="col" class="min-width-2">
-                                <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
-                            </th>
-                            <th width="35%" scope="col" class="min-width-5">
-                                <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
-                            </th>
-                            <th width="20%" scope="col" class="min-width-3">
-                                <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
-                            </th>
-                            <th width="30%" scope="col" class="min-width-4">
-                                <app-table-sorting [fieldTitle]="'System'" [thisColumn]="'system_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="!isFetchingData">
-                        <tr *ngFor="let data of issueListData" (dblclick)="selectRow(data)">
-                            <td>{{data?.data().issue_code}}</td>
-                            <td>{{data?.data().issue_subject}}</td>
-                            <td>{{data?.data().issue_date | date: 'short'}}</td>
-                            <td>{{data?.data().system.data.system_name}}</td>
-                        </tr> 
-                    </tbody>
-                    <tbody *ngIf="isFetchingData || !isDataAvailable">
-                        <tr>
-                            <td colspan="4">
-                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>                         
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input [(ngModel)]="filterText" (change)="getIssueList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search issues">
+                        <button [disabled]="isFetchingData" (click)="getIssueList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-auto">
+                    <table class="table table-sm table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="15%" scope="col" class="min-width-2">
+                                    <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                </th>
+                                <th width="35%" scope="col" class="min-width-5">
+                                    <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                </th>
+                                <th width="20%" scope="col" class="min-width-3">
+                                    <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                </th>
+                                <th width="30%" scope="col" class="min-width-4">
+                                    <app-table-sorting [fieldTitle]="'System'" [thisColumn]="'system_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIssueList()"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="!isFetchingData">
+                            <tr *ngFor="let data of issueListData" (dblclick)="selectRow(data)">
+                                <td>{{data?.data().issue_code}}</td>
+                                <td>{{data?.data().issue_subject}}</td>
+                                <td>{{data?.data().issue_date | date: 'short'}}</td>
+                                <td>{{data?.data().system.data.system_name}}</td>
+                            </tr> 
+                        </tbody>
+                        <tbody *ngIf="isFetchingData || !isDataAvailable">
+                            <tr>
+                                <td colspan="4">
+                                    <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>             
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getIssueList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
             </div>
 
             <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">

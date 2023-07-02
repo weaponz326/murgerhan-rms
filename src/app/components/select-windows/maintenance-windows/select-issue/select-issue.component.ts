@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class SelectIssueComponent {
   sortColumn = "";
   currentPage = 0;
   totalPages = 0;
-  pageSize = 25;
+  pageSize = 15;
 
   openModal(){
     this.issueListData = [];

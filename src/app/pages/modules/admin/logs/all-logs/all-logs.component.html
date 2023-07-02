@@ -25,16 +25,16 @@
                             <thead>
                                 <tr>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Log ID'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                        Log ID
                                     </th>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Date/Time'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                        Date/Time
                                     </th>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'User Name'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                        User Name
                                     </th>
                                     <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'Activity'" [sortField]="''" [currentField]="''" (sortDirection)="''"></app-table-sorting>
+                                        Activity
                                     </th>
                                 </tr>
                             </thead>
@@ -51,15 +51,6 @@
                                     </td>
                                 </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4">
-                                        <app-table-paginator
-                                        (pageSelected)="changePage($event)" [currentPageNumber]="currentPageNumber" [currentPageSize]="currentPageSize" (pageSelected)="getLogList()"
-                                        ></app-table-paginator>
-                                    </td>
-                                </tr>
-                            </tfoot>
                         </table>
                 
                     </div>
