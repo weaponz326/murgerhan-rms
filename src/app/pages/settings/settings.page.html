@@ -1,3 +1,28 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand px-3" href="#">
+        <img src="../../../assets/images/murger-han/mh.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top border rounded me-2">
+        Murger Han Hub
+    </a>
+  
+    <!-- Navbar-->
+    <ul *ngIf="isLoggedIn && !isAuthLoading" class="navbar-nav ms-auto me-3">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><span class="ms-3 user-info">{{email}}</span></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="small dropdown-item" href="#!" routerLink="/settings">Settings</a></li>
+                <li><a class="small dropdown-item" href="#!" (click)="logout()">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+    <button *ngIf="!isLoggedIn && !isAuthLoading" routerLink="/auth/login" class="btn btn-sm btn-success ms-auto me-3 login-btn">
+        Login
+    </button>
+    <button *ngIf="isAuthLoading" disabled class="btn btn-sm btn-secondary ms-auto me-3 login-btn">.</button>
+</nav>
+
 <div class="bg-light">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">

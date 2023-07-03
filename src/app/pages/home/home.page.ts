@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
+import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -14,6 +15,7 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 export class HomePage {
 
   constructor(
+    private authApi: AuthApiService,
     private router: Router,
     private usersApi: UsersApiService
   ) { 
@@ -22,35 +24,58 @@ export class HomePage {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  themeCheck = false;
+  themeClass = "dark"
+  themeBackground = "light";
+
   progressValue: number = 0;
   progressTimer: any;
 
-  branchName: any;
+  isLoggedIn: boolean = false;
+  isAuthLoading: boolean = false;
+
+  branchName = "";
+  name: string = "";
+  email: string = "";
+
   userRoleData: any;
+  basicProfileData: any;
 
   ngOnInit(): void {
-    this.getUserRole();    
+    this.getUserRole();
+    this.initTheme();
   }
 
-  ngAfterViewInit(): void {
-    // this.toggleSideNav();    
+  initTheme(){
+    if(localStorage.getItem("theme")){
+      console.log("theme is set");
+      this.themeCheck = localStorage.getItem("theme") === "true";
+
+      if(this.themeCheck == true){
+        this.themeClass = "light";
+        this.themeBackground = "white";
+      }
+      else{
+        this.themeClass = "dark";
+        this.themeBackground = "light";
+      }
+    }
   }
 
-  // // NB: same script located in assets/scripts, but doesn't work from there
-  // toggleSideNav(){
-  //   const sidebarToggle = document.body.querySelector('#sidebarToggle');
-  //   if (sidebarToggle) {
-  //     // Uncomment Below to persist sidebar toggle between refreshes
-  //     if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-  //       document.body.classList.toggle('sb-sidenav-toggled');
-  //     }
-  //     sidebarToggle.addEventListener('click', event => {
-  //       event.preventDefault();
-  //       document.body.classList.toggle('sb-sidenav-toggled');
-  //       localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled').toString());
-  //     });
-  //   }
-  // }
+  setTheme(e: any){
+    this.themeCheck = e.target.checked;
+    localStorage.setItem("theme", String(this.themeCheck))
+    console.log(this.themeCheck);
+
+    if(this.themeCheck == true){
+      this.themeClass = "light";
+      this.themeBackground = "white";
+    }
+    else{
+      this.themeClass = "dark";
+      this.themeBackground = "light";
+    }
+  }
 
   initProgressBar(){
     this.router.events.subscribe(event => {
@@ -91,6 +116,32 @@ export class HomePage {
     }, incrementInterval);
   }
 
+  getAuth(){
+    this.isAuthLoading = true;
+
+    this.authApi.getAuth()
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.isAuthLoading = false;
+
+          localStorage.setItem('uid', res.uid);
+          localStorage.setItem('email', res.email);
+
+          if (res.uid){
+            this.isLoggedIn = true;
+            this.email = res.email;
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isLoggedIn = false;
+          this.isAuthLoading = false;
+        }
+      )
+  }
+
   getUserRole() {
     const id = localStorage.getItem('uid') as string;
 
@@ -98,8 +149,15 @@ export class HomePage {
       .then((res) => {
         console.log(res.data());
         this.userRoleData = res.data();
-        try{ this.branchName = this.userRoleData.branch.data.branch_name; }
-        catch { console.log('you dont have a branch') }
+
+        try{
+          this.branchName = this.userRoleData.data().branch.data.branch_name;
+          localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch));
+          localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
+        }
+        catch{
+          console.log("probably not logged in!");
+        }
       }),
       (err: any) => {
         console.log(err);
@@ -107,4 +165,22 @@ export class HomePage {
       };
   }
   
+  logout(){
+    // e.stopPropagation();
+    console.log("u logging out? ...where u going?");
+
+    this.authApi.logout()
+      .then(
+        (res: any) => {
+          console.log(res);
+          localStorage.clear();
+          window.location.href = "/";
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+
 }
