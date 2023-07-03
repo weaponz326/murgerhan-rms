@@ -28,12 +28,13 @@ export class NewAttendanceComponent {
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingAttendance = false;
+  isSaved = false;
 
   attendanceForm = new FormGroup({
     attendanceCode: new FormControl(''),
     attendanceName: new FormControl('', Validators.required),
-    fromDate: new FormControl(null, Validators.required),
-    toDate: new FormControl(null, Validators.required),
+    fromDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
+    toDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
   })
 
   openModal(){
@@ -41,6 +42,8 @@ export class NewAttendanceComponent {
   }
 
   createAttendance() {
+    this.isSaved = true;
+
     this.isSavingAttendance = true;
 
     let data: Attendance = {

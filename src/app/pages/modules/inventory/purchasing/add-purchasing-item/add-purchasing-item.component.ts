@@ -35,6 +35,8 @@ export class AddPurchasingItemComponent {
   }
 
   saveItem(){
+    this.purchasingItemForm.isSaved = true;
+    
     let data: PurchasingItem = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

@@ -11,6 +11,8 @@ export class OrderItemFormComponent {
 
   @Output() openProductWindow = new EventEmitter<any>();
   
+  isSaved = false;
+  
   orderItemForm = new FormGroup({
     itemNumber: new FormControl(),
     productCode: new FormControl({value: '', disabled: true}),

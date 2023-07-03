@@ -33,7 +33,7 @@
         
                             <div class="row mb-1">
                                 <div class="col-md-4">
-                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Supplier ID :</label>
+                                    <label class="float-md-end float-sm-start mt-1">Supplier ID :</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
-                                        <input formControlName="supplierName" class="form-control" required>
+                                        <input formControlName="supplierName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && purchasingForm.controls.supplierName.invalid }" required>
                                         <button type="button" class="btn btn-secondary" (click)="openSupplierWindow()">
                                             <i class="bi bi-three-dots"></i>
                                         </button>

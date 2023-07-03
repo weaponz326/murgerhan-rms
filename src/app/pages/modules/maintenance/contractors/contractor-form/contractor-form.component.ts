@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ContractorFormComponent {
 
+  isSaved = false;
+  
   contractorForm = new FormGroup({
     contractorCode: new FormControl(''),
     contractorName: new FormControl('', Validators.required),

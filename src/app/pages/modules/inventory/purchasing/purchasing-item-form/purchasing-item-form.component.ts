@@ -11,6 +11,8 @@ export class PurchasingItemFormComponent {
 
   @Output() openItemWindow = new EventEmitter<any>();
 
+  isSaved = false;
+  
   purchasingItemForm = new FormGroup({
     itemNumber: new FormControl(),
     itemCode: new FormControl({value: '', disabled: true}),

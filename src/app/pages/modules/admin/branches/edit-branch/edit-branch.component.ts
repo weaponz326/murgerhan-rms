@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -30,10 +30,11 @@ export class EditBranchComponent {
   isFetchingData = false;
   isSavingBranch = false;
   isDeletingBranch = false;
+  isSaved = false;
 
   branchForm = new FormGroup({
-    branchName: new FormControl(''),
-    location: new FormControl(''),
+    branchName: new FormControl('', Validators.required),
+    location: new FormControl('', Validators.required),
     specialFeatures: new FormControl(''),
     manager: new FormControl({value: '', disabled: true}),
     noOfStaff: new FormControl({value: 0, disabled: true}),
@@ -62,8 +63,7 @@ export class EditBranchComponent {
   }
 
   updateBranch() {
-    this.isSavingBranch = true;
-    
+    this.isSaved = true;    
     const id = sessionStorage.getItem('admin_branch_id') as string;
 
     let data: Branch = {
@@ -82,16 +82,20 @@ export class EditBranchComponent {
       },
     }
 
-    this.adminApi.updateBranch(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingBranch = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingBranch = false;
-      });
+    if(this.branchForm.valid){
+      this.isSavingBranch = true;
+
+      this.adminApi.updateBranch(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingBranch = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingBranch = false;
+        });
+    }
   }
 
   deleteBranch() {

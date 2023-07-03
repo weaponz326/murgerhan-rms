@@ -73,10 +73,13 @@ export class MaintenanceComponent {
           this.isFetchingData = false;
 
           this.issueTotalPages = Math.ceil(res.docs.length / this.issuePageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
+          }
+          else{
+            this.isDataAvailable = true;
             this.issueCurrentPage = 1
+          }
 
           this.aggregateIssueData();
           this.getIssueMetrics();
@@ -100,10 +103,13 @@ export class MaintenanceComponent {
           this.isFetchingData = false;
           
           this.serviceTotalPages = Math.ceil(res.docs.length / this.servicePageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
+          }
+          else{
+            this.isDataAvailable = true;
             this.serviceCurrentPage = 1
+          }
 
           this.aggregateServiceData();
           this.getServiceMetrics();

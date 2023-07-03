@@ -12,12 +12,14 @@ export class MaintenanceServiceFormComponent {
   @Output() openSystemWindow = new EventEmitter<any>();
   @Output() openContractorWindow = new EventEmitter<any>();
 
+  isSaved = false;
+  
   serviceForm = new FormGroup({
     serviceCode: new FormControl(''),
     serviceSubject: new FormControl('', Validators.required),
     serviceType: new FormControl(''),
     contractor: new FormControl({value: '', disabled: true}, Validators.required),
-    systemCode: new FormControl({value: '', disabled: true}, Validators.required),
+    systemCode: new FormControl({value: '', disabled: true}),
     systemName: new FormControl({value: '', disabled: true}, Validators.required),
     cost: new FormControl(0.00),
     description: new FormControl(''),

@@ -26,7 +26,7 @@
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Roster Name :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="rosterName" class="form-control form-control-sm w-100" required>
+                            <input formControlName="rosterName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && rosterForm.controls.rosterName.invalid }" required>
                         </div>
                     </div>
 
@@ -35,7 +35,7 @@
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>From Date :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100" required>
+                            <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && rosterForm.controls.fromDate.invalid }" required>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>To Date :</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="date" formControlName="toDate" class="form-control form-control-sm w-100" required>
+                            <input type="date" formControlName="toDate" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && rosterForm.controls.toDate.invalid }" required>
                         </div>
                     </div>
                 </div>

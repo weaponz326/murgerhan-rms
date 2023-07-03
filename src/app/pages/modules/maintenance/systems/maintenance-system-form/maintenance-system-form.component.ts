@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class MaintenanceSystemFormComponent {
 
+  isSaved = true;
+  
   systemForm = new FormGroup({
     systemCode: new FormControl(''),
     systemName: new FormControl('', Validators.required),

@@ -29,6 +29,8 @@ export class AddUnitComponent {
   isSavingUnit = false;
 
   createUnit() {
+    this.unitForm.isSaved = true;
+    
     let data: Unit = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

@@ -57,6 +57,8 @@ export class EditContractorsComponent {
   }
 
   updateContractor() {    
+    this.contractorForm.isSaved = true;
+    
     const id = sessionStorage.getItem('maintenance_contractor_id') as string;
 
     let data: Contractor = {

@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="itemName" class="form-control" required>
+                <input formControlName="itemName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && purchasingItemForm.controls.itemName.invalid }" required>
                 <button type="button" class="btn btn-secondary" (click)="openItemWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>

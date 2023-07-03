@@ -28,12 +28,13 @@ export class NewRosterComponent {
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
   isSavingRoster = false;
+  isSaved = false;
 
   rosterForm = new FormGroup({
     rosterCode: new FormControl(''),
     rosterName: new FormControl('', Validators.required),
-    fromDate: new FormControl(null, Validators.required),
-    toDate: new FormControl(null, Validators.required),
+    fromDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
+    toDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
   })
 
   openModal(){
@@ -41,6 +42,8 @@ export class NewRosterComponent {
   }
 
   createRoster() {
+    this.isSaved = true;
+
     let data: Roster = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

@@ -29,6 +29,8 @@ export class NewMaintenanceSystemComponent {
   isSavingSystem = false;
 
   createSystem() {
+    this.systemForm.isSaved = true;
+    
     let data: System = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

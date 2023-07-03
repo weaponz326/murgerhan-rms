@@ -29,6 +29,7 @@ export class AddContractorsComponent {
   isSavingContractor = false;
 
   createContractor() {
+    this.contractorForm.isSaved = true;
     let data: Contractor = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

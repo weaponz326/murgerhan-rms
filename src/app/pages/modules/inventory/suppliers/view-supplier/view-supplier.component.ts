@@ -57,6 +57,8 @@ export class ViewSupplierComponent {
   }
 
   updateSupplier() {    
+    this.supplierForm.isSaved = true;
+    
     const id = sessionStorage.getItem('inventory_supplier_id') as string;
 
     let data: Supplier = {

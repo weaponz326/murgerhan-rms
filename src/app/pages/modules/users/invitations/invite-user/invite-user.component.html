@@ -25,19 +25,19 @@
 
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <label class="text-muted float-md-end float-sm-start mt-1">Invitee Name :</label>
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Invitee Name :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="inviteeName" type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="inviteeName" type="text" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && invitationForm.controls.inviteeName.invalid }" required>
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <label class="text-muted float-md-end float-sm-start mt-1">Invitee Email :</label>
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Invitee Email :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="inviteeEmail" type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="inviteeEmail" type="text" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && invitationForm.controls.inviteeEmail.invalid }" required>
                         </div>
                     </div>
 

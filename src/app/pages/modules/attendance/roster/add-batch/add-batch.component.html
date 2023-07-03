@@ -19,7 +19,7 @@
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Batch Name :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="batchName" class="form-control form-control-sm w-100" required>
+                            <input formControlName="batchName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && rosterBatchForm.controls.batchName.invalid }" required>
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Batch Symbol :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="batchSymbol" class="form-control form-control-sm w-100" required>
+                            <input formControlName="batchSymbol" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && rosterBatchForm.controls.batchSymbol.invalid }" required>
                         </div>
                     </div>
                 </div>

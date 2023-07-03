@@ -11,6 +11,8 @@ export class StockItemFormComponent {
 
   @Output() openCategoryWindow = new EventEmitter<any>();
 
+  isSaved = false;
+  
   stockItemForm = new FormGroup({
     itemCode: new FormControl(),
     itemName: new FormControl('', Validators.required),

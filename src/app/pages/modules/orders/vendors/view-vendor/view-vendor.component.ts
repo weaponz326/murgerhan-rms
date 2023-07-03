@@ -58,6 +58,8 @@ export class ViewVendorComponent {
   }
 
   updateVendor() {    
+    this.vendorForm.isSaved = true;
+
     const id = sessionStorage.getItem('orders_vendor_id') as string;
 
     let data: Vendor = {

@@ -17,16 +17,20 @@
                         
                         <form [formGroup]="branchForm">
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Branch Name :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Branch Name :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <input formControlName="branchName" class="form-control form-control-sm w-100">
+                                    <input formControlName="branchName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && branchForm.controls.branchName.invalid }" required>
                                 </div>
                             </div>
                             
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Location :</label></div>
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Location :</label>
+                                </div>
                                 <div class="col-md-8">
-                                    <input formControlName="location" class="form-control form-control-sm w-100">
+                                    <input formControlName="location" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && branchForm.controls.location.invalid }" required>
                                 </div>
                             </div>
                     

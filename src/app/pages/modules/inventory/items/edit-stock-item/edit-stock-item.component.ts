@@ -40,6 +40,8 @@ export class EditStockItemComponent {
   }
 
   saveItem(){
+    this.stockItemForm.isSaved = true;
+    
     let data: StockItem = {
       created_at: this.stockItemData.data().created_at,
       updated_at: serverTimestamp(),

@@ -28,6 +28,7 @@ export class AddOrderComponent {
   @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
   isSavingOrder = false;
+  isSaved = false;
 
   selectedVendorId: any;
   selectedVendorData: any;
@@ -47,6 +48,8 @@ export class AddOrderComponent {
   }
   
   createOrder() {
+    this.isSaved = true;
+    
     let data: Order = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

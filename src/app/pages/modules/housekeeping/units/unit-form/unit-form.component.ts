@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UnitFormComponent {
 
+  isSaved = false;
+  
   unitForm = new FormGroup({
     unitCode: new FormControl(''),
     unitName: new FormControl('', Validators.required),

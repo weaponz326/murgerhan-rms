@@ -42,7 +42,7 @@ exports.sendEmailOnDocumentCreate = functions.firestore
 
     // Construct the email content
     const emailContent = `        
-      <p>Hello,</p>
+      <p>Hello ${documentData.invitee_name},</p>
       <p>${documentData.email_message}</p>
       <p>
         Please download the <a href="${documentLink}">terms and conditions</a>,

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -26,13 +26,15 @@ export class InviteUserComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
   isSavingInvitation = false;
+  isSaved = false;
+
   defaultEmailSubject = "Invitation to Murger Han Hub";
   defaultEmailMessage = "Thank you for expressing your interest in being a staff at Murger Han. We would like to invite you to visit our operations website to register with us.";
 
   invitationForm = new FormGroup({
     invitationCode: new FormControl(''),
-    inviteeName: new FormControl(''),
-    inviteeEmail: new FormControl(''),
+    inviteeName: new FormControl('', Validators.required),
+    inviteeEmail: new FormControl('', Validators.required),
     emailSubject: new FormControl(this.defaultEmailSubject),
     emailMessage: new FormControl(this.defaultEmailMessage),
   })
@@ -42,7 +44,7 @@ export class InviteUserComponent {
   }
 
   createInvitation() {
-    this.isSavingInvitation = true;
+    this.isSaved = true;
 
     let data: Invitation = {
       created_at: serverTimestamp(),
@@ -59,23 +61,27 @@ export class InviteUserComponent {
 
     console.log(data);
 
-    this.usersApi.createInvitation(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.invitationForm.valid){
+      this.isSavingInvitation = true;
 
-        if(res.id){
-          sessionStorage.setItem('users_invitation_id', res.id);
-          this.router.navigateByUrl("/modules/users/invitations/view-invitation");
-        }
+      this.usersApi.createInvitation(data)
+        .then((res: any) => {
+          console.log(res);
 
-        this.dismissButton.nativeElement.click();
-        this.isSavingInvitation = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingInvitation = false;
-      });
+          if(res.id){
+            sessionStorage.setItem('users_invitation_id', res.id);
+            this.router.navigateByUrl("/modules/users/invitations/view-invitation");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingInvitation = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingInvitation = false;
+        });
+    }
   }
 
 }

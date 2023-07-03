@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -24,15 +24,16 @@ export class NewBranchComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isSavingBranch = false;
+  isSaved = false;
 
   branchForm = new FormGroup({
-    branchName: new FormControl(''),
-    location: new FormControl(''),
+    branchName: new FormControl('', Validators.required),
+    location: new FormControl('', Validators.required),
     specialFeatures: new FormControl('')
   })
 
   createBranch() {
-    this.isSavingBranch = true;
+    this.isSaved = true;
 
     let data: Branch = {
       created_at: serverTimestamp(),
@@ -52,21 +53,25 @@ export class NewBranchComponent {
 
     console.log(data);
 
-    this.adminApi.createBranch(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.branchForm.valid){
+      this.isSavingBranch = true;
 
-        if(res.id){
-          sessionStorage.setItem('admin_branch_id', res.id);
-          this.router.navigateByUrl("/modules/admin/branches/edit-branch");
-        }
-        this.isSavingBranch = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingBranch = false;
-      });
+      this.adminApi.createBranch(data)
+        .then((res: any) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('admin_branch_id', res.id);
+            this.router.navigateByUrl("/modules/admin/branches/edit-branch");
+          }
+          this.isSavingBranch = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingBranch = false;
+        });
+    }
   }
 
 }

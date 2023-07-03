@@ -12,12 +12,14 @@ export class MaintenanceIssueFormComponent {
   @Output() openSystemWindow = new EventEmitter<any>();
   @Output() openUserRoleWindow = new EventEmitter<any>();
 
+  isSaved = false;
+
   issueForm = new FormGroup({
     issueCode: new FormControl(''),
     issueSubject: new FormControl('', Validators.required),
     issueType: new FormControl(''),
     issueDate: new FormControl(),
-    systemCode: new FormControl({value: '', disabled: true}, Validators.required),
+    systemCode: new FormControl({value: '', disabled: true}),
     systemName: new FormControl({value: '', disabled: true}, Validators.required),
     reportedTo: new FormControl({value: '', disabled: true}, Validators.required),
     description: new FormControl(''),

@@ -42,6 +42,8 @@ export class NewMaintnenanceIssueComponent {
   }
 
   createIssue() {
+    this.issueForm.isSaved = true;
+    
     let systemData = {
       id: "",
       data: {
@@ -49,7 +51,6 @@ export class NewMaintnenanceIssueComponent {
         system_name: "",
       }
     }
-
     if(this.selectedSystemId){
       systemData = {
         id: this.selectedSystemId,

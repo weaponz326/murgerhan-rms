@@ -21,6 +21,7 @@ export class EditShiftComponent {
   selectedUnitData: any;
 
   isItemSaving = false;
+  isSaved = false;
 
   rosterShiftForm = new FormGroup({
     shiftName: new FormControl('', Validators.required),
@@ -36,6 +37,8 @@ export class EditShiftComponent {
   }
 
   saveItem(){
+    this.isSaved = true;
+    
     let data: RosterShift = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

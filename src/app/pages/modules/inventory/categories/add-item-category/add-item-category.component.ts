@@ -29,6 +29,8 @@ export class AddItemCategoryComponent {
   isSavingCategory = false;
 
   createItemCategory() {
+    this.categoryForm.isSaved = true;
+    
     let data: ItemCategory = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

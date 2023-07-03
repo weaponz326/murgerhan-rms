@@ -57,6 +57,8 @@ export class EditUnitComponent {
   }
 
   updateUnit() {    
+    this.unitForm.isSaved = true;
+    
     const id = sessionStorage.getItem('housekeeping_unit_id') as string;
 
     let data: Unit = {

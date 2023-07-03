@@ -58,7 +58,9 @@ export class ViewIncidentComponent {
       };
   }
 
-  updateIncident() {    
+  updateIncident() {
+    this.incidentForm.isSaved = true;
+    
     const id = sessionStorage.getItem('housekeeping_incident_id') as string;
 
     let data: Incident = {

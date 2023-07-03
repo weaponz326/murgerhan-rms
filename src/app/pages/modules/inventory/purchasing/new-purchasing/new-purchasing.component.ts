@@ -33,11 +33,12 @@ export class NewPurchasingComponent {
   selectedUserData: any = JSON.parse(String(localStorage.getItem("selected_user_role")));
   
   isSavingPurchasing = false;
+  isSaved = false;
 
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
     purchasingDate: new FormControl(),
-    supplierCode: new FormControl({value: '', disabled: true}, Validators.required),
+    supplierCode: new FormControl({value: '', disabled: true}),
     supplierName: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
@@ -47,7 +48,7 @@ export class NewPurchasingComponent {
   }
 
   createPurchasing() {
-    this.isSavingPurchasing = true;
+    this.isSaved = true;
 
     let data: Purchasing = {
       created_at: serverTimestamp(),
@@ -85,6 +86,8 @@ export class NewPurchasingComponent {
     console.log(data);
 
     if(this.purchasingForm.valid){
+      this.isSavingPurchasing = true;
+
       this.inventoryApi.createPurchasing(data)
         .then((res: any) => {
           console.log(res);

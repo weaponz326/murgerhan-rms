@@ -72,10 +72,13 @@ export class HousekeepingComponent {
           this.isFetchingData = false;
 
           this.taskTotalPages = Math.ceil(res.docs.length / this.taskPageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
+          }
+          else{
+            this.isDataAvailable = true;
             this.taskCurrentPage = 1
+          }
 
           this.aggregateTaskData();
           this.getTaskMetrics();
@@ -99,10 +102,13 @@ export class HousekeepingComponent {
           this.isFetchingData = false;
 
           this.incidentTotalPages = Math.ceil(res.docs.length / this.incidentPageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
-            this.incidentCurrentPage = 1
+          }
+          else{
+            this.isDataAvailable = true;
+            this.taskCurrentPage = 1
+          }
 
           this.aggregateIncidentData();
           this.getIncidentMetrics();

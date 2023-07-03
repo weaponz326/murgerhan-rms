@@ -27,27 +27,27 @@
                         <div *ngIf="!isFetchingData">                                                
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Full Name :</div>
-                                <div class="col-md-8">{{basicProfileData.data().full_name}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.full_name}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Date of Birth :</div>
-                                <div class="col-md-8">{{basicProfileData.data().date_of_birth | date}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.date_of_birth | date}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">NI Number :</div>
-                                <div class="col-md-8">{{basicProfileData.data().ni_number}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.ni_number}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Email :</div>
-                                <div class="col-md-8">{{basicProfileData.data().email}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.email}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Phone :</div>
-                                <div class="col-md-8">{{basicProfileData.data().phone}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.phone}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Address :</div>
-                                <div class="col-md-8">{{basicProfileData.data().address}}</div>
+                                <div class="col-md-8">{{basicProfileData?.data()?.address}}</div>
                             </div>
                         </div>
 
@@ -62,23 +62,23 @@
                         <div *ngIf="!isFetchingData">                        
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Nationality :</div>
-                                <div class="col-md-8">{{additionalProfileData.data().nationality}}</div>
+                                <div class="col-md-8">{{additionalProfileData?.data()?.nationality}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Marital Status :</div>
-                                <div class="col-md-8">{{additionalProfileData.data().marital_status}}</div>
+                                <div class="col-md-8">{{additionalProfileData?.data()?.marital_status}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Religion :</div>
-                                <div class="col-md-8">{{additionalProfileData.data().religion}}</div>
+                                <div class="col-md-8">{{additionalProfileData?.data()?.religion}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Emergency Contact name :</div>
-                                <div class="col-md-8">{{additionalProfileData.data().e_contact_name}}</div>
+                                <div class="col-md-8">{{additionalProfileData?.data()?.e_contact_name}}</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4 text-muted">Emergency Contact Number :</div>
-                                <div class="col-md-8">{{additionalProfileData.data().e_contact_number}}</div>
+                                <div class="col-md-8">{{additionalProfileData?.data()?.e_contact_number}}</div>
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@
                         <div *ngIf="!isFetchingData">
                             <div class="row mb-3">
                                 <div class="col-md-4 text-muted">Contract Type :</div>
-                                <div class="col-md-8">{{availabilityData.data().contract_type}}</div>
+                                <div class="col-md-8">{{availabilityData?.data()?.contract_type}}</div>
                             </div>
                             
                             <div class="row">
@@ -111,45 +111,45 @@
                                         <tbody>
                                             <tr>
                                                 <td>Monday</td>
-                                                <td><input [checked]="availabilityData.data().availability.monday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.monday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.monday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.monday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.monday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.monday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Tuesday</td>
-                                                <td><input [checked]="availabilityData.data().availability.tuesday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.tuesday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.tuesday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.tuesday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.tuesday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.tuesday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Wednesday</td>
-                                                <td><input [checked]="availabilityData.data().availability.wednesday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.wednesday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.wednesday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.wednesday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.wednesday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.wednesday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Thursday</td>
-                                                <td><input [checked]="availabilityData.data().availability.thursday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.thursday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.thursday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.thursday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.thursday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.thursday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Friday</td>
-                                                <td><input [checked]="availabilityData.data().availability.friday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.friday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.friday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.friday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.friday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.friday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Saturday</td>
-                                                <td><input [checked]="availabilityData.data().availability.saturday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.saturday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.saturday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.saturday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.saturday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.saturday.time_to}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Sunday</td>
-                                                <td><input [checked]="availabilityData.data().availability.sunday.available" type="checkbox" class="form-check-input" disabled></td>
-                                                <td>{{availabilityData.data().availability.sunday.time_from}}</td>
-                                                <td>{{availabilityData.data().availability.sunday.time_to}}</td>
+                                                <td><input [checked]="availabilityData?.data()?.availability.sunday.available" type="checkbox" class="form-check-input" disabled></td>
+                                                <td>{{availabilityData?.data()?.availability.sunday.time_from}}</td>
+                                                <td>{{availabilityData?.data()?.availability.sunday.time_to}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -168,9 +168,8 @@
                         <div *ngIf="!isFetchingData">                        
                             <div class="card border rounded mt-4" [style.width.px]="150" [style.height.px]="180">
                                 <div class="card-img-top text-center m-auto">
-                                    <img *ngIf="basicProfileData.data().profile_photo != ''" class="border rounded" [src]="basicProfileData.data().profile_photo" [width]="150" [height]="180" />
-                                    <i *ngIf="basicProfileData.data().profile_photo == ''" class="bi bi-camera fs-1 p-3 border rounded"></i>
-                                    <!-- <i class="bi bi-camera fs-1 p-3 border rounded"></i> -->
+                                    <img *ngIf="basicProfileData?.data()?.profile_photo && basicProfileData?.data()?.profile_photo != ''" class="border rounded" [src]="basicProfileData?.data()?.profile_photo" [width]="150" [height]="180" />
+                                    <i *ngIf="!basicProfileData?.data()?.profile_photo || basicProfileData?.data()?.profile_photo == ''" class="bi bi-camera text-muted fs-1 p-3 border rounded"></i>
                                 </div>
                             </div>                            
                         </div>

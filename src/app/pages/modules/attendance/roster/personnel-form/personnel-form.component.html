@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="fullName" class="form-control">
+                <input formControlName="fullName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && personnelForm.controls.fullName.invalid }" required>
                 <button type="button" class="btn btn-secondary" (click)="openUserRoleWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
-                <input formControlName="batchSymbol" class="form-control">
+                <input formControlName="batchSymbol" class="form-control" [ngClass]="{ 'is-invalid': isSaved && personnelForm.controls.batchSymbol.invalid }" required>
                 <button type="button" class="btn btn-secondary" (click)="openBatchWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>

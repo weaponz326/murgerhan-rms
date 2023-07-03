@@ -29,6 +29,8 @@ export class NewVendorComponent {
   isSavingVendor = false;
 
   createVendor() {
+    this.vendorForm.isSaved = true;
+    
     let data: Vendor = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

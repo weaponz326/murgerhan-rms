@@ -38,6 +38,7 @@ export class ViewTaskComponent {
   isFetchingData = false;
   isSavingTask = false;
   isDeletingTask = false;
+  isSaved = false;
 
   generatedPeriods: any[] = []
   selectedPeriod: any;
@@ -79,6 +80,8 @@ export class ViewTaskComponent {
   }
 
   updateTask() {    
+    this.isSaved = true;
+
     const id = sessionStorage.getItem('housekeeping_task_id') as string;
 
     let data: Task = {

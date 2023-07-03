@@ -59,10 +59,13 @@ export class InventoryComponent {
           this.isFetchingData = false;
 
           this.totalPages = Math.ceil(res.docs.length / this.pageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
             this.isDataAvailable = false;
-          else
+          }
+          else{
+            this.isDataAvailable = true;
             this.currentPage = 1
+          }
 
           this.aggregateData();
           this.getMetrics();

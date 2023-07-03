@@ -18,6 +18,7 @@ export class AddBatchComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   isItemSaving = false;
+  isSaved = false;
 
   rosterBatchForm = new FormGroup({
     batchName: new FormControl('', Validators.required),
@@ -29,6 +30,8 @@ export class AddBatchComponent {
   }
 
   saveItem(){
+    this.isSaved = true;
+    
     let data: RosterBatch = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

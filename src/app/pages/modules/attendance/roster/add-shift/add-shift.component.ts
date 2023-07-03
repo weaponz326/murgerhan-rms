@@ -18,6 +18,7 @@ export class AddShiftComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   isItemSaving = false;
+  isSaved = false;
 
   rosterShiftForm = new FormGroup({
     shiftName: new FormControl('', Validators.required),
@@ -30,6 +31,8 @@ export class AddShiftComponent {
   }
 
   saveItem(){
+    this.isSaved = true;
+    
     let data: RosterShift = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

@@ -20,6 +20,7 @@ export class EditBatchComponent {
   rosterShiftData: any;
 
   isItemSaving = false;
+  isSaved = false;
 
   rosterBatchForm = new FormGroup({
     batchName: new FormControl('', Validators.required),
@@ -34,6 +35,8 @@ export class EditBatchComponent {
   }
 
   saveItem(){
+    this.isSaved = true;
+    
     let data: RosterBatch = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

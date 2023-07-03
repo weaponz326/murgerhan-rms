@@ -29,6 +29,8 @@ export class NewSupplierComponent {
   isSavingSupplier = false;
 
   createSupplier() {
+    this.supplierForm.isSaved = true;
+    
     let data: Supplier = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

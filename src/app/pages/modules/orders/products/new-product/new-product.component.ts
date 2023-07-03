@@ -29,6 +29,8 @@ export class NewProductComponent {
   isSavingProduct = false;
 
   createProduct() {
+    this.productForm.isSaved = true;
+    
     let data: Product = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

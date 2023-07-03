@@ -68,6 +68,7 @@ export class ViewMaintnenanceIssueComponent {
   }
 
   updateIssue() {    
+    this.issueForm.isSaved = true;
     const id = sessionStorage.getItem('maintenance_issue_id') as string;
 
     let data: Issue = {

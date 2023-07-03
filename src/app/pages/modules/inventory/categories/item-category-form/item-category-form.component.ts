@@ -8,6 +8,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ItemCategoryFormComponent {
 
+  isSaved = false;
+  
   categoryForm = new FormGroup({
     categoryCode: new FormControl(''),
     categoryName: new FormControl('', Validators.required),

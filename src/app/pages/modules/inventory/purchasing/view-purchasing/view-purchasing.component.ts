@@ -37,6 +37,7 @@ export class ViewPurchasingComponent {
   isFetchingData = false;
   isSavingPurchasing = false;
   isDeletingPurchasing = false;
+  isSaved = false;
 
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
@@ -72,7 +73,7 @@ export class ViewPurchasingComponent {
   }
 
   updatePurchasing() {
-    this.isSavingPurchasing = true;
+    this.isSaved = true;
     
     const id = sessionStorage.getItem('inventory_purchasing_id') as string;
 
@@ -109,16 +110,19 @@ export class ViewPurchasingComponent {
       },
     }
 
-    this.inventoryApi.updatePurchasing(id, data)
-      .then((res) => {
-        console.log(res);
-        this.isSavingPurchasing = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingPurchasing = false;
-      });
+    if(this.purchasingForm.valid){
+      this.isSavingPurchasing = true;
+      this.inventoryApi.updatePurchasing(id, data)
+        .then((res) => {
+          console.log(res);
+          this.isSavingPurchasing = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingPurchasing = false;
+        });
+    }
   }
 
   deletePurchasing() {

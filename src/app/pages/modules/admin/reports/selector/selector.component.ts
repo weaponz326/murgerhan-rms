@@ -53,6 +53,8 @@ export class SelectorComponent {
 
     this.isModuleDisabled = false;
     this.selectedModule = "";
+    this.selectedRange = "";
+    this.selectedDay = "";
   }
 
   onModuleChange(){

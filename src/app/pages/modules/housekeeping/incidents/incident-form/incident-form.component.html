@@ -11,7 +11,7 @@
             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Incident Subject :</label>
         </div>
         <div class="col-md-8">
-            <input formControlName="incidentSubject" class="form-control form-control-sm w-100" required>
+            <input formControlName="incidentSubject" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && incidentForm.controls.incidentSubject.invalid }" required>
         </div>
     </div>
 

@@ -15,6 +15,8 @@ export class ProductFormComponent {
     private formatCurrency: FormatCurrencyService
   ) { }
 
+  isSaved = false;
+
   productForm = new FormGroup({
     productCode: new FormControl(''),
     productName: new FormControl('', Validators.required),

@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="vendorCode" class="form-control" required>
+                                <input formControlName="vendorCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderForm.controls.vendorCode.invalid }" required>
                                 <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="vendorName" class="form-control" required>
+                                <input formControlName="vendorName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderForm.controls.vendorName.invalid }" required>
                                 <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>

@@ -54,6 +54,8 @@ export class EditItemCategoryComponent {
   }
 
   updateItemCategory() {    
+    this.categoryForm.isSaved = true;
+    
     const id = sessionStorage.getItem('inventory_category_id') as string;
 
     let data: ItemCategory = {

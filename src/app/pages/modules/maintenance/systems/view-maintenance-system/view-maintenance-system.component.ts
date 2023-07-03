@@ -57,6 +57,8 @@ export class ViewMaintenanceSystemComponent {
   }
 
   updateSystem() {    
+    this.systemForm.isSaved = true;
+    
     const id = sessionStorage.getItem('maintenance_system_id') as string;
 
     let data: System = {

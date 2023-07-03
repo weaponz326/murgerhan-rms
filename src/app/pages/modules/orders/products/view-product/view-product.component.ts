@@ -58,6 +58,8 @@ export class ViewProductComponent {
   }
 
   updateProduct() {    
+    this.productForm.isSaved = true;
+    
     const id = sessionStorage.getItem('orders_product_id') as string;
 
     let data: Product = {

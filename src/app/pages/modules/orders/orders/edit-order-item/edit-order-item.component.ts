@@ -39,6 +39,8 @@ export class EditOrderItemComponent {
   }
 
   saveItem(){
+    this.orderItemForm.isSaved = true;
+    
     let data: OrderItem = {
       created_at: this.orderItemData.data().created_at,
       updated_at: serverTimestamp(),

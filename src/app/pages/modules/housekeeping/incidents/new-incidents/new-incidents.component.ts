@@ -29,6 +29,8 @@ export class NewIncidentsComponent {
   isSavingIncident = false;
 
   createIncident() {
+    this.incidentForm.isSaved = true;
+    
     let data: Incident = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

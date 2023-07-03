@@ -32,6 +32,7 @@ export class NewTaskComponent {
   selectedUserRoleData: any;
 
   isSavingTask = false;
+  isSaved = false;
 
   taskForm = new FormGroup({
     taskCode: new FormControl(''),
@@ -51,6 +52,8 @@ export class NewTaskComponent {
   }
 
   createTask() {
+    this.isSaved = true;
+    
     let data: Task = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),

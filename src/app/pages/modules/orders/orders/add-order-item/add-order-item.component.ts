@@ -35,6 +35,8 @@ export class AddOrderItemComponent {
   }
 
   saveItem(){
+    this.orderItemForm.isSaved = true;
+    
     let data: OrderItem = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
