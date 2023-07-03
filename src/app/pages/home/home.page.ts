@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
@@ -13,10 +14,16 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 export class HomePage {
 
   constructor(
+    private router: Router,
     private usersApi: UsersApiService
-  ) { }
+  ) { 
+    this.initProgressBar();
+  }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  progressValue: number = 0;
+  progressTimer: any;
 
   branchName: any;
   userRoleData: any;
@@ -44,6 +51,45 @@ export class HomePage {
   //     });
   //   }
   // }
+
+  initProgressBar(){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.progressValue = 0;
+        this.incrementProgress();
+      }
+
+      if (event instanceof NavigationEnd) {
+        clearTimeout(this.progressTimer);
+        this.progressValue = 100;
+        setTimeout(() => {
+          this.progressValue = 0;
+        }, 500);
+      }
+
+      if (event instanceof NavigationError) {
+        this.connectionToast.openToast();
+
+        clearTimeout(this.progressTimer);
+        this.progressValue = 40;
+        setTimeout(() => {
+          this.progressValue = 0;
+        }, 500);
+      }
+    });
+  }
+
+  incrementProgress() {
+    const incrementStep = 10;
+    const incrementInterval = 100;
+
+    this.progressTimer = setTimeout(() => {
+      if (this.progressValue < 100) {
+        this.progressValue += incrementStep;
+        this.incrementProgress();
+      }
+    }, incrementInterval);
+  }
 
   getUserRole() {
     const id = localStorage.getItem('uid') as string;

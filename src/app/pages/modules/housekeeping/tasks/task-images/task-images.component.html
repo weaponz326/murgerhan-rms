@@ -26,10 +26,20 @@
                 </div>
 
                 <div class="row text-center">
-                    <div *ngFor="let data of taskImageListData" class="col-md-3 mb-4">
+                    <div *ngFor="let data of taskImageListData" class="col-md-3 mb-5">
                         <a [href]="data?.data().url" class="thumbnail">
-                            <img class="image-thumbnail border" [src]="data?.data().url" style="width: 180px; height: 150px;"/>
+                            <img class="image-thumbnail border rounded" [src]="data?.data().url"  [style.width.px]="180" [style.height.px]="150"/>
                         </a>
+                    </div>
+
+                    <div *ngIf="isUploading" class="col-md-3 mb-5">
+                        <div class="card border rounded mx-auto img-pointer" [style.width.px]="180" [style.height.px]="150" (click)="imageInput.click()">
+                            <div class="card-img-top text-center m-auto">
+                                <div class="spinner-border text-primary m-4" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

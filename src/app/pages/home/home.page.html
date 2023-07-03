@@ -259,6 +259,12 @@
     </div>
 
     <div id="layoutSidenav_content">
+
+        <!-- router progress bar -->
+        <div class="progress" [style.height.px]="5">
+            <div class="progress-bar" role="progressbar" [style.width.%]="progressValue"></div>
+        </div>
+          
         <!-- main content -->
         <main class="bg-light h-100">
             <div class="container-fluid px-4">
@@ -284,3 +290,7 @@
         </footer>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

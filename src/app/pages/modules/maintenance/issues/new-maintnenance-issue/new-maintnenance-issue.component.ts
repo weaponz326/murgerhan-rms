@@ -42,6 +42,24 @@ export class NewMaintnenanceIssueComponent {
   }
 
   createIssue() {
+    let systemData = {
+      id: "",
+      data: {
+        system_code: "",
+        system_name: "",
+      }
+    }
+
+    if(this.selectedSystemId){
+      systemData = {
+        id: this.selectedSystemId,
+        data: {
+          system_code: this.selectedSystemData.system_code,
+          system_name: this.selectedSystemData.system_name,
+        }
+      }
+    }
+
     let data: Issue = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -52,19 +70,13 @@ export class NewMaintnenanceIssueComponent {
       description: this.issueForm.issueForm.controls.description.value as string,
       issue_status: this.issueForm.issueForm.controls.issueStatus.value as string,
       comments: this.issueForm.issueForm.controls.comments.value as string,
+      system: systemData,
       reported_to: {
         id: this.selectedUserRoleId,
         data: {
           staff_code: this.selectedUserRoleData.staff_code,
           full_name: this.selectedUserRoleData.full_name,
           staff_role: this.selectedUserRoleData.staff_role,
-        }
-      },
-      system: {
-        id: this.selectedSystemId,
-        data: {
-          system_code: this.selectedSystemData.system_code,
-          system_name: this.selectedSystemData.system_name,
         }
       },
       branch: {

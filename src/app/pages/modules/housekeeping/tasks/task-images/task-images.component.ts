@@ -24,6 +24,8 @@ export class TaskImagesComponent {
   taskImageListData: any;
   taskData: any;
 
+  isUploading = false;
+
   ngOnInit(): void {
     this.getTask();
   }
@@ -47,7 +49,7 @@ export class TaskImagesComponent {
       .then((res) => {
         console.log(res);
         this.taskData = res;
-        this.getImages();    
+        this.getImages();  
       }),
       (err: any) => {
         console.log(err);
@@ -56,6 +58,8 @@ export class TaskImagesComponent {
   }
 
   uploadTaskImage() {
+    this.isUploading = true;
+
     let taskId: any;
 
     if(this.taskData.data().occurance == "Non-Recurring") 
@@ -74,10 +78,13 @@ export class TaskImagesComponent {
         console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
-        this.getImages();
+        setTimeout(() => {
+          this.getImages();
+        }, 5000);
       })
       .catch((error) => {
         console.error('Error uploading images', error);
+        this.isUploading = false;  
       });
   }
 
@@ -87,10 +94,12 @@ export class TaskImagesComponent {
         (res: any) => {
           console.log(res);
           this.taskImageListData = res.docs;
+          this.isUploading = false;  
         },
         (err: any) => {
           console.log(err);
           this.connectionToast.openToast();
+          this.isUploading = false;  
         }
       )
   }
@@ -101,10 +110,12 @@ export class TaskImagesComponent {
         (res: any) => {
           console.log(res);
           this.taskImageListData = res.docs;
+          this.isUploading = false;  
         },
         (err: any) => {
           console.log(err);
           this.connectionToast.openToast();
+          this.isUploading = false;  
         }
       )
   }

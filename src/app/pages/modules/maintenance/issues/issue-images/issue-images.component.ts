@@ -23,6 +23,8 @@ export class IssueImagesComponent {
   selectedFiles: File[] = [];
   issueImageListData: any;
 
+  isUploading = false;
+
   ngOnInit(): void {
     this.getIssueImageList();
   }
@@ -33,6 +35,8 @@ export class IssueImagesComponent {
   }
 
   uploadIssueImage() {
+    this.isUploading = true;
+
     const data = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -44,10 +48,13 @@ export class IssueImagesComponent {
         console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
-        this.getIssueImageList();
+        setTimeout(() => {
+          this.getIssueImageList();
+        }, 5000);
       })
       .catch((error) => {
         console.error('Error uploading images', error);
+        this.isUploading = false;
       });
   }
 
@@ -57,10 +64,12 @@ export class IssueImagesComponent {
         (res: any) => {
           console.log(res);
           this.issueImageListData = res.docs;
+          this.isUploading = false;
         },
         (err: any) => {
           console.log(err);
           this.connectionToast.openToast();
+          this.isUploading = false;
         }
       )
   }
