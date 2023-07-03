@@ -103,7 +103,7 @@ export class ViewVendorComponent {
     this.ordersApi.deleteVendor(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/orders/vendores/all-vendores')
+        this.router.navigateByUrl('modules/orders/vendores/all-vendors')
         this.isDeletingVendor = false;
       })
       .catch((err) => {

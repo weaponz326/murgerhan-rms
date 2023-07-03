@@ -101,7 +101,7 @@ export class ViewSupplierComponent {
     this.inventoryApi.deleteSupplier(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/inventory/supplieres/all-supplieres')
+        this.router.navigateByUrl('modules/inventory/supplieres/all-suppliers')
         this.isDeletingSupplier = false;
       })
       .catch((err) => {

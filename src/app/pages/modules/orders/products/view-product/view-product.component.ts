@@ -103,7 +103,7 @@ export class ViewProductComponent {
     this.ordersApi.deleteProduct(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/orders/products/all-productes')
+        this.router.navigateByUrl('modules/orders/products/all-products')
         this.isDeletingProduct = false;
       })
       .catch((err) => {

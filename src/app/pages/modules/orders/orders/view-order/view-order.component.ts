@@ -122,7 +122,7 @@ export class ViewOrderComponent {
     this.ordersApi.deleteOrder(id)
       .then((res) => {
         console.log(res);
-        this.router.navigateByUrl('modules/orders/orderes/all-orderes')
+        this.router.navigateByUrl('modules/orders/orderes/all-orders')
         this.isDeletingOrder = false;
       })
       .catch((err) => {
