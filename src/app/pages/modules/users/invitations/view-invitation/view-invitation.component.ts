@@ -94,7 +94,7 @@ export class ViewInvitationComponent {
     let data: UserRole = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      full_name: "",
+      full_name: this.basicUserData.data().full_name,
       staff_code: "",
       staff_role: "",
       branch: {

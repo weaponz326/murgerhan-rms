@@ -1,5 +1,6 @@
 <div class="card shadow-lg border-0 rounded-lg mt-5 pb-4">
     <div class="card-body">
+        
         <h3 class="text-center font-weight-light my-4">Sign Up</h3>
         
         <div *ngIf="isLoading" class="text-center">
@@ -12,17 +13,17 @@
             <div class="mb-3">
                 <label for="inputEmail">Email address</label>
                 <input class="form-control" formControlName="email" id="inputEmail" type="email" />
-                <div *ngIf="errorCode == 'auth/invalid-email'" class="invalid-feedback">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="text-danger">{{errorMessage}}</div>
             </div>
             <div class="mb-3">
                 <label for="inputPassword">Password</label>
                 <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
-                <div *ngIf="errorCode == 'auth/weak-password'" class="invalid-feedback">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/weak-password'" class="text-danger">{{errorMessage}}</div>
             </div>
             <div class="mb-3">
                 <label for="inputPasswordConfirm">Confirm Password</label>
                 <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
-                <div *ngIf="passwordMismatch" class="invalid-feedback">Passwords do not match</div>
+                <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
             </div>
             <div class="d-grid gap-2 mt-4">
                 <button [disabled]="isSending" class="btn btn-primary btn">Sign Up</button>

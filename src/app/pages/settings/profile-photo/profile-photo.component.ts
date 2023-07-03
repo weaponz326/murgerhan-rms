@@ -31,6 +31,8 @@ export class ProfilePhotoComponent {
   }
 
   uploadImage() {
+    this.isSavingPhoto = true;
+
     const id = localStorage.getItem('uid') as string;
 
     if (this.selectedImage) {
@@ -41,6 +43,7 @@ export class ProfilePhotoComponent {
         })
         .catch((error: any) => {
           console.error('Error uploading image:', error);
+          this.isSavingPhoto = false;
         });
     }
   }
@@ -53,10 +56,12 @@ export class ProfilePhotoComponent {
         console.log(res.data());
         let resData: any = res;
         this.imageUrl = resData.data().profile_photo;
+        this.isSavingPhoto = false;
       }),
       (err: any) => {
         console.log(err);
         this.connectionToast.openToast();
+        this.isSavingPhoto = false;
       };
   }
 

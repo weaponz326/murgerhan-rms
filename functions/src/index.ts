@@ -36,8 +36,8 @@ exports.sendEmailOnDocumentCreate = functions.firestore
     //     Document Data: ${JSON.stringify(documentData, null, 2)}
     // `;
 
-    const redirectLink = "http://localhost:4200";
-    // const redirectLink = "https://weapons-7d089.firebaseapp.com/";
+    // const redirectLink = "http://localhost:4200";
+    const redirectLink = "https://weapons-7d089.firebaseapp.com/#";
     const documentLink = "https://firebasestorage.googleapis.com/v0/b/weapons-7d089.appspot.com/o/admin_files%2FMHH%20-%20terms.pdf?alt=media&token=b140154c-d75d-4df7-b4aa-e1ec7f74eef8";
 
     // Construct the email content
@@ -78,7 +78,7 @@ exports.sendEmailOnDocumentCreate = functions.firestore
       from: "noreply@murgerhan.com",
       to: documentData.invitee_email,
       subject: documentData.email_subject,
-      text: emailContent,
+      html: emailContent,
     };
 
     try {

@@ -69,6 +69,8 @@ export class NewAttendanceComponent {
           sessionStorage.setItem('attendance_attendance_id', res.id);
           this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
         }
+
+        this.dismissButton.nativeElement.click();
         this.isSavingAttendance = false;
       })
       .catch((err: any) => {

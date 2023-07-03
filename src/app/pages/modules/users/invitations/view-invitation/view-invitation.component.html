@@ -43,7 +43,9 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Date Accepted :</span></div>
-                        <div class="col-md-8">{{invitationData.data().date_accepted.toDate() | date: 'short'}}</div>
+                        <div class="col-md-8">
+                            <span *ngIf="invitationData.data().date_accepted">{{invitationData.data().date_accepted.toDate() | date: 'short'}}</span>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Email Subejct :</span></div>
