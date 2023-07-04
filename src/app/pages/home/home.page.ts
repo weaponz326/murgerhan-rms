@@ -34,7 +34,7 @@ export class HomePage {
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
 
-  branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
+  branchName = "";
   name: string = "";
   email: string = "";
 
@@ -45,6 +45,7 @@ export class HomePage {
     this.getAuth();
     this.getUserRole();
     this.initTheme();
+    this.initBranch();
   }
 
   initTheme(){
@@ -115,6 +116,11 @@ export class HomePage {
         this.incrementProgress();
       }
     }, incrementInterval);
+  }
+
+  initBranch(){
+    if(localStorage.getItem("selected_branch"))
+      JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
   }
 
   getAuth(){
