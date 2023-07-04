@@ -34,7 +34,7 @@ export class HomePage {
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
 
-  branchName = "";
+  branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
   name: string = "";
   email: string = "";
 
@@ -42,6 +42,7 @@ export class HomePage {
   basicProfileData: any;
 
   ngOnInit(): void {
+    this.getAuth();
     this.getUserRole();
     this.initTheme();
   }
@@ -109,7 +110,7 @@ export class HomePage {
     const incrementInterval = 100;
 
     this.progressTimer = setTimeout(() => {
-      if (this.progressValue < 100) {
+      if (this.progressValue < 90) {
         this.progressValue += incrementStep;
         this.incrementProgress();
       }
@@ -151,9 +152,25 @@ export class HomePage {
         this.userRoleData = res.data();
 
         try{
-          this.branchName = this.userRoleData.data().branch.data.branch_name;
-          localStorage.setItem("selected_branch", JSON.stringify(this.userRoleData.data().branch));
-          localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
+          let data = {
+            id: this.userRoleData.id,
+            data: {
+              staff_code: this.userRoleData.data().staff_code,
+              full_name: this.userRoleData.data().full_name,
+              staff_role: this.userRoleData.data().staff_role,
+              branch: {
+                id: this.userRoleData.data().branch.id,
+                data: {
+                  branch_name: this.userRoleData.data().branch.data.branch_name,
+                  location: this.userRoleData.data().branch.data.location,
+                }
+              }
+            }
+          }
+          
+          localStorage.setItem("selected_user_role", JSON.stringify(data));
+          localStorage.setItem("selected_branch", JSON.stringify(data.data.branch));
+          this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
         }
         catch{
           console.log("probably not logged in!");

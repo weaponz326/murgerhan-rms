@@ -20,7 +20,7 @@ export class MaintenanceIssueFormComponent {
     issueType: new FormControl(''),
     issueDate: new FormControl(),
     systemCode: new FormControl({value: '', disabled: true}),
-    systemName: new FormControl({value: '', disabled: true}, Validators.required),
+    systemName: new FormControl({value: '', disabled: true}),
     reportedTo: new FormControl({value: '', disabled: true}, Validators.required),
     description: new FormControl(''),
     issueStatus: new FormControl(''),

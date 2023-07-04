@@ -45,11 +45,11 @@
 
             <div class="row mb-1">
                 <div class="col-md-4">
-                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>System Name :</label>
+                    <label class="float-md-end float-sm-start mt-1">System Name :</label>
                 </div>
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
-                        <input formControlName="systemName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && issueForm.controls.systemName.invalid }" required>
+                        <input formControlName="systemName" class="form-control">
                         <button type="button" class="btn btn-secondary" (click)="openSystemWindow.emit()">
                             <i class="bi bi-three-dots"></i>
                         </button>
