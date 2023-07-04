@@ -48,6 +48,10 @@ export class HomePage {
     this.initBranch();
   }
 
+  ngAfterViewInit(): void {
+    this.toggleSideNav();
+  }
+
   initTheme(){
     if(localStorage.getItem("theme")){
       console.log("theme is set");
@@ -118,6 +122,22 @@ export class HomePage {
     }, incrementInterval);
   }
 
+  // implementation in sb-AdminApiService.js file not working
+  toggleSideNav(){
+    const sidebarToggle = document.body.querySelector('#sidebarToggle');
+    if (sidebarToggle) {
+      // Uncomment Below to persist sidebar toggle between refreshes
+      if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+        document.body.classList.toggle('sb-sidenav-toggled');
+      }
+      sidebarToggle.addEventListener('click', event => {
+        event.preventDefault();
+        document.body.classList.toggle('sb-sidenav-toggled');
+        localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled').toString());
+      });
+    }
+  }
+  
   initBranch(){
     if(localStorage.getItem("selected_branch"))
       JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
@@ -176,7 +196,8 @@ export class HomePage {
           
           localStorage.setItem("selected_user_role", JSON.stringify(data));
           localStorage.setItem("selected_branch", JSON.stringify(data.data.branch));
-          this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
+          localStorage.setItem("user-access", String(data.data.staff_role));
+          this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;          
         }
         catch{
           console.log("probably not logged in!");
@@ -204,6 +225,6 @@ export class HomePage {
           this.connectionToast.openToast();
         }
       )
-  }
+  }  
 
 }

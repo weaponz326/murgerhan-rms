@@ -50,7 +50,7 @@
                                     <tr *ngFor="let data of stockItemListData" (dblclick)="openEditItem(data)">
                                         <td>{{data?.data().item_code}}</td>
                                         <td>{{data?.data().item_name}}</td>
-                                        <td>{{data?.data().unit_price | currency}}</td>
+                                        <td>{{data?.data().unit_price | currency:'GBP'}}</td>
                                         <td>{{data?.data().stock}}</td>
                                         <td>{{data?.data().location}}</td>
                                         <td>{{data?.data().item_category.data.category_name}}</td>

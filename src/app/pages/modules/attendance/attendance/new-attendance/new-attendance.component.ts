@@ -44,8 +44,6 @@ export class NewAttendanceComponent {
   createAttendance() {
     this.isSaved = true;
 
-    this.isSavingAttendance = true;
-
     let data: Attendance = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -64,23 +62,27 @@ export class NewAttendanceComponent {
 
     console.log(data);
 
-    this.attendanceApi.createAttendance(data)
-      .then((res: any) => {
-        console.log(res);
+    if(this.attendanceForm.valid){
+      this.isSavingAttendance = true;
 
-        if(res.id){
-          sessionStorage.setItem('attendance_attendance_id', res.id);
-          this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
-        }
+      this.attendanceApi.createAttendance(data)
+        .then((res: any) => {
+          console.log(res);
 
-        this.dismissButton.nativeElement.click();
-        this.isSavingAttendance = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingAttendance = false;
-      });
+          if(res.id){
+            sessionStorage.setItem('attendance_attendance_id', res.id);
+            this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingAttendance = false;
+        })
+        .catch((err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingAttendance = false;
+        });
+    }
   }
   
 }

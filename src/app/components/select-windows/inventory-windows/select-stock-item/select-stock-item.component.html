@@ -44,7 +44,7 @@
                             <tr *ngFor="let data of stockItemListData" (dblclick)="selectRow(data)">
                                 <td>{{data?.data().item_code}}</td>
                                 <td>{{data?.data().item_name}}</td>
-                                <td>{{data?.data().unit_price | currency}}</td>
+                                <td>{{data?.data().unit_price | currency:'GBP'}}</td>
                                 <td>{{data?.data().item_category.data.category_name}}</td>
                             </tr>
                         </tbody>

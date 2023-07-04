@@ -34,7 +34,7 @@
                 <div class="card shadow h-100 py-2">
                     <div class="card-body">
                         <div class="h6 mb-3">Total Sales</div>
-                        <div class="h4 mb-0">{{totalSales | currency}}</div>
+                        <div class="h4 mb-0">{{totalSales | currency:'GBP'}}</div>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                                         <td>{{data?.data().order_code}}</td>
                                         <td>{{data?.data().order_date | date: 'short'}}</td>
                                         <td>{{data?.data().vendor?.data.vendor_name}}</td>
-                                        <td>{{data?.data().total_price | currency}}</td>
+                                        <td>{{data?.data().total_price | currency:'GBP'}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">

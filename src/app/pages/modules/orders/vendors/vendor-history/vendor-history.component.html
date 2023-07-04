@@ -85,7 +85,7 @@
                                     <tr *ngFor="let data of vendorOrderListData">
                                         <td>{{data?.data().order_code}}</td>
                                         <td>{{data?.data().order_date | date: 'short'}}</td>
-                                        <td>{{data?.data().total_price | currency}}</td>
+                                        <td>{{data?.data().total_price | currency:'GBP'}}</td>
                                         <td class="p-0">
                                             <button class="btn btn-sm btn-success border w-100" (click)="gotoOrder(data.id)">
                                                 <i class="bi bi-eye"></i>
