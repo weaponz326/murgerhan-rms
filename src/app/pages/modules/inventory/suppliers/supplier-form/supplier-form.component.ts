@@ -14,8 +14,8 @@ export class SupplierFormComponent {
   supplierForm = new FormGroup({
     supplierCode: new FormControl(''),
     supplierName: new FormControl('', Validators.required),
-    phone: new FormControl(''),
-    email: new FormControl(),
+    phone: new FormControl('', [Validators.minLength(10), Validators.maxLength(10)]),
+    email: new FormControl('', Validators.email),
     address: new FormControl(''),
   })
   
