@@ -12,6 +12,7 @@ import { GeneralAttendanceRecordsComponent } from './general-attendance-records/
 import { GeneralAttendanceSheetComponent } from './general-attendance-sheet/general-attendance-sheet.component';
 import { UserAttendanceRecordsComponent } from './user-attendance-records/user-attendance-records.component';
 import { UserAttendanceSheetComponent } from './user-attendance-sheet/user-attendance-sheet.component';
+import { AttendancePersonnelComponent } from './attendance-personnel/attendance-personnel.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { UserAttendanceSheetComponent } from './user-attendance-sheet/user-atten
     GeneralAttendanceRecordsComponent,
     GeneralAttendanceSheetComponent,
     UserAttendanceRecordsComponent,
-    UserAttendanceSheetComponent
+    UserAttendanceSheetComponent,
+    AttendancePersonnelComponent
   ],
   imports: [
     CommonModule,

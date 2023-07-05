@@ -7,6 +7,7 @@ import { Attendance } from 'src/app/models/modules/attendance/attendance.model';
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class NewAttendanceComponent {
 
   constructor(
     private router: Router,
-    private attendanceApi: AttendanceApiService
+    private attendanceApi: AttendanceApiService,
+    private usersApi: UsersApiService
   ) {}  
   
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -26,7 +28,8 @@ export class NewAttendanceComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
-  
+  userListData: any;
+
   isSavingAttendance = false;
   isSaved = false;
 
@@ -39,6 +42,21 @@ export class NewAttendanceComponent {
 
   openModal(){
     this.newButton.nativeElement.click();
+    // this.getUserRoleList();
+  }
+
+  getUserRoleList(){
+    this.usersApi.getUserRoleList()
+      .then(
+        (res: any) => {
+          console.log(res.docs);
+          this.userListData = res.docs;
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
   }
 
   createAttendance() {
@@ -71,7 +89,9 @@ export class NewAttendanceComponent {
 
           if(res.id){
             sessionStorage.setItem('attendance_attendance_id', res.id);
-            this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
+            this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");        
+            // this.setPersonnelData();
+            // this.createAttendancePersonnelBatch();
           }
 
           this.dismissButton.nativeElement.click();
@@ -83,6 +103,38 @@ export class NewAttendanceComponent {
           this.isSavingAttendance = false;
         });
     }
+  }
+
+  createAttendancePersonnelBatch(){
+    this.attendanceApi.createAttendancePersonnelBatch(this.userListData)
+      .then(() => {
+        console.log('Batch operation completed successfully!');
+        this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
+        this.dismissButton.nativeElement.click();
+        this.isSavingAttendance = false;
+      })
+      .catch((error) => {
+        console.error('Error performing batch operation:', error);
+        this.isSavingAttendance = false;
+      });
+  }
+
+  setPersonnelData(){
+    this.userListData = this.userListData.map((item: any) => {
+      return {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        attendance: sessionStorage.getItem('attendance_attendance_id'),
+        personnel: {
+          id: item.id,
+          data: {
+            staff_code: item.data().staff_code,
+            full_name: item.data().full_name,
+            staff_role: item.data().staff_role,
+          }
+        }
+      };
+    });
   }
   
 }

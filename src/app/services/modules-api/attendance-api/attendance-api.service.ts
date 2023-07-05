@@ -16,6 +16,7 @@ export class AttendanceApiService {
   rosterPersonnelRef = this.firestore.collection('attendance_roster_personnel');
   rosterSheetRef = this.firestore.collection('attendance_roster_sheet');
   attendanceRef = this.firestore.collection('attendance_attendance');
+  attendancePersonnelRef = this.firestore.collection('attendance_attendance_personnel');
 
   // roster
 
@@ -164,6 +165,40 @@ export class AttendanceApiService {
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
       .orderBy("created_at", "desc")
       .get();
+  }
+
+  // attendance personnel
+
+  createAttendancePersonnel(data: any){
+    return this.attendancePersonnelRef.add(data);
+  }
+
+  updateAttendancePersonnel(id:any, data: any){
+    return this.attendancePersonnelRef.doc(id).update(data);
+  }
+
+  deleteAttendancePersonnel(id: any){
+    return this.attendancePersonnelRef.doc(id).delete();
+  }
+
+  getAttendancePersonnel(id: any){
+    return this.attendancePersonnelRef.doc(id).ref.get();
+  }
+
+  getAttendancePersonnelList(){
+    return this.attendancePersonnelRef.ref
+      .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  createAttendancePersonnelBatch(items: any): Promise<void> {
+    const batch = this.firestore.firestore.batch();
+    items.forEach((item: any) => {
+      const newItemRef = this.attendancePersonnelRef.doc().ref;
+      batch.set(newItemRef, item);
+    });
+    return batch.commit();
   }
 
 }

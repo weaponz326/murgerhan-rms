@@ -1,0 +1,105 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/attendance/attendance/all-attendance">All Attendance</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/attendance/attendance/general-attendance">General Attendance</a>
+    </li>
+    <li class="breadcrumb-item active">Attendance Personnel</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <p class="lead">Attendance Details</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <form [formGroup]="attendanceForm">
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance ID :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Name :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="attendanceName" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>                                                       
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Attendance Personnel</p>
+                
+                <div class="row mb-3">
+                    <div class="col">
+                        <button [disabled]="isFetchingData" (click)="getAttendancePersonnelList()" class="btn btn-sm btn-light border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="20%" scope="col" class="min-width-2">
+                                            Staff ID
+                                        </th>
+                                        <th width="45%" scope="col" class="min-width-4">
+                                            Staff Name
+                                        </th>
+                                        <th width="35%" scope="col" class="min-width-3">
+                                            Staff Role
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of attendancePersonnelData">
+                                        <td>{{data?.data().personnel.data.staff_code}}</td>
+                                        <td>{{data?.data().personnel.data.full_name}}</td>
+                                        <td>{{data?.data().personnel.data.staff_role}}</td>
+                                    </tr>
+                                </tbody> 
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="4">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>  
+                            </table>
+                        </div>                    
+                    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
