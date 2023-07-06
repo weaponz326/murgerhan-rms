@@ -5,7 +5,6 @@ import { AttendancePage } from './attendance.page';
 import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 import { GeneralAttendanceRecordsComponent } from './general-attendance-records/general-attendance-records.component';
 import { UserAttendanceRecordsComponent } from './user-attendance-records/user-attendance-records.component';
-import { AttendancePersonnelComponent } from './attendance-personnel/attendance-personnel.component';
 
 
 const routes: Routes = [
@@ -18,7 +17,6 @@ const routes: Routes = [
       { path: "all-attendance", component: AllAttendanceComponent },
       { path: "general-attendance", component: GeneralAttendanceRecordsComponent },
       { path: "user-attendance", component: UserAttendanceRecordsComponent },
-      { path: "attendance-personnel", component: AttendancePersonnelComponent },
     ]
   }
 ];

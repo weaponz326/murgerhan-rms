@@ -17,6 +17,7 @@ export class AttendanceApiService {
   rosterSheetRef = this.firestore.collection('attendance_roster_sheet');
   attendanceRef = this.firestore.collection('attendance_attendance');
   attendancePersonnelRef = this.firestore.collection('attendance_attendance_personnel');
+  attendanceSheetRef = this.firestore.collection('attendance_attendance_sheet');
 
   // roster
 
@@ -167,35 +168,43 @@ export class AttendanceApiService {
       .get();
   }
 
-  // attendance personnel
+  // attendance sheet
 
-  createAttendancePersonnel(data: any){
-    return this.attendancePersonnelRef.add(data);
+  createAttendanceSheet(data: any){
+    return this.attendanceSheetRef.add(data);
   }
 
-  updateAttendancePersonnel(id:any, data: any){
-    return this.attendancePersonnelRef.doc(id).update(data);
+  updateAttendanceSheet(id:any, data: any){
+    return this.attendanceSheetRef.doc(id).update(data);
   }
 
-  deleteAttendancePersonnel(id: any){
-    return this.attendancePersonnelRef.doc(id).delete();
+  deleteAttendanceSheet(id: any){
+    return this.attendanceSheetRef.doc(id).delete();
   }
 
-  getAttendancePersonnel(id: any){
-    return this.attendancePersonnelRef.doc(id).ref.get();
+  getAttendanceSheet(id: any){
+    return this.attendanceSheetRef.doc(id).ref.get();
   }
 
-  getAttendancePersonnelList(){
-    return this.attendancePersonnelRef.ref
+  getPersonnelAttendanceSheet(){    
+    return this.attendanceSheetRef.ref
+      .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .where("personnel.id", "==", localStorage.getItem("uid"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  getGeneralAttendanceSheetList(){
+    return this.attendanceSheetRef.ref
       .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
       .orderBy("created_at", "desc")
       .get();
   }
 
-  createAttendancePersonnelBatch(items: any): Promise<void> {
+  createAttendanceSheetBatch(items: any): Promise<void> {
     const batch = this.firestore.firestore.batch();
     items.forEach((item: any) => {
-      const newItemRef = this.attendancePersonnelRef.doc().ref;
+      const newItemRef = this.attendanceSheetRef.doc().ref;
       batch.set(newItemRef, item);
     });
     return batch.commit();
