@@ -238,7 +238,7 @@ export class HomePage {
         (res: any) => {
           console.log(res);
           localStorage.clear();
-          window.location.href = "/";
+          window.location.href = "/landing";
         },
         (err: any) => {
           console.log(err);

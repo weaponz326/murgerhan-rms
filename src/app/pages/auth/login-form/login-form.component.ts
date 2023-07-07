@@ -44,7 +44,7 @@ export class LoginFormComponent {
           this.isSending = false;
           
           localStorage.setItem('uid', res.user.uid);
-          this.router.navigateByUrl('/')
+          this.router.navigateByUrl('/landing');
         },
         (err: any) => {
           console.log(err);
