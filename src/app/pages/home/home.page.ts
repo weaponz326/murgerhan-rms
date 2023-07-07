@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
@@ -23,6 +23,8 @@ export class HomePage {
   }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  isMobileView: boolean = false;
 
   themeCheck = false;
   themeClass = "dark"
@@ -49,7 +51,9 @@ export class HomePage {
   }
 
   ngAfterViewInit(): void {
+    this.isMobileView = window.innerWidth < 992;
     this.toggleSideNav();
+    this.toggleSideNavByLink();
   }
 
   initTheme(){
@@ -81,6 +85,11 @@ export class HomePage {
       this.themeClass = "dark";
       this.themeBackground = "light";
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobileView = window.innerWidth < 992;
   }
 
   initProgressBar(){
@@ -134,6 +143,17 @@ export class HomePage {
         event.preventDefault();
         document.body.classList.toggle('sb-sidenav-toggled');
         localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled').toString());
+      });      
+    }    
+  }
+
+  toggleSideNavByLink() {
+    if (this.isMobileView) {
+      const sideNavLinks = document.querySelectorAll('#sidenavAccordion .nav-router-link');
+      sideNavLinks.forEach((link: any) => {
+        link.addEventListener('click', () => {
+          document.body.classList.toggle('sb-sidenav-toggled');
+        });
       });
     }
   }
