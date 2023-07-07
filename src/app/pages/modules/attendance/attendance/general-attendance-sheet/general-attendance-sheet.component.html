@@ -13,20 +13,24 @@
             <table class="table table-sm table-bordered">
                 <thead>
                     <tr>
-                        <th class="min-width-2" >Staff ID</th>
-                        <th class="min-width-4" >Staff ID</th>
-                        <th class="min-width-1" *ngFor="let date of sheetDates" (click)="viewDayAttendance(date)">
+                        <th class="min-width-3" >Staff ID</th>
+                        <th class="min-width-5" >Staff ID</th>
+                        <th class="min-width-2 pointer-cell" *ngFor="let date of sheetDates" (click)="viewDayAttendance(date)">
                             {{date | date:'dd/MM/yy'}}
                         </th>
                     </tr>
                 </thead>
                 <tbody *ngIf="!isFetchingData">
                     <tr *ngFor="let staff of personnelListData">
-                        <td (click)="viewUserAttendance(staff.data().personnel.id)">{{staff.data().personnel.data.staff_code}}</td>
-                        <td (click)="viewUserAttendance(staff.data().personnel.id)">{{staff.data().personnel.data.full_name}}</td>
-                        <td *ngFor="let date of sheetDates">
+                        <td (click)="viewUserAttendance(staff.data().personnel.id)" class="pointer-cell">
+                            {{staff.data().personnel.data.staff_code}}
+                        </td>
+                        <td (click)="viewUserAttendance(staff.data().personnel.id)" class="pointer-cell">
+                            {{staff.data().personnel.data.full_name}}
+                        </td>
+                        <td *ngFor="let date of sheetDates" class="text-center">
                             <span *ngFor="let sheet of sheetListData">
-                                <span *ngIf="sheet.data().personnel.id == staff.data().personnel.id && sheet.data().date == dateFormat(date)" class="h-100 w-100">
+                                <span *ngIf="sheet.data().personnel.id == staff.data().personnel.id && dateFormatUTC(sheet.data().date) == dateFormat(date)">
                                     <input [checked]="sheet.data().sheet.clocked_in != null" type="checkbox" class="form-check-input" disabled>
                                 </span>
                             </span>

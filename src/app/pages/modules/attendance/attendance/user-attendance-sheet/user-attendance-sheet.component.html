@@ -22,7 +22,7 @@
                 </thead>
                 <tbody *ngIf="!isFetchingData">
                     <tr *ngFor="let data of sheetListData">
-                        <td>{{data?.data().date | date}}</td>
+                        <td>{{dateFormat(data?.data().date)}}</td>
                         <td>{{data?.data().sheet.clocked_in}}</td>
                         <td>{{data?.data().sheet.clocked_out}}</td>
                         <td>{{data?.data().sheet.started_break}}</td>

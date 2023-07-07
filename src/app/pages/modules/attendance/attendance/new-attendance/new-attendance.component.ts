@@ -42,7 +42,7 @@ export class NewAttendanceComponent {
 
   openModal(){
     this.newButton.nativeElement.click();
-    // this.getUserRoleList();
+    this.getBranchUserRoleList();
   }
 
   getBranchUserRoleList(){

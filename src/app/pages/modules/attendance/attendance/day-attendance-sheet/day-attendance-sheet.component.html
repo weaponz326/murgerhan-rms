@@ -10,7 +10,7 @@
     <div class="col">
 
         <div class="overflow-auto">                    
-            <table class="table table-sm table-hover table-bordered">
+            <table class="table table-sm table-bordered border-end">
                 <thead>
                     <tr>
                         <th width="15%" scope="col" class="min-width-2">Staff ID</th>
@@ -22,18 +22,26 @@
                     </tr>
                 </thead>
                 <tbody *ngIf="!isFetchingData">
-                    <tr *ngFor="let data of sheetListData">
+                    <tr *ngFor="let data of personnelListData">
                         <td>{{data?.data().personnel.data.staff_code}}</td>
                         <td>{{data?.data().personnel.data.full_name}}</td>
-                        <td>{{data?.data().sheet.clocked_in}}</td>
-                        <td>{{data?.data().sheet.clocked_out}}</td>
-                        <td>{{data?.data().sheet.started_break}}</td>
-                        <td>{{data?.data().sheet.ended_break}}</td>
+                        <td *ngFor="let sheet of sheetListData">
+                            <span *ngIf="sheet.data().personnel.id == data.data().personnel.id">{{sheet.data().sheet.clocked_in}}</span>
+                        </td>
+                        <td *ngFor="let sheet of sheetListData">
+                            <span *ngIf="sheet.data().personnel.id == data.data().personnel.id">{{sheet.data().sheet.clocked_out}}</span>
+                        </td>
+                        <td *ngFor="let sheet of sheetListData">
+                            <span *ngIf="sheet.data().personnel.id == data.data().personnel.id">{{sheet.data().sheet.started_break}}</span>
+                        </td>
+                        <td *ngFor="let sheet of sheetListData">
+                            <span *ngIf="sheet.data().personnel.id == data.data().personnel.id">{{sheet.data().sheet.ended_break}}</span>
+                        </td>                        
                     </tr>
                 </tbody>
                 <tbody *ngIf="isFetchingData">
                     <tr>
-                        <td colspan="5">
+                        <td colspan="6">
                             <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="false"></app-table-loading>
                         </td>
                     </tr>

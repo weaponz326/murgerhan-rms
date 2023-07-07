@@ -23,6 +23,7 @@ export class DayAttendanceRecordsComponent {
 
   attendanceData: any;
 
+  selectedDate = new Date(String(sessionStorage.getItem("selected_attendance_date"))).toISOString().slice(0, 10);
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   isFetchingData = false;
@@ -31,7 +32,7 @@ export class DayAttendanceRecordsComponent {
   attendanceForm = new FormGroup({
     attendanceCode: new FormControl({value: '', disabled: true}),
     attendanceName: new FormControl({value: '', disabled: true}),
-    selectedDay: new FormControl({value: new Date(String(localStorage.getItem("selected_attendance_date"))), disabled: true}),
+    selectedDay: new FormControl({value: this.selectedDate, disabled: true}),
   })
   
   ngOnInit(): void {

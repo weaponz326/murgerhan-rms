@@ -235,10 +235,10 @@ export class AttendanceApiService {
       .get();
   }
 
-  getDayAttendanceSheetList(){    
+  getDayAttendanceSheetList(){
     return this.attendanceSheetRef.ref
       .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
-      .where("date", "==", new Date(String(localStorage.getItem("selected_attendance_date"))))
+      .where("date", "==", new Date(String(sessionStorage.getItem("selected_attendance_date"))))
       .orderBy("created_at", "desc")
       .get();
   }

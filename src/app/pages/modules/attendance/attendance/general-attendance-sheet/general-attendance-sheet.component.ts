@@ -88,11 +88,13 @@ export class GeneralAttendanceSheetComponent {
   }
 
   viewUserAttendance(userId: any){
+    console.log(userId);
     sessionStorage.setItem('attendance_user_id', userId);
     this.router.navigateByUrl("/modules/attendance/attendance/user-attendance")
   }
 
   viewDayAttendance(date: any){
+    console.log(date);
     sessionStorage.setItem("selected_attendance_date", date.toISOString());
     this.router.navigateByUrl("/modules/attendance/attendance/day-attendance")
   }
@@ -104,6 +106,10 @@ export class GeneralAttendanceSheetComponent {
       this.sheetDates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
     }
+  }
+
+  dateFormatUTC(date: any){
+    return formatDate(new Date(date.toDate()), 'yyyy-MM-dd', 'en-US');
   }
 
   dateFormat(date: any){

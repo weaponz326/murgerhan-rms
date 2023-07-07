@@ -68,9 +68,9 @@ export class AttendancePersonnelComponent {
           this.isFetchingData = false;
 
           if(res.docs == 0)
-            this.isDataAvailable = true;
-          else
             this.isDataAvailable = false;
+          else
+            this.isDataAvailable = true;
         },
         (err: any) => {
           console.log(err);

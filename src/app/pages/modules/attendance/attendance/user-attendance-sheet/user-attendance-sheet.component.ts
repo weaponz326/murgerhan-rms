@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
@@ -40,6 +41,11 @@ export class UserAttendanceSheetComponent {
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
+  }
+
+  dateFormat(date: any){
+    let transformedDate = new Date(date.toDate());
+    return formatDate(transformedDate, 'yyyy-MM-dd', 'en-US');
   }
 
 }

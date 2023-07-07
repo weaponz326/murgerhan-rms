@@ -20,12 +20,33 @@ export class DayAttendanceSheetComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  personnelListData:any;
   sheetListData: any;
 
   isFetchingData = false;
 
   ngOnInit(): void {
-    this.getDayAttendanceSheetList();
+    this.getAttendancePersonnelList();
+  }
+
+  getAttendancePersonnelList(){
+    this.isFetchingData = true;
+
+    this.attendanceApi.getAttendancePersonnelList()
+      .then(
+        (res: any) => {
+          console.log(res.docs);
+          this.personnelListData = res.docs;
+          this.isFetchingData = false;   
+          
+          this.getDayAttendanceSheetList();        
+        },
+        (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   getDayAttendanceSheetList() {
@@ -33,7 +54,7 @@ export class DayAttendanceSheetComponent {
 
     this.attendanceApi.getDayAttendanceSheetList()
       .then((res) => {
-        console.log(res);
+        console.log(res.docs);
         this.sheetListData = res.docs;
         this.isFetchingData = false;
       }),

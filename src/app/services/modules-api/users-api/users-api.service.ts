@@ -50,7 +50,7 @@ export class UsersApiService {
 
   getBasicUserList(){
     return this.usersBasicRef.ref
-      .where("branch.id", "==", localStorage.getItem("selected_branch"))
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
       .get();
   }
 
@@ -136,7 +136,7 @@ export class UsersApiService {
 
   getBranchUserRoleList(){
     return this.usersRoleRef.ref
-      .where("branch.id", "==", localStorage.getItem("selected_branch"))
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
       .orderBy("created_at", "desc")
       .get();
   }
