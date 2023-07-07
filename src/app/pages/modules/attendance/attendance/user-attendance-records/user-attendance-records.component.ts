@@ -23,10 +23,16 @@ export class UserAttendanceRecordsComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  userroleData: any;
+  userRoleData: any;
   attendanceData: any;
+  sheetListData: any;
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+
+  totalHoursToday: number = 0;
+  totalHoursThisWeek: number = 0;
+  totalHoursThisMonth: number = 0;
+
 
   isFetchingData = false;
   isSavingUserRole = false;
@@ -42,6 +48,7 @@ export class UserAttendanceRecordsComponent {
   ngOnInit(): void {
     this.getUserRole();
     this.getAttendance();
+    this.getUserAttendanceSheetList();
   }
 
   getUserRole() {
@@ -51,7 +58,7 @@ export class UserAttendanceRecordsComponent {
     this.usersApi.getUserRole(id)
       .then((res) => {
         console.log(res);
-        this.userroleData = res;
+        this.userRoleData = res;
         this.isFetchingData = false;
         this.setUserRoleData();        
       }),
@@ -80,10 +87,79 @@ export class UserAttendanceRecordsComponent {
       };
   }
 
+  getUserAttendanceSheetList() {
+    this.isFetchingData = true;
+
+    this.attendanceApi.getUserAttendanceSheetList()
+      .then((res) => {
+        console.log(res);
+        this.sheetListData = res.docs;
+        this.isFetchingData = false;
+        this.calculateTotalHours();
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
+  }
+
+  calculateTotalHours() {
+    const currentDate = new Date();
+
+    const todayEntries = this.sheetListData.filter((item: any) => this.isSameDate(new Date(item.data().date.toDate()), currentDate));
+    const weekTodayEntries = this.sheetListData.filter((item: any) => this.isWithinWeek(new Date(item.data().date.toDate()), currentDate));
+    const monthTodayEntries = this.sheetListData.filter((item: any) => this.isWithinMonth(new Date(item.data().date.toDate()), currentDate));
+
+    this.totalHoursToday = this.calculateTotalHoursForEntries(todayEntries);
+    this.totalHoursThisWeek = this.calculateTotalHoursForEntries(weekTodayEntries);
+    this.totalHoursThisMonth = this.calculateTotalHoursForEntries(monthTodayEntries);
+  }
+
+  calculateTotalHoursForEntries(items: any) {
+    let totalHours = 0;
+
+    items.forEach((item: any) => {
+      const clockedInTime = new Date(item.data().sheet.clocked_in);
+      const clockedOutTime = new Date(item.data().sheet.clocked_out);
+      const breakStartTime = new Date(item.data().sheet.started_break);
+      const breakEndTime = new Date(item.data().sheet.ended_break);
+
+      const hoursBeforeBreak = (breakStartTime.getTime() - clockedInTime.getTime()) / (1000 * 60 * 60);
+      const hoursAfterBreak = (clockedOutTime.getTime() - breakEndTime.getTime()) / (1000 * 60 * 60);
+
+      totalHours += hoursBeforeBreak + hoursAfterBreak;
+    });
+
+    console.log(totalHours);
+    return totalHours;
+  }
+
+  isSameDate(date1: Date, date2: Date): boolean {
+    console.log(date1, date2)
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
+
+  isWithinWeek(date: Date, currentDate: Date): boolean {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(currentDate.getDate() - 7);
+    return date >= oneWeekAgo && date <= currentDate;
+  }
+
+  isWithinMonth(date: Date, currentDate: Date): boolean {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+    return date >= oneMonthAgo && date <= currentDate;
+  }
+
   setUserRoleData(){
-    this.userForm.controls.staffCode.setValue(this.userroleData.data().staff_code);
-    this.userForm.controls.fullName.setValue(this.userroleData.data().full_name);
-    this.userForm.controls.staffRole.setValue(this.userroleData.data().staff_role);
+    this.userForm.controls.staffCode.setValue(this.userRoleData.data().staff_code);
+    this.userForm.controls.fullName.setValue(this.userRoleData.data().full_name);
+    this.userForm.controls.staffRole.setValue(this.userRoleData.data().staff_role);
   }
 
   setAttendanceData(){

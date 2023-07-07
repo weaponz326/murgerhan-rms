@@ -22,6 +22,10 @@ export class DayAttendanceRecordsComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   attendanceData: any;
+  sheetListData: any;
+
+  presentToday = 0;
+  absentToday = 0;
 
   selectedDate = new Date(String(sessionStorage.getItem("selected_attendance_date"))).toISOString().slice(0, 10);
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
@@ -37,6 +41,7 @@ export class DayAttendanceRecordsComponent {
   
   ngOnInit(): void {
     this.getAttendance();
+    this.getDayAttendanceSheetList();
   }
 
   getAttendance() {
@@ -57,9 +62,31 @@ export class DayAttendanceRecordsComponent {
       };
   }
 
+  getDayAttendanceSheetList() {
+    this.isFetchingData = true;
+
+    this.attendanceApi.getDayAttendanceSheetList()
+      .then((res) => {
+        console.log(res.docs);
+        this.sheetListData = res.docs;
+        this.isFetchingData = false;
+        this.setMetrics();
+      }),
+      (err: any) => {
+        console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
+  }
+
   setAttendanceData(){
     this.attendanceForm.controls.attendanceCode.setValue(this.attendanceData.data().attendance_code);
     this.attendanceForm.controls.attendanceName.setValue(this.attendanceData.data().attendance_name);
+  }
+
+  setMetrics(){
+    this.presentToday = this.sheetListData.filter((obj: any) => obj.data().sheet.clocked_in != null).length;
+    this.absentToday = this.sheetListData.filter((obj: any) => obj.data().sheet.clocked_in == null).length;
   }
 
 }

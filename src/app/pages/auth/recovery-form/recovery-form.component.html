@@ -9,7 +9,7 @@
             <div class="mb-3">
                 <label for="inputEmail">Email address</label>
                 <input formControlName="email" class="form-control" id="inputEmail" type="email" placeholder="name@example.com" required>
-                <div *ngIf="errorCode == 'auth/invalid-email'" class="text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="small text-danger">{{errorMessage}}</div>
             </div>
             <div class="d-grid gap-2 mt-4">
                 <button class="btn btn-primary btn">Submit</button>

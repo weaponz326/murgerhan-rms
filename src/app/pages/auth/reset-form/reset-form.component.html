@@ -11,12 +11,12 @@
             <div class="mb-3">
                 <label for="inputPassword">Password</label>
                 <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
-                <div *ngIf="errorCode == 'auth/weak-password'" class="text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/weak-password'" class="small text-danger">{{errorMessage}}</div>
             </div>
             <div class="mb-3">
                 <label for="inputPasswordConfirm">Confirm Password</label>
                 <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
-                <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
+                <div *ngIf="passwordMismatch" class="small text-danger">Passwords do not match</div>
             </div>
             <div class="d-grid gap-2 mt-4">
                 <button [disabled]="isSending" class="btn btn-primary btn">Rsest</button>

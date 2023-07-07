@@ -195,7 +195,7 @@ export class HomePage {
     this.usersApi.getUserRole(id)
       .then((res) => {
         console.log(res.data());
-        this.userRoleData = res.data();
+        this.userRoleData = res;
 
         try{
           let data = {
@@ -213,10 +213,12 @@ export class HomePage {
               }
             }
           }
+
+          console.log(data);
           
           localStorage.setItem("selected_user_role", JSON.stringify(data));
           localStorage.setItem("selected_branch", JSON.stringify(data.data.branch));
-          localStorage.setItem("user-access", String(data.data.staff_role));
+          localStorage.setItem("user_role", String(data.data.staff_role));
           this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;          
         }
         catch{
