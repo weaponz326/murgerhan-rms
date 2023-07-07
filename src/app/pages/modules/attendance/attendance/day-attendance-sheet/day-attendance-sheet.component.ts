@@ -1,4 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
 
@@ -6,11 +8,11 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 
 
 @Component({
-  selector: 'app-user-attendance-sheet',
-  templateUrl: './user-attendance-sheet.component.html',
-  styleUrls: ['./user-attendance-sheet.component.scss']
+  selector: 'app-day-attendance-sheet',
+  templateUrl: './day-attendance-sheet.component.html',
+  styleUrls: ['./day-attendance-sheet.component.scss']
 })
-export class UserAttendanceSheetComponent {
+export class DayAttendanceSheetComponent {
 
   constructor(
     private attendanceApi: AttendanceApiService
@@ -23,13 +25,13 @@ export class UserAttendanceSheetComponent {
   isFetchingData = false;
 
   ngOnInit(): void {
-    this.getUserAttendanceSheetList();
+    this.getDayAttendanceSheetList();
   }
 
-  getUserAttendanceSheetList() {
+  getDayAttendanceSheetList() {
     this.isFetchingData = true;
 
-    this.attendanceApi.getUserAttendanceSheetList()
+    this.attendanceApi.getDayAttendanceSheetList()
       .then((res) => {
         console.log(res);
         this.sheetListData = res.docs;

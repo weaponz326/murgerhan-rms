@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col">
-        <button [disabled]="isFetchingData" (click)="getUserAttendanceSheetList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+        <button [disabled]="isFetchingData" (click)="getDayAttendanceSheetList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
             <i class="bi bi-arrow-clockwise"></i>
         </button>
     </div>
@@ -13,16 +13,18 @@
             <table class="table table-sm table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th width="28%" scope="col" class="min-width-3">Date</th>
-                        <th width="18%" scope="col" class="min-width-2">Clocked In</th>
-                        <th width="18%" scope="col" class="min-width-2">Clocked Out</th>
-                        <th width="18%" scope="col" class="min-width-2">Started Break</th>
-                        <th width="18%" scope="col" class="min-width-2">Ended Break</th>
+                        <th width="15%" scope="col" class="min-width-2">Staff ID</th>
+                        <th width="25%" scope="col" class="min-width-4">Staff Name</th>
+                        <th width="15%" scope="col" class="min-width-2">Clocked In</th>
+                        <th width="15%" scope="col" class="min-width-2">Clocked Out</th>
+                        <th width="15%" scope="col" class="min-width-2">Started Break</th>
+                        <th width="15%" scope="col" class="min-width-2">Ended Break</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="!isFetchingData">
                     <tr *ngFor="let data of sheetListData">
-                        <td>{{data?.data().date | date}}</td>
+                        <td>{{data?.data().personnel.data.staff_code}}</td>
+                        <td>{{data?.data().personnel.data.full_name}}</td>
                         <td>{{data?.data().sheet.clocked_in}}</td>
                         <td>{{data?.data().sheet.clocked_out}}</td>
                         <td>{{data?.data().sheet.started_break}}</td>

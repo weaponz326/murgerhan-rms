@@ -16,12 +16,11 @@
             <table class="table table-sm table-bordered">
                 <thead>
                     <tr class="bg-light">
-                        <th class="shift-header">Shifts</th>
-                        <th class="date-header" *ngFor="let date of sheetDates">{{date | date: 'dd/MM/yy'}}</th>
+                        <th class="shift-header min-width-3" >Shifts</th>
+                        <th class="date-header min-width-2" *ngFor="let date of sheetDates">{{date | date: 'dd/MM/yy'}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- TODO: creating and updating are messed up -->
                     <tr *ngFor="let shift of rosterShiftListData">
                         <td>{{shift.data().shift_name}}</td>
                         <td class="batch-cell" *ngFor="let date of sheetDates" (dblclick)="saveSheet(shift.id, date, null)">

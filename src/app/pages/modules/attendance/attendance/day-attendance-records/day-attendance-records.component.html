@@ -2,7 +2,10 @@
     <li class="breadcrumb-item active">
         <a href="#" routerLink="/modules/attendance/attendance/all-attendance">All Attendance</a>
     </li>
-    <li class="breadcrumb-item active">General Attendance</li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/attendance/attendance/general-attendance">General Attendance</a>
+    </li>
+    <li class="breadcrumb-item active">Day Attendance</li>
 </ol>
 
 <div class="row">
@@ -33,19 +36,12 @@
                             </div>
         
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Day :</label></div>
                                 <div class="col-md-8">
-                                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
+                                    <input type="date" formControlName="selectedDay" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
-        
-                            <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
-                                <div class="col-md-8">
-                                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
-                                </div>
-                            </div>
-                                                        
+                                                                
                         </form>
 
                     </div>
@@ -55,36 +51,21 @@
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-
-                <p class="lead">Attendance Personnel</p>
-                
-                <button class="btn btn-light bordered" routerLink="/modules/attendance/attendance/attendance-personnel">
-                    Manage Personnel
-                    <i class="bi bi-arrow-right ms-3"></i>
-                </button>
-
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div class="row">
-    <div class="col">
+    <div class="col-md-9">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
 
-                <p class="lead">General Attendance Sheet</p>
+                <p class="lead">Day Attendance Sheet</p>
                 
                 <div class="row">
                     <div class="col">
 
                         <!-- attendance sheet component -->
 
-                        <app-general-attendance-sheet></app-general-attendance-sheet>
+                        <app-day-attendance-sheet></app-day-attendance-sheet>
 
                     </div>
                 </div>

@@ -45,8 +45,8 @@ export class NewAttendanceComponent {
     // this.getUserRoleList();
   }
 
-  getUserRoleList(){
-    this.usersApi.getUserRoleList()
+  getBranchUserRoleList(){
+    this.usersApi.getBranchUserRoleList()
       .then(
         (res: any) => {
           console.log(res.docs);
@@ -89,9 +89,9 @@ export class NewAttendanceComponent {
 
           if(res.id){
             sessionStorage.setItem('attendance_attendance_id', res.id);
-            this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");        
-            // this.setPersonnelData();
-            // this.createAttendancePersonnelBatch();
+            // this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");        
+            this.setPersonnelData();
+            this.createAttendancePersonnelBatch();
           }
 
           this.dismissButton.nativeElement.click();

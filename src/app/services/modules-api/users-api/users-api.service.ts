@@ -134,6 +134,13 @@ export class UsersApiService {
       .get();
   }
 
+  getBranchUserRoleList(){
+    return this.usersRoleRef.ref
+      .where("branch.id", "==", localStorage.getItem("selected_branch"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   // invitations
 
   createInvitation(data: any){

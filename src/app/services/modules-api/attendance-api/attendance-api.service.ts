@@ -168,6 +168,40 @@ export class AttendanceApiService {
       .get();
   }
 
+  // attendance personnel
+
+  createAttendancePersonnel(data: any){
+    return this.attendancePersonnelRef.add(data);
+  }
+
+  updateAttendancePersonnel(id:any, data: any){
+    return this.attendancePersonnelRef.doc(id).update(data);
+  }
+
+  deleteAttendancePersonnel(id: any){
+    return this.attendancePersonnelRef.doc(id).delete();
+  }
+
+  getAttendancePersonnel(id: any){
+    return this.attendancePersonnelRef.doc(id).ref.get();
+  }
+
+  getAttendancePersonnelList(){
+    return this.attendancePersonnelRef.ref
+      .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  createAttendancePersonnelBatch(items: any): Promise<void> {
+    const batch = this.firestore.firestore.batch();
+    items.forEach((item: any) => {
+      const newItemRef = this.attendancePersonnelRef.doc().ref;
+      batch.set(newItemRef, item);
+    });
+    return batch.commit();
+  }
+
   // attendance sheet
 
   createAttendanceSheet(data: any){
@@ -186,17 +220,25 @@ export class AttendanceApiService {
     return this.attendanceSheetRef.doc(id).ref.get();
   }
 
-  getPersonnelAttendanceSheet(){    
+  getGeneralAttendanceSheetList(){
     return this.attendanceSheetRef.ref
       .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
-      .where("personnel.id", "==", localStorage.getItem("uid"))
       .orderBy("created_at", "desc")
       .get();
   }
 
-  getGeneralAttendanceSheetList(){
+  getUserAttendanceSheetList(){    
     return this.attendanceSheetRef.ref
       .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .where("personnel.id", "==", sessionStorage.getItem("attendance_user_id"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  getDayAttendanceSheetList(){    
+    return this.attendanceSheetRef.ref
+      .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .where("date", "==", new Date(String(localStorage.getItem("selected_attendance_date"))))
       .orderBy("created_at", "desc")
       .get();
   }
