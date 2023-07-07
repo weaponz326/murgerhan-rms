@@ -34,7 +34,7 @@ export class InviteUserComponent {
   invitationForm = new FormGroup({
     invitationCode: new FormControl(''),
     inviteeName: new FormControl('', Validators.required),
-    inviteeEmail: new FormControl('', Validators.required),
+    inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
     emailSubject: new FormControl(this.defaultEmailSubject),
     emailMessage: new FormControl(this.defaultEmailMessage),
   })

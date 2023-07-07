@@ -61,8 +61,8 @@
                             <button [disabled]="invitationData.data().invitation_status != 'Accepted' || isSavingInvitation" class="btn btn-primary mb-2" (click)="updateInvitation()">
                                 Add to Users
                             </button>
-                            <p *ngIf="invitationData.data().invitation_status == 'Awaiting'" class="small text-muted">Awaiting acceptance</p>
-                            <p *ngIf="invitationData.data().invitation_status == 'Approved'" class="small text-muted">Already added to users</p>
+                            <p *ngIf="invitationData?.data()?.invitation_status == 'Awaiting'" class="small text-muted">Awaiting acceptance</p>
+                            <p *ngIf="invitationData?.data()?.invitation_status == 'Approved'" class="small text-muted">Already added to users</p>
                         </div>
                     </div>
                 </div>

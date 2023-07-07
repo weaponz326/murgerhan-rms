@@ -45,7 +45,7 @@ export class ViewInvitationComponent {
         this.invitationData = res;
         this.isFetchingData = false;
 
-        this.invitationEmail = this.invitationData.data().invitee_email;
+        this.invitationEmail = this.invitationData?.data()?.invitee_email;
         this.getBasicuserWithEmail();
       }),
       (err: any) => {
@@ -60,7 +60,7 @@ export class ViewInvitationComponent {
       .then((res) => {
         console.log(res);
         this.basicUserData = res.docs[0];
-        this.termsFile = this.basicUserData.data().terms_file;
+        this.termsFile = this.basicUserData?.data()?.terms_file;
         this.isFetchingData = false;
       }),
       (err: any) => {
