@@ -11,7 +11,6 @@ const routes: Routes = [
   { 
     path: "", 
     component: BranchesPage,
-    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
     children: [
       { path: "", component: AllBranchesComponent },
       { path: "all-branches", component: AllBranchesComponent },

@@ -1,5 +1,7 @@
 + pages
     + home (Mr)(Cp)
+        + landing (C)
+        + access denied (C)
     + settings (Mr)(Cp)
         + basic profile
         + additional info
@@ -238,7 +240,11 @@
         + housekeeping (Cm)
         + maintenance (Cm)
 + guards
-    + auth (Cm)
+    + auth (G)
+    + access
+        + admin access (G)
+        + manager access (G)
+        + chef access (G)
     + module
         + admin
             + edit branch (G)

@@ -8,7 +8,6 @@ const routes: Routes = [
   { 
     path: "", 
     component: ConfigurationPage, 
-    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
   }
 ];
 

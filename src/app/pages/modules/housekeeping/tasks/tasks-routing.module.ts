@@ -15,7 +15,6 @@ const routes: Routes = [
   { 
     path: "", 
     component: TasksPage,
-    canActivateChild: [() => { return !!localStorage.getItem('uid'); }],
     children: [
       { path: "", component: AllTasksComponent },
       { path: "all-tasks", component: AllTasksComponent },
