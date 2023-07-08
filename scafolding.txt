@@ -245,7 +245,7 @@
         + admin access (G)
         + manager access (G)
         + chef access (G)
-    + module
+    + modules
         + admin
             + edit branch (G)
             + log detials (G)
@@ -256,7 +256,6 @@
             + view product (G)
             + view order (G)
             + view vendor (G)
-            + view invoice (G)
         + inventory
             + edit stock item (G)
             + view purchasing (G)
@@ -266,9 +265,9 @@
         + housekeeping
             + edit task (G)
             + edit unit (G)
-            + view schedule (G)
             + view incident (G)
         + maintenance
             + view service (G)
             + edit contractor (G)
-            + view manitenance item (G)
+            + view system (G)
+            + view issue (G)
