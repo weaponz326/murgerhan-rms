@@ -40,25 +40,25 @@ export class ResetFormComponent {
       this.authApi.confirmPasswordReset(code, password1)
         .then(
           (res: any) => {
-            console.log(res);
+            // console.log(res);
             this.isSending = false;
             this.showPrompt = true;
           },
           (err: any) => {
-            console.log(err);
+            // console.log(err);
             this.isSending = false;
             this.errorMessage = err.message.replace("Firebase:", "").replace(/\(.*\)/, "").trim().replace(/\.$/, "");
             this.errorCode = err.code;
-            console.log(this.errorCode, this.errorMessage)
+            // console.log(this.errorCode, this.errorMessage)
           }
         );
     }
     else{
-      console.log("password mismatch");
+      // console.log("password mismatch");
       this.passwordMismatch = true;
     }
 
-    console.log(this.resetForm.value);
+    // console.log(this.resetForm.value);
   }
 
 }

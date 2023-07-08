@@ -47,12 +47,12 @@ export class TaskImagesComponent {
 
     this.housekeepingApi.getTask(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.taskData = res;
         this.getImages();  
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
@@ -75,7 +75,7 @@ export class TaskImagesComponent {
 
     this.housekeepingApi.uploadTaskImage(this.selectedFiles, data)
       .then(() => {
-        console.log('Images uploaded successfully');
+        // console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
         setTimeout(() => {
@@ -92,12 +92,12 @@ export class TaskImagesComponent {
     this.housekeepingApi.getTaskImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskImageListData = res.docs;
           this.isUploading = false;  
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isUploading = false;  
         }
@@ -108,12 +108,12 @@ export class TaskImagesComponent {
     this.housekeepingApi.getRecurringTaskImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskImageListData = res.docs;
           this.isUploading = false;  
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isUploading = false;  
         }

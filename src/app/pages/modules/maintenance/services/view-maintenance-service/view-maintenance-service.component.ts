@@ -53,13 +53,13 @@ export class ViewMaintenanceServiceComponent {
 
     this.maintenanceApi.getService(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.serviceData = res;
         this.isFetchingData = false;
         this.setServiceData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -108,11 +108,11 @@ export class ViewMaintenanceServiceComponent {
 
       this.maintenanceApi.updateService(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingService = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingService = false;
         });
@@ -126,12 +126,12 @@ export class ViewMaintenanceServiceComponent {
 
     this.maintenanceApi.deleteService(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/maintenance/services/all-services')
         this.isDeletingService = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingService = false;
       });
@@ -162,12 +162,12 @@ export class ViewMaintenanceServiceComponent {
   }
 
   openSystemWindow(){
-    console.log("You are opening select system window")
+    // console.log("You are opening select system window")
     this.selectSystem.openModal();
   }
 
   onSystemSelected(systemData: any){
-    console.log(systemData);
+    // console.log(systemData);
 
     this.selectedSystemData = systemData;
     this.serviceForm.serviceForm.controls.systemCode.setValue(systemData.data().system_code);
@@ -178,12 +178,12 @@ export class ViewMaintenanceServiceComponent {
   }
 
   openContractorWindow(){
-    console.log("You are opening select contractor window")
+    // console.log("You are opening select contractor window")
     this.selectContractor.openModal();
   }
 
   onContractorSelected(contractorData: any){
-    console.log(contractorData);
+    // console.log(contractorData);
 
     this.selectedContractorData = contractorData;
     this.serviceForm.serviceForm.controls.contractor.setValue(contractorData.data().contractor_name);

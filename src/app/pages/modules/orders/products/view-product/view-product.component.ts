@@ -43,13 +43,13 @@ export class ViewProductComponent {
 
     this.ordersApi.getProduct(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.productData = res;
         this.isFetchingData = false;
         this.setProductData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -82,11 +82,11 @@ export class ViewProductComponent {
 
       this.ordersApi.updateProduct(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingProduct = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingProduct = false;
         });
@@ -100,12 +100,12 @@ export class ViewProductComponent {
 
     this.ordersApi.deleteProduct(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/orders/products/all-products')
         this.isDeletingProduct = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingProduct = false;
       });

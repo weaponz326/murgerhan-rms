@@ -57,13 +57,13 @@ export class ViewOrderComponent {
 
     this.ordersApi.getOrder(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.orderData = res;
         this.isFetchingData = false;
         this.setOrderData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -101,11 +101,11 @@ export class ViewOrderComponent {
 
       this.ordersApi.updateOrder(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingOrder = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingOrder = false;
         });
@@ -119,12 +119,12 @@ export class ViewOrderComponent {
 
     this.ordersApi.deleteOrder(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/orders/orderes/all-orders')
         this.isDeletingOrder = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingOrder = false;
       });
@@ -149,12 +149,12 @@ export class ViewOrderComponent {
   }
 
   openVendorWindow(){
-    console.log("You are opening select vendor window")
+    // console.log("You are opening select vendor window")
     this.selectVendor.openModal();
   }
 
   onVendorSelected(vendorData: any){
-    console.log(vendorData);
+    // console.log(vendorData);
     this.selectedVendorId = vendorData.id;
     this.selectedVendorData = vendorData.data();
     this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);

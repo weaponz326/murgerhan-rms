@@ -48,14 +48,14 @@ export class NewProductComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.productForm.productForm.valid){
       this.isSavingProduct = true;
 
       this.ordersApi.createProduct(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('orders_product_id', res.id);
@@ -64,7 +64,7 @@ export class NewProductComponent {
           this.isSavingProduct = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingProduct = false;
         });

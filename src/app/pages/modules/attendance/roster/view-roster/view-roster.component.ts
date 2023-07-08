@@ -50,13 +50,13 @@ export class ViewRosterComponent {
 
     this.attendanceApi.getRoster(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.rosterData = res;
         this.isFetchingData = false;
         this.setRosterData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -86,11 +86,11 @@ export class ViewRosterComponent {
       
       this.attendanceApi.updateRoster(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingRoster = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingRoster = false;
         });
@@ -104,12 +104,12 @@ export class ViewRosterComponent {
 
     this.attendanceApi.deleteRoster(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/attendance/roster/all-roster')
         this.isDeletingRoster = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingRoster = false;
       });

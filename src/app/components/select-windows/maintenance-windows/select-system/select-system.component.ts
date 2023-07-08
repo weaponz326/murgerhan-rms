@@ -51,7 +51,7 @@ export class SelectSystemComponent {
     this.maintenanceApi.getSystemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.systemListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectSystemComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectSystemComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.systemListData = this.aggregateTable.filterData(this.systemListData, this.filterText, this.tableColumns);
     this.systemListData = this.aggregateTable.sortData(this.systemListData, this.sortColumn, this.sortDirection);
     this.systemListData = this.aggregateTable.paginateData(this.systemListData, this.currentPage, this.pageSize);

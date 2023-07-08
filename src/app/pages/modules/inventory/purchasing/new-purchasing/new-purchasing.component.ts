@@ -83,14 +83,14 @@ export class NewPurchasingComponent {
       },
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.purchasingForm.valid){
       this.isSavingPurchasing = true;
 
       this.inventoryApi.createPurchasing(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('inventory_purchasing_id', res.id);
@@ -101,7 +101,7 @@ export class NewPurchasingComponent {
           this.isSavingPurchasing = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingPurchasing = false;
         });
@@ -109,12 +109,12 @@ export class NewPurchasingComponent {
   }
   
   openSupplierWindow(){
-    console.log("You are opening select supplier window")
+    // console.log("You are opening select supplier window")
     this.selectSupplier.openModal();
   }
 
   onSupplierSelected(supplierData: any){
-    console.log(supplierData);
+    // console.log(supplierData);
     this.selectedSupplierId = supplierData.id;
     this.selectedSupplierData = supplierData.data();
     this.purchasingForm.controls.supplierCode.setValue(supplierData.data().supplier_code);

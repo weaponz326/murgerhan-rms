@@ -51,7 +51,7 @@ export class SelectTaskComponent {
     this.housekeepingApi.getTaskList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectTaskComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectTaskComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.taskListData = this.aggregateTable.filterData(this.taskListData, this.filterText, this.tableColumns);
     this.taskListData = this.aggregateTable.sortData(this.taskListData, this.sortColumn, this.sortDirection);
     this.taskListData = this.aggregateTable.paginateData(this.taskListData, this.currentPage, this.pageSize);

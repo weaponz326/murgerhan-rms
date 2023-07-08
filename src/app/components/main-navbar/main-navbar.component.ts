@@ -43,7 +43,7 @@ export class MainNavbarComponent {
     this.authApi.getAuth()
       .subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.isAuthLoading = false;
 
           localStorage.setItem('uid', res.uid);
@@ -55,7 +55,7 @@ export class MainNavbarComponent {
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isLoggedIn = false;
           this.isAuthLoading = false;
@@ -68,7 +68,7 @@ export class MainNavbarComponent {
 
     this.usersApi.getUserRole(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.userRoleData = res;
         try{
           this.branchName = this.userRoleData.data().branch.data.branch_name;
@@ -76,11 +76,11 @@ export class MainNavbarComponent {
           localStorage.setItem("selected_user_role", JSON.stringify(this.userRoleData.data()));
         }
         catch{
-          console.log("probably not logged in!");
+          // console.log("probably not logged in!");
         }
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
@@ -90,29 +90,29 @@ export class MainNavbarComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicProfileData = res;
         // TODO: set name and profile pic in navbar
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
 
   logout(){
     // e.stopPropagation();
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.clear();
           window.location.href = "/";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )

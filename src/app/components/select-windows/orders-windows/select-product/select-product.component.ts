@@ -51,7 +51,7 @@ export class SelectProductComponent {
     this.ordersApi.getProductList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectProductComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectProductComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
   
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.productListData = this.aggregateTable.filterData(this.productListData, this.filterText, this.tableColumns);
     this.productListData = this.aggregateTable.sortData(this.productListData, this.sortColumn, this.sortDirection);
     this.productListData = this.aggregateTable.paginateData(this.productListData, this.currentPage, this.pageSize);

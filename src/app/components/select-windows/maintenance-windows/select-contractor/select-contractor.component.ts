@@ -51,7 +51,7 @@ export class SelectContractorComponent {
     this.maintenanceApi.getContractorList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.contractorListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectContractorComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectContractorComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.contractorListData = this.aggregateTable.filterData(this.contractorListData, this.filterText, this.tableColumns);
     this.contractorListData = this.aggregateTable.sortData(this.contractorListData, this.sortColumn, this.sortDirection);
     this.contractorListData = this.aggregateTable.paginateData(this.contractorListData, this.currentPage, this.pageSize);

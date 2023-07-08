@@ -43,12 +43,12 @@ export class SupplierProductsComponent {
     this.inventoryApi.getSupplierItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.supplierItemListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -70,18 +70,18 @@ export class SupplierProductsComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     this.inventoryApi.createSupplierItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getSupplierItemList();
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
   }
@@ -91,12 +91,12 @@ export class SupplierProductsComponent {
 
     this.inventoryApi.deleteSupplierItem(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getSupplierItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
@@ -108,12 +108,12 @@ export class SupplierProductsComponent {
   }
 
   openItemWindow(){
-    console.log("You are opening select item window")
+    // console.log("You are opening select item window")
     this.selectStockItem.openModal();
   }
 
   onItemSelected(itemData: any){
-    console.log(itemData);
+    // console.log(itemData);
     this.selectedStockItemData = itemData;
     this.createSupplierItem();
   }

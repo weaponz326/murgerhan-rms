@@ -37,7 +37,7 @@ export class PurchasingCheckImagesComponent {
 
     this.inventoryApi.uploadPurchasingCheckImage(this.selectedFiles, data)
       .then(() => {
-        console.log('Images uploaded successfully');
+        // console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
         this.getPurchasingCheckImageList();
@@ -51,11 +51,11 @@ export class PurchasingCheckImagesComponent {
     this.inventoryApi.getPurchasingCheckImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.purchasingCheckImageListData = res.docs;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )

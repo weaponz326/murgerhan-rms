@@ -53,7 +53,7 @@ export class NewVendorComponent {
 
       this.ordersApi.createVendor(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('orders_vendor_id', res.id);
@@ -62,7 +62,7 @@ export class NewVendorComponent {
           this.isSavingVendor = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingVendor = false;
         });

@@ -57,13 +57,13 @@ export class UserAttendanceRecordsComponent {
 
     this.usersApi.getUserRole(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.userRoleData = res;
         this.isFetchingData = false;
         this.setUserRoleData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -75,13 +75,13 @@ export class UserAttendanceRecordsComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
         this.isFetchingData = false;
         this.setAttendanceData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -92,13 +92,13 @@ export class UserAttendanceRecordsComponent {
 
     this.attendanceApi.getUserAttendanceSheetList()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.sheetListData = res.docs;
         this.isFetchingData = false;
         this.calculateTotalHours();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -131,12 +131,12 @@ export class UserAttendanceRecordsComponent {
       totalHours += hoursBeforeBreak + hoursAfterBreak;
     });
 
-    console.log(totalHours);
+    // console.log(totalHours);
     return totalHours;
   }
 
   isSameDate(date1: Date, date2: Date): boolean {
-    console.log(date1, date2)
+    // console.log(date1, date2)
     return (
       date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&

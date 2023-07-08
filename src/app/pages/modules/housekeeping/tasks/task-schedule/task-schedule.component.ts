@@ -43,11 +43,11 @@ export class TaskScheduleComponent {
   }
 
   selectDay(day: any){
-    console.log(day);
+    // console.log(day);
   }
 
   generateCalendar() {
-    console.log(this.currentMonth)
+    // console.log(this.currentMonth)
     const year = this.currentMonth.getFullYear();
     const month = this.currentMonth.getMonth();
 
@@ -99,7 +99,7 @@ export class TaskScheduleComponent {
   }
 
   selectWeek(week: string) {
-    console.log(week);
+    // console.log(week);
   }
 
   getCurrentQuarter() {
@@ -155,7 +155,7 @@ export class TaskScheduleComponent {
   }
 
   selectMonth(month: string) {
-    console.log(month);
+    // console.log(month);
   }
 
 }

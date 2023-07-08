@@ -37,12 +37,12 @@ export class UserProfileComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicProfileData = res;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -54,12 +54,12 @@ export class UserProfileComponent {
 
     this.usersApi.getAdditionalUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.additionalProfileData = res;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -71,12 +71,12 @@ export class UserProfileComponent {
 
     this.usersApi.getAvailability(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.availabilityData = res;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };

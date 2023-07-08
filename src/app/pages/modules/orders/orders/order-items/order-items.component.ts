@@ -51,7 +51,7 @@ export class OrderItemsComponent {
 
     this.patchTotalAmount();
     this.setOrderTotal.emit(this.totalPrice);
-    console.log(this.totalPrice);
+    // console.log(this.totalPrice);
   }
 
   getOrderItemList(){
@@ -60,7 +60,7 @@ export class OrderItemsComponent {
     this.ordersApi.getOrderItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.orderItemListData = res.docs;
 
           this.calculateTotalPrice();
@@ -71,7 +71,7 @@ export class OrderItemsComponent {
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -79,13 +79,13 @@ export class OrderItemsComponent {
   }
 
   createOrderItem(data: any) {
-    console.log(data);
+    // console.log(data);
 
     this.addOrderItem.isItemSaving = true;
 
     this.ordersApi.createOrderItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getOrderItemList();
@@ -96,7 +96,7 @@ export class OrderItemsComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addOrderItem.isItemSaving = false;
       });
@@ -107,13 +107,13 @@ export class OrderItemsComponent {
     
     this.ordersApi.updateOrderItem(order_item.id, order_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editOrderItem.isItemSaving = false;
         this.editOrderItem.dismissButton.nativeElement.click();
         this.getOrderItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editOrderItem.isItemSaving = false;
       });
@@ -124,12 +124,12 @@ export class OrderItemsComponent {
 
     this.ordersApi.deleteOrderItem(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getOrderItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
@@ -141,16 +141,16 @@ export class OrderItemsComponent {
 
     this.ordersApi.updateOrder(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editOrderItem.openModal(data);
   }
 

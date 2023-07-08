@@ -45,7 +45,7 @@ export class AllItemCategoriesComponent {
     this.inventoryApi.getItemCategoryList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.itemcategoryListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllItemCategoriesComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllItemCategoriesComponent {
   }
 
   viewItemCategory(itemCategoryId: any){
-    console.log(itemCategoryId);
+    // console.log(itemCategoryId);
 
     sessionStorage.setItem("inventory_category_id", itemCategoryId);
     this.router.navigateByUrl("/modules/inventory/categories/edit-item-category");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.itemcategoryListData = this.aggregateTable.filterData(this.itemcategoryListData, this.filterText, this.tableColumns);
     this.itemcategoryListData = this.aggregateTable.sortData(this.itemcategoryListData, this.sortColumn, this.sortDirection);
     this.itemcategoryListData = this.aggregateTable.paginateData(this.itemcategoryListData, this.currentPage, this.pageSize);

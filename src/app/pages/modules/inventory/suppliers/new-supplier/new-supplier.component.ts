@@ -48,14 +48,14 @@ export class NewSupplierComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.supplierForm.supplierForm.valid){
       this.isSavingSupplier = true;
 
       this.inventoryApi.createSupplier(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('inventory_supplier_id', res.id);
@@ -64,7 +64,7 @@ export class NewSupplierComponent {
           this.isSavingSupplier = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingSupplier = false;
         });

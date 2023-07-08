@@ -58,7 +58,7 @@ export class HomePage {
 
   initTheme(){
     if(localStorage.getItem("theme")){
-      console.log("theme is set");
+      // console.log("theme is set");
       this.themeCheck = localStorage.getItem("theme") === "true";
 
       if(this.themeCheck == true){
@@ -75,7 +75,7 @@ export class HomePage {
   setTheme(e: any){
     this.themeCheck = e.target.checked;
     localStorage.setItem("theme", String(this.themeCheck))
-    console.log(this.themeCheck);
+    // console.log(this.themeCheck);
 
     if(this.themeCheck == true){
       this.themeClass = "light";
@@ -169,7 +169,7 @@ export class HomePage {
     this.authApi.getAuth()
       .subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.isAuthLoading = false;
 
           localStorage.setItem('uid', res.uid);
@@ -181,7 +181,7 @@ export class HomePage {
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isLoggedIn = false;
           this.isAuthLoading = false;
@@ -194,7 +194,7 @@ export class HomePage {
 
     this.usersApi.getUserRole(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.userRoleData = res;
 
         try{
@@ -214,7 +214,7 @@ export class HomePage {
             }
           }
 
-          console.log(data);
+          // console.log(data);
           
           localStorage.setItem("selected_user_role", JSON.stringify(data));
           localStorage.setItem("selected_branch", JSON.stringify(data.data.branch));
@@ -222,28 +222,28 @@ export class HomePage {
           this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;          
         }
         catch{
-          console.log("probably not logged in!");
+          // console.log("probably not logged in!");
         }
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
   
   logout(){
     // e.stopPropagation();
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.clear();
           window.location.href = "/#/landing";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )

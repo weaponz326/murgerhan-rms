@@ -45,7 +45,7 @@ export class AllVendorsComponent {
     this.ordersApi.getVendorList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.vendorListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllVendorsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllVendorsComponent {
   }
 
   viewVendor(vendorId: any){
-    console.log(vendorId);
+    // console.log(vendorId);
 
     sessionStorage.setItem("orders_vendor_id", vendorId);
     this.router.navigateByUrl("/modules/orders/vendors/view-vendor");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.vendorListData = this.aggregateTable.filterData(this.vendorListData, this.filterText, this.tableColumns);
     this.vendorListData = this.aggregateTable.sortData(this.vendorListData, this.sortColumn, this.sortDirection);
     this.vendorListData = this.aggregateTable.paginateData(this.vendorListData, this.currentPage, this.pageSize);

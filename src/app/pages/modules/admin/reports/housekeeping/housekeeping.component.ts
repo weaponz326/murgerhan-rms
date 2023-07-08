@@ -69,7 +69,7 @@ export class HousekeepingComponent {
     this.housekeepingApi.getTaskList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskListData = res.docs;
           this.isFetchingData = false;
 
@@ -86,7 +86,7 @@ export class HousekeepingComponent {
           this.getTaskMetrics();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -99,7 +99,7 @@ export class HousekeepingComponent {
     this.housekeepingApi.getIncidentList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.incidentListData = res.docs;
           this.isFetchingData = false;
 
@@ -116,7 +116,7 @@ export class HousekeepingComponent {
           this.getIncidentMetrics();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -124,7 +124,7 @@ export class HousekeepingComponent {
   }
 
   aggregateTaskData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.taskListData = this.aggregateTable.filterData(this.taskListData, this.taskFilterText, this.taskTableColumns);
     this.taskListData = this.aggregateTable.sortData(this.taskListData, this.taskSortColumn, this.taskSortDirection);
     this.taskListData = this.aggregateTable.paginateData(this.taskListData, this.taskCurrentPage, this.taskPageSize);
@@ -132,7 +132,7 @@ export class HousekeepingComponent {
   }
 
   aggregateIncidentData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.incidentListData = this.aggregateTable.filterData(this.incidentListData, this.incidentFilterText, this.incidentTableColumns);
     this.incidentListData = this.aggregateTable.sortData(this.incidentListData, this.incidentSortColumn, this.incidentSortDirection);
     this.incidentListData = this.aggregateTable.paginateData(this.incidentListData, this.incidentCurrentPage, this.incidentPageSize);
@@ -150,7 +150,7 @@ export class HousekeepingComponent {
   }
 
   onTasksPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {
@@ -162,7 +162,7 @@ export class HousekeepingComponent {
   }
 
   onIncidentsPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {

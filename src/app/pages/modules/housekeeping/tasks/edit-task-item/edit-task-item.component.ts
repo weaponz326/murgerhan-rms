@@ -81,12 +81,12 @@ export class EditTaskItemComponent {
   }
   
   openUnitWindow(){
-    console.log("You are opening select unit window")
+    // console.log("You are opening select unit window")
     this.selectUnit.openModal();
   }
 
   onUnitSelected(unitData: any){
-    console.log(unitData);
+    // console.log(unitData);
     this.taskItemForm.taskItemForm.controls.unitName.setValue(unitData.data().unit_name);
     this.selectedUnitId = unitData.id;
     this.selectedUnitData = unitData.data();

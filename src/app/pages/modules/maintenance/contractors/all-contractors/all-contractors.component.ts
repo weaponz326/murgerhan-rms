@@ -45,7 +45,7 @@ export class AllContractorsComponent {
     this.maintenanceApi.getContractorList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.contractorListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllContractorsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllContractorsComponent {
   }
 
   viewContractor(contractorId: any){
-    console.log(contractorId);
+    // console.log(contractorId);
 
     sessionStorage.setItem("maintenance_contractor_id", contractorId);
     this.router.navigateByUrl("/modules/maintenance/contractors/edit-contractor");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.contractorListData = this.aggregateTable.filterData(this.contractorListData, this.filterText, this.tableColumns);
     this.contractorListData = this.aggregateTable.sortData(this.contractorListData, this.sortColumn, this.sortDirection);
     this.contractorListData = this.aggregateTable.paginateData(this.contractorListData, this.currentPage, this.pageSize);

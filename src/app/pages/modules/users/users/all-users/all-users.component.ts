@@ -45,7 +45,7 @@ export class AllUsersComponent {
     this.usersApi.getUserRoleList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.userListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllUsersComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllUsersComponent {
   }
 
   viewUserDetails(userId: any){
-    console.log(userId);
+    // console.log(userId);
 
     sessionStorage.setItem("users_user_id", userId);
     this.router.navigateByUrl("/modules/users/users/view-user");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.userListData = this.aggregateTable.filterData(this.userListData, this.filterText, this.tableColumns);
     this.userListData = this.aggregateTable.sortData(this.userListData, this.sortColumn, this.sortDirection);
     this.userListData = this.aggregateTable.paginateData(this.userListData, this.currentPage, this.pageSize);

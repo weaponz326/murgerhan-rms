@@ -73,14 +73,14 @@ export class NewMaintenanceServiceComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.serviceForm.serviceForm.valid){
       this.isSavingService = true;
 
       this.maintenanceApi.createService(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('maintenance_service_id', res.id);
@@ -89,7 +89,7 @@ export class NewMaintenanceServiceComponent {
           this.isSavingService = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingService = false;
         });
@@ -97,12 +97,12 @@ export class NewMaintenanceServiceComponent {
   }
   
   openSystemWindow(){
-    console.log("You are opening select system window")
+    // console.log("You are opening select system window")
     this.selectSystem.openModal();
   }
 
   onSystemSelected(systemData: any){
-    console.log(systemData);
+    // console.log(systemData);
 
     this.selectedSystemData = systemData;
     this.serviceForm.serviceForm.controls.systemCode.setValue(systemData.data().system_code);
@@ -113,12 +113,12 @@ export class NewMaintenanceServiceComponent {
   }
 
   openContractorWindow(){
-    console.log("You are opening select contractor window")
+    // console.log("You are opening select contractor window")
     this.selectContractor.openModal();
   }
 
   onContractorSelected(contractorData: any){
-    console.log(contractorData);
+    // console.log(contractorData);
 
     this.selectedContractorData = contractorData;
     this.serviceForm.serviceForm.controls.contractor.setValue(contractorData.data().contractor_name);

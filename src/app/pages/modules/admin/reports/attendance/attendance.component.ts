@@ -45,13 +45,13 @@ export class AttendanceComponent {
   getBranchAttendanceSheetList() {
     this.attendanceApi.getBranchAttendanceSheetList()
       .then((res) => {
-        console.log(res.docs);
+        // console.log(res.docs);
         this.attendanceSheetListData = res.docs;
 
         this.getMetrics();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
@@ -75,7 +75,7 @@ export class AttendanceComponent {
   }
 
   onPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {

@@ -41,13 +41,13 @@ export class EditItemCategoryComponent {
 
     this.inventoryApi.getItemCategory(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.itemcategoryData = res;
         this.isFetchingData = false;
         this.setItemCategoryData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -78,11 +78,11 @@ export class EditItemCategoryComponent {
 
       this.inventoryApi.updateItemCategory(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingCategory = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingCategory = false;
         });
@@ -96,12 +96,12 @@ export class EditItemCategoryComponent {
 
     this.inventoryApi.deleteItemCategory(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/inventory/categories/all-item-categories')
         this.isDeletingCategory = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingCategory = false;
       });

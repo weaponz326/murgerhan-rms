@@ -44,12 +44,12 @@ export class AllShiftsComponent {
     this.attendanceApi.getRosterShiftList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterShiftListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -59,11 +59,11 @@ export class AllShiftsComponent {
   createRosterShift(data: any) {
     this.addShift.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.attendanceApi.createRosterShift(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getRosterShiftList();
@@ -74,7 +74,7 @@ export class AllShiftsComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addShift.isItemSaving = false;
       });
@@ -87,13 +87,13 @@ export class AllShiftsComponent {
 
     this.attendanceApi.updateRosterShift(rostershift_item.id, rostershift_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editShift.isItemSaving = false;
         this.editShift.dismissButton.nativeElement.click();
         this.getRosterShiftList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editShift.isItemSaving = false;
       });
@@ -104,19 +104,19 @@ export class AllShiftsComponent {
 
     this.attendanceApi.deleteRosterShift(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getRosterShiftList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editShift.openModal(data);
   }
 

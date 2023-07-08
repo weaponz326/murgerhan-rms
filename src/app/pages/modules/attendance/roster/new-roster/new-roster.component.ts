@@ -60,14 +60,14 @@ export class NewRosterComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.rosterForm.valid){
       this.isSavingRoster = true;
 
       this.attendanceApi.createRoster(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('attendance_roster_id', res.id);
@@ -78,7 +78,7 @@ export class NewRosterComponent {
           this.isSavingRoster = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingRoster = false;
         });

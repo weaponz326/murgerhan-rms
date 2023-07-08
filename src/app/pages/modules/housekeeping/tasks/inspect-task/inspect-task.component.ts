@@ -48,7 +48,7 @@ export class InspectTaskComponent {
 
     this.housekeepingApi.getTask(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.taskData = res;
         this.isFetchingData = false;
         this.setTaskData();      
@@ -56,7 +56,7 @@ export class InspectTaskComponent {
         this.getTaskItemList();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -68,7 +68,7 @@ export class InspectTaskComponent {
     this.housekeepingApi.getTaskItemList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.isFetchingData = false;
           this.taskItemListData = res.docs;
           this.getTaskImageList();
@@ -77,7 +77,7 @@ export class InspectTaskComponent {
             this.getRecurringTaskItemList()
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -90,7 +90,7 @@ export class InspectTaskComponent {
     this.housekeepingApi.getRecurringTaskItemList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.isFetchingData = false;
 
           if(res.docs.length == 0){
@@ -103,7 +103,7 @@ export class InspectTaskComponent {
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -117,7 +117,7 @@ export class InspectTaskComponent {
     
     this.housekeepingApi.updateTaskItem(itemId, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemSaving = false;
 
         if(this.taskData.data().occurance == "Non-Recurring")
@@ -126,7 +126,7 @@ export class InspectTaskComponent {
           this.getRecurringTaskItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemSaving = false;
       });
@@ -136,12 +136,12 @@ export class InspectTaskComponent {
     this.housekeepingApi.getTaskImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           if(res.docs.length != 0)
             this.taskImageListData = res.docs.slice(0,4);
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )
@@ -151,19 +151,19 @@ export class InspectTaskComponent {
     this.housekeepingApi.getRecurringTaskImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           if(res.docs.length != 0)
             this.taskImageListData = res.docs.slice(0,4);
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )
   }
 
   initRecurringItems(){
-    console.log("initting recurring task items");
+    // console.log("initting recurring task items");
 
     this.taskItemListData.forEach((item: any) => {      
       let data: TaskItem = {
@@ -184,11 +184,11 @@ export class InspectTaskComponent {
 
       this.housekeepingApi.createTaskItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.getRecurringTaskItemList();
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
       

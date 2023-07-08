@@ -51,14 +51,14 @@ export class NewBranchComponent {
       },
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.branchForm.valid){
       this.isSavingBranch = true;
 
       this.adminApi.createBranch(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('admin_branch_id', res.id);
@@ -67,7 +67,7 @@ export class NewBranchComponent {
           this.isSavingBranch = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingBranch = false;
         });

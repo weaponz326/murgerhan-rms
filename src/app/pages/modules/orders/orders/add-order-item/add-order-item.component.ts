@@ -53,7 +53,7 @@ export class AddOrderItemComponent {
       },
     }
 
-    console.log(this.selectedProductId)
+    // console.log(this.selectedProductId)
 
     if(this.orderItemForm.orderItemForm.valid)
       this.saveItemEvent.emit(data);
@@ -70,12 +70,12 @@ export class AddOrderItemComponent {
   }
 
   openProductWindow(){
-    console.log("You are opening select product window")
+    // console.log("You are opening select product window")
     this.selectProduct.openModal();
   }
 
   onProductSelected(productData: any){
-    console.log(productData);
+    // console.log(productData);
 
     this.selectedProductData = productData;
     this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);

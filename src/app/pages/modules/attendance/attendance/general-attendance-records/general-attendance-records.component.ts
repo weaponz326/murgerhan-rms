@@ -47,13 +47,13 @@ export class GeneralAttendanceRecordsComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
         this.isFetchingData = false;
         this.setAttendanceData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };

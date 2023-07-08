@@ -56,7 +56,7 @@ export class OrdersComponent {
     this.ordersApi.getOrderList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.orderListData = res.docs;
           this.isFetchingData = false;
 
@@ -73,7 +73,7 @@ export class OrdersComponent {
           this.getMetrics();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -81,7 +81,7 @@ export class OrdersComponent {
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
@@ -94,7 +94,7 @@ export class OrdersComponent {
   }
 
   onPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {

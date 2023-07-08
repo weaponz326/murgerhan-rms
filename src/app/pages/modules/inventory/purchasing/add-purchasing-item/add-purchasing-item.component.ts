@@ -74,12 +74,12 @@ export class AddPurchasingItemComponent {
   }
 
   openItemWindow(){
-    console.log("You are opening select item window")
+    // console.log("You are opening select item window")
     this.selectItem.openModal();
   }
 
   onItemSelected(itemData: any){
-    console.log(itemData);
+    // console.log(itemData);
 
     this.selectedItemData = itemData;
     this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(itemData.data().item_code);

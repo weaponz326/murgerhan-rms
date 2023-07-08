@@ -46,13 +46,13 @@ export class ViewIncidentComponent {
 
     this.housekeepingApi.getIncident(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.incidentData = res;
         this.isFetchingData = false;
         this.setIncidentData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -88,11 +88,11 @@ export class ViewIncidentComponent {
 
       this.housekeepingApi.updateIncident(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingIncident = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingIncident = false;
         });
@@ -106,12 +106,12 @@ export class ViewIncidentComponent {
 
     this.housekeepingApi.deleteIncident(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/housekeeping/incidents/all-incidents')
         this.isDeletingIncident = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingIncident = false;
       });

@@ -79,14 +79,14 @@ export class DashboardPage {
     this.housekeepingApi.getTaskList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskListData = res.docs;
           this.isFetchingData = false;
 
           this.todoTasks = this.taskListData.filter(obj => obj.data().task_status === "To Do").length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -99,14 +99,14 @@ export class DashboardPage {
     this.housekeepingApi.getUnitList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.unitListData = res.docs;
           this.isFetchingData = false;
 
           this.numberOfUnits = this.unitListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -119,7 +119,7 @@ export class DashboardPage {
     this.housekeepingApi.getIncidentList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.incidentListData = res.docs;
           this.isFetchingData = false;
 
@@ -127,7 +127,7 @@ export class DashboardPage {
           this.setIncidentsPerDay();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -167,7 +167,7 @@ export class DashboardPage {
 
     this.incidentsLineChartConfig.destroy();
     this.initIncidentsLineChart();
-    console.log(this.incidentsWeekLabels, this.incidentsWeekDataSets);
+    // console.log(this.incidentsWeekLabels, this.incidentsWeekDataSets);
   }
 
 }

@@ -45,7 +45,7 @@ export class AllUnitsComponent {
     this.housekeepingApi.getUnitList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.unitListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllUnitsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllUnitsComponent {
   }
 
   viewUnit(unitId: any){
-    console.log(unitId);
+    // console.log(unitId);
 
     sessionStorage.setItem("housekeeping_unit_id", unitId);
     this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.unitListData = this.aggregateTable.filterData(this.unitListData, this.filterText, this.tableColumns);
     this.unitListData = this.aggregateTable.sortData(this.unitListData, this.sortColumn, this.sortDirection);
     this.unitListData = this.aggregateTable.paginateData(this.unitListData, this.currentPage, this.pageSize);

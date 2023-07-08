@@ -83,14 +83,14 @@ export class NewTaskComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.taskForm.valid){
       this.isSavingTask = true;
 
       this.housekeepingApi.createTask(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('housekeeping_task_id', res.id);
@@ -101,7 +101,7 @@ export class NewTaskComponent {
           this.isSavingTask = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingTask = false;
         });
@@ -109,19 +109,19 @@ export class NewTaskComponent {
   }
 
   openUserRoleWindow(){
-    console.log("You are opening select userrole window")
+    // console.log("You are opening select userrole window")
     this.selectUserRole.openModal();
   }
 
   onUserRoleSelected(userRoleData: any){
-    console.log(userRoleData);
+    // console.log(userRoleData);
     this.selectedUserRoleId = userRoleData.id;
     this.selectedUserRoleData = userRoleData.data();
     this.taskForm.controls.primaryAssignee.setValue(userRoleData.data().full_name);
   }
 
   enableFrequencyInput(e: any){
-    console.log(e.target.value)
+    // console.log(e.target.value)
     if(e.target.value == 'Non-Recurring'){
       this.taskForm.controls.frequency.disable();
       this.taskForm.controls.frequency.setValue('');

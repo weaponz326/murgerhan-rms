@@ -55,7 +55,7 @@ export class UserRoleComponent {
 
     this.usersApi.getUserRole(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.roleData = res;
         this.isFetchingData = false;
         this.setRoleData();
@@ -64,7 +64,7 @@ export class UserRoleComponent {
           this.getBasicUser();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -76,14 +76,14 @@ export class UserRoleComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicProfileData = res;
         this.isFetchingData = false;
 
         this.roleForm.controls.fullName.setValue(this.basicProfileData.data().full_name);
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -109,18 +109,18 @@ export class UserRoleComponent {
       },
     }
 
-    console.log(data)
+    // console.log(data)
 
     if(this.roleForm.valid){
       this.isSavingRole = true; 
 
       this.usersApi.updateUserRole(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingRole = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingRole = false;
         });
@@ -134,24 +134,24 @@ export class UserRoleComponent {
 
     this.usersApi.deleteUserRole(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/users/users/all-users')
         this.isDeletingRole = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingRole = false;
       });
   }
 
   openBranchWindow(){
-    console.log("You are opening select branch window")
+    // console.log("You are opening select branch window")
     this.selectBranch.openModal();
   }
 
   onBranchSelected(data: any){
-    console.log(data);
+    // console.log(data);
 
     this.roleForm.controls.branch.setValue(data.data().branch_name);
     this.selectdBranchId = data.id;

@@ -47,7 +47,7 @@ export class AllInvitationsComponent {
     this.usersApi.getInvitationList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.invitationListData = res.docs;
           this.isFetchingData = false;
 
@@ -60,7 +60,7 @@ export class AllInvitationsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -68,14 +68,14 @@ export class AllInvitationsComponent {
   }
 
   viewInvitation(invitationId: any){
-    console.log(invitationId);
+    // console.log(invitationId);
 
     sessionStorage.setItem("users_invitation_id", invitationId);
     this.router.navigateByUrl("/modules/users/invitations/view-invitation");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.invitationListData = this.aggregateTable.filterData(this.invitationListData, this.filterText, this.tableColumns);
     this.invitationListData = this.aggregateTable.sortData(this.invitationListData, this.sortColumn, this.sortDirection);
     this.invitationListData = this.aggregateTable.paginateData(this.invitationListData, this.currentPage, this.pageSize);

@@ -66,14 +66,14 @@ export class ViewTaskComponent {
 
     this.housekeepingApi.getTask(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.taskData = res;
         this.isFetchingData = false;
         this.setTaskData();
         this.generatePeriods();   
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -118,11 +118,11 @@ export class ViewTaskComponent {
 
       this.housekeepingApi.updateTask(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingTask = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingTask = false;
         });
@@ -136,12 +136,12 @@ export class ViewTaskComponent {
 
     this.housekeepingApi.deleteTask(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/housekeeping/tasks/all-tasks')
         this.isDeletingTask = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingTask = false;
       });
@@ -174,7 +174,7 @@ export class ViewTaskComponent {
   gotoInspectRecurringTask(){
     let id = sessionStorage.getItem('housekeeping_task_id') + ' - ' + this.selectedPeriod;
     sessionStorage.setItem('housekeeping_task_inspection_id', id);
-    console.log(id);
+    // console.log(id);
 
     if(this.selectedPeriod)
       this.router.navigateByUrl('/modules/housekeeping/tasks/inspect-task');
@@ -183,7 +183,7 @@ export class ViewTaskComponent {
   // generate periods
 
   generatePeriods(){
-    console.log(this.taskData.data().frequency);
+    // console.log(this.taskData.data().frequency);
     if(this.taskData.data().frequency == "Daily") this.generateDays();
     else if(this.taskData.data().frequency == "Weekly") this.generateWeeks();
     else if(this.taskData.data().frequency == "Monthly") this.generateMonths();

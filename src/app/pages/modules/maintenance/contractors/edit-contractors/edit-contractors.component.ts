@@ -44,13 +44,13 @@ export class EditContractorsComponent {
 
     this.maintenanceApi.getContractor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.contractorData = res;
         this.isFetchingData = false;
         this.setContractorData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -85,11 +85,11 @@ export class EditContractorsComponent {
 
       this.maintenanceApi.updateContractor(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingContractor = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingContractor = false;
         });
@@ -103,12 +103,12 @@ export class EditContractorsComponent {
 
     this.maintenanceApi.deleteContractor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/maintenance/contractors/all-contractors')
         this.isDeletingContractor = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingContractor = false;
       });

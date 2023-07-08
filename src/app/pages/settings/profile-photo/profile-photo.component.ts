@@ -38,7 +38,7 @@ export class ProfilePhotoComponent {
     if (this.selectedImage) {
       this.usersApi.uploadImage(id, this.selectedImage)
         .then(() => {
-          console.log("image uploaded...");
+          // console.log("image uploaded...");
           this.getBasicUser();
         })
         .catch((error: any) => {
@@ -53,13 +53,13 @@ export class ProfilePhotoComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         let resData: any = res;
         this.imageUrl = resData.data().profile_photo;
         this.isSavingPhoto = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingPhoto = false;
       };

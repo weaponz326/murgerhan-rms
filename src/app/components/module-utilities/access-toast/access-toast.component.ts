@@ -14,7 +14,7 @@ export class AccessToastComponent {
   timer: any;
 
   openToast(){
-    console.log("opening module access toast");
+    // console.log("opening module access toast");
     this.isShowToast = true;
 
     this.timer = setInterval(() => {
@@ -25,7 +25,7 @@ export class AccessToastComponent {
   hideToast(): void{
     this.isShowToast = false;
     clearInterval(this.timer);
-    console.log("closing toast...");
+    // console.log("closing toast...");
   };
   
 }

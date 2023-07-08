@@ -37,7 +37,7 @@ export class AllBranchesComponent {
 
   setBranchName(){
     try{ this.selectedBranch = this.selectedBranchData.data.branch_name; }
-    catch{ console.log("no branch"); }
+    catch{ this.selectedBranch = ""; }
   }
 
   getBranchList(){
@@ -46,12 +46,12 @@ export class AllBranchesComponent {
     this.adminApi.getBranchList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.branchListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -59,19 +59,19 @@ export class AllBranchesComponent {
   }
 
   editBranch(branchId: any){
-    console.log(branchId);
+    // console.log(branchId);
 
     sessionStorage.setItem("admin_branch_id", branchId);
     this.router.navigateByUrl("/modules/admin/branches/edit-branch");
   }
 
   openBranchWindow(){
-    console.log("You are opening select branch window")
+    // console.log("You are opening select branch window")
     this.selectBranch.openModal();
   }
 
   onBranchSelected(branchData: any){
-    console.log(branchData);
+    // console.log(branchData);
     this.selectedBranch = branchData.data().branch_name;
     
     let data = {

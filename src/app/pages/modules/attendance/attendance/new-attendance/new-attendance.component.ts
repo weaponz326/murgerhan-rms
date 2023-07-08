@@ -49,11 +49,11 @@ export class NewAttendanceComponent {
     this.usersApi.getBranchUserRoleList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.userListData = res.docs;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )
@@ -78,14 +78,14 @@ export class NewAttendanceComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.attendanceForm.valid){
       this.isSavingAttendance = true;
 
       this.attendanceApi.createAttendance(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('attendance_attendance_id', res.id);
@@ -98,7 +98,7 @@ export class NewAttendanceComponent {
           this.isSavingAttendance = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingAttendance = false;
         });
@@ -108,7 +108,7 @@ export class NewAttendanceComponent {
   createAttendancePersonnelBatch(){
     this.attendanceApi.createAttendancePersonnelBatch(this.userListData)
       .then(() => {
-        console.log('Batch operation completed successfully!');
+        // console.log('Batch operation completed successfully!');
         this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
         this.dismissButton.nativeElement.click();
         this.isSavingAttendance = false;

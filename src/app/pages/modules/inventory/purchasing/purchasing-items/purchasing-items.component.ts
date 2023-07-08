@@ -48,7 +48,7 @@ export class PurchasingItemsComponent {
     }
 
     this.patchTotalAmount();
-    console.log(this.totalPrice);
+    // console.log(this.totalPrice);
   }
 
   getPurchasingItemList(){
@@ -57,7 +57,7 @@ export class PurchasingItemsComponent {
     this.inventoryApi.getPurchasingItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.purchasingItemListData = res.docs;
 
           this.calculateTotalPrice();
@@ -68,7 +68,7 @@ export class PurchasingItemsComponent {
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -78,11 +78,11 @@ export class PurchasingItemsComponent {
   createPurchasingItem(data: any) {
     this.addPurchasingItem.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.inventoryApi.createPurchasingItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getPurchasingItemList();
@@ -93,7 +93,7 @@ export class PurchasingItemsComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addPurchasingItem.isItemSaving = false;
       });
@@ -104,13 +104,13 @@ export class PurchasingItemsComponent {
     
     this.inventoryApi.updatePurchasingItem(purchasing_item.id, purchasing_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editPurchasingItem.isItemSaving = false;
         this.editPurchasingItem.dismissButton.nativeElement.click();
         this.getPurchasingItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editPurchasingItem.isItemSaving = false;
       });
@@ -121,12 +121,12 @@ export class PurchasingItemsComponent {
 
     this.inventoryApi.deletePurchasing(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getPurchasingItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
@@ -138,10 +138,10 @@ export class PurchasingItemsComponent {
 
     this.inventoryApi.updatePurchasing(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
   }
@@ -152,7 +152,7 @@ export class PurchasingItemsComponent {
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editPurchasingItem.openModal(data);
   }
 

@@ -51,7 +51,7 @@ export class SelectItemCategoryComponent {
     this.inventoryApi.getItemCategoryList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.itemcategoryListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectItemCategoryComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectItemCategoryComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.itemcategoryListData = this.aggregateTable.filterData(this.itemcategoryListData, this.filterText, this.tableColumns);
     this.itemcategoryListData = this.aggregateTable.sortData(this.itemcategoryListData, this.sortColumn, this.sortDirection);
     this.itemcategoryListData = this.aggregateTable.paginateData(this.itemcategoryListData, this.currentPage, this.pageSize);

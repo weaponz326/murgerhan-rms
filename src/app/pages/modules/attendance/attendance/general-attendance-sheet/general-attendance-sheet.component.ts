@@ -39,14 +39,14 @@ export class GeneralAttendanceSheetComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
 
         this.getDateRange(new Date(this.attendanceData.data().from_date), new Date(this.attendanceData.data().to_date));
         this.getAttendancePersonnelList();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
@@ -57,14 +57,14 @@ export class GeneralAttendanceSheetComponent {
     this.attendanceApi.getAttendancePersonnelList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.personnelListData = res.docs;
           this.isFetchingData = false;   
           
           this.getGeneralAttendanceSheetList();        
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -76,25 +76,25 @@ export class GeneralAttendanceSheetComponent {
 
     this.attendanceApi.getGeneralAttendanceSheetList()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.sheetListData = res.docs;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
   }
 
   viewUserAttendance(userId: any){
-    console.log(userId);
+    // console.log(userId);
     sessionStorage.setItem('attendance_user_id', userId);
     this.router.navigateByUrl("/modules/attendance/attendance/user-attendance")
   }
 
   viewDayAttendance(date: any){
-    console.log(date);
+    // console.log(date);
     sessionStorage.setItem("selected_attendance_date", date.toISOString());
     this.router.navigateByUrl("/modules/attendance/attendance/day-attendance")
   }

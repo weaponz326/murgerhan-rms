@@ -45,7 +45,7 @@ export class AllMaintenanceIssuesComponent {
     this.maintenanceApi.getIssueList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.issueListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllMaintenanceIssuesComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllMaintenanceIssuesComponent {
   }
 
   viewIssue(issueId: any){
-    console.log(issueId);
+    // console.log(issueId);
 
     sessionStorage.setItem("maintenance_issue_id", issueId);
     this.router.navigateByUrl("/modules/maintenance/issues/view-issue");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.issueListData = this.aggregateTable.filterData(this.issueListData, this.filterText, this.tableColumns);
     this.issueListData = this.aggregateTable.sortData(this.issueListData, this.sortColumn, this.sortDirection);
     this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.currentPage, this.pageSize);

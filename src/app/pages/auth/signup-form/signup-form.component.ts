@@ -44,7 +44,7 @@ export class SignupFormComponent {
 
   getParams() {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       this.invitationId = params['id'];
       this.getInvitation();
     })
@@ -53,7 +53,7 @@ export class SignupFormComponent {
   getInvitation() {
     this.usersApi.getInvitation(this.invitationId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
         let invitationData: any = res;
         if(invitationData.data().invitation_status == 'Awaiting'){
@@ -62,7 +62,7 @@ export class SignupFormComponent {
         }
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
       };
   }
 
@@ -79,26 +79,26 @@ export class SignupFormComponent {
       this.authApi.signup(email, password1)
         .then(
           (res: any) => {
-            console.log(res);
+            // console.log(res);
             this.isSending = false;
             this.showPrompt = true;
             localStorage.setItem('uid', res.user.uid);
           },
           (err: any) => {
-            console.log(err);
+            // console.log(err);
             this.isSending = false;
             this.errorMessage = err.message.replace("Firebase:", "").replace(/\(.*\)/, "").trim().replace(/\.$/, "");
             this.errorCode = err.code;
-            console.log(this.errorCode, this.errorMessage);
+            // console.log(this.errorCode, this.errorMessage);
           }
         );
     }
     else{
-      console.log("password mismatch");
+      // console.log("password mismatch");
       this.passwordMismatch = true;
     }
 
-    console.log(this.signupForm.value);
+    // console.log(this.signupForm.value);
   }
 
 }

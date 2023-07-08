@@ -46,7 +46,7 @@ export class TaskItemsComponent {
     this.housekeepingApi.getTaskItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.taskItemListData = res.docs;
 
           try { this.lastItem = res.docs.length }
@@ -55,7 +55,7 @@ export class TaskItemsComponent {
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -65,11 +65,11 @@ export class TaskItemsComponent {
   createTaskItem(data: any) {
     this.addTaskItem.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.housekeepingApi.createTaskItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getTaskItemList();
@@ -80,7 +80,7 @@ export class TaskItemsComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addTaskItem.isItemSaving = false;
       });
@@ -91,13 +91,13 @@ export class TaskItemsComponent {
     
     this.housekeepingApi.updateTaskItem(task_item.id, task_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editTaskItem.isItemSaving = false;
         this.editTaskItem.dismissButton.nativeElement.click();
         this.getTaskItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editTaskItem.isItemSaving = false;
       });
@@ -108,19 +108,19 @@ export class TaskItemsComponent {
 
     this.housekeepingApi.deleteTask(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getTaskItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editTaskItem.openModal(data);
   }
 

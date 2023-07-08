@@ -113,14 +113,14 @@ export class DashboardPage {
     this.maintenanceApi.getSystemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.systemListData = res.docs;
           this.isFetchingData = false;
 
           this.numberOfSystems = this.systemListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -133,7 +133,7 @@ export class DashboardPage {
     this.maintenanceApi.getIssueList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.issueListData = res.docs;
           this.isFetchingData = false;
 
@@ -141,7 +141,7 @@ export class DashboardPage {
           this.setIssuesPerDay();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -154,7 +154,7 @@ export class DashboardPage {
     this.maintenanceApi.getServiceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.serviceListData = res.docs;
           this.isFetchingData = false;    
           
@@ -162,7 +162,7 @@ export class DashboardPage {
           this.setServicesPerDay();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -175,14 +175,14 @@ export class DashboardPage {
     this.maintenanceApi.getContractorList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.contractorListData = res.docs;
           this.isFetchingData = false;
 
           this.numberOfContractors = this.contractorListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -233,7 +233,7 @@ export class DashboardPage {
 
     this.issuesLineChartConfig.destroy();
     this.initIssuesLineChart();
-    console.log(this.issuesWeekLabels, this.issuesWeekDataSets);
+    // console.log(this.issuesWeekLabels, this.issuesWeekDataSets);
   }
 
   setServicesPerDay(){
@@ -258,7 +258,7 @@ export class DashboardPage {
 
     this.servicesLineChartConfig.destroy();
     this.initServicesLineChart();
-    console.log(this.servicesWeekLabels, this.servicesWeekDataSets);
+    // console.log(this.servicesWeekLabels, this.servicesWeekDataSets);
   }
 
 }

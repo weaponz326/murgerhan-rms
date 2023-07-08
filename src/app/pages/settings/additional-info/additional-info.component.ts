@@ -46,13 +46,13 @@ export class AdditionalInfoComponent {
 
     this.usersApi.getAdditionalUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.additionalData = res;
         this.isFetchingData = false;
         this.setAdditionalData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -79,12 +79,12 @@ export class AdditionalInfoComponent {
 
     this.usersApi.setAdditionalUser(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingAdditional = false;
         this.router.navigateByUrl('/settings/photo');
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingAdditional = false;
       });
@@ -99,7 +99,7 @@ export class AdditionalInfoComponent {
       this.additionalForm.controls.eContactNumber.setValue(this.additionalData.data().e_contact_number);
     }
     catch{
-      console.log("definitely your first time!");
+      // console.log("definitely your first time!");
     }
   }
 

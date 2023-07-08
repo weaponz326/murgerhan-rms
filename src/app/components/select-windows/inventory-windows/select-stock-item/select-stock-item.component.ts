@@ -51,7 +51,7 @@ export class SelectStockItemComponent {
     this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
@@ -67,7 +67,7 @@ export class SelectStockItemComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -77,11 +77,11 @@ export class SelectStockItemComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
     this.stockItemListData = this.aggregateTable.sortData(this.stockItemListData, this.sortColumn, this.sortDirection);
     this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);

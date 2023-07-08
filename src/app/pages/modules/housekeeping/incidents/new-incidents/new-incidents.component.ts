@@ -51,14 +51,14 @@ export class NewIncidentsComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.incidentForm.incidentForm.valid){
       this.isSavingIncident = true;
 
       this.housekeepingApi.createIncident(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('housekeeping_incident_id', res.id);
@@ -67,7 +67,7 @@ export class NewIncidentsComponent {
           this.isSavingIncident = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingIncident = false;
         });

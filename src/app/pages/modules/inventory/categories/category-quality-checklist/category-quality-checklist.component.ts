@@ -40,7 +40,7 @@ export class CategoryQualityChecklistComponent {
     this.inventoryApi.getCategoryChecklistList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.checklistListData = res.docs;
 
           try { this.lastItem = res.docs.length }
@@ -49,7 +49,7 @@ export class CategoryQualityChecklistComponent {
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -59,11 +59,11 @@ export class CategoryQualityChecklistComponent {
   createCategoryChecklist(data: any) {
     this.addChecklist.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.inventoryApi.createCategoryChecklist(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getChecklistList();
@@ -74,7 +74,7 @@ export class CategoryQualityChecklistComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addChecklist.isItemSaving = false;
       });
@@ -87,13 +87,13 @@ export class CategoryQualityChecklistComponent {
 
     this.inventoryApi.updateCategoryChecklist(categorychecklist_item.id, categorychecklist_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editChecklist.isItemSaving = false;
         this.editChecklist.dismissButton.nativeElement.click();
         this.getChecklistList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editChecklist.isItemSaving = false;
       });
@@ -104,19 +104,19 @@ export class CategoryQualityChecklistComponent {
 
     this.inventoryApi.deleteCategoryChecklist(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editChecklist.isItemDeleting = false;
         this.getChecklistList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editChecklist.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editChecklist.openModal(data);
   }
 

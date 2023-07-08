@@ -35,14 +35,14 @@ export class DayAttendanceSheetComponent {
     this.attendanceApi.getAttendancePersonnelList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.personnelListData = res.docs;
           this.isFetchingData = false;   
           
           this.getDayAttendanceSheetList();        
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -54,12 +54,12 @@ export class DayAttendanceSheetComponent {
 
     this.attendanceApi.getDayAttendanceSheetList()
       .then((res) => {
-        console.log(res.docs);
+        // console.log(res.docs);
         this.sheetListData = res.docs;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };

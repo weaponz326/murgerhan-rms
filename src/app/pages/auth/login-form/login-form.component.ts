@@ -40,18 +40,18 @@ export class LoginFormComponent {
     this.authApi.login(email, password)
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.isSending = false;
           
           localStorage.setItem('uid', res.user.uid);
           this.router.navigateByUrl('/#/landing');
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.isSending = false;
           this.errorMessage = err.message.replace("Firebase:", "").replace(/\(.*\)/, "").trim().replace(/\.$/, "");
           this.errorCode = err.code;
-          console.log(this.errorCode, this.errorMessage)
+          // console.log(this.errorCode, this.errorMessage)
         }
       )
   }

@@ -56,13 +56,13 @@ export class ManageBatchesComponent {
 
     this.attendanceApi.getRoster(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.rosterData = res;
         this.isFetchingData = false;
         this.setRosterData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -79,12 +79,12 @@ export class ManageBatchesComponent {
     this.attendanceApi.getRosterBatchList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterBatchListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -94,11 +94,11 @@ export class ManageBatchesComponent {
   createRosterBatch(data: any) {
     this.addBatch.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.attendanceApi.createRosterBatch(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getRosterBatchList();
@@ -109,7 +109,7 @@ export class ManageBatchesComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addBatch.isItemSaving = false;
       });
@@ -122,13 +122,13 @@ export class ManageBatchesComponent {
 
     this.attendanceApi.updateRosterBatch(rosterbatch_item.id, rosterbatch_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editBatch.isItemSaving = false;
         this.editBatch.dismissButton.nativeElement.click();
         this.getRosterBatchList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editBatch.isItemSaving = false;
       });
@@ -139,19 +139,19 @@ export class ManageBatchesComponent {
 
     this.attendanceApi.deleteRosterBatch(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getRosterBatchList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editBatch.openModal(data);
   }
 

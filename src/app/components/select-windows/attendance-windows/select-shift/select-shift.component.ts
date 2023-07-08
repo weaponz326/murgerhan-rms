@@ -39,7 +39,7 @@ export class SelectShiftComponent {
     this.attendanceApi.getRosterShiftList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterShiftListData = res.docs;
           this.isFetchingData = false;
 
@@ -47,7 +47,7 @@ export class SelectShiftComponent {
             this.isDataAvailable = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -57,7 +57,7 @@ export class SelectShiftComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
   
 }

@@ -53,7 +53,7 @@ export class TermsComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicData = res;
 
         this.termsAcceptanceStatus = this.basicData.data().terms_acceptance_status;  
@@ -61,7 +61,7 @@ export class TermsComponent {
         this.getInvitationWithEmail();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -75,7 +75,7 @@ export class TermsComponent {
     if (this.selectedFile) {
       this.usersApi.uploadTermsFile(id, this.selectedFile)
         .then(() => {
-          console.log("file uploaded...");
+          // console.log("file uploaded...");
           this.isUploadingFile = false;
           this.isFileUploaded = true;
         })
@@ -94,14 +94,14 @@ export class TermsComponent {
 
     this.usersApi.updateBasicUser(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingBasic = false;
         this.showPrompt = true;
 
         this.updateInvitation();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingBasic = false;
       });
@@ -110,12 +110,12 @@ export class TermsComponent {
   getInvitationWithEmail() {
     this.usersApi.getInvitationWithEmail(this.invitationEmail)
       .then((res) => {
-        console.log(res.docs[0]);
+        // console.log(res.docs[0]);
         this.invitationData = res.docs;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
       };
   }
 
@@ -128,10 +128,10 @@ export class TermsComponent {
 
     this.usersApi.updateInvitation(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
   }

@@ -18,7 +18,7 @@ export class DeleteModalOneComponent {
   }
 
   onConfirm() {
-    console.log("Yep... lets go ahead and delete this useless piece of ****");
+    // console.log("Yep... lets go ahead and delete this useless piece of ****");
     this.confirmEvent.emit("OK");
   }
   

@@ -45,13 +45,13 @@ export class AttendancePersonnelComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
         this.isFetchingData = false;
         this.setAttendanceData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -63,7 +63,7 @@ export class AttendancePersonnelComponent {
     this.attendanceApi.getAttendancePersonnelList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.attendancePersonnelData = res.docs;
           this.isFetchingData = false;
 
@@ -73,7 +73,7 @@ export class AttendancePersonnelComponent {
             this.isDataAvailable = true;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }

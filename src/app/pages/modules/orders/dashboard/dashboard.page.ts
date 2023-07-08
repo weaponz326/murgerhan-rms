@@ -109,14 +109,14 @@ export class DashboardPage {
     this.ordersApi.getProductList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
 
           this.numberOfProducts = this.productListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -129,14 +129,14 @@ export class DashboardPage {
     this.ordersApi.getVendorList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.vendorListData = res.docs;
           this.isFetchingData = false;
 
           this.numberOfVendors = this.vendorListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -149,7 +149,7 @@ export class DashboardPage {
     this.ordersApi.getOrderList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.orderListData = res.docs;
           this.isFetchingData = false;
 
@@ -158,7 +158,7 @@ export class DashboardPage {
           this.setSalesPerDay();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -207,7 +207,7 @@ export class DashboardPage {
 
     this.ordersLineChartConfig.destroy();
     this.initOrdersLineChart();
-    console.log(this.ordersWeekLabels, this.ordersWeekDataSets);
+    // console.log(this.ordersWeekLabels, this.ordersWeekDataSets);
   }
   
   setSalesPerDay(){
@@ -233,7 +233,7 @@ export class DashboardPage {
   
     this.salesLineChartConfig.destroy();
     this.initSalesLineChart();
-    console.log(this.salesWeekLabels, this.salesWeekDataSets);
+    // console.log(this.salesWeekLabels, this.salesWeekDataSets);
   }
   
 }

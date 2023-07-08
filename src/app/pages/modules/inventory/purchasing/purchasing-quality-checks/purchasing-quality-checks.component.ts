@@ -57,13 +57,13 @@ export class PurchasingQualityChecksComponent {
 
     this.inventoryApi.getPurchasing(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.purchasingData = res;
         this.isFetchingData = false;
         this.setPurchasingData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -75,14 +75,14 @@ export class PurchasingQualityChecksComponent {
 
     this.inventoryApi.getPurchasingItem(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.purchasingItemData = res;
         sessionStorage.setItem('inventory_category_id', this.purchasingItemData.data().stock_item.data.item_category.id);
         
         this.getChecklistList();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -94,14 +94,14 @@ export class PurchasingQualityChecksComponent {
     this.inventoryApi.getCategoryChecklistList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.checklistListData = res.docs;
           this.isFetchingData = false;
 
           this.getPurchasingCheck();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -116,7 +116,7 @@ export class PurchasingQualityChecksComponent {
     this.inventoryApi.getPurchasingCheck(id)
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           let checkData: any = res;
           this.isFetchingData = false;
           
@@ -125,11 +125,11 @@ export class PurchasingQualityChecksComponent {
             this.checks = checkData?.data().checks;
           }
           catch{
-            console.log("no data");
+            // console.log("no data");
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -148,15 +148,15 @@ export class PurchasingQualityChecksComponent {
       checks: this.checks
     }
 
-    console.log(data);
+    // console.log(data);
 
     this.inventoryApi.setPurchasingCheck(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingPurchasingCheck = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingPurchasingCheck = false;
       });
@@ -166,11 +166,11 @@ export class PurchasingQualityChecksComponent {
     this.inventoryApi.getPurchasingCheckImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.purchasingCheckImageListData = res.docs;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )

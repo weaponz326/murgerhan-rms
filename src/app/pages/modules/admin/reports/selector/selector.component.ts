@@ -34,12 +34,12 @@ export class SelectorComponent {
   isDaysDisabled = true;
 
   openBranchWindow(){
-    console.log("You are opening select branch window")
+    // console.log("You are opening select branch window")
     this.selectBranch.openModal();
   }
 
   onBranchSelected(branchData: any){
-    console.log(branchData);
+    // console.log(branchData);
     this.selectedBranch = branchData.data().branch_name;
     
     let data = {
@@ -58,7 +58,7 @@ export class SelectorComponent {
   }
 
   onModuleChange(){
-    console.log(this.selectedModule);
+    // console.log(this.selectedModule);
     this.moduleEvent.emit(this.selectedModule);
     this.isRangeDisabled = false;
     this.selectedRange = "";
@@ -66,7 +66,7 @@ export class SelectorComponent {
   }
 
   onRangeChange(){
-    console.log(this.selectedRange);
+    // console.log(this.selectedRange);
     this.isDaysDisabled = false;
     this.selectedDay = "";
 
@@ -96,7 +96,7 @@ export class SelectorComponent {
     const { startDate, endDate } = this.parseDateRange(this.selectedDay);
     this.startDay = startDate;
     this.endDay = endDate;
-    console.log(this.startDay, this.endDay)
+    // console.log(this.startDay, this.endDay)
 
     this.startDateEvent.emit(this.startDay);
     this.endDateEvent.emit(this.endDay);    

@@ -51,7 +51,7 @@ export class SelectIncidentComponent {
     this.housekeepingApi.getIncidentList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.incidentListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectIncidentComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectIncidentComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.incidentListData = this.aggregateTable.filterData(this.incidentListData, this.filterText, this.tableColumns);
     this.incidentListData = this.aggregateTable.sortData(this.incidentListData, this.sortColumn, this.sortDirection);
     this.incidentListData = this.aggregateTable.paginateData(this.incidentListData, this.currentPage, this.pageSize);

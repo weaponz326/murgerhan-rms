@@ -78,12 +78,12 @@ export class EditOrderItemComponent {
   }
   
   openProductWindow(){
-    console.log("You are opening select product window")
+    // console.log("You are opening select product window")
     this.selectProduct.openModal();
   }
 
   onProductSelected(productData: any){
-    console.log(productData);
+    // console.log(productData);
 
     this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);
     this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);

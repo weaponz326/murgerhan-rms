@@ -59,14 +59,14 @@ export class InviteUserComponent {
       email_message: this.invitationForm.controls.emailMessage.value as string,
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.invitationForm.valid){
       this.isSavingInvitation = true;
 
       this.usersApi.createInvitation(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('users_invitation_id', res.id);
@@ -77,7 +77,7 @@ export class InviteUserComponent {
           this.isSavingInvitation = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingInvitation = false;
         });

@@ -13,7 +13,7 @@ export class AggregateTableService {
     }
 
     filterText = filterText.toLowerCase();
-    console.log(filterText);
+    // console.log(filterText);
 
     return data.filter(item => {
       for (const column of columns) {

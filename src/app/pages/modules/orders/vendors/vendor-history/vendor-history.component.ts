@@ -52,12 +52,12 @@ export class VendorHistoryComponent {
 
     this.ordersApi.getVendor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.vendorData = res;
         this.setVendorData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }
@@ -68,7 +68,7 @@ export class VendorHistoryComponent {
     this.ordersApi.getVendorOrderList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.vendorOrderListData = res.docs;
           this.isFetchingData = false;
 
@@ -81,7 +81,7 @@ export class VendorHistoryComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -94,7 +94,7 @@ export class VendorHistoryComponent {
   }
   
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.vendorOrderListData = this.aggregateTable.filterData(this.vendorOrderListData, this.filterText, this.tableColumns);
     this.vendorOrderListData = this.aggregateTable.sortData(this.vendorOrderListData, this.sortColumn, this.sortDirection);
     this.vendorOrderListData = this.aggregateTable.paginateData(this.vendorOrderListData, this.currentPage, this.pageSize);

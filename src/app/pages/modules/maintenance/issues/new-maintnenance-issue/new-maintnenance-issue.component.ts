@@ -89,14 +89,14 @@ export class NewMaintnenanceIssueComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.issueForm.issueForm.valid){
       this.isSavingIssue = true;
       
       this.maintenanceApi.createIssue(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('maintenance_issue_id', res.id);
@@ -105,7 +105,7 @@ export class NewMaintnenanceIssueComponent {
           this.isSavingIssue = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingIssue = false;
         });
@@ -113,12 +113,12 @@ export class NewMaintnenanceIssueComponent {
   }
 
   openSystemWindow(){
-    console.log("You are opening select system window")
+    // console.log("You are opening select system window")
     this.selectSystem.openModal();
   }
 
   onSystemSelected(systemData: any){
-    console.log(systemData);
+    // console.log(systemData);
 
     this.selectedSystemData = systemData;
     this.issueForm.issueForm.controls.systemCode.setValue(systemData.data().system_code);
@@ -129,12 +129,12 @@ export class NewMaintnenanceIssueComponent {
   }
 
   openUserRoleWindow(){
-    console.log("You are opening select user role window")
+    // console.log("You are opening select user role window")
     this.selectUserRole.openModal();
   }
 
   onUserRoleSelected(userRoleData: any){
-    console.log(userRoleData);
+    // console.log(userRoleData);
     this.selectedUserRoleData = userRoleData;
     this.issueForm.issueForm.controls.reportedTo.setValue(userRoleData.data().full_name);
 

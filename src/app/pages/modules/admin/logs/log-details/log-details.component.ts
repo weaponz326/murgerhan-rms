@@ -36,13 +36,13 @@ export class LogDetailsComponent {
 
     this.adminApi.getLog(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.logData = res;
         this.isFetchingData = false;
         this.setLogData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.isFetchingData = false;
       };
   }

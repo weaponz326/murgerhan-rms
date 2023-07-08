@@ -47,7 +47,7 @@ export class AllOrdersComponent {
     this.ordersApi.getOrderList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.orderListData = res.docs;
           this.isFetchingData = false;
 
@@ -60,7 +60,7 @@ export class AllOrdersComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -68,14 +68,14 @@ export class AllOrdersComponent {
   }
 
   viewOrder(orderId: any){
-    console.log(orderId);
+    // console.log(orderId);
 
     sessionStorage.setItem("orders_order_id", orderId);
     this.router.navigateByUrl("/modules/orders/orders/view-order");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);

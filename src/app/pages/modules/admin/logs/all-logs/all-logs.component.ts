@@ -51,7 +51,7 @@ export class AllLogsComponent {
     this.adminApi.getLogList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.logListData = res.docs;
           this.isFetchingData = false;
 
@@ -60,7 +60,7 @@ export class AllLogsComponent {
             this.isDataAvailable = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -68,7 +68,7 @@ export class AllLogsComponent {
   }
 
   viewLogDetails(logId: any){
-    console.log(logId);
+    // console.log(logId);
 
     sessionStorage.setItem("admin_log_id", logId);
     this.router.navigateByUrl("/modules/admin/logs/log-details");

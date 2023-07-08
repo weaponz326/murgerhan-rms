@@ -74,14 +74,14 @@ export class AddOrderComponent {
       },
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.orderForm.valid){
       this.isSavingOrder = true;
 
       this.ordersApi.createOrder(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('orders_order_id', res.id);
@@ -92,7 +92,7 @@ export class AddOrderComponent {
           this.isSavingOrder = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingOrder = false;
         });
@@ -100,12 +100,12 @@ export class AddOrderComponent {
   }
 
   openVendorWindow(){
-    console.log("You are opening select vendor window")
+    // console.log("You are opening select vendor window")
     this.selectVendor.openModal();
   }
 
   onVendorSelected(vendorData: any){
-    console.log(vendorData);
+    // console.log(vendorData);
     this.selectedVendorId = vendorData.id;
     this.selectedVendorData = vendorData.data();
     this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);

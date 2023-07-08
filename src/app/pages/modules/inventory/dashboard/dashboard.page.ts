@@ -107,7 +107,7 @@ export class DashboardPage {
     this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
@@ -115,7 +115,7 @@ export class DashboardPage {
           this.outOfStockItems = this.stockItemListData.filter(obj => obj.data().stock === 0).length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -128,14 +128,14 @@ export class DashboardPage {
     this.inventoryApi.getSupplierList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.supplierListData = res.docs;
           this.isFetchingData = false;   
           
           this.numberOfSuppliers = this.supplierListData.length;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -148,7 +148,7 @@ export class DashboardPage {
     this.inventoryApi.getPurchasingList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.purchasingListData = res.docs;
           this.isFetchingData = false;
 
@@ -156,7 +156,7 @@ export class DashboardPage {
           this.setAmountPurchasedPerDay();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -185,7 +185,7 @@ export class DashboardPage {
 
     this.purchasingsLineChartConfig.destroy();
     this.initPurchasingsLineChart();
-    console.log(this.purchasingsWeekLabels, this.purchasingsWeekDataSets);
+    // console.log(this.purchasingsWeekLabels, this.purchasingsWeekDataSets);
   }
   
   setAmountPurchasedPerDay(){
@@ -211,7 +211,7 @@ export class DashboardPage {
   
     this.amountPurchasedLineChartConfig.destroy();
     this.initAmountPurchasedLineChart();
-    console.log(this.amountPurchasedWeekLabels, this.amountPurchasedWeekDataSets);
+    // console.log(this.amountPurchasedWeekLabels, this.amountPurchasedWeekDataSets);
   }
 
 }

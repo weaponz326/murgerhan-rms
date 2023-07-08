@@ -71,12 +71,12 @@ export class AddPersonnelComponent {
   }
 
   openBatchWindow(){
-    console.log("You are opening select batch window")
+    // console.log("You are opening select batch window")
     this.selectBatch.openModal();
   }
 
   onBatchSelected(batchData: any){
-    console.log(batchData);
+    // console.log(batchData);
 
     this.personnelForm.personnelForm.controls.batchSymbol.setValue(batchData.data().batch_symbol);
     this.selectedBatchId = batchData.id;
@@ -84,12 +84,12 @@ export class AddPersonnelComponent {
   }
 
   openUserRoleWindow(){
-    console.log("You are opening select user role window")
+    // console.log("You are opening select user role window")
     this.selectUserRole.openModal();
   }
 
   onUserRoleSelected(userRoleData: any){
-    console.log(userRoleData);
+    // console.log(userRoleData);
     this.selectedUserRoleData = userRoleData;
     this.personnelForm.personnelForm.controls.staffCode.setValue(userRoleData.data().staff_code);
     this.personnelForm.personnelForm.controls.fullName.setValue(userRoleData.data().full_name);

@@ -47,13 +47,13 @@ export class BasicProfileComponent {
 
     this.usersApi.getBasicUser(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicData = res;
         this.isFetchingData = false;
         this.setBasicData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -96,12 +96,12 @@ export class BasicProfileComponent {
 
     this.usersApi.setBasicUser(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingBasic = false;
         this.router.navigateByUrl('/settings/additional');
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingBasic = false;
       });
@@ -111,7 +111,7 @@ export class BasicProfileComponent {
     try{
       if (this.basicData.data()) this.basicForm.controls.email.setValue(this.basicData.data().email);
       else this.basicForm.controls.email.setValue(localStorage.getItem('email'));
-      console.log(localStorage.getItem('email'))
+      // console.log(localStorage.getItem('email'))
       
       this.basicForm.controls.fullName.setValue(this.basicData.data().full_name);
       this.basicForm.controls.dateOfBirth.setValue(this.basicData.data().date_of_birth);
@@ -120,7 +120,7 @@ export class BasicProfileComponent {
       this.basicForm.controls.address.setValue(this.basicData.data().address);      
     }
     catch{
-      console.log('first time here eh?...');
+      // console.log('first time here eh?...');
     }
   }
 

@@ -43,12 +43,12 @@ export class VendorProductsComponent {
     this.ordersApi.getVendorProductList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.vendorProductListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -70,18 +70,18 @@ export class VendorProductsComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     this.ordersApi.createVendorProduct(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getVendorProductList();
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       });
   }
@@ -91,12 +91,12 @@ export class VendorProductsComponent {
 
     this.ordersApi.deleteVendorProduct(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getVendorProductList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
@@ -108,12 +108,12 @@ export class VendorProductsComponent {
   }
   
   openProductWindow(){
-    console.log("You are opening select product window")
+    // console.log("You are opening select product window")
     this.selectProduct.openModal();
   }
 
   onProductSelected(productData: any){
-    console.log(productData);
+    // console.log(productData);
     this.selectedProductData = productData;
     this.createVendorProduct();
   }

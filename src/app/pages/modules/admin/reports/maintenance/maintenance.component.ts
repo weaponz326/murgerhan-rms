@@ -70,7 +70,7 @@ export class MaintenanceComponent {
     this.maintenanceApi.getIssueList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.issueListData = res.docs;
           this.isFetchingData = false;
 
@@ -87,7 +87,7 @@ export class MaintenanceComponent {
           this.getIssueMetrics();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -100,7 +100,7 @@ export class MaintenanceComponent {
     this.maintenanceApi.getServiceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.serviceListData = res.docs;
           this.isFetchingData = false;
           
@@ -117,7 +117,7 @@ export class MaintenanceComponent {
           this.getServiceMetrics();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -125,7 +125,7 @@ export class MaintenanceComponent {
   }
 
   aggregateIssueData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.issueListData = this.aggregateTable.filterData(this.issueListData, this.issueFilterText, this.issueTableColumns);
     this.issueListData = this.aggregateTable.sortData(this.issueListData, this.issueSortColumn, this.issueSortDirection);
     this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.issueCurrentPage, this.issuePageSize);
@@ -133,7 +133,7 @@ export class MaintenanceComponent {
   }
 
   aggregateServiceData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.serviceListData = this.aggregateTable.filterData(this.serviceListData, this.serviceFilterText, this.serviceTableColumns);
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.serviceSortColumn, this.serviceSortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.serviceCurrentPage, this.servicePageSize);
@@ -152,7 +152,7 @@ export class MaintenanceComponent {
   }
 
   onIssuesPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {
@@ -164,7 +164,7 @@ export class MaintenanceComponent {
   }
 
   onServicesPrint(){
-    console.log("lets start printing...");
+    // console.log("lets start printing...");
 
     let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
     let metrics = {

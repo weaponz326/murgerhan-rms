@@ -44,13 +44,13 @@ export class EditUnitComponent {
 
     this.housekeepingApi.getUnit(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.unitData = res;
         this.isFetchingData = false;
         this.setUnitData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -84,11 +84,11 @@ export class EditUnitComponent {
 
       this.housekeepingApi.updateUnit(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingUnit = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingUnit = false;
         });
@@ -102,12 +102,12 @@ export class EditUnitComponent {
 
     this.housekeepingApi.deleteUnit(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/housekeeping/units/all-units')
         this.isDeletingUnit = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingUnit = false;
       });

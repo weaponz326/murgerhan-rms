@@ -5,7 +5,7 @@ import { CanActivateChildFn, Router } from '@angular/router';
 export const managerAccessGuard: CanActivateChildFn = (childRoute, state) => {
   const router = inject(Router)
   const userRole = localStorage.getItem("user_role");
-  console.log(userRole);
+  // console.log(userRole);
 
   if (
     !!(userRole == "General Manager") ||

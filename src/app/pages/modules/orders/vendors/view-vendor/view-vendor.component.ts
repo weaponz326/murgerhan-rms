@@ -43,13 +43,13 @@ export class ViewVendorComponent {
 
     this.ordersApi.getVendor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.vendorData = res;
         this.isFetchingData = false;
         this.setVendorData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -82,11 +82,11 @@ export class ViewVendorComponent {
 
       this.ordersApi.updateVendor(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingVendor = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingVendor = false;
         });
@@ -100,12 +100,12 @@ export class ViewVendorComponent {
 
     this.ordersApi.deleteVendor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/orders/vendores/all-vendors')
         this.isDeletingVendor = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingVendor = false;
       });

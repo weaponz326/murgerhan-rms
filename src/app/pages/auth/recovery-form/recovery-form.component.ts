@@ -36,25 +36,25 @@ export class RecoveryFormComponent {
     // if (this.recoveryForm.valid){
       this.isSending = true;
 
-      console.log(this.recoveryForm.value);
+      // console.log(this.recoveryForm.value);
       this.authApi.sendPasswordResetEmail(email)
         .then(
           res => {
-            console.log(res);
+            // console.log(res);
             this.showPrompt =  true;
             this.isSending = false;
           },
           err => {
-            console.log(err);
+            // console.log(err);
             this.isSending = false;
             this.errorMessage = err.message.replace("Firebase:", "").replace(/\(.*\)/, "").trim().replace(/\.$/, "");
             this.errorCode = err.code;
-            console.log(this.errorCode, this.errorMessage)
+            // console.log(this.errorCode, this.errorMessage)
           }
         )
     // }
     // else{
-    //   console.log("form is invalid");
+    //   // console.log("form is invalid");
     // }
   }
   

@@ -55,13 +55,13 @@ export class ViewMaintnenanceIssueComponent {
 
     this.maintenanceApi.getIssue(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.issueData = res;
         this.isFetchingData = false;
         this.setIssueData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -110,11 +110,11 @@ export class ViewMaintnenanceIssueComponent {
       
       this.maintenanceApi.updateIssue(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingIssue = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingIssue = false;
         });
@@ -128,12 +128,12 @@ export class ViewMaintnenanceIssueComponent {
 
     this.maintenanceApi.deleteIssue(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/maintenance/issues/all-issues')
         this.isDeletingIssue = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingIssue = false;
       });
@@ -143,12 +143,12 @@ export class ViewMaintnenanceIssueComponent {
     this.maintenanceApi.getIssueImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           if(res.docs.length != 0)
             this.issueImageListData = res.docs.slice(0,4);
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )
@@ -177,12 +177,12 @@ export class ViewMaintnenanceIssueComponent {
   }
 
   openSystemWindow(){
-    console.log("You are opening select system window")
+    // console.log("You are opening select system window")
     this.selectSystem.openModal();
   }
 
   onSystemSelected(systemData: any){
-    console.log(systemData);
+    // console.log(systemData);
 
     this.selectedSystemData = systemData;
     this.issueForm.issueForm.controls.systemCode.setValue(systemData.data().system_code);
@@ -193,12 +193,12 @@ export class ViewMaintnenanceIssueComponent {
   }
 
   openUserRoleWindow(){
-    console.log("You are opening select user role window")
+    // console.log("You are opening select user role window")
     this.selectUserRole.openModal();
   }
 
   onUserRoleSelected(userRoleData: any){
-    console.log(userRoleData);
+    // console.log(userRoleData);
     this.selectedUserRoleData = userRoleData;
     this.issueForm.issueForm.controls.reportedTo.setValue(userRoleData.data().full_name);
 

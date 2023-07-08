@@ -45,7 +45,7 @@ export class AllMaintenanceServicesComponent {
     this.maintenanceApi.getServiceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.serviceListData = res.docs;
           this.isFetchingData = false;
           
@@ -58,7 +58,7 @@ export class AllMaintenanceServicesComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllMaintenanceServicesComponent {
   }
 
   viewService(serviceId: any){
-    console.log(serviceId);
+    // console.log(serviceId);
 
     sessionStorage.setItem("maintenance_service_id", serviceId);
     this.router.navigateByUrl("/modules/maintenance/services/view-service");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.serviceListData = this.aggregateTable.filterData(this.serviceListData, this.filterText, this.tableColumns);
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.sortColumn, this.sortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.currentPage, this.pageSize);

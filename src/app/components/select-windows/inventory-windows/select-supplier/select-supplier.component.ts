@@ -51,7 +51,7 @@ export class SelectSupplierComponent {
     this.inventoryApi.getSupplierList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.supplierListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectSupplierComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectSupplierComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.supplierListData = this.aggregateTable.filterData(this.supplierListData, this.filterText, this.tableColumns);
     this.supplierListData = this.aggregateTable.sortData(this.supplierListData, this.sortColumn, this.sortDirection);
     this.supplierListData = this.aggregateTable.paginateData(this.supplierListData, this.currentPage, this.pageSize);

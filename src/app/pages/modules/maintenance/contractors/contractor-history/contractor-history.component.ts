@@ -54,13 +54,13 @@ export class ContractorHistoryComponent {
 
     this.maintenanceApi.getContractor(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.contractorData = res;
         this.isFetchingData = false;
         this.setContractorData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -78,7 +78,7 @@ export class ContractorHistoryComponent {
     this.maintenanceApi.getContractorServiceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.serviceListData = res.docs;
           this.isFetchingData = false;
           
@@ -91,7 +91,7 @@ export class ContractorHistoryComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -99,14 +99,14 @@ export class ContractorHistoryComponent {
   }
 
   gotoService(serviceId: any){
-    console.log(serviceId);
+    // console.log(serviceId);
 
     sessionStorage.setItem("maintenance_service_id", serviceId);
     this.router.navigateByUrl("/modules/maintenance/services/view-service");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.serviceListData = this.aggregateTable.filterData(this.serviceListData, this.filterText, this.tableColumns);
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.sortColumn, this.sortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.currentPage, this.pageSize);

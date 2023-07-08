@@ -51,7 +51,7 @@ export class SelectIssueComponent {
     this.maintenanceApi.getIssueList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.issueListData = res.docs;
           this.isFetchingData = false;
 
@@ -64,7 +64,7 @@ export class SelectIssueComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -74,11 +74,11 @@ export class SelectIssueComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
   
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.issueListData = this.aggregateTable.filterData(this.issueListData, this.filterText, this.tableColumns);
     this.issueListData = this.aggregateTable.sortData(this.issueListData, this.sortColumn, this.sortDirection);
     this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.currentPage, this.pageSize);

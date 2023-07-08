@@ -102,12 +102,12 @@ export class EditStockItemComponent {
   }
 
   openItemCategoryWindow(){
-    console.log("You are opening select itemcategory window")
+    // console.log("You are opening select itemcategory window")
     this.selectItemCategory.openModal();
   }
 
   onItemCategorySelected(categoryData: any){
-    console.log(categoryData);
+    // console.log(categoryData);
 
     this.selectedItemCategoryData = categoryData;
     this.stockItemForm.stockItemForm.controls.itemCategory.setValue(categoryData.data().category_name);

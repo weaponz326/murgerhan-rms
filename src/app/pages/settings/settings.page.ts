@@ -33,7 +33,7 @@ export class SettingsPage {
     this.authApi.getAuth()
       .subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.isAuthLoading = false;
 
           localStorage.setItem('uid', res.uid);
@@ -45,7 +45,7 @@ export class SettingsPage {
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isLoggedIn = false;
           this.isAuthLoading = false;
@@ -55,17 +55,17 @@ export class SettingsPage {
 
   logout(){
     // e.stopPropagation();
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.clear();
           window.location.href = "/";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
         }
       )

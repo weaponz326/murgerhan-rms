@@ -45,7 +45,7 @@ export class AllProductsComponent {
     this.ordersApi.getProductList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.productListData = res.docs;
           this.isFetchingData = false;
 
@@ -58,7 +58,7 @@ export class AllProductsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -66,14 +66,14 @@ export class AllProductsComponent {
   }
 
   viewProduct(productId: any){
-    console.log(productId);
+    // console.log(productId);
 
     sessionStorage.setItem("orders_product_id", productId);
     this.router.navigateByUrl("/modules/orders/products/view-product");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.productListData = this.aggregateTable.filterData(this.productListData, this.filterText, this.tableColumns);
     this.productListData = this.aggregateTable.sortData(this.productListData, this.sortColumn, this.sortDirection);
     this.productListData = this.aggregateTable.paginateData(this.productListData, this.currentPage, this.pageSize);

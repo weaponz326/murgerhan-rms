@@ -61,13 +61,13 @@ export class AvailabilityComponent {
 
     this.usersApi.getAvailability(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.availabilityData = res;
         this.isFetchingData = false;
         this.setAvailabilityData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -99,12 +99,12 @@ export class AvailabilityComponent {
 
     this.usersApi.setAvailability(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingAvailability = false;
         this.router.navigateByUrl('/settings/terms');
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingAvailability = false;
       });
@@ -137,7 +137,7 @@ export class AvailabilityComponent {
       this.sundayTimeTo = this.availabilityData.data().availability.sunday.time_to;
     }
     catch{
-      console.log("Just a bit more, first timer :)");
+      // console.log("Just a bit more, first timer :)");
     }
   }
 

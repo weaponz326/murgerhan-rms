@@ -44,13 +44,13 @@ export class ViewMaintenanceSystemComponent {
 
     this.maintenanceApi.getSystem(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.systemData = res;
         this.isFetchingData = false;
         this.setSystemData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -79,17 +79,17 @@ export class ViewMaintenanceSystemComponent {
       }
     }
 
-    console.log(this.systemForm.systemForm.controls.systemCode.value)
+    // console.log(this.systemForm.systemForm.controls.systemCode.value)
 
     if(this.systemForm.systemForm.valid){
       this.isSavingSystem = true;
       this.maintenanceApi.updateSystem(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingSystem = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingSystem = false;
         });
@@ -103,12 +103,12 @@ export class ViewMaintenanceSystemComponent {
 
     this.maintenanceApi.deleteSystem(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/maintenance/systems/all-systems')
         this.isDeletingSystem = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingSystem = false;
       });

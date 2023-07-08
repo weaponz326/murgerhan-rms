@@ -44,13 +44,13 @@ export class ViewSupplierComponent {
 
     this.inventoryApi.getSupplier(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.supplierData = res;
         this.isFetchingData = false;
         this.setSupplierData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -82,11 +82,11 @@ export class ViewSupplierComponent {
       this.isSavingSupplier = true;
       this.inventoryApi.updateSupplier(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingSupplier = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingSupplier = false;
         });
@@ -100,12 +100,12 @@ export class ViewSupplierComponent {
 
     this.inventoryApi.deleteSupplier(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/inventory/supplieres/all-suppliers')
         this.isDeletingSupplier = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingSupplier = false;
       });

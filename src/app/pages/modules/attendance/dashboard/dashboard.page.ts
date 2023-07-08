@@ -37,14 +37,14 @@ export class DashboardPage {
   getBranchAttendanceSheetList() {
     this.attendanceApi.getBranchAttendanceSheetList()
       .then((res) => {
-        console.log(res.docs);
+        // console.log(res.docs);
         this.sheetListData = res.docs;
 
         this.setTodayMetrics();
         this.setThisWeekMetrics();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
       };
   }

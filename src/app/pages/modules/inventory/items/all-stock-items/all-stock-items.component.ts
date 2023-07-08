@@ -52,7 +52,7 @@ export class AllStockItemsComponent {
     this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
@@ -68,7 +68,7 @@ export class AllStockItemsComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -78,11 +78,11 @@ export class AllStockItemsComponent {
   createStockItem(data: any) {
     this.addStockItem.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.inventoryApi.createStockItem(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getStockItemList();
@@ -93,7 +93,7 @@ export class AllStockItemsComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addStockItem.isItemSaving = false;
       });
@@ -104,13 +104,13 @@ export class AllStockItemsComponent {
     
     this.inventoryApi.updateStockItem(item.id, item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editStockItem.isItemSaving = false;
         this.editStockItem.dismissButton.nativeElement.click();
         this.getStockItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editStockItem.isItemSaving = false;
       });
@@ -121,19 +121,19 @@ export class AllStockItemsComponent {
 
     this.inventoryApi.deleteStockItem(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getStockItemList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editStockItem.openModal(data);
   }
 
@@ -143,7 +143,7 @@ export class AllStockItemsComponent {
   }
   
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
     this.stockItemListData = this.aggregateTable.sortData(this.stockItemListData, this.sortColumn, this.sortDirection);
     this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);

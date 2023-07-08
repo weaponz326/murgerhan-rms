@@ -48,13 +48,13 @@ export class RosterSheetComponent {
 
     this.attendanceApi.getRoster(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.rosterData = res;
         this.getDateRange(new Date(this.rosterData.data().from_date), new Date(this.rosterData.data().to_date));
         this.getRosterSheetList();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
       };
   }  
 
@@ -62,13 +62,13 @@ export class RosterSheetComponent {
     this.attendanceApi.getRosterShiftList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterShiftListData = res.docs;
 
           this.getRosterSheetList();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
         }
       )
   }
@@ -77,11 +77,11 @@ export class RosterSheetComponent {
     this.attendanceApi.getRosterSheetList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterSheetListData = res.docs;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
         }
       )
   }
@@ -104,17 +104,17 @@ export class RosterSheetComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     this.attendanceApi.createRosterSheet(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingSheet = false;
 
         this.getRosterSheetList();
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingSheet = false;
       });
@@ -138,18 +138,18 @@ export class RosterSheetComponent {
       }
     }
 
-    console.log(this.selectedSheetId, data);
+    // console.log(this.selectedSheetId, data);
 
     this.attendanceApi.updateRosterSheet(this.selectedSheetId ,data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.isSavingSheet = false;
         this.selectedSheetId = null;
 
         this.getRosterSheetList();
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingSheet = false;
       });
@@ -175,27 +175,27 @@ export class RosterSheetComponent {
     if(sheetId) 
       this.selectedSheetId = sheetId;
 
-    console.log(this.selectedSheetId);
+    // console.log(this.selectedSheetId);
     
     this.openBatchWindow();
   }
 
   openBatchWindow(){
-    console.log("You are opening select batch window")
+    // console.log("You are opening select batch window")
     this.selectBatch.openModal();
   }
 
   onBatchSelected(batchData: any){
-    console.log(batchData);
+    // console.log(batchData);
     this.selectedBatchId = batchData.id;
     this.selectedBatchData = batchData.data();
 
     if (this.selectedSheetId){
-      console.log('we are updating yo yoo yo yoo...');
+      // console.log('we are updating yo yoo yo yoo...');
       this.updateRosterSheet();
     }
     else{
-      console.log('we are creating yo yoo yo yoo...');
+      // console.log('we are creating yo yoo yo yoo...');
       this.createRosterSheet();
     }
   }

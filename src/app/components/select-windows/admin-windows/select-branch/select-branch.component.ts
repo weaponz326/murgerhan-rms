@@ -39,12 +39,12 @@ export class SelectBranchComponent {
     this.adminApi.getBranchList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.branchListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -54,7 +54,7 @@ export class SelectBranchComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
 
 }

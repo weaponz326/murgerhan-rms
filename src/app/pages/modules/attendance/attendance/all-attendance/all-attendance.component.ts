@@ -47,7 +47,7 @@ export class AllAttendanceComponent {
     this.attendanceApi.getAttendanceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.attendanceListData = res.docs;
           this.isFetchingData = false;
 
@@ -60,7 +60,7 @@ export class AllAttendanceComponent {
           this.aggregateData();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -68,14 +68,14 @@ export class AllAttendanceComponent {
   }
 
   viewAttendance(attendanceId: any){
-    console.log(attendanceId);
+    // console.log(attendanceId);
 
     sessionStorage.setItem("attendance_attendance_id", attendanceId);
     this.router.navigateByUrl("/modules/attendance/attendance/general-attendance");
   }
 
   aggregateData(){
-    console.log("lets aggregate this table's data...");
+    // console.log("lets aggregate this table's data...");
     this.attendanceListData = this.aggregateTable.filterData(this.attendanceListData, this.filterText, this.tableColumns);
     this.attendanceListData = this.aggregateTable.sortData(this.attendanceListData, this.sortColumn, this.sortDirection);
     this.attendanceListData = this.aggregateTable.paginateData(this.attendanceListData, this.currentPage, this.pageSize);

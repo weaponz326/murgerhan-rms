@@ -45,7 +45,7 @@ export class IssueImagesComponent {
 
     this.maintenanceApi.uploadIssueImage(this.selectedFiles, data)
       .then(() => {
-        console.log('Images uploaded successfully');
+        // console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
         setTimeout(() => {
@@ -62,12 +62,12 @@ export class IssueImagesComponent {
     this.maintenanceApi.getIssueImageList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.issueImageListData = res.docs;
           this.isUploading = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isUploading = false;
         }

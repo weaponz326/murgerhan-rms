@@ -44,12 +44,12 @@ export class ManagePersonnelComponent {
     this.attendanceApi.getRosterPersonnelList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.rosterPersonnelListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -59,11 +59,11 @@ export class ManagePersonnelComponent {
   createRosterPersonnel(data: any) {
     this.addPersonnel.isItemSaving = true;
 
-    console.log(data);
+    // console.log(data);
 
     this.attendanceApi.createRosterPersonnel(data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res.id){
           this.getRosterPersonnelList();
@@ -74,7 +74,7 @@ export class ManagePersonnelComponent {
         }
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.addPersonnel.isItemSaving = false;
       });
@@ -87,13 +87,13 @@ export class ManagePersonnelComponent {
 
     this.attendanceApi.updateRosterPersonnel(rosterpersonnel_item.id, rosterpersonnel_item.data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.editPersonnel.isItemSaving = false;
         this.editPersonnel.dismissButton.nativeElement.click();
         this.getRosterPersonnelList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.editPersonnel.isItemSaving = false;
       });
@@ -104,19 +104,19 @@ export class ManagePersonnelComponent {
 
     this.attendanceApi.deleteRosterPersonnel(this.deleteId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isItemDeleting = false;
         this.getRosterPersonnelList();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isItemDeleting = false;
       });
   }
 
   openEditItem(data: any){
-    console.log(data);
+    // console.log(data);
     this.editPersonnel.openModal(data);
   }
 

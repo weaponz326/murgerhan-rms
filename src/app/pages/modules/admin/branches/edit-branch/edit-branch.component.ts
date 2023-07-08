@@ -50,13 +50,13 @@ export class EditBranchComponent {
 
     this.adminApi.getBranch(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.branchData = res;
         this.isFetchingData = false;
         this.setBranchData();        
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -87,11 +87,11 @@ export class EditBranchComponent {
 
       this.adminApi.updateBranch(id, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isSavingBranch = false;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingBranch = false;
         });
@@ -105,12 +105,12 @@ export class EditBranchComponent {
 
     this.adminApi.deleteBranch(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('modules/admin/branches/all-branches')
         this.isDeletingBranch = false;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isDeletingBranch = false;
       });

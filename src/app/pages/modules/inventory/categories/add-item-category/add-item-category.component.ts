@@ -46,14 +46,14 @@ export class AddItemCategoryComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.categoryForm.categoryForm.valid){
       this.isSavingCategory = true;
 
       this.inventoryApi.createItemCategory(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('inventory_category_id', res.id);
@@ -62,7 +62,7 @@ export class AddItemCategoryComponent {
           this.isSavingCategory = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingCategory = false;
         });

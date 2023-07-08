@@ -32,12 +32,12 @@ export class UserAttendanceSheetComponent {
 
     this.attendanceApi.getUserAttendanceSheetList()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.sheetListData = res.docs;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };

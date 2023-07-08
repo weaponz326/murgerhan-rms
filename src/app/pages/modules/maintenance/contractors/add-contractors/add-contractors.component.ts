@@ -49,14 +49,14 @@ export class AddContractorsComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     if(this.contractorForm.contractorForm.valid){
       this.isSavingContractor = true;
 
       this.maintenanceApi.createContractor(data)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
 
           if(res.id){
             sessionStorage.setItem('maintenance_contractor_id', res.id);
@@ -65,7 +65,7 @@ export class AddContractorsComponent {
           this.isSavingContractor = false;
         })
         .catch((err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isSavingContractor = false;
         });
