@@ -240,7 +240,7 @@ export class HomePage {
         (res: any) => {
           // console.log(res);
           localStorage.clear();
-          window.location.href = "/#/landing";
+          window.location.href = "/";
         },
         (err: any) => {
           // console.log(err);
