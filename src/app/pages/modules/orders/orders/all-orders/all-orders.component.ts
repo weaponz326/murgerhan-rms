@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
-import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { AddOrderComponent } from '../add-order/add-order.component';
@@ -19,7 +18,6 @@ export class AllOrdersComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService,
     private aggregateTable: AggregateTableService,
   ) { }
 
@@ -81,11 +79,6 @@ export class AllOrdersComponent {
     this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
-  }
-
-  onPrint(){
-    console.log("lets start printing...");
-    this.ordersPrint.printOrderList();
   }
 
 }

@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
-import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -18,7 +17,6 @@ export class AllVendorsComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService,
     private aggregateTable: AggregateTableService,
   ) { }
 
@@ -79,11 +77,6 @@ export class AllVendorsComponent {
     this.vendorListData = this.aggregateTable.filterData(this.vendorListData, this.filterText, this.tableColumns);
     this.vendorListData = this.aggregateTable.sortData(this.vendorListData, this.sortColumn, this.sortDirection);
     this.vendorListData = this.aggregateTable.paginateData(this.vendorListData, this.currentPage, this.pageSize);
-  }
-
-  onPrint(){
-    console.log("lets start printing...");
-    this.ordersPrint.printVendorList();
   }
 
 }

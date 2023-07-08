@@ -4,7 +4,6 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Product } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
-import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -21,7 +20,6 @@ export class ViewProductComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
-    private ordersPrint: OrdersPrintService
   ) {}
 
   @ViewChild('productFormComponentReference', { read: ProductFormComponent, static: false }) productForm!: ProductFormComponent;
@@ -125,9 +123,4 @@ export class ViewProductComponent {
     this.deleteModal.openModal();
   }
   
-  onPrint(){
-    console.log("lets start printing...");
-    this.ordersPrint.printProduct();
-  }
-
 }
