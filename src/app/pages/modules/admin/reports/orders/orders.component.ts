@@ -95,7 +95,14 @@ export class OrdersComponent {
 
   onPrint(){
     console.log("lets start printing...");
-    this.ordersPrint.printOrderList();
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfOrders' : this.numberOfOrders,
+      'totalSales' : this.totalSales
+    }
+
+    this.ordersPrint.printOrdersReport(this.orderListData, metrics, dates);
   }
 
 }

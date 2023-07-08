@@ -69,7 +69,7 @@
     </div>
 
     <div *ngIf="selectedModule == 'Issues'" class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Issues</p>
@@ -90,16 +90,16 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="15%" scope="col">
+                                        <th width="15%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Issue ID'" [thisColumn]="'issue_code'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="35%" scope="col">
+                                        <th width="35%" scope="col" class="min-width-5">
                                             <app-table-sorting [fieldTitle]="'Issue Subject'" [thisColumn]="'issue_subject'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Issue Date'" [thisColumn]="'issue_date'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
-                                        <th width="30%" scope="col">
+                                        <th width="30%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'System'" [thisColumn]="'system_name'" [(sortColumn)]="issueSortColumn" [(sortDirection)]="issueSortDirection" (sortData)="getIssueList()"></app-table-sorting>
                                         </th>
                                     </tr>
@@ -135,10 +135,23 @@
 
             </div>
         </div>
+
+        <div class="offset-md-6 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                        
+                    <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onIssuesPrint()">
+                        <i class="bi bi-printer me-3"></i>
+                        Print Issues Report
+                    </button>
+    
+                </div>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="selectedModule == 'Services'" class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Services</p>
@@ -159,19 +172,19 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="15%" scope="col">
+                                        <th width="15%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Service ID'" [thisColumn]="'service_code'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="30%" scope="col">
+                                        <th width="30%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Service Subject'" [thisColumn]="'service_subject'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="15%" scope="col">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Date From'" [thisColumn]="'date_from'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="15%" scope="col">
+                                        <th width="15%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Date To'" [thisColumn]="'date_to'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
-                                        <th width="25%" scope="col">
+                                        <th width="25%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Contractor Name'" [thisColumn]="'contractor_name'" [(sortColumn)]="serviceSortColumn" [(sortDirection)]="serviceSortDirection" (sortData)="getServiceList()"></app-table-sorting>
                                         </th>
                                     </tr>
@@ -206,6 +219,19 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="offset-md-6 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                        
+                    <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onServicesPrint()">
+                        <i class="bi bi-printer me-3"></i>
+                        Print Services Report
+                    </button>
+    
+                </div>
             </div>
         </div>
     </div>

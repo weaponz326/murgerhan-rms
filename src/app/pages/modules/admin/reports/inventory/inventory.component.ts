@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { InventoryPrintService } from 'src/app/services/modules-print/inventory-print/inventory-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -17,6 +18,7 @@ export class InventoryComponent {
   constructor(
     private router: Router,
     private inventoryApi: InventoryApiService,
+    private inventoryPrint: InventoryPrintService,
     private aggregateTable: AggregateTableService,
   ) { }
 
@@ -89,6 +91,18 @@ export class InventoryComponent {
   getMetrics(){
     this.numberOfPurchasings = this.purchasingListData.length;
     this.totalPurchased = this.purchasingListData.reduce((accumulator, currentObject) => accumulator + currentObject.data().total_price, 0);
+  }
+
+  onPrint(){
+    console.log("lets start printing...");
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfPurchasings' : this.numberOfPurchasings,
+      'totalPurchased' : this.totalPurchased
+    }
+
+    this.inventoryPrint.printPurchasingsReport(this.purchasingListData, metrics, dates);
   }
 
 }

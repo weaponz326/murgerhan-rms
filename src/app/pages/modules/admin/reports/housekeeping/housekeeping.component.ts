@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { HousekeepingPrintService } from 'src/app/services/modules-print/housekeeping-print/housekeeping-print.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -17,6 +18,7 @@ export class HousekeepingComponent {
   constructor(
     private router: Router,
     private housekeepingApi: HousekeepingApiService,
+    private housekeepingPrint: HousekeepingPrintService,
     private aggregateTable: AggregateTableService,
   ) { }
 
@@ -145,6 +147,30 @@ export class HousekeepingComponent {
   getIncidentMetrics(){
     this.numberOfIncidents = this.incidentListData.length;
     this.unresolvedIncidents = this.incidentListData.filter(obj => obj.data().incident_status === "Unresolved").length;
+  }
+
+  onTasksPrint(){
+    console.log("lets start printing...");
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfTasks' : this.numberOfTasks,
+      'todoTasks' : this.todoTasks
+    }
+
+    this.housekeepingPrint.printTasksReport(this.taskListData, metrics, dates);
+  }
+
+  onIncidentsPrint(){
+    console.log("lets start printing...");
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfIncidents' : this.numberOfIncidents,
+      'unresolvedIncidents' : this.unresolvedIncidents
+    }
+
+    this.housekeepingPrint.printIncidentsReport(this.incidentListData, metrics, dates);
   }
 
 }

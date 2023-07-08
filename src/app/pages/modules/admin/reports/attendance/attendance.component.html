@@ -1,1 +1,59 @@
-<p>attendance works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Attendance Reports</li>
+</ol>
+
+<div class="row">
+
+    <div class="col-md-5">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        
+                        <p class="lead">Select Report</p>
+
+                        <!-- selector component -->
+
+                        <app-selector [modules]="modules" (moduleEvent)="selectedModule = $event" (startDateEvent)="startDate = $event" (endDateEvent)="endDate = $event; getBranchAttendanceSheetList()"></app-selector>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Attendance'" class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Number Present</div>
+                        <div class="h4 mb-0">{{numberPresent}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="h6 mb-3">Number Absent</div>
+                        <div class="h4 mb-0">{{numberAbsent}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedModule == 'Attendance'" class="row">
+            <div class="offset-md-4 col-md-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                            
+                        <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Attendance Report
+                        </button>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

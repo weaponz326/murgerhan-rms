@@ -42,7 +42,7 @@
     </div>
 
     <div *ngIf="selectedModule == 'Purchasing'" class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Purchasing</p>
@@ -63,16 +63,16 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Purchasing ID'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Purchasing Date'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="40%" scope="col">
+                                        <th width="40%" scope="col" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Supplier Name'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getPurchasingList()"></app-table-sorting>
                                         </th>
-                                        <th width="20%" scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'purchasing_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getPurchasingList()"></app-table-sorting>
                                         </th>
                                     </tr>
@@ -106,6 +106,19 @@
                     </div>
                 </div>                       
 
+            </div>
+        </div>
+
+        <div class="offset-md-6 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                        
+                    <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onPrint()">
+                        <i class="bi bi-printer me-3"></i>
+                        Print Purchasing Report
+                    </button>
+    
+                </div>
             </div>
         </div>
     </div>

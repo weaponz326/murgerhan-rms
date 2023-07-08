@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { MaintenancePrintService } from 'src/app/services/modules-print/maintenance-print/maintenance-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -17,6 +18,7 @@ export class MaintenanceComponent {
   constructor(
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
+    private maintenancePrint: MaintenancePrintService,
     private aggregateTable: AggregateTableService,
   ) { }
 
@@ -147,6 +149,31 @@ export class MaintenanceComponent {
     this.numberOfServices = this.serviceListData.length;
     this.ongoingServices = this.serviceListData.filter(obj => obj.data().task_status === "Ongoing").length;
     this.totalServicesCost = this.serviceListData.reduce((accumulator, currentObject) => accumulator + currentObject.data().cost, 0);
+  }
+
+  onIssuesPrint(){
+    console.log("lets start printing...");
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfIssues' : this.numberOfIssues,
+      'issuesNeedsFixing' : this.issuesNeedsFixing
+    }
+
+    this.maintenancePrint.printIssuesReport(this.issueListData, metrics, dates);
+  }
+
+  onServicesPrint(){
+    console.log("lets start printing...");
+
+    let dates = { 'startDate' : this.startDate, 'endDate' : this.endDate }
+    let metrics = {
+      'numberOfServices' : this.numberOfServices,
+      'ongoingServices' : this.ongoingServices,
+      'totalServicesCost' : this.totalServicesCost
+    }
+
+    this.maintenancePrint.printServicesReport(this.serviceListData, metrics, dates);
   }
 
 }

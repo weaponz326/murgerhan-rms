@@ -61,7 +61,7 @@
     </div>
 
     <div *ngIf="selectedModule == 'Tasks'" class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Tasks</p>
@@ -81,22 +81,19 @@
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">
+                                    <th width="20%" scope="col" class="min-width-2">
                                         <app-table-sorting [fieldTitle]="'Task ID'" [thisColumn]="'task_code'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="20%" scope="col" class="min-width-4">
                                         <app-table-sorting [fieldTitle]="'Task Name'" [thisColumn]="'task_name'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="20%" scope="col" class="min-width-3">
                                         <app-table-sorting [fieldTitle]="'From Date'" [thisColumn]="'from_date'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
-                                        <app-table-sorting [fieldTitle]="'To Date'" [thisColumn]="'to_date'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
-                                    </th>
-                                    <th scope="col">
+                                    <th width="20%" scope="col" class="min-width-3">
                                         <app-table-sorting [fieldTitle]="'Task Type'" [thisColumn]="'task_type'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
-                                    <th scope="col">
+                                    <th width="20%" scope="col" class="min-width-3">
                                         <app-table-sorting [fieldTitle]="'Task Status'" [thisColumn]="'task_status'" [(sortColumn)]="taskSortColumn" [(sortDirection)]="taskSortDirection" (sortData)="getTaskList()"></app-table-sorting>
                                     </th>
                                 </tr>
@@ -106,7 +103,6 @@
                                     <td>{{data?.data().task_code}}</td>
                                     <td>{{data?.data().task_name}}</td>
                                     <td>{{data?.data().from_date | date: 'short'}}</td>
-                                    <td>{{data?.data().to_date | date: 'short'}}</td>
                                     <td>{{data?.data().task_type}}</td>
                                     <td>{{data?.data().task_status}}</td>
                                 </tr>
@@ -133,10 +129,23 @@
 
             </div>
         </div>
+
+        <div class="offset-md-6 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                        
+                    <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onTasksPrint()">
+                        <i class="bi bi-printer me-3"></i>
+                        Print Tasks Report
+                    </button>
+    
+                </div>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="selectedModule == 'Incidents'" class="col-md-7">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
                 <p class="lead">Incidents</p>
@@ -157,16 +166,16 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">
+                                        <th width="15%" scope="col" class="min-width-2">
                                             <app-table-sorting [fieldTitle]="'Incident ID'" [thisColumn]="'incident_code'" [(sortColumn)]="incidentSortColumn" [(sortDirection)]="incidentSortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="45%" scope="col" class="min-width-5">
                                             <app-table-sorting [fieldTitle]="'Incident Subject'" [thisColumn]="'incident_subject'" [(sortColumn)]="incidentSortColumn" [(sortDirection)]="incidentSortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Incident Date'" [thisColumn]="'incident_date'" [(sortColumn)]="incidentSortColumn" [(sortDirection)]="incidentSortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
-                                        <th scope="col">
+                                        <th width="20%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Incident Status'" [thisColumn]="'incident_status'" [(sortColumn)]="incidentSortColumn" [(sortDirection)]="incidentSortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                         </th>
                                     </tr>
@@ -200,6 +209,19 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="offset-md-6 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                        
+                    <button [disabled]="!startDate || isFetchingData" class="btn btn-light border" (click)="onIncidentsPrint()">
+                        <i class="bi bi-printer me-3"></i>
+                        Print Incidents Report
+                    </button>
+    
+                </div>
             </div>
         </div>
     </div>
