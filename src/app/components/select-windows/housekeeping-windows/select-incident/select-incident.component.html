@@ -26,16 +26,16 @@
                     <table class="table table-sm table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col" class="min-width-2">
+                                <th width="15%" scope="col" class="min-width-2">
                                     <app-table-sorting [fieldTitle]="'Incident ID'" [thisColumn]="'incident_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                 </th>
-                                <th scope="col" class="min-width-5">
+                                <th width="40%" scope="col" class="min-width-5">
                                     <app-table-sorting [fieldTitle]="'Incident Subject'" [thisColumn]="'incident_subject'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                 </th>
-                                <th scope="col" class="min-width-3">
+                                <th width="20%" scope="col" class="min-width-3">
                                     <app-table-sorting [fieldTitle]="'Incident Date'" [thisColumn]="'incident_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                 </th>
-                                <th scope="col" class="min-width-3">
+                                <th width="25%" scope="col" class="min-width-3">
                                     <app-table-sorting [fieldTitle]="'Incident Status'" [thisColumn]="'incident_status'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getIncidentList()"></app-table-sorting>
                                 </th>
                             </tr>
