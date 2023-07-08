@@ -7,6 +7,8 @@ import { NewMaintnenanceIssueComponent } from './new-maintnenance-issue/new-main
 import { ViewMaintnenanceIssueComponent } from './view-maintnenance-issue/view-maintnenance-issue.component';
 import { IssueImagesComponent } from './issue-images/issue-images.component';
 
+import { viewIssueGuard } from 'src/app/guards/modules/maintenance/view-issue/view-issue.guard';
+
 
 const routes: Routes = [
   {
@@ -16,8 +18,8 @@ const routes: Routes = [
       { path: "", component: AllMaintenanceIssuesComponent },
       { path: "all-issues", component: AllMaintenanceIssuesComponent },
       { path: "new-issue", component: NewMaintnenanceIssueComponent },
-      { path: "view-issue", component: ViewMaintnenanceIssueComponent },
-      { path: "issue-images", component: IssueImagesComponent },
+      { path: "view-issue", component: ViewMaintnenanceIssueComponent, canActivate: [viewIssueGuard] },
+      { path: "issue-images", component: IssueImagesComponent, canActivate: [viewIssueGuard] },
     ]
   }
 ];

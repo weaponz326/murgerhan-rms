@@ -7,6 +7,8 @@ import { AddContractorsComponent } from './add-contractors/add-contractors.compo
 import { EditContractorsComponent } from './edit-contractors/edit-contractors.component';
 import { ContractorHistoryComponent } from './contractor-history/contractor-history.component';
 
+import { viewContractorGuard } from 'src/app/guards/modules/maintenance/view-contractor/view-contractor.guard';
+
 
 const routes: Routes = [
   { 
@@ -16,8 +18,8 @@ const routes: Routes = [
       { path: "", component: AllContractorsComponent },
       { path: "all-contractors", component: AllContractorsComponent },
       { path: "add-contractor", component: AddContractorsComponent },
-      { path: "edit-contractor", component: EditContractorsComponent },
-      { path: "contractor-history", component: ContractorHistoryComponent },
+      { path: "edit-contractor", component: EditContractorsComponent, canActivate: [viewContractorGuard] },
+      { path: "contractor-history", component: ContractorHistoryComponent, canActivate: [viewContractorGuard] },
     ]
   }
 ];

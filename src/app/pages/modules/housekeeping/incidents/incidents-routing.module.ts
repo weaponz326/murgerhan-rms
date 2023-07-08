@@ -6,6 +6,8 @@ import { AllIncidentsComponent } from './all-incidents/all-incidents.component';
 import { NewIncidentsComponent } from './new-incidents/new-incidents.component';
 import { ViewIncidentComponent } from './view-incident/view-incident.component';
 
+import { viewIncidentGuard } from 'src/app/guards/modules/housekeeping/view-incident/view-incident.guard';
+
 
 const routes: Routes = [
   { 
@@ -15,7 +17,7 @@ const routes: Routes = [
       { path: "", component: AllIncidentsComponent },
       { path: "all-incidents", component: AllIncidentsComponent },
       { path: "new-incident", component: NewIncidentsComponent },
-      { path: "view-incident", component: ViewIncidentComponent },
+      { path: "view-incident", component: ViewIncidentComponent, canActivate: [viewIncidentGuard] },
     ]
   }
 ];

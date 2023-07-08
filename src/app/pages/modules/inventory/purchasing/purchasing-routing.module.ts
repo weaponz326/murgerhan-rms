@@ -8,6 +8,8 @@ import { ViewPurchasingComponent } from './view-purchasing/view-purchasing.compo
 import { PurchasingQualityChecksComponent } from './purchasing-quality-checks/purchasing-quality-checks.component';
 import { PurchasingCheckImagesComponent } from './purchasing-check-images/purchasing-check-images.component';
 
+import { viewPurchasingGuard } from 'src/app/guards/modules/inventory/view-purchasing/view-purchasing.guard';
+
 
 const routes: Routes = [
   { 
@@ -17,9 +19,9 @@ const routes: Routes = [
       { path: "", component: AllPurchasingComponent },
       { path: "all-purchasing", component: AllPurchasingComponent },
       { path: "add-purchasing", component: AddPurchasingItemComponent },
-      { path: "view-purchasing", component: ViewPurchasingComponent },
-      { path: "quality-checks", component: PurchasingQualityChecksComponent },
-      { path: "quality-check-images", component: PurchasingCheckImagesComponent },
+      { path: "view-purchasing", component: ViewPurchasingComponent, canActivate: [viewPurchasingGuard] },
+      { path: "quality-checks", component: PurchasingQualityChecksComponent, canActivate: [viewPurchasingGuard] },
+      { path: "quality-check-images", component: PurchasingCheckImagesComponent, canActivate: [viewPurchasingGuard] },
     ]
   }
 ];

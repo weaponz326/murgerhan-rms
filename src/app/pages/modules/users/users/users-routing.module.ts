@@ -5,6 +5,8 @@ import { UsersPage } from './users.page';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 
+import { viewUserGuard } from 'src/app/guards/modules/users/view-user/view-user.guard';
+
 
 const routes: Routes = [
   { 
@@ -13,7 +15,7 @@ const routes: Routes = [
     children: [
       { path: "", component: AllUsersComponent },
       { path: "all-users", component: AllUsersComponent },
-      { path: "view-user", component: ViewUserComponent },
+      { path: "view-user", component: ViewUserComponent, canActivate: [viewUserGuard] },
     ]
   }
 ];

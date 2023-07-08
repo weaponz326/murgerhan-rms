@@ -6,6 +6,8 @@ import { AllMaintenanceServicesComponent } from './all-maintenance-services/all-
 import { NewMaintenanceServiceComponent } from './new-maintenance-service/new-maintenance-service.component';
 import { ViewMaintenanceServiceComponent } from './view-maintenance-service/view-maintenance-service.component';
 
+import { viewServiceGuard } from 'src/app/guards/modules/maintenance/view-service/view-service.guard';
+
 
 const routes: Routes = [
   { 
@@ -15,7 +17,7 @@ const routes: Routes = [
       { path: "", component: AllMaintenanceServicesComponent },
       { path: "all-services", component: AllMaintenanceServicesComponent },
       { path: "new-service", component: NewMaintenanceServiceComponent },
-      { path: "view-service", component: ViewMaintenanceServiceComponent },
+      { path: "view-service", component: ViewMaintenanceServiceComponent, canActivate: [viewServiceGuard] },
     ]
   }
 ];
