@@ -243,6 +243,13 @@ export class AttendanceApiService {
       .get();
   }
 
+  getBranchAttendanceSheetList(){
+    return this.attendanceSheetRef.ref
+      .where("branch", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   createAttendanceSheetBatch(items: any): Promise<void> {
     const batch = this.firestore.firestore.batch();
     items.forEach((item: any) => {

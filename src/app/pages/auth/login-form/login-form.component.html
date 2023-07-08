@@ -15,7 +15,7 @@
                 <input formControlName="password" class="form-control" id="inputPassword" type="password" />
                 <div *ngIf="errorCode == 'auth/wrong-password'" class="small text-danger">{{errorMessage}}</div>
             </div>
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 mt-5">
                 <button [disabled]="isSending" class="btn btn-primary btn-lg">Login</button>
             </div>
             <div class="text-center mt-4 mb-0">
