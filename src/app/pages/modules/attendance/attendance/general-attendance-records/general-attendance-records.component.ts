@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Attendance } from 'src/app/models/modules/attendance/attendance.model';
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,7 +19,8 @@ export class GeneralAttendanceRecordsComponent {
 
   constructor(
     private router: Router,
-    private attendanceApi: AttendanceApiService
+    private attendanceApi: AttendanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -60,7 +62,7 @@ export class GeneralAttendanceRecordsComponent {
   }
 
   setAttendanceData(){
-    this.attendanceForm.controls.attendanceCode.setValue(this.attendanceData.data().attendance_code);
+    this.attendanceForm.controls.attendanceCode.setValue(this.formatId.formatId(this.attendanceData.data().attendance_code, 3, "#", "RT"));
     this.attendanceForm.controls.attendanceName.setValue(this.attendanceData.data().attendance_name);
     this.attendanceForm.controls.fromDate.setValue(this.attendanceData.data().from_date);
     this.attendanceForm.controls.toDate.setValue(this.attendanceData.data().to_date);

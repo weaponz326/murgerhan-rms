@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { NewTaskComponent } from '../new-task/new-task.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,6 +20,7 @@ export class AllTasksComponent {
     private router: Router,
     private housekeepingApi: HousekeepingApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('newTaskComponentReference', { read: NewTaskComponent, static: false }) newTask!: NewTaskComponent;
@@ -79,6 +81,10 @@ export class AllTasksComponent {
     this.taskListData = this.aggregateTable.filterData(this.taskListData, this.filterText, this.tableColumns);
     this.taskListData = this.aggregateTable.sortData(this.taskListData, this.sortColumn, this.sortDirection);
     this.taskListData = this.aggregateTable.paginateData(this.taskListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "TK");
   }
 
 }

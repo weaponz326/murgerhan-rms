@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Task } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
@@ -19,7 +20,8 @@ export class NewTaskComponent {
 
   constructor(
     private router: Router,
-    private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService,
+    private formatId: FormatIdService
   ) {}  
   
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -31,11 +33,14 @@ export class NewTaskComponent {
   selectedUserRoleId: any;
   selectedUserRoleData: any;
 
+  isFetchingData = false;
   isSavingTask = false;
   isSaved = false;
 
+  thisId = 0;
+
   taskForm = new FormGroup({
-    taskCode: new FormControl(''),
+    taskCode: new FormControl({value: '', disabled: true}),
     taskName: new FormControl('', Validators.required),
     taskType: new FormControl(''),
     primaryAssignee: new FormControl({value: '', disabled: true}, Validators.required),
@@ -49,6 +54,29 @@ export class NewTaskComponent {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getLastTask();
+  }
+
+  getLastTask(){
+    this.isFetchingData = true;
+
+    this.housekeepingApi.getLastTask()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.task_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.taskForm.controls.taskCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "TK"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   createTask() {
@@ -57,7 +85,7 @@ export class NewTaskComponent {
     let data: Task = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      task_code: this.taskForm.controls.taskCode.value as string,
+      task_code: this.thisId,
       task_name: this.taskForm.controls.taskName.value as string,
       task_type: this.taskForm.controls.taskType.value as string,
       from_date: this.taskForm.controls.fromDate.value,

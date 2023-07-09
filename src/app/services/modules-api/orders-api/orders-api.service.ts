@@ -36,6 +36,13 @@ export class OrdersApiService {
     return this.productRef.doc(id).ref.get();
   }
 
+  getLastProduct(){
+    return this.productRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getProductList(){
     return this.productRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -59,6 +66,13 @@ export class OrdersApiService {
 
   getOrder(id: any){
     return this.orderRef.doc(id).ref.get();
+  }
+
+  getLastOrder(){
+    return this.orderRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
   }
 
   getOrderList(){
@@ -117,6 +131,13 @@ export class OrdersApiService {
 
   getVendor(id: any){
     return this.vendorRef.doc(id).ref.get();
+  }
+
+  getLastVendor(){
+    return this.vendorRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
   }
 
   getVendorList(){

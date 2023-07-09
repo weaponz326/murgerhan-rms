@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -19,6 +20,7 @@ export class VendorHistoryComponent {
     private router: Router,
     private ordersApi: OrdersApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService,
   ) {}
 
   vendorForm = new FormGroup({
@@ -103,6 +105,10 @@ export class VendorHistoryComponent {
   gotoOrder(orderId: any){
     sessionStorage.setItem("orders_order_id", orderId);
     this.router.navigateByUrl("/modules/orders/orders/view-order");
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "RD");
   }
 
 }

@@ -12,7 +12,7 @@ export class IncidentFormComponent {
   isSaved = false;
   
   incidentForm = new FormGroup({
-    incidentCode: new FormControl(''),
+    incidentCode: new FormControl({value: '', disabled: true}),
     incidentSubject: new FormControl('', Validators.required),
     incidentType: new FormControl(''),
     incidentDate: new FormControl(),

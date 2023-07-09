@@ -21,8 +21,8 @@
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingIncident" (click)="createIncident()">Save</button>
-                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/houseekeeping/incidents">Cancel</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingIncident || isFetchingData" (click)="createIncident()">Save</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/housekeeping/incidents">Cancel</button>
                             </div>
                         </div>                        
 

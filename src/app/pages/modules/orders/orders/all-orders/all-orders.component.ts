@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { AddOrderComponent } from '../add-order/add-order.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,6 +20,7 @@ export class AllOrdersComponent {
     private router: Router,
     private ordersApi: OrdersApiService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService,
   ) { }
 
   @ViewChild('addOrderComponentReference', { read: AddOrderComponent, static: false }) addOrder!: AddOrderComponent;
@@ -79,6 +81,10 @@ export class AllOrdersComponent {
     this.orderListData = this.aggregateTable.filterData(this.orderListData, this.filterText, this.tableColumns);
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "RD");
   }
 
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,7 +17,8 @@ export class AttendancePersonnelComponent {
 
   constructor(
     private router: Router,
-    private attendanceApi: AttendanceApiService
+    private attendanceApi: AttendanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -81,7 +83,7 @@ export class AttendancePersonnelComponent {
   }
 
   setAttendanceData(){
-    this.attendanceForm.controls.attendanceCode.setValue(this.attendanceData.data().attendance_code);
+    this.attendanceForm.controls.attendanceCode.setValue(this.formatId.formatId(this.attendanceData.data().attendance_code, 3, "#", "RT"));
     this.attendanceForm.controls.attendanceName.setValue(this.attendanceData.data().attendance_name);
   }
 

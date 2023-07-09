@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Incident } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { IncidentFormComponent } from '../incident-form/incident-form.component';
 import { IncidentDetailsComponent } from '../incident-details/incident-details.component';
@@ -20,7 +21,8 @@ export class ViewIncidentComponent {
 
   constructor(
     private router: Router,
-    private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('incidentFormComponentReference', { read: IncidentFormComponent, static: false }) incidentForm!: IncidentFormComponent;
@@ -66,7 +68,7 @@ export class ViewIncidentComponent {
     let data: Incident = {
       created_at: this.incidentData.data().created_at,
       updated_at: serverTimestamp(),
-      incident_code: this.incidentForm.incidentForm.controls.incidentCode.value as string,
+      incident_code: this.incidentData.data().incident_code,
       incident_subject: this.incidentForm.incidentForm.controls.incidentSubject.value as string,
       incident_type: this.incidentForm.incidentForm.controls.incidentType.value as string,
       incident_date: this.incidentForm.incidentForm.controls.incidentDate.value,
@@ -118,7 +120,7 @@ export class ViewIncidentComponent {
   }
 
   setIncidentData(){
-    this.incidentForm.incidentForm.controls.incidentCode.setValue(this.incidentData.data().incident_code);
+    this.incidentForm.incidentForm.controls.incidentCode.setValue(this.formatId.formatId(this.incidentData.data().incident_code, 5, "#", "NC"));
     this.incidentForm.incidentForm.controls.incidentSubject.setValue(this.incidentData.data().incident_subject);
     this.incidentForm.incidentForm.controls.incidentType.setValue(this.incidentData.data().incident_type);
     this.incidentForm.incidentForm.controls.incidentDate.setValue(this.incidentData.data().incident_date);

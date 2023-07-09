@@ -3,6 +3,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { VendorProduct } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
@@ -18,6 +19,7 @@ export class VendorProductsComponent {
 
   constructor(
     private ordersApi: OrdersApiService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -116,6 +118,10 @@ export class VendorProductsComponent {
     // console.log(productData);
     this.selectedProductData = productData;
     this.createVendorProduct();
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "PR");
   }
   
 }

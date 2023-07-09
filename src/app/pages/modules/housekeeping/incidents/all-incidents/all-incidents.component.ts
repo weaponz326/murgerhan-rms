@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,6 +19,7 @@ export class AllIncidentsComponent {
     private router: Router,
     private housekeepingApi: HousekeepingApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -77,6 +79,10 @@ export class AllIncidentsComponent {
     this.incidentListData = this.aggregateTable.filterData(this.incidentListData, this.filterText, this.tableColumns);
     this.incidentListData = this.aggregateTable.sortData(this.incidentListData, this.sortColumn, this.sortDirection);
     this.incidentListData = this.aggregateTable.paginateData(this.incidentListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "NC");
   }
 
 }

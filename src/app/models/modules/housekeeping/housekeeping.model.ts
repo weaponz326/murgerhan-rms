@@ -1,7 +1,7 @@
 export class Unit {
     created_at!: any;
     updated_at!: any;
-    unit_code!: string;
+    unit_code!: number;
     unit_name!: string;
     unit_type!: string;
     location!: string;
@@ -19,7 +19,7 @@ export class Unit {
 export class Incident {
     created_at!: any;
     updated_at!: any;
-    incident_code!: string;
+    incident_code!: number;
     incident_subject!: string;
     incident_date!: any;
     incident_status!: string;
@@ -39,7 +39,7 @@ export class Incident {
 export class Task {
     created_at!: any;
     updated_at!: any;
-    task_code!: string;
+    task_code!: number;
     task_name!: string;
     task_type!: string;
     from_date!: any;

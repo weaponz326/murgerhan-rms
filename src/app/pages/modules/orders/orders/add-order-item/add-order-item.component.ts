@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { serverTimestamp } from 'firebase/firestore';
 
 import { OrderItem } from 'src/app/models/modules/orders/orders.model';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
 import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
@@ -13,6 +14,10 @@ import { SelectProductComponent } from 'src/app/components/select-windows/orders
   styleUrls: ['./add-order-item.component.scss']
 })
 export class AddOrderItemComponent {
+
+  constructor(
+    public formatId: FormatIdService,
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 
@@ -78,7 +83,7 @@ export class AddOrderItemComponent {
     // console.log(productData);
 
     this.selectedProductData = productData;
-    this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(productData.data().product_code, 4, "#", "PR"));
     this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
     this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
 

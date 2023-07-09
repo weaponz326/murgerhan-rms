@@ -1,7 +1,7 @@
 export class Roster {
     created_at!: any;
     updated_at!: any;
-    roster_code!: string;
+    roster_code!: number;
     roster_name!: string;
     from_date!: any;
     to_date!: any;
@@ -70,7 +70,7 @@ export class RosterSheet {
 export class Attendance {
     created_at!: any;
     updated_at!: any;
-    attendance_code!: string;
+    attendance_code!: number;
     attendance_name!: string;
     from_date!: any;
     to_date!: any;

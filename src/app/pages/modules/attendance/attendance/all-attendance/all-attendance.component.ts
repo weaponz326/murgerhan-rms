@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { NewAttendanceComponent } from '../new-attendance/new-attendance.component';
@@ -19,6 +20,7 @@ export class AllAttendanceComponent {
     private router: Router,
     private attendanceApi: AttendanceApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('newAttendanceComponentReference', { read: NewAttendanceComponent, static: false }) newAttendance!: NewAttendanceComponent;
@@ -80,5 +82,9 @@ export class AllAttendanceComponent {
     this.attendanceListData = this.aggregateTable.sortData(this.attendanceListData, this.sortColumn, this.sortDirection);
     this.attendanceListData = this.aggregateTable.paginateData(this.attendanceListData, this.currentPage, this.pageSize);
   }
-  
+ 
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 3, "#", "AT");
+  }
+
 }

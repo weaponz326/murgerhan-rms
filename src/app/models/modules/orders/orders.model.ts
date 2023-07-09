@@ -1,7 +1,7 @@
 export class Product {
     created_at!: any;
     updated_at!: any;
-    product_code!: string;
+    product_code!: number;
     product_name!: string;
     product_type!: string;
     price!: number;
@@ -18,7 +18,7 @@ export class Product {
 export class Order {
     created_at!: any;
     updated_at!: any;
-    order_code!: string;
+    order_code!: number;
     order_date!: any;
     order_status!: string;
     delivery_date!: any;
@@ -58,7 +58,7 @@ export class OrderItem {
 export class Vendor {
     created_at!: any;
     updated_at!: any;
-    vendor_code!: string;
+    vendor_code!: number;
     vendor_name!: string;
     phone!: string;
     email!: string;

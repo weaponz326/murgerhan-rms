@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Unit } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { UnitFormComponent } from '../unit-form/unit-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,7 +20,8 @@ export class EditUnitComponent {
 
   constructor(
     private router: Router,
-    private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('unitFormComponentReference', { read: UnitFormComponent, static: false }) unitForm!: UnitFormComponent;
@@ -64,7 +66,7 @@ export class EditUnitComponent {
     let data: Unit = {
       created_at: this.unitData.data().created_at,
       updated_at: serverTimestamp(),
-      unit_code: this.unitForm.unitForm.controls.unitCode.value as string,
+      unit_code: this.unitData.data().unit_code,
       unit_name: this.unitForm.unitForm.controls.unitName.value as string,
       unit_type: this.unitForm.unitForm.controls.unitType.value as string,
       location: this.unitForm.unitForm.controls.location.value as string,
@@ -114,7 +116,7 @@ export class EditUnitComponent {
   }
 
   setUnitData(){
-    this.unitForm.unitForm.controls.unitCode.setValue(this.unitData.data().unit_code);
+    this.unitForm.unitForm.controls.unitCode.setValue(this.formatId.formatId(this.unitData.data().unit_code, 4, "#", "UT"));
     this.unitForm.unitForm.controls.unitName.setValue(this.unitData.data().unit_name);
     this.unitForm.unitForm.controls.unitType.setValue(this.unitData.data().unit_type);
     this.unitForm.unitForm.controls.location.setValue(this.unitData.data().location);

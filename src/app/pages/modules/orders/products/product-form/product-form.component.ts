@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { FormatCurrencyService } from 'src/app/services/module-utilities/format-currency/format-currency.service';
-
 
 @Component({
   selector: 'app-product-form',
@@ -11,14 +9,12 @@ import { FormatCurrencyService } from 'src/app/services/module-utilities/format-
 })
 export class ProductFormComponent {
 
-  constructor(
-    private formatCurrency: FormatCurrencyService
-  ) { }
+  constructor() { }
 
   isSaved = false;
 
   productForm = new FormGroup({
-    productCode: new FormControl(''),
+    productCode: new FormControl({value: '', disabled: true}),
     productName: new FormControl('', Validators.required),
     productType: new FormControl(''),
     price: new FormControl(0.00),

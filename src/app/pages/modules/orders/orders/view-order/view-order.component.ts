@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Order } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
@@ -21,6 +22,7 @@ export class ViewOrderComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
+    private formatId: FormatIdService,
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -39,7 +41,7 @@ export class ViewOrderComponent {
   isDeletingOrder = false;
 
   orderForm = new FormGroup({
-    orderCode: new FormControl(''),
+    orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
     vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
     vendorName: new FormControl({value: '', disabled: true}, Validators.required),
@@ -57,7 +59,7 @@ export class ViewOrderComponent {
 
     this.ordersApi.getOrder(id)
       .then((res) => {
-        // console.log(res);
+        console.log(res.data());
         this.orderData = res;
         this.isFetchingData = false;
         this.setOrderData();        
@@ -75,7 +77,7 @@ export class ViewOrderComponent {
     let data: Order = {
       created_at: this.orderData.data().created_at,
       updated_at: serverTimestamp(),
-      order_code: this.orderForm.controls.orderCode.value as string,
+      order_code: this.orderData.data().order_code,
       order_date: this.orderForm.controls.orderDate.value,
       order_status: this.orderForm.controls.orderStatus.value as string,
       delivery_date: this.orderForm.controls.deliveryDate.value,
@@ -131,9 +133,9 @@ export class ViewOrderComponent {
   }
 
   setOrderData(){
-    this.orderForm.controls.orderCode.setValue(this.orderData.data().order_code);
+    this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    this.orderForm.controls.vendorCode.setValue(this.orderData.data().vendor.data.vendor_code);
+    this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(this.orderData.data().vendor.data.vendor_code, 4, "#", "VE"));
     this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor.data.vendor_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);

@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Roster } from 'src/app/models/modules/attendance/attendance.model';
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
@@ -19,7 +20,8 @@ export class ViewRosterComponent {
 
   constructor(
     private router: Router,
-    private attendanceApi: AttendanceApiService
+    private attendanceApi: AttendanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -34,7 +36,7 @@ export class ViewRosterComponent {
   isDeletingRoster = false;
 
   rosterForm = new FormGroup({
-    rosterCode: new FormControl('', Validators.required),
+    rosterCode: new FormControl({value: '', disabled: true}),
     rosterName: new FormControl('', Validators.required),
     fromDate: new FormControl({value: null, disabled: true}, Validators.required),
     toDate: new FormControl({value: null, disabled: true}, Validators.required),
@@ -68,7 +70,7 @@ export class ViewRosterComponent {
     let data: Roster = {
       created_at: this.rosterData.data().created_at,
       updated_at: serverTimestamp(),
-      roster_code: this.rosterForm.controls.rosterCode.value as string,
+      roster_code: this.rosterData.data().roster_code,
       roster_name: this.rosterForm.controls.rosterName.value as string,
       from_date: this.rosterForm.controls.fromDate.value,
       to_date: this.rosterForm.controls.toDate.value,
@@ -116,7 +118,7 @@ export class ViewRosterComponent {
   }
 
   setRosterData(){
-    this.rosterForm.controls.rosterCode.setValue(this.rosterData.data().roster_code);
+    this.rosterForm.controls.rosterCode.setValue(this.formatId.formatId(this.rosterData.data().roster_code, 3, "#", "RT"));
     this.rosterForm.controls.rosterName.setValue(this.rosterData.data().roster_name);
     this.rosterForm.controls.fromDate.setValue(this.rosterData.data().from_date);
     this.rosterForm.controls.toDate.setValue(this.rosterData.data().to_date);

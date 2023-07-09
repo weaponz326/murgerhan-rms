@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Product } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -20,6 +21,7 @@ export class ViewProductComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
+    private formatId: FormatIdService,
   ) {}
 
   @ViewChild('productFormComponentReference', { read: ProductFormComponent, static: false }) productForm!: ProductFormComponent;
@@ -63,7 +65,7 @@ export class ViewProductComponent {
     let data: Product = {
       created_at: this.productData.data().created_at,
       updated_at: serverTimestamp(),
-      product_code: this.productForm.productForm.controls.productCode.value as string,
+      product_code: this.productData.data().product_code,
       product_name: this.productForm.productForm.controls.productName.value as string,
       product_type: this.productForm.productForm.controls.productType.value as string,
       price: this.productForm.productForm.controls.price.value as number,
@@ -112,7 +114,7 @@ export class ViewProductComponent {
   }
 
   setProductData(){
-    this.productForm.productForm.controls.productCode.setValue(this.productData.data().product_code);
+    this.productForm.productForm.controls.productCode.setValue(this.formatId.formatId(this.productData.data().product_code, 4, "#", "PR"));
     this.productForm.productForm.controls.productName.setValue(this.productData.data().product_name);
     this.productForm.productForm.controls.productType.setValue(this.productData.data().product_type);
     this.productForm.productForm.controls.price.setValue(this.productData.data().price);

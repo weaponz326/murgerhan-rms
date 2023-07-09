@@ -37,6 +37,13 @@ export class AttendanceApiService {
     return this.rosterRef.doc(id).ref.get();
   }
 
+  getLastRoster(){
+    return this.rosterRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getRosterList(){
     return this.rosterRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -159,6 +166,13 @@ export class AttendanceApiService {
 
   getAttendance(id: any){
     return this.attendanceRef.doc(id).ref.get();
+  }
+
+  getLastAttendance(){
+    return this.attendanceRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
   }
 
   getAttendanceList(){

@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Vendor } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { VendorFormComponent } from '../vendor-form/vendor-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -20,6 +21,7 @@ export class ViewVendorComponent {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
+    private formatId: FormatIdService,
   ) {}
 
   @ViewChild('vendorFormComponentReference', { read: VendorFormComponent, static: false }) vendorForm!: VendorFormComponent;
@@ -63,7 +65,7 @@ export class ViewVendorComponent {
     let data: Vendor = {
       created_at: this.vendorData.data().created_at,
       updated_at: serverTimestamp(),
-      vendor_code: this.vendorForm.vendorForm.controls.vendorCode.value as string,
+      vendor_code: this.vendorData.data().vendor_code,
       vendor_name: this.vendorForm.vendorForm.controls.vendorName.value as string,
       phone: this.vendorForm.vendorForm.controls.phone.value as string,
       email: this.vendorForm.vendorForm.controls.email.value as string,
@@ -112,7 +114,7 @@ export class ViewVendorComponent {
   }
 
   setVendorData(){
-    this.vendorForm.vendorForm.controls.vendorCode.setValue(this.vendorData.data().vendor_code);
+    this.vendorForm.vendorForm.controls.vendorCode.setValue(this.formatId.formatId(this.vendorData.data().vendor_code, 4, "#", "VE"));
     this.vendorForm.vendorForm.controls.vendorName.setValue(this.vendorData.data().vendor_name);
     this.vendorForm.vendorForm.controls.phone.setValue(this.vendorData.data().phone);
     this.vendorForm.vendorForm.controls.email.setValue(this.vendorData.data().email);

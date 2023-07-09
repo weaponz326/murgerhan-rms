@@ -58,7 +58,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingOrder" (click)="createOrder()">Save</button>
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingOrder || isFetchingData" (click)="createOrder()">Save</button>
                     <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 

@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
 import { AddPersonnelComponent } from '../add-personnel/add-personnel.component';
 import { EditPersonnelComponent } from '../edit-personnel/edit-personnel.component';
@@ -19,6 +20,7 @@ export class ManagePersonnelComponent {
   constructor(
     private router: Router,
     private attendanceApi: AttendanceApiService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

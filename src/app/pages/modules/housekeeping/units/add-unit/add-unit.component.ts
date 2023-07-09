@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Unit } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { UnitFormComponent } from '../unit-form/unit-form.component';
@@ -18,7 +19,8 @@ export class AddUnitComponent {
 
   constructor(
     private router: Router,
-    private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -26,7 +28,37 @@ export class AddUnitComponent {
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
+  isFetchingData = false;
   isSavingUnit = false;
+  isSaved = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastUnit();
+  }
+
+  getLastUnit(){
+    this.isFetchingData = true;
+
+    this.housekeepingApi.getLastUnit()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.unit_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.unitForm.unitForm.controls.unitCode.setValue(this.formatId.formatId(this.thisId, 4, "#", "UT"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
 
   createUnit() {
     this.unitForm.isSaved = true;
@@ -34,7 +66,7 @@ export class AddUnitComponent {
     let data: Unit = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      unit_code: this.unitForm.unitForm.controls.unitCode.value as string,
+      unit_code: this.thisId,
       unit_name: this.unitForm.unitForm.controls.unitName.value as string,
       unit_type: this.unitForm.unitForm.controls.unitType.value as string,
       location: this.unitForm.unitForm.controls.location.value as string,

@@ -24,7 +24,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of vendorProductListData">
-                                        <td>{{data?.data().product?.data?.product_code}}</td>
+                                        <td>{{getFormatId(data?.data().product?.data?.product_code)}}</td>
                                         <td>{{data?.data().product?.data?.product_name}}</td>
                                         <td>{{data?.data().product?.data?.price | currency:'GBP'}}</td>
                                         <td class="p-0">

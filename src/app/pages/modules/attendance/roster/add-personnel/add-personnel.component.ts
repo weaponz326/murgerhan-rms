@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { RosterPersonnel } from 'src/app/models/modules/attendance/attendance.model';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { PersonnelFormComponent } from '../personnel-form/personnel-form.component';
 import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
@@ -15,6 +16,10 @@ import { SelectBatchComponent } from 'src/app/components/select-windows/attendan
   styleUrls: ['./add-personnel.component.scss']
 })
 export class AddPersonnelComponent {
+
+  constructor(
+    private formatId: FormatIdService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 

@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Order } from 'src/app/models/modules/orders/orders.model';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
@@ -19,7 +20,8 @@ export class AddOrderComponent {
 
   constructor(
     private router: Router,
-    private ordersApi: OrdersApiService
+    private ordersApi: OrdersApiService,
+    private formatId: FormatIdService,
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -27,8 +29,11 @@ export class AddOrderComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;  
   @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
+  isFetchingData = false;
   isSavingOrder = false;
   isSaved = false;
+
+  thisId = 0;
 
   selectedVendorId: any;
   selectedVendorData: any;
@@ -36,7 +41,7 @@ export class AddOrderComponent {
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   orderForm = new FormGroup({
-    orderCode: new FormControl(''),
+    orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
     vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
     vendorName: new FormControl({value: '', disabled: true}, Validators.required),
@@ -45,6 +50,29 @@ export class AddOrderComponent {
   openModal(){
     this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 16));
     this.newButton.nativeElement.click();
+    this.getLastOrder();
+  }
+
+  getLastOrder(){
+    this.isFetchingData = true;
+
+    this.ordersApi.getLastOrder()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.order_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "RD"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
   
   createOrder() {
@@ -53,7 +81,7 @@ export class AddOrderComponent {
     let data: Order = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      order_code: this.orderForm.controls.orderCode.value as string,
+      order_code: this.thisId,
       order_date: this.orderForm.controls.orderDate.value,
       order_status: "Processing",
       delivery_date: null,
@@ -108,7 +136,7 @@ export class AddOrderComponent {
     // console.log(vendorData);
     this.selectedVendorId = vendorData.id;
     this.selectedVendorData = vendorData.data();
-    this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);
+    this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(vendorData.data().vendor_code, 4, "#", "VE"));
     this.orderForm.controls.vendorName.setValue(vendorData.data().vendor_name);
   }
 

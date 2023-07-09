@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { serverTimestamp } from 'firebase/firestore';
 
 import { OrderItem } from 'src/app/models/modules/orders/orders.model';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
 import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
@@ -13,6 +14,10 @@ import { SelectProductComponent } from 'src/app/components/select-windows/orders
   styleUrls: ['./edit-order-item.component.scss']
 })
 export class EditOrderItemComponent {
+
+  constructor(
+    public formatId: FormatIdService,
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 
@@ -68,7 +73,7 @@ export class EditOrderItemComponent {
 
   setOrderItemData(data: any){
     this.orderItemForm.orderItemForm.controls.itemNumber.setValue(data.data().item_number);
-    this.orderItemForm.orderItemForm.controls.productCode.setValue(data.data().product?.data.product_code);
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(data.data().product?.data.product_code, 4, "#", "PR"));
     this.orderItemForm.orderItemForm.controls.productName.setValue(data.data().product?.data.product_name);
     this.orderItemForm.orderItemForm.controls.price.setValue(data.data().product.data.price);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(data.data().quantity);
@@ -85,7 +90,7 @@ export class EditOrderItemComponent {
   onProductSelected(productData: any){
     // console.log(productData);
 
-    this.orderItemForm.orderItemForm.controls.productCode.setValue(productData.data().product_code);
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(productData.data().product_code, 4, "#", "PR"));
     this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
     this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
 

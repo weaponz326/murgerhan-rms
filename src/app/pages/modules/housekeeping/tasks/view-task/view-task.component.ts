@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Task } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
@@ -22,7 +23,8 @@ export class ViewTaskComponent {
   constructor(
     private datePipe: DatePipe,
     private router: Router,
-    private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -87,7 +89,7 @@ export class ViewTaskComponent {
     let data: Task = {
       created_at: this.taskData.data().created_at,
       updated_at: serverTimestamp(),
-      task_code: this.taskForm.controls.taskCode.value as string,
+      task_code: this.taskData.data().task_code,
       task_name: this.taskForm.controls.taskName.value as string,
       task_type: this.taskForm.controls.taskType.value as string,
       from_date: this.taskForm.controls.fromDate.value,
@@ -148,7 +150,7 @@ export class ViewTaskComponent {
   }
 
   setTaskData(){
-    this.taskForm.controls.taskCode.setValue(this.taskData.data().task_code);
+    this.taskForm.controls.taskCode.setValue(this.formatId.formatId(this.taskData.data().task_code, 5, "#", "TK"));
     this.taskForm.controls.taskName.setValue(this.taskData.data().task_name);
     this.taskForm.controls.taskType.setValue(this.taskData.data().task_type);
     this.taskForm.controls.primaryAssignee.setValue(this.taskData.data().primary_assignee.data.full_name);

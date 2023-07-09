@@ -12,7 +12,7 @@ export class VendorFormComponent {
   isSaved = false;
   
   vendorForm = new FormGroup({
-    vendorCode: new FormControl(''),
+    vendorCode: new FormControl({value: '', disabled: true}),
     vendorName: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.pattern(/^\d{10}$/)),
     email: new FormControl('', Validators.email),

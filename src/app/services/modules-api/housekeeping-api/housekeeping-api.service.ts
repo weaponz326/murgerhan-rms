@@ -39,6 +39,13 @@ export class HousekeepingApiService {
     return this.unitRef.doc(id).ref.get();
   }
 
+  getLastUnit(){
+    return this.unitRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getUnitList(){
     return this.unitRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -64,6 +71,13 @@ export class HousekeepingApiService {
     return this.incidentRef.doc(id).ref.get();
   }
 
+  getLastIncident(){
+    return this.incidentRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getIncidentList(){
     return this.incidentRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -87,6 +101,13 @@ export class HousekeepingApiService {
 
   getTask(id: any){
     return this.taskRef.doc(id).ref.get();
+  }
+
+  getLastTask(){
+    return this.taskRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
   }
 
   getTaskList(){

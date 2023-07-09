@@ -12,7 +12,7 @@ export class UnitFormComponent {
   isSaved = false;
   
   unitForm = new FormGroup({
-    unitCode: new FormControl(''),
+    unitCode: new FormControl({value: '', disabled: true}),
     unitName: new FormControl('', Validators.required),
     unitType: new FormControl(''),
     location: new FormControl(''),

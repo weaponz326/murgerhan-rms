@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Attendance } from 'src/app/models/modules/attendance/attendance.model';
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
@@ -20,7 +21,8 @@ export class NewAttendanceComponent {
   constructor(
     private router: Router,
     private attendanceApi: AttendanceApiService,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private formatId: FormatIdService
   ) {}  
   
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -30,11 +32,14 @@ export class NewAttendanceComponent {
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   userListData: any;
 
+  isFetchingData = false;
   isSavingAttendance = false;
   isSaved = false;
 
+  thisId = 0;
+
   attendanceForm = new FormGroup({
-    attendanceCode: new FormControl(''),
+    attendanceCode: new FormControl({value: '', disabled: true}),
     attendanceName: new FormControl('', Validators.required),
     fromDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
     toDate: new FormControl(new Date().toISOString().slice(0, 10), Validators.required),
@@ -43,6 +48,29 @@ export class NewAttendanceComponent {
   openModal(){
     this.newButton.nativeElement.click();
     this.getBranchUserRoleList();
+    this.getLastAttendance();
+  }
+
+  getLastAttendance(){
+    this.isFetchingData = true;
+
+    this.attendanceApi.getLastAttendance()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.attendance_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.attendanceForm.controls.attendanceCode.setValue(this.formatId.formatId(this.thisId, 3, "#", "AT"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   getBranchUserRoleList(){
@@ -65,7 +93,7 @@ export class NewAttendanceComponent {
     let data: Attendance = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      attendance_code: this.attendanceForm.controls.attendanceCode.value as string,
+      attendance_code: this.thisId,
       attendance_name: this.attendanceForm.controls.attendanceName.value as string,
       from_date: this.attendanceForm.controls.fromDate.value,
       to_date: this.attendanceForm.controls.toDate.value,
