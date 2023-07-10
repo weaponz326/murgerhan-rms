@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingInvitation" (click)="createInvitation()">Invite</button>
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingInvitation || isFetchingData" (click)="createInvitation()">Invite</button>
                     <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 

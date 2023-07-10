@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { UserRole } from 'src/app/models/modules/users/users.model';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -17,7 +18,8 @@ export class ViewInvitationComponent {
 
   constructor(
     private router: Router,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -121,4 +123,8 @@ export class ViewInvitationComponent {
       });
   }
   
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "NV");
+  }
+
 }

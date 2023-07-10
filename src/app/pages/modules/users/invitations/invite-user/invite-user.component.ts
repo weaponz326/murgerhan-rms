@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Invitation } from 'src/app/models/modules/users/users.model';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,21 +19,25 @@ export class InviteUserComponent {
 
   constructor(
     private router: Router,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   
+  isFetchingData = false;
   isSavingInvitation = false;
   isSaved = false;
+
+  thisId = 0;
 
   defaultEmailSubject = "Invitation to Murger Han Hub";
   defaultEmailMessage = "Thank you for expressing your interest in being a staff at Murger Han. We would like to invite you to visit our operations website to register with us.";
 
   invitationForm = new FormGroup({
-    invitationCode: new FormControl(''),
+    invitationCode: new FormControl({value: '', disabled: true}),
     inviteeName: new FormControl('', Validators.required),
     inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
     emailSubject: new FormControl(this.defaultEmailSubject),
@@ -41,6 +46,29 @@ export class InviteUserComponent {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getLastInvitation();
+  }
+
+  getLastInvitation(){
+    this.isFetchingData = true;
+
+    this.usersApi.getLastInvitation()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.invitation_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.invitationForm.controls.invitationCode.setValue(this.formatId.formatId(this.thisId, 4, "#", "NV"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   createInvitation() {
@@ -49,7 +77,7 @@ export class InviteUserComponent {
     let data: Invitation = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      invitation_code: this.invitationForm.controls.invitationCode.value as string,
+      invitation_code: this.thisId,
       invitation_date: serverTimestamp(),
       invitee_name: this.invitationForm.controls.inviteeName.value as string,
       invitee_email: this.invitationForm.controls.inviteeEmail.value as string,

@@ -69,7 +69,7 @@ export class UserRole {
 export class Invitation {
     created_at!: any;
     updated_at!: any;
-    invitation_code!: string;
+    invitation_code!: number;
     invitation_date!: any;
     invitee_name!: string;
     invitee_email!: string;

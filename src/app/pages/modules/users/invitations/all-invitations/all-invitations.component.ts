@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { InviteUserComponent } from '../invite-user/invite-user.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,6 +20,7 @@ export class AllInvitationsComponent {
     private router: Router,
     private usersApi: UsersApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('inviteUserComponentReference', { read: InviteUserComponent, static: false }) inviteUser!: InviteUserComponent;
@@ -79,6 +81,10 @@ export class AllInvitationsComponent {
     this.invitationListData = this.aggregateTable.filterData(this.invitationListData, this.filterText, this.tableColumns);
     this.invitationListData = this.aggregateTable.sortData(this.invitationListData, this.sortColumn, this.sortDirection);
     this.invitationListData = this.aggregateTable.paginateData(this.invitationListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "NV");
   }
 
 }

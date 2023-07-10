@@ -165,6 +165,13 @@ export class UsersApiService {
       .get();
   }
 
+  getLastInvitation(){
+    return this.usersInvitationRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getInvitationList(){
     return this.usersInvitationRef.ref
       .orderBy("created_at", "desc")
