@@ -1,7 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
-import { formatDate } from '@angular/common';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ import { formatDate } from '@angular/common';
 export class OrdersPrintService {
 
   constructor(
-    private printPdf: PrintPdfService
+    private printPdf: PrintPdfService,
+    public formatId: FormatIdService
   ) { }
 
   // print orders
@@ -27,7 +29,7 @@ export class OrdersPrintService {
     for (let data of orderListData){
       var row = [];
       let rowData: any = data.data();
-      row.push(rowData.order_code);
+      row.push(this.formatId.formatId(rowData.order_code, 5, "#", "RD"));
       row.push(rowData.order_date);
       row.push(rowData.vendor.data.vendor_name);
       row.push(rowData.total_price);

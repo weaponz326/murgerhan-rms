@@ -101,7 +101,7 @@
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of taskListData">
-                                        <td>{{data?.data().task_code}}</td>
+                                        <td>{{getTaskFormatId(data?.data().task_code)}}</td>
                                         <td>{{data?.data().task_name}}</td>
                                         <td>{{data?.data().from_date | date: 'short'}}</td>
                                         <td>{{data?.data().task_type}}</td>
@@ -184,7 +184,7 @@
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of incidentListData">
-                                        <td>{{data?.data().incident_code}}</td>
+                                        <td>{{getIncidentFormatId(data?.data().incident_code)}}</td>
                                         <td>{{data?.data().incident_subject}}</td>
                                         <td>{{data?.data().incident_date | date: 'short'}}</td>
                                         <td>{{data?.data().incident_status}}</td>

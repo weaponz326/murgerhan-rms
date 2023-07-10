@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 import { MaintenancePrintService } from 'src/app/services/modules-print/maintenance-print/maintenance-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -20,6 +21,7 @@ export class MaintenanceComponent {
     private maintenanceApi: MaintenanceApiService,
     private maintenancePrint: MaintenancePrintService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -138,6 +140,14 @@ export class MaintenanceComponent {
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.serviceSortColumn, this.serviceSortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.serviceCurrentPage, this.servicePageSize);
     this.serviceListData = this.aggregateTable.getDataRange(this.serviceListData, this.startDate, this.endDate);
+  }
+
+  getIssueFormatId(id: any){
+    return this.formatId.formatId(id, 4, "5", "UE");
+  }
+
+  getServiceFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SE");
   }
 
   getIssueMetrics(){

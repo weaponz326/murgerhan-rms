@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 import { HousekeepingPrintService } from 'src/app/services/modules-print/housekeeping-print/housekeeping-print.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -20,6 +21,7 @@ export class HousekeepingComponent {
     private housekeepingApi: HousekeepingApiService,
     private housekeepingPrint: HousekeepingPrintService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -137,6 +139,14 @@ export class HousekeepingComponent {
     this.incidentListData = this.aggregateTable.sortData(this.incidentListData, this.incidentSortColumn, this.incidentSortDirection);
     this.incidentListData = this.aggregateTable.paginateData(this.incidentListData, this.incidentCurrentPage, this.incidentPageSize);
     this.incidentListData = this.aggregateTable.getDataRange(this.incidentListData, this.startDate, this.endDate);
+  }
+
+  getTaskFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "TK");
+  }
+
+  getIncidentFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "NC");
   }
 
   getTaskMetrics(){

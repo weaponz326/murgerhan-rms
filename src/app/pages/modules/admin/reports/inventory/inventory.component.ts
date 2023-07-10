@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { InventoryPrintService } from 'src/app/services/modules-print/inventory-print/inventory-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -20,6 +21,7 @@ export class InventoryComponent {
     private inventoryApi: InventoryApiService,
     private inventoryPrint: InventoryPrintService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -86,6 +88,10 @@ export class InventoryComponent {
     this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
     this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
     this.purchasingListData = this.aggregateTable.getDataRange(this.purchasingListData, this.startDate, this.endDate);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "PC");
   }
 
   getMetrics(){

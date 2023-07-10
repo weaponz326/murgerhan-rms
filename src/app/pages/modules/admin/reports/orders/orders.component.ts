@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
 import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -20,6 +21,7 @@ export class OrdersComponent {
     private ordersApi: OrdersApiService,
     private ordersPrint: OrdersPrintService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -86,6 +88,10 @@ export class OrdersComponent {
     this.orderListData = this.aggregateTable.sortData(this.orderListData, this.sortColumn, this.sortDirection);
     this.orderListData = this.aggregateTable.paginateData(this.orderListData, this.currentPage, this.pageSize);
     this.orderListData = this.aggregateTable.getDataRange(this.orderListData, this.startDate, this.endDate);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "RD");
   }
 
   getMetrics(){

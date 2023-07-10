@@ -1,7 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
-import { formatDate } from '@angular/common';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ import { formatDate } from '@angular/common';
 export class AttendancePrintService {
 
   constructor(
-    private printPdf: PrintPdfService
+    private printPdf: PrintPdfService,
+    public formatId: FormatIdService
   ) { }
 
   // print attendance
