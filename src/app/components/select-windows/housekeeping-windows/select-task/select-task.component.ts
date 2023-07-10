@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class SelectTaskComponent {
   constructor(
     private housekeepingApi: HousekeepingApiService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
@@ -82,6 +84,10 @@ export class SelectTaskComponent {
     this.taskListData = this.aggregateTable.filterData(this.taskListData, this.filterText, this.tableColumns);
     this.taskListData = this.aggregateTable.sortData(this.taskListData, this.sortColumn, this.sortDirection);
     this.taskListData = this.aggregateTable.paginateData(this.taskListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "TK");
   }
   
 }

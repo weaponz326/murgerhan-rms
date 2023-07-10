@@ -42,7 +42,7 @@
                         </thead>
                         <tbody *ngIf="!isFetchingData">
                             <tr *ngFor="let data of purchasingListData" (dblclick)="selectRow(data)">
-                                <td>{{data?.data().purchasing_code}}</td>
+                                <td>{{getFormatId(data?.data().purchasing_code)}}</td>
                                 <td>{{data?.data().purchasing_date | date: 'short'}}</td>
                                 <td>{{data?.data().supplier.data.supplier_name}}</td>
                                 <td>{{data?.data().total_price | currency:'GBP'}}</td>

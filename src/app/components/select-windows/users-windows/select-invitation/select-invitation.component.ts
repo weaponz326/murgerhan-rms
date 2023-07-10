@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class SelectInvitationComponent {
   constructor(
     private usersApi: UsersApiService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
@@ -82,6 +84,10 @@ export class SelectInvitationComponent {
     this.invitationListData = this.aggregateTable.filterData(this.invitationListData, this.filterText, this.tableColumns);
     this.invitationListData = this.aggregateTable.sortData(this.invitationListData, this.sortColumn, this.sortDirection);
     this.invitationListData = this.aggregateTable.paginateData(this.invitationListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "NV");
   }
   
 }

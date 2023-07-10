@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class SelectPurchasingComponent {
   constructor(
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
@@ -82,6 +84,10 @@ export class SelectPurchasingComponent {
     this.purchasingListData = this.aggregateTable.filterData(this.purchasingListData, this.filterText, this.tableColumns);
     this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
     this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "PC");
   }
   
 }

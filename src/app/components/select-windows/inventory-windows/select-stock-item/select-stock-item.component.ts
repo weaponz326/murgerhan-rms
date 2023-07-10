@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -16,6 +17,7 @@ export class SelectStockItemComponent {
   constructor(
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    public formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();
@@ -87,4 +89,8 @@ export class SelectStockItemComponent {
     this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);
   }
   
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SI");
+  }
+
 }
