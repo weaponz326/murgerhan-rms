@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { Router } from '@angular/router';
@@ -19,6 +20,7 @@ export class SupplierHistoryComponent {
     private router: Router,
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -63,7 +65,7 @@ export class SupplierHistoryComponent {
   }
 
   setSupplierData(){
-    this.supplierForm.controls.supplierCode.setValue(this.supplierData.data().supplier_code);
+    this.supplierForm.controls.supplierCode.setValue(this.formatId.formatId(this.supplierData.data().supplier_code, 4, "#", "SU"));
     this.supplierForm.controls.supplierName.setValue(this.supplierData.data().supplier_name);
   }
 
@@ -105,6 +107,10 @@ export class SupplierHistoryComponent {
     this.purchasingListData = this.aggregateTable.filterData(this.purchasingListData, this.filterText, this.tableColumns);
     this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
     this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "PC");
   }
 
 }

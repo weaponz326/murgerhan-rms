@@ -1,7 +1,7 @@
 export class StockItem {
     created_at!: any;
     updated_at!: any;
-    item_code!: string;
+    item_code!: number;
     item_name!: string;
     unit_price!: number;
     stock!: number;
@@ -30,7 +30,7 @@ export class StockItem {
 export class ItemCategory {
     created_at!: any;
     updated_at!: any;
-    category_code!: string;
+    category_code!: number;
     category_name!: string;
     description!: string;
     branch!: {
@@ -53,7 +53,7 @@ export class CategoryChecklist {
 export class Supplier {
     created_at!: any;
     updated_at!: any;
-    supplier_code!: string;
+    supplier_code!: number;
     supplier_name!: string;
     phone!: string;
     email!: string;
@@ -84,7 +84,7 @@ export class SupplierItem {
 export class Purchasing {
     created_at!: any;
     updated_at!: any;
-    purchasing_code!: string;
+    purchasing_code!: number;
     purchasing_date!: any;
     purchasing_status!: string;
     total_price!: number;

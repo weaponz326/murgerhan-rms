@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { ItemCategory } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { ItemCategoryFormComponent } from '../item-category-form/item-category-form.component';
@@ -18,7 +19,8 @@ export class AddItemCategoryComponent {
 
   constructor(
     private router: Router,
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService,
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -26,7 +28,36 @@ export class AddItemCategoryComponent {
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
+  isFetchingData = false;
   isSavingCategory = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastItemCategory();
+  }
+
+  getLastItemCategory(){
+    this.isFetchingData = true;
+
+    this.inventoryApi.getLastItemCategory()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.category_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.categoryForm.categoryForm.controls.categoryCode.setValue(this.formatId.formatId(this.thisId, 3, "#", "CT"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          // this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
 
   createItemCategory() {
     this.categoryForm.isSaved = true;
@@ -34,7 +65,7 @@ export class AddItemCategoryComponent {
     let data: ItemCategory = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      category_code: this.categoryForm.categoryForm.controls.categoryCode.value as string,
+      category_code: this.thisId,
       category_name: this.categoryForm.categoryForm.controls.categoryName.value as string,
       description: this.categoryForm.categoryForm.controls.description.value as string,
       branch: {

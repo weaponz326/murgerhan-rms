@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Service } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { MaintenanceServiceFormComponent } from '../maintenance-service-form/maintenance-service-form.component';
@@ -20,7 +21,8 @@ export class NewMaintenanceServiceComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -35,13 +37,42 @@ export class NewMaintenanceServiceComponent {
   selectedContractorId: any;
   selectedContractorData: any;
   
+  isFetchingData = false;
   isSavingService = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastService();
+  }
+
+  getLastService(){
+    this.isFetchingData = true;
+
+    this.maintenanceApi.getLastService()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.service_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.serviceForm.serviceForm.controls.serviceCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "SE"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
 
   createService() {
     let data: Service = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      service_code: this.serviceForm.serviceForm.controls.serviceCode.value as string,
+      service_code: this.thisId,
       service_subject: this.serviceForm.serviceForm.controls.serviceSubject.value as string,
       service_type: this.serviceForm.serviceForm.controls.serviceType.value as string,
       cost: this.serviceForm.serviceForm.controls.cost.value as number,
@@ -105,7 +136,7 @@ export class NewMaintenanceServiceComponent {
     // console.log(systemData);
 
     this.selectedSystemData = systemData;
-    this.serviceForm.serviceForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.serviceForm.serviceForm.controls.systemCode.setValue(this.formatId.formatId(systemData.data().system_code, 4, "#", "SY"));
     this.serviceForm.serviceForm.controls.systemName.setValue(systemData.data().system_name);
 
     this.selectedSystemId = systemData.id;

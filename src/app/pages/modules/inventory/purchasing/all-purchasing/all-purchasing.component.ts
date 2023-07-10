@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { NewPurchasingComponent } from '../new-purchasing/new-purchasing.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,6 +20,7 @@ export class AllPurchasingComponent {
     private router: Router,
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('newPurchasingComponentReference', { read: NewPurchasingComponent, static: false }) newPurchasing!: NewPurchasingComponent;
@@ -79,6 +81,10 @@ export class AllPurchasingComponent {
     this.purchasingListData = this.aggregateTable.filterData(this.purchasingListData, this.filterText, this.tableColumns);
     this.purchasingListData = this.aggregateTable.sortData(this.purchasingListData, this.sortColumn, this.sortDirection);
     this.purchasingListData = this.aggregateTable.paginateData(this.purchasingListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "PC");
   }
 
 }

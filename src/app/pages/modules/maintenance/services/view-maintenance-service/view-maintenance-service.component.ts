@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Service } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { MaintenanceServiceFormComponent } from '../maintenance-service-form/maintenance-service-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -21,7 +22,8 @@ export class ViewMaintenanceServiceComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('maintenanceServiceFormComponentReference', { read: MaintenanceServiceFormComponent, static: false }) serviceForm!: MaintenanceServiceFormComponent;
@@ -71,7 +73,7 @@ export class ViewMaintenanceServiceComponent {
     let data: Service = {
       created_at: this.serviceData.data().created_at,
       updated_at: serverTimestamp(),
-      service_code: this.serviceForm.serviceForm.controls.serviceCode.value as string,
+      service_code: this.serviceData.data().service_code,
       service_subject: this.serviceForm.serviceForm.controls.serviceSubject.value as string,
       service_type: this.serviceForm.serviceForm.controls.serviceType.value as string,
       cost: this.serviceForm.serviceForm.controls.cost.value as number,
@@ -138,11 +140,11 @@ export class ViewMaintenanceServiceComponent {
   }
 
   setServiceData(){
-    this.serviceForm.serviceForm.controls.serviceCode.setValue(this.serviceData.data().service_code);
+    this.serviceForm.serviceForm.controls.serviceCode.setValue(this.formatId.formatId(this.serviceData.data().service_code, 4, "#", "SY"));
     this.serviceForm.serviceForm.controls.serviceSubject.setValue(this.serviceData.data().service_subject);
     this.serviceForm.serviceForm.controls.serviceType.setValue(this.serviceData.data().service_type);
     this.serviceForm.serviceForm.controls.contractor.setValue(this.serviceData.data().contractor.data.contractor_name);
-    this.serviceForm.serviceForm.controls.systemCode.setValue(this.serviceData.data().system.data.system_code);
+    this.serviceForm.serviceForm.controls.systemCode.setValue(this.formatId.formatId(this.serviceData.data().system.data.system_code, 5, "#", "SE"));
     this.serviceForm.serviceForm.controls.systemName.setValue(this.serviceData.data().system.data.system_name);
     this.serviceForm.serviceForm.controls.cost.setValue(this.serviceData.data().cost);
     this.serviceForm.serviceForm.controls.description.setValue(this.serviceData.data().description);
@@ -170,7 +172,7 @@ export class ViewMaintenanceServiceComponent {
     // console.log(systemData);
 
     this.selectedSystemData = systemData;
-    this.serviceForm.serviceForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.serviceForm.serviceForm.controls.systemCode.setValue(this.formatId.formatId(systemData.data().system_code, 4, "#", "SY"));
     this.serviceForm.serviceForm.controls.systemName.setValue(systemData.data().system_name);
 
     this.selectedSystemId = systemData.id;

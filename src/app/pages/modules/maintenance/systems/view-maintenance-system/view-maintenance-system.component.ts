@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { System } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { MaintenanceSystemFormComponent } from '../maintenance-system-form/maintenance-system-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,7 +20,8 @@ export class ViewMaintenanceSystemComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('maintenanceSystemFormComponentReference', { read: MaintenanceSystemFormComponent, static: false }) systemForm!: MaintenanceSystemFormComponent;
@@ -64,7 +66,7 @@ export class ViewMaintenanceSystemComponent {
     let data: System = {
       created_at: this.systemData.data().created_at,
       updated_at: serverTimestamp(),
-      system_code: this.systemForm.systemForm.controls.systemCode.value as string,
+      system_code: this.systemData.data().system_code,
       system_name: this.systemForm.systemForm.controls.systemName.value as string,
       system_type: this.systemForm.systemForm.controls.systemType.value as string,
       location: this.systemForm.systemForm.controls.location.value as string,
@@ -115,7 +117,7 @@ export class ViewMaintenanceSystemComponent {
   }
 
   setSystemData(){
-    this.systemForm.systemForm.controls.systemCode.setValue(this.systemData.data().system_code);
+    this.systemForm.systemForm.controls.systemCode.setValue(this.formatId.formatId(this.systemData.data().system_code, 4, "#", "SY"));
     this.systemForm.systemForm.controls.systemName.setValue(this.systemData.data().system_name);
     this.systemForm.systemForm.controls.systemType.setValue(this.systemData.data().system_type);
     this.systemForm.systemForm.controls.location.setValue(this.systemData.data().location);

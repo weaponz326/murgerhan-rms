@@ -1,7 +1,7 @@
 export class Issue {
     created_at!: any;
     updated_at!: any;
-    issue_code!: string;
+    issue_code!: number;
     issue_subject!: string;
     issue_type!: string;
     issue_date!: string;
@@ -42,7 +42,7 @@ export class IssueImage {
 export class Service {
     created_at!: any;
     updated_at!: any;
-    service_code!: string;
+    service_code!: number;
     service_subject!: string;
     service_type!: string;
     cost!: number;
@@ -77,7 +77,7 @@ export class Service {
 export class Contractor {
     created_at!: any;
     updated_at!: any;
-    contractor_code!: string;
+    contractor_code!: number;
     contractor_name!: string;
     contractor_type!: string;
     main_service!: string;
@@ -96,7 +96,7 @@ export class Contractor {
 export class System {
     created_at!: any;
     updated_at!: any;
-    system_code!: string;
+    system_code!: number;
     system_name!: string;
     system_type!: string;
     location!: string;

@@ -3,6 +3,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { SupplierItem } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
@@ -18,6 +19,7 @@ export class SupplierProductsComponent {
 
   constructor(
     private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -116,6 +118,10 @@ export class SupplierProductsComponent {
     // console.log(itemData);
     this.selectedStockItemData = itemData;
     this.createSupplierItem();
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SI");
   }
 
 }

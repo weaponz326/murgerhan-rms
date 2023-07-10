@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Contractor } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ContractorFormComponent } from '../contractor-form/contractor-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,7 +20,8 @@ export class EditContractorsComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('contractorFormComponentReference', { read: ContractorFormComponent, static: false }) contractorForm!: ContractorFormComponent;
@@ -64,7 +66,7 @@ export class EditContractorsComponent {
     let data: Contractor = {
       created_at: this.contractorData.data().created_at,
       updated_at: serverTimestamp(),
-      contractor_code: this.contractorForm.contractorForm.controls.contractorCode.value as string,
+      contractor_code: this.contractorData.data().contractor_code,
       contractor_name: this.contractorForm.contractorForm.controls.contractorName.value as string,
       contractor_type: this.contractorForm.contractorForm.controls.contractorType.value as string,
       main_service: this.contractorForm.contractorForm.controls.mainService.value as string,
@@ -115,7 +117,7 @@ export class EditContractorsComponent {
   }
 
   setContractorData(){
-    this.contractorForm.contractorForm.controls.contractorCode.setValue(this.contractorData.data().contractor_code);
+    this.contractorForm.contractorForm.controls.contractorCode.setValue(this.formatId.formatId(this.contractorData.data().contractor_code, 4, "#", "CT"));
     this.contractorForm.contractorForm.controls.contractorName.setValue(this.contractorData.data().contractor_name);
     this.contractorForm.contractorForm.controls.contractorType.setValue(this.contractorData.data().contractor_type);
     this.contractorForm.contractorForm.controls.mainService.setValue(this.contractorData.data().main_service);

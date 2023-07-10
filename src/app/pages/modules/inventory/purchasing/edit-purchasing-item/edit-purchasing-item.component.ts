@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { serverTimestamp } from 'firebase/firestore';
 
 import { PurchasingItem } from 'src/app/models/modules/inventory/inventory.model';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { PurchasingItemFormComponent } from '../purchasing-item-form/purchasing-item-form.component';
 import { SelectStockItemComponent } from 'src/app/components/select-windows/inventory-windows/select-stock-item/select-stock-item.component';
@@ -13,6 +14,10 @@ import { SelectStockItemComponent } from 'src/app/components/select-windows/inve
   styleUrls: ['./edit-purchasing-item.component.scss']
 })
 export class EditPurchasingItemComponent {
+
+  constructor(
+    private formatId: FormatIdService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 
@@ -90,7 +95,7 @@ export class EditPurchasingItemComponent {
     // console.log(itemData);
 
     this.selectedItemData = itemData;
-    this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(itemData.data().item_code);
+    this.purchasingItemForm.purchasingItemForm.controls.itemCode.setValue(this.formatId.formatId(itemData.data().item_code, 5, "#", "SI"));
     this.purchasingItemForm.purchasingItemForm.controls.itemName.setValue(itemData.data().item_name);
     this.purchasingItemForm.purchasingItemForm.controls.unitPrice.setValue(itemData.data().unit_price);
 

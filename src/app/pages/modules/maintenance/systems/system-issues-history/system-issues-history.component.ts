@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -19,6 +20,7 @@ export class SystemIssuesHistoryComponent {
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) {}
 
   systemForm = new FormGroup({
@@ -66,7 +68,7 @@ export class SystemIssuesHistoryComponent {
   }
 
   setSystemData(){
-    this.systemForm.controls.systemCode.setValue(this.systemData.data().system_code);
+    this.systemForm.controls.systemCode.setValue(this.formatId.formatId(this.systemData.data().system_code, 4, "#", "SY"));
     this.systemForm.controls.systemName.setValue(this.systemData.data().system_name);
   }
 
@@ -108,6 +110,10 @@ export class SystemIssuesHistoryComponent {
     this.issueListData = this.aggregateTable.filterData(this.issueListData, this.filterText, this.tableColumns);
     this.issueListData = this.aggregateTable.sortData(this.issueListData, this.sortColumn, this.sortDirection);
     this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "UE");
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { PurchasingCheck } from 'src/app/models/modules/inventory/inventory.model';
@@ -17,7 +18,8 @@ import { PurchasingCheck } from 'src/app/models/modules/inventory/inventory.mode
 export class PurchasingQualityChecksComponent {
 
   constructor(
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -177,10 +179,14 @@ export class PurchasingQualityChecksComponent {
   }
 
   setPurchasingData(){
-    this.purchasingForm.controls.purchasingCode.setValue(this.purchasingData.data().purchasing_code);
+    this.purchasingForm.controls.purchasingCode.setValue(this.formatId.formatId(this.purchasingData.data().purchasing_code, 5, "#", "PC"));
     this.purchasingForm.controls.purchasingDate.setValue(this.purchasingData.data().purchasing_date);
-    this.purchasingForm.controls.supplierCode.setValue(this.purchasingData.data().supplier.data.supplier_code);
+    this.purchasingForm.controls.supplierCode.setValue(this.formatId.formatId(this.purchasingData.data().supplier.data.supplier_code, 4, "#", "SU"));
     this.purchasingForm.controls.supplierName.setValue(this.purchasingData.data().supplier.data.supplier_name);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SI");
   }
 
 }

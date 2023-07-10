@@ -14,7 +14,7 @@ export class StockItemFormComponent {
   isSaved = false;
   
   stockItemForm = new FormGroup({
-    itemCode: new FormControl(),
+    itemCode: new FormControl({value: '', disabled: true}),
     itemName: new FormControl('', Validators.required),
     itemCategory: new FormControl({value: '', disabled: true}, Validators.required),
     unitPrice: new FormControl(0.00),

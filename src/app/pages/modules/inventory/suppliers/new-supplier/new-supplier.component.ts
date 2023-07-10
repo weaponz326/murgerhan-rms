@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Supplier } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { SupplierFormComponent } from '../supplier-form/supplier-form.component';
@@ -18,7 +19,8 @@ export class NewSupplierComponent {
 
   constructor(
     private router: Router,
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -26,7 +28,36 @@ export class NewSupplierComponent {
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
+  isFetchingData = false;
   isSavingSupplier = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastSupplier();
+  }
+
+  getLastSupplier(){
+    this.isFetchingData = true;
+
+    this.inventoryApi.getLastSupplier()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.supplier_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.supplierForm.supplierForm.controls.supplierCode.setValue(this.formatId.formatId(this.thisId, 4, "#", "SU"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          // this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
 
   createSupplier() {
     this.supplierForm.isSaved = true;
@@ -34,7 +65,7 @@ export class NewSupplierComponent {
     let data: Supplier = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      supplier_code: this.supplierForm.supplierForm.controls.supplierCode.value as string,
+      supplier_code: this.thisId,
       supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
       phone: this.supplierForm.supplierForm.controls.phone.value as string,
       email: this.supplierForm.supplierForm.controls.email.value as string,

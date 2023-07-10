@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Supplier } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { SupplierFormComponent } from '../supplier-form/supplier-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -19,7 +20,8 @@ export class ViewSupplierComponent {
 
   constructor(
     private router: Router,
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('supplierFormComponentReference', { read: SupplierFormComponent, static: false }) supplierForm!: SupplierFormComponent;
@@ -64,7 +66,7 @@ export class ViewSupplierComponent {
     let data: Supplier = {
       created_at: this.supplierData.data().created_at,
       updated_at: serverTimestamp(),
-      supplier_code: this.supplierForm.supplierForm.controls.supplierCode.value as string,
+      supplier_code: this.supplierData.data().supplier_code,
       supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
       phone: this.supplierForm.supplierForm.controls.phone.value as string,
       email: this.supplierForm.supplierForm.controls.email.value as string,
@@ -112,7 +114,7 @@ export class ViewSupplierComponent {
   }
 
   setSupplierData(){
-    this.supplierForm.supplierForm.controls.supplierCode.setValue(this.supplierData.data().supplier_code);
+    this.supplierForm.supplierForm.controls.supplierCode.setValue(this.formatId.formatId(this.supplierData.data().supplier_code, 4, "#", "SU"));
     this.supplierForm.supplierForm.controls.supplierName.setValue(this.supplierData.data().supplier_name);
     this.supplierForm.supplierForm.controls.phone.setValue(this.supplierData.data().phone);
     this.supplierForm.supplierForm.controls.email.setValue(this.supplierData.data().email);

@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Issue } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { MaintenanceIssueFormComponent } from '../maintenance-issue-form/maintenance-issue-form.component';
@@ -20,7 +21,8 @@ export class NewMaintnenanceIssueComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -33,13 +35,43 @@ export class NewMaintnenanceIssueComponent {
   selectedSystemId: any;
   selectedSystemData: any;  
   selectedUserRoleId: any;
-  selectedUserRoleData: any;
+  selectedUserRoleData: any;  
 
+  isFetchingData = false;
   isSavingIssue = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastIssue();
+  }
 
   ngAfterViewInit(){
     this.issueForm.issueForm.controls.issueDate.setValue(new Date().toISOString().slice(0, 16));
   }
+
+  getLastIssue(){
+    this.isFetchingData = true;
+
+    this.maintenanceApi.getLastIssue()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.issue_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.issueForm.issueForm.controls.issueCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "UE"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
 
   createIssue() {
     this.issueForm.isSaved = true;
@@ -64,7 +96,7 @@ export class NewMaintnenanceIssueComponent {
     let data: Issue = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      issue_code: this.issueForm.issueForm.controls.issueCode.value as string,
+      issue_code: this.thisId,
       issue_subject: this.issueForm.issueForm.controls.issueSubject.value as string,
       issue_type: this.issueForm.issueForm.controls.issueType.value as string,
       issue_date: this.issueForm.issueForm.controls.issueDate.value,
@@ -121,7 +153,7 @@ export class NewMaintnenanceIssueComponent {
     // console.log(systemData);
 
     this.selectedSystemData = systemData;
-    this.issueForm.issueForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.issueForm.issueForm.controls.systemCode.setValue(this.formatId.formatId(systemData.data().system_code, 4, "#", "SY"));
     this.issueForm.issueForm.controls.systemName.setValue(systemData.data().system_name);
 
     this.selectedSystemId = systemData.id;

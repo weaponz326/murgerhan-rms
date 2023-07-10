@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,6 +19,7 @@ export class AllMaintenanceIssuesComponent {
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -78,5 +80,9 @@ export class AllMaintenanceIssuesComponent {
     this.issueListData = this.aggregateTable.sortData(this.issueListData, this.sortColumn, this.sortDirection);
     this.issueListData = this.aggregateTable.paginateData(this.issueListData, this.currentPage, this.pageSize);
   }
-  
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "UE");
+  }
+
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,6 +19,7 @@ export class AllItemCategoriesComponent {
     private router: Router,
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -77,6 +79,10 @@ export class AllItemCategoriesComponent {
     this.itemcategoryListData = this.aggregateTable.filterData(this.itemcategoryListData, this.filterText, this.tableColumns);
     this.itemcategoryListData = this.aggregateTable.sortData(this.itemcategoryListData, this.sortColumn, this.sortDirection);
     this.itemcategoryListData = this.aggregateTable.paginateData(this.itemcategoryListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 3, "#", "CT");
   }
 
 }

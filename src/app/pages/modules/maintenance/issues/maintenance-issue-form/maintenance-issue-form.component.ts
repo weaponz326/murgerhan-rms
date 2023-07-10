@@ -15,7 +15,7 @@ export class MaintenanceIssueFormComponent {
   isSaved = false;
 
   issueForm = new FormGroup({
-    issueCode: new FormControl(''),
+    issueCode: new FormControl({value: '', disabled: true}),
     issueSubject: new FormControl('', Validators.required),
     issueType: new FormControl(''),
     issueDate: new FormControl(),

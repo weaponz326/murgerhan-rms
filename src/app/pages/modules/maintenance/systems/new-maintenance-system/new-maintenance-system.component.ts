@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { System } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { MaintenanceSystemFormComponent } from '../maintenance-system-form/maintenance-system-form.component';
@@ -18,7 +19,8 @@ export class NewMaintenanceSystemComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -26,7 +28,36 @@ export class NewMaintenanceSystemComponent {
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
+  isFetchingData = false;
   isSavingSystem = false;
+
+  thisId = 0;
+
+  ngOnInit(): void {
+    this.getLastSystem();
+  }
+
+  getLastSystem(){
+    this.isFetchingData = true;
+
+    this.maintenanceApi.getLastSystem()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.system_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.systemForm.systemForm.controls.systemCode.setValue(this.formatId.formatId(this.thisId, 4, "#", "SY"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
 
   createSystem() {
     this.systemForm.isSaved = true;
@@ -34,7 +65,7 @@ export class NewMaintenanceSystemComponent {
     let data: System = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      system_code: this.systemForm.systemForm.controls.systemCode.value as string,
+      system_code: this.thisId,
       system_name: this.systemForm.systemForm.controls.systemName.value as string,
       system_type: this.systemForm.systemForm.controls.systemType.value as string,
       location: this.systemForm.systemForm.controls.location.value as string,

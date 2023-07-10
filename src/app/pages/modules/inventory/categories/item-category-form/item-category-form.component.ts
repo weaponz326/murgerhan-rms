@@ -11,7 +11,7 @@ export class ItemCategoryFormComponent {
   isSaved = false;
   
   categoryForm = new FormGroup({
-    categoryCode: new FormControl(''),
+    categoryCode: new FormControl({value: '', disabled: true}),
     categoryName: new FormControl('', Validators.required),
     description: new FormControl(''),
   })

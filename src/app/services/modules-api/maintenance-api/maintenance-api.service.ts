@@ -37,6 +37,13 @@ export class MaintenanceApiService {
     return this.maintenanceIssueRef.doc(id).ref.get();
   }
 
+  getLastIssue(){
+    return this.maintenanceIssueRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+  
   getIssueList(){
     return this.maintenanceIssueRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -95,6 +102,13 @@ export class MaintenanceApiService {
     return this.maintenanceServiceRef.doc(id).ref.get();
   }
 
+  getLastService(){
+    return this.maintenanceServiceRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   getServiceList(){
     return this.maintenanceServiceRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -136,6 +150,13 @@ export class MaintenanceApiService {
     return this.contractorRef.doc(id).ref.get();
   }
 
+  getLastContractor(){
+    return this.contractorRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   getContractorList(){
     return this.contractorRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -159,6 +180,13 @@ export class MaintenanceApiService {
 
   getSystem(id: any){
     return this.systemRef.doc(id).ref.get();
+  }
+
+  getLastSystem(){
+    return this.systemRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
   }
 
   getSystemList(){

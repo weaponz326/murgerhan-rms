@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
 import { AddPurchasingItemComponent } from '../add-purchasing-item/add-purchasing-item.component';
@@ -19,6 +20,7 @@ export class PurchasingItemsComponent {
   constructor(
     private router: Router,
     private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

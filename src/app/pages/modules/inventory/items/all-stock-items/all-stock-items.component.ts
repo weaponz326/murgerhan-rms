@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { EditStockItemComponent } from '../edit-stock-item/edit-stock-item.component';
 import { AddStockItemComponent } from '../add-stock-item/add-stock-item.component';
@@ -19,6 +20,7 @@ export class AllStockItemsComponent {
   constructor(
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -147,6 +149,10 @@ export class AllStockItemsComponent {
     this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
     this.stockItemListData = this.aggregateTable.sortData(this.stockItemListData, this.sortColumn, this.sortDirection);
     this.stockItemListData = this.aggregateTable.paginateData(this.stockItemListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SI");
   }
 
 }

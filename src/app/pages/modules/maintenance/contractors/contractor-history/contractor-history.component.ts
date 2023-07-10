@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -19,6 +20,7 @@ export class ContractorHistoryComponent {
     private router: Router,
     private maintenanceApi: MaintenanceApiService,
     private aggregateTable: AggregateTableService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -67,7 +69,7 @@ export class ContractorHistoryComponent {
   }
 
   setContractorData(){
-    this.contractorForm.controls.contractorCode.setValue(this.contractorData.data().contractor_code);
+    this.contractorForm.controls.contractorCode.setValue(this.formatId.formatId(this.contractorData.data().contractor_code, 4, "#", "CT"));
     this.contractorForm.controls.contractorName.setValue(this.contractorData.data().contractor_name);
     this.contractorForm.controls.contractorType.setValue(this.contractorData.data().contractor_type);
   }
@@ -110,6 +112,10 @@ export class ContractorHistoryComponent {
     this.serviceListData = this.aggregateTable.filterData(this.serviceListData, this.filterText, this.tableColumns);
     this.serviceListData = this.aggregateTable.sortData(this.serviceListData, this.sortColumn, this.sortDirection);
     this.serviceListData = this.aggregateTable.paginateData(this.serviceListData, this.currentPage, this.pageSize);
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 5, "#", "SE");
   }
 
 }

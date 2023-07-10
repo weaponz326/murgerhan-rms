@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Purchasing } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
@@ -20,7 +21,8 @@ export class ViewPurchasingComponent {
 
   constructor(
     private router: Router,
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -80,7 +82,7 @@ export class ViewPurchasingComponent {
     let data: Purchasing = {
       created_at: this.purchasingData.data().created_at,
       updated_at: serverTimestamp(),
-      purchasing_code: this.purchasingForm.controls.purchasingCode.value as string,
+      purchasing_code: this.purchasingData.data().purchasing_code,
       purchasing_date: this.purchasingForm.controls.purchasingDate.value,
       purchasing_status: this.purchasingForm.controls.purchasingStatus.value as string,
       date_received: this.purchasingForm.controls.dateReceived.value,
@@ -144,9 +146,9 @@ export class ViewPurchasingComponent {
   }
 
   setPurchasingData(){
-    this.purchasingForm.controls.purchasingCode.setValue(this.purchasingData.data().purchasing_code);
+    this.purchasingForm.controls.purchasingCode.setValue(this.formatId.formatId(this.purchasingData.data().purchasing_code, 5, "#", "PC"));
     this.purchasingForm.controls.purchasingDate.setValue(this.purchasingData.data().purchasing_date);
-    this.purchasingForm.controls.supplierCode.setValue(this.purchasingData.data().supplier.data.supplier_code);
+    this.purchasingForm.controls.supplierCode.setValue(this.formatId.formatId(this.purchasingData.data().supplier.data.supplier_code, 4, "#", "SU"));
     this.purchasingForm.controls.supplierName.setValue(this.purchasingData.data().supplier.data.supplier_name);
     this.purchasingForm.controls.purchasingStatus.setValue(this.purchasingData.data().purchasing_status);
     this.purchasingForm.controls.dateReceived.setValue(this.purchasingData.data().delivery_date);

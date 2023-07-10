@@ -12,7 +12,7 @@ export class ContractorFormComponent {
   isSaved = false;
   
   contractorForm = new FormGroup({
-    contractorCode: new FormControl(''),
+    contractorCode: new FormControl({value: '', disabled: true}),
     contractorName: new FormControl('', Validators.required),
     contractorType: new FormControl(''),
     mainService: new FormControl(''),

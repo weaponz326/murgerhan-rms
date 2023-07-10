@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { serverTimestamp } from 'firebase/firestore';
 
 import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
+import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 import { SelectItemCategoryComponent } from 'src/app/components/select-windows/inventory-windows/select-item-category/select-item-category.component';
@@ -14,6 +16,11 @@ import { SelectItemCategoryComponent } from 'src/app/components/select-windows/i
 })
 export class AddStockItemComponent {
 
+  constructor(
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService,
+  ) { }
+  
   @Output() saveItemEvent = new EventEmitter<any>();
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
@@ -21,8 +28,12 @@ export class AddStockItemComponent {
   @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
   @ViewChild('selectItemCategoryComponentReference', { read: SelectItemCategoryComponent, static: false }) selectItemCategory!: SelectItemCategoryComponent;
 
+  isFetchingData = false;
   isItemSaving = false;
+  isSaved = false;
 
+  thisId = 0;
+  
   selectedItemCategoryId: any;
   selectedItemCategoryData: any;
   
@@ -30,6 +41,29 @@ export class AddStockItemComponent {
 
   openModal(){
     this.addButton.nativeElement.click();
+    this.getLastStockItem();
+  }
+
+  getLastStockItem(){
+    this.isFetchingData = true;
+
+    this.inventoryApi.getLastStockItem()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.item_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.stockItemForm.stockItemForm.controls.itemCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "SI"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          // this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   saveItem(){
@@ -38,7 +72,7 @@ export class AddStockItemComponent {
     let data: StockItem = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      item_code: this.stockItemForm.stockItemForm.controls.itemCode.value as string,
+      item_code: this.thisId,
       item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
       unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
       stock: this.stockItemForm.stockItemForm.controls.stock.value as number,

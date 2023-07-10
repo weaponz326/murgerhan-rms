@@ -15,7 +15,7 @@ export class MaintenanceServiceFormComponent {
   isSaved = false;
   
   serviceForm = new FormGroup({
-    serviceCode: new FormControl(''),
+    serviceCode: new FormControl({value: '', disabled: true}),
     serviceSubject: new FormControl('', Validators.required),
     serviceType: new FormControl(''),
     contractor: new FormControl({value: '', disabled: true}, Validators.required),

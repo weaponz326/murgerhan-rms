@@ -41,6 +41,13 @@ export class InventoryApiService {
     return this.stockItemRef.doc(id).ref.get();
   }
 
+  getLastStockItem(){
+    return this.stockItemRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getStockItemList(){
     return this.stockItemRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -64,6 +71,13 @@ export class InventoryApiService {
 
   getItemCategory(id: any){
     return this.itemCategoryRef.doc(id).ref.get();
+  }
+
+  getLastItemCategory(){
+    return this.itemCategoryRef.ref
+      .orderBy("created_at", "desc")
+      .limit(5)
+      .get();
   }
 
   getItemCategoryList(){
@@ -116,6 +130,13 @@ export class InventoryApiService {
     return this.supplierRef.doc(id).ref.get();
   }
 
+  getLastSupplier(){
+    return this.supplierRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
   getSupplierList(){
     return this.supplierRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
@@ -164,6 +185,13 @@ export class InventoryApiService {
 
   getPurchasing(id: any){
     return this.purchasingRef.doc(id).ref.get();
+  }
+
+  getLastPurchasing(){
+    return this.purchasingRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
   }
 
   getPurchasingList(){

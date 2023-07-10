@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Purchasing } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { SelectSupplierComponent } from 'src/app/components/select-windows/inventory-windows/select-supplier/select-supplier.component';
@@ -19,7 +20,8 @@ export class NewPurchasingComponent {
 
   constructor(
     private router: Router,
-    private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService,
+    private formatId: FormatIdService
   ) {}  
   
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -32,8 +34,11 @@ export class NewPurchasingComponent {
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   selectedUserData: any = JSON.parse(String(localStorage.getItem("selected_user_role")));
   
+  isFetchingData = false;
   isSavingPurchasing = false;
   isSaved = false;
+
+  thisId = 0;
 
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
@@ -45,6 +50,29 @@ export class NewPurchasingComponent {
   openModal(){
     this.purchasingForm.controls.purchasingDate.setValue(new Date().toISOString().slice(0, 16));
     this.newButton.nativeElement.click();
+    this.getLastPurchasing();
+  }
+
+  getLastPurchasing(){
+    this.isFetchingData = true;
+
+    this.inventoryApi.getLastPurchasing()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          if(res.docs[0])
+            this.thisId = res.docs[0]?.data()?.purchasing_code + 1;        
+          else  
+            this.thisId = this.thisId + 1;
+          this.purchasingForm.controls.purchasingCode.setValue(this.formatId.formatId(this.thisId, 5, "#", "PC"));
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          // this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
   }
 
   createPurchasing() {
@@ -53,7 +81,7 @@ export class NewPurchasingComponent {
     let data: Purchasing = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      purchasing_code: this.purchasingForm.controls.purchasingCode.value as string,
+      purchasing_code: this.thisId,
       purchasing_date: this.purchasingForm.controls.purchasingDate.value,
       purchasing_status: "Processing",
       date_received: null,
@@ -62,9 +90,9 @@ export class NewPurchasingComponent {
       received_by: {
         id: localStorage.getItem('uid') as string,
         data: {
-          staff_code: this.selectedUserData.staff_code as string,
-          full_name: this.selectedUserData.full_name as string,
-          staff_role: this.selectedUserData.staff_role as string,
+          staff_code: this.selectedUserData.data.staff_code as string,
+          full_name: this.selectedUserData.data.full_name as string,
+          staff_role: this.selectedUserData.data.staff_role as string,
         }
       },
       supplier: {
@@ -117,7 +145,7 @@ export class NewPurchasingComponent {
     // console.log(supplierData);
     this.selectedSupplierId = supplierData.id;
     this.selectedSupplierData = supplierData.data();
-    this.purchasingForm.controls.supplierCode.setValue(supplierData.data().supplier_code);
+    this.purchasingForm.controls.supplierCode.setValue(this.formatId.formatId(supplierData.data().supplier_code, 4, "#", "SU"));
     this.purchasingForm.controls.supplierName.setValue(supplierData.data().supplier_name);
   }
 

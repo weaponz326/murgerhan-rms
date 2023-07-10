@@ -21,7 +21,7 @@
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
-                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingSupplier" (click)="createSupplier()">Save</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingSupplier || isFetchingData" (click)="createSupplier()">Save</button>
                                 <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/inventory/suppliers">Cancel</button>
                             </div>
                         </div>                        

@@ -3,6 +3,7 @@ import { StockItemFormComponent } from '../stock-item-form/stock-item-form.compo
 import { serverTimestamp } from 'firebase/firestore';
 
 import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { SelectItemCategoryComponent } from 'src/app/components/select-windows/inventory-windows/select-item-category/select-item-category.component';
 
@@ -13,6 +14,10 @@ import { SelectItemCategoryComponent } from 'src/app/components/select-windows/i
   styleUrls: ['./edit-stock-item.component.scss']
 })
 export class EditStockItemComponent {
+
+  constructor(
+    private formatId: FormatIdService,
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
@@ -45,7 +50,7 @@ export class EditStockItemComponent {
     let data: StockItem = {
       created_at: this.stockItemData.data().created_at,
       updated_at: serverTimestamp(),
-      item_code: this.stockItemForm.stockItemForm.controls.itemCode.value as string,
+      item_code: this.stockItemData.data().item_code,
       item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
       unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
       stock: this.stockItemForm.stockItemForm.controls.stock.value as number,
@@ -85,7 +90,7 @@ export class EditStockItemComponent {
   }
 
   setStockItemData(data: any){
-    this.stockItemForm.stockItemForm.controls.itemCode.setValue(data.item_code);
+    this.stockItemForm.stockItemForm.controls.itemCode.setValue(this.formatId.formatId(data.item_code, 5, "#", "SI"));
     this.stockItemForm.stockItemForm.controls.itemName.setValue(data.item_name);
     this.stockItemForm.stockItemForm.controls.itemCategory.setValue(data.item_category.data.category_name);
     this.stockItemForm.stockItemForm.controls.unitPrice.setValue(data.unit_price);

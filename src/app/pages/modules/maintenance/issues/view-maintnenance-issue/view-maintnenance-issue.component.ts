@@ -4,6 +4,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Issue } from 'src/app/models/modules/maintenance/maintenance.model';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { MaintenanceIssueFormComponent } from '../maintenance-issue-form/maintenance-issue-form.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -21,7 +22,8 @@ export class ViewMaintnenanceIssueComponent {
 
   constructor(
     private router: Router,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private formatId: FormatIdService
   ) {}
 
   @ViewChild('maintenanceIssueFormComponentReference', { read: MaintenanceIssueFormComponent, static: false }) issueForm!: MaintenanceIssueFormComponent;
@@ -74,7 +76,7 @@ export class ViewMaintnenanceIssueComponent {
     let data: Issue = {
       created_at: this.issueData.data().created_at,
       updated_at: serverTimestamp(),
-      issue_code: this.issueForm.issueForm.controls.issueCode.value as string,
+      issue_code: this.issueData.data().issue_code,
       issue_subject: this.issueForm.issueForm.controls.issueSubject.value as string,
       issue_type: this.issueForm.issueForm.controls.issueType.value as string,
       issue_date: this.issueForm.issueForm.controls.issueDate.value,
@@ -155,16 +157,19 @@ export class ViewMaintnenanceIssueComponent {
   }
   
   setIssueData(){
-    this.issueForm.issueForm.controls.issueCode.setValue(this.issueData.data().issue_code);
+    this.issueForm.issueForm.controls.issueCode.setValue(this.formatId.formatId(this.issueData.data().issue_code, 5, "#", "UE"));
     this.issueForm.issueForm.controls.issueSubject.setValue(this.issueData.data().issue_subject);
     this.issueForm.issueForm.controls.issueType.setValue(this.issueData.data().issue_type);
-    this.issueForm.issueForm.controls.issueDate.setValue(this.issueData.data().issue_date);
-    this.issueForm.issueForm.controls.systemCode.setValue(this.issueData.data().system.data.system_code);
-    this.issueForm.issueForm.controls.systemName.setValue(this.issueData.data().system.data.system_name);
+    this.issueForm.issueForm.controls.issueDate.setValue(this.issueData.data().issue_date);    
     this.issueForm.issueForm.controls.reportedTo.setValue(this.issueData.data().reported_to.data.full_name);
     this.issueForm.issueForm.controls.description.setValue(this.issueData.data().description);
     this.issueForm.issueForm.controls.issueStatus.setValue(this.issueData.data().issue_status);
     this.issueForm.issueForm.controls.comments.setValue(this.issueData.data().comments);
+
+    if(this.issueData.data().system.data.system_name){
+      this.issueForm.issueForm.controls.systemCode.setValue(this.formatId.formatId(this.issueData.data().system.data.system_code, 4, "#", "SY"));
+      this.issueForm.issueForm.controls.systemName.setValue(this.issueData.data().system.data.system_name);
+    }
 
     this.selectedSystemId = this.issueData.data().system.id;
     this.selectedSystemData = this.issueData.data().system.data;
@@ -185,7 +190,7 @@ export class ViewMaintnenanceIssueComponent {
     // console.log(systemData);
 
     this.selectedSystemData = systemData;
-    this.issueForm.issueForm.controls.systemCode.setValue(systemData.data().system_code);
+    this.issueForm.issueForm.controls.systemCode.setValue(this.formatId.formatId(systemData.data().system_code, 4, "#", "SY"));
     this.issueForm.issueForm.controls.systemName.setValue(systemData.data().system_name);
 
     this.selectedSystemId = systemData.id;
