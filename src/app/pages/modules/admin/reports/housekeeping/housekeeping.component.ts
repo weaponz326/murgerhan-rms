@@ -21,7 +21,7 @@ export class HousekeepingComponent {
     private housekeepingApi: HousekeepingApiService,
     private housekeepingPrint: HousekeepingPrintService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

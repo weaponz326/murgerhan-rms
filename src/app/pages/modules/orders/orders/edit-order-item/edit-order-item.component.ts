@@ -16,7 +16,7 @@ import { SelectProductComponent } from 'src/app/components/select-windows/orders
 export class EditOrderItemComponent {
 
   constructor(
-    public formatId: FormatIdService,
+    private formatId: FormatIdService,
   ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();

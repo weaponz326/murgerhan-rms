@@ -21,7 +21,7 @@ export class InventoryComponent {
     private inventoryApi: InventoryApiService,
     private inventoryPrint: InventoryPrintService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

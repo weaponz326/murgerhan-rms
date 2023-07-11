@@ -17,7 +17,7 @@ export class SelectStockItemComponent {
   constructor(
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();

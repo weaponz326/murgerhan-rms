@@ -17,7 +17,7 @@ export class SelectContractorComponent {
   constructor(
     private maintenanceApi: MaintenanceApiService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @Output() rowSelected = new EventEmitter<object>();

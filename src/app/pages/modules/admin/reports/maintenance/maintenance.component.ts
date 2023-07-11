@@ -21,7 +21,7 @@ export class MaintenanceComponent {
     private maintenanceApi: MaintenanceApiService,
     private maintenancePrint: MaintenancePrintService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

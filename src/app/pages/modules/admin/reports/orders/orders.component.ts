@@ -21,7 +21,7 @@ export class OrdersComponent {
     private ordersApi: OrdersApiService,
     private ordersPrint: OrdersPrintService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

@@ -12,7 +12,7 @@ export class HousekeepingPrintService {
 
   constructor(
     private printPdf: PrintPdfService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   // print tasks

@@ -20,7 +20,7 @@ export class AllOrdersComponent {
     private router: Router,
     private ordersApi: OrdersApiService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('addOrderComponentReference', { read: AddOrderComponent, static: false }) addOrder!: AddOrderComponent;

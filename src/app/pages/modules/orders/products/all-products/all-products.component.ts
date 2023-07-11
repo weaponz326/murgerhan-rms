@@ -19,7 +19,7 @@ export class AllProductsComponent {
     private router: Router,
     private ordersApi: OrdersApiService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;

@@ -12,7 +12,7 @@ export class MaintenancePrintService {
 
   constructor(
     private printPdf: PrintPdfService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   // print issues

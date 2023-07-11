@@ -21,7 +21,7 @@ export class AttendanceComponent {
     private attendanceApi: AttendanceApiService,
     private attendancePrint: AttendancePrintService,
     private aggregateTable: AggregateTableService,
-    public formatId: FormatIdService
+    private formatId: FormatIdService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
