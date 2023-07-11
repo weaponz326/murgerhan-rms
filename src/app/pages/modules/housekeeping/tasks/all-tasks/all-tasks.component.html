@@ -50,8 +50,8 @@
                                     <tr *ngFor="let data of taskListData" (dblclick)="viewTask(data?.id)">
                                         <td>{{getFormatId(data?.data().task_code)}}</td>
                                         <td>{{data?.data().task_name}}</td>
-                                        <td>{{data?.data().from_date | date: 'short'}}</td>
-                                        <td>{{data?.data().to_date | date: 'short'}}</td>
+                                        <td>{{data?.data().from_date | date}}</td>
+                                        <td>{{data?.data().to_date | date}}</td>
                                         <td>{{data?.data().task_type}}</td>
                                         <td>{{data?.data().task_status}}</td>
                                     </tr>
