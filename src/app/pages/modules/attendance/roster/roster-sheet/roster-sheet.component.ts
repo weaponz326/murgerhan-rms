@@ -88,23 +88,8 @@ export class RosterSheetComponent {
 
   createRosterSheet() {
     this.isSavingSheet = true;
-
-    let data: RosterSheet = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem("attendance_roster_id") as string,
-      shift: this.selectedShiftId,
-      date: this.selectedDate,
-      batch: {
-        id: this.selectedBatchId,
-        data: {
-          batch_name: this.selectedBatchData.batch_name,
-          batch_symbol: this.selectedBatchData.batch_symbol,
-        }
-      }
-    }
-
-    // console.log(data);
+    
+    let data = this.setCreateRosterSheetData();
 
     this.attendanceApi.createRosterSheet(data)
       .then((res: any) => {
@@ -122,7 +107,25 @@ export class RosterSheetComponent {
 
   updateRosterSheet() {
     this.isSavingSheet = true;
+    
+    let data = this.setCreateRosterSheetData();
 
+    this.attendanceApi.updateRosterSheet(this.selectedSheetId ,data)
+      .then((res: any) => {
+        // console.log(res);
+        this.isSavingSheet = false;
+        this.selectedSheetId = null;
+
+        this.getRosterSheetList();
+      })
+      .catch((err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isSavingSheet = false;
+      });
+  }
+
+  setCreateRosterSheetData(){
     let data: RosterSheet = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -138,21 +141,8 @@ export class RosterSheetComponent {
       }
     }
 
-    // console.log(this.selectedSheetId, data);
-
-    this.attendanceApi.updateRosterSheet(this.selectedSheetId ,data)
-      .then((res: any) => {
-        // console.log(res);
-        this.isSavingSheet = false;
-        this.selectedSheetId = null;
-
-        this.getRosterSheetList();
-      })
-      .catch((err: any) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.isSavingSheet = false;
-      });
+    // console.log(data);
+    return data;
   }
 
   getDateRange(startDate: Date, endDate: Date) {

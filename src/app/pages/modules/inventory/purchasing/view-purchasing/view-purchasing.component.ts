@@ -77,43 +77,12 @@ export class ViewPurchasingComponent {
   updatePurchasing() {
     this.isSaved = true;
     
-    const id = sessionStorage.getItem('inventory_purchasing_id') as string;
-
-    let data: Purchasing = {
-      created_at: this.purchasingData.data().created_at,
-      updated_at: serverTimestamp(),
-      purchasing_code: this.purchasingData.data().purchasing_code,
-      purchasing_date: this.purchasingForm.controls.purchasingDate.value,
-      purchasing_status: this.purchasingForm.controls.purchasingStatus.value as string,
-      date_received: this.purchasingForm.controls.dateReceived.value,
-      total_price: 0.00,
-      comments: this.purchasingForm.controls.dateReceived.value,
-      received_by: {
-        id: this.purchasingData.data().received_by.id,
-        data: {
-          staff_code: this.purchasingData.data().received_by.data.staff_code as string,
-          full_name: this.purchasingData.data().received_by.data.full_name as string,
-          staff_role: this.purchasingData.data().received_by.data.staff_role as string,
-        }
-      },
-      supplier: {
-        id: this.selectedSupplierId,
-        data: {
-          supplier_code: this.selectedSupplierData.supplier_code,
-          supplier_name: this.selectedSupplierData.supplier_name
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      },
-    }
-
     if(this.purchasingForm.valid){
       this.isSavingPurchasing = true;
+
+      const id = sessionStorage.getItem('inventory_purchasing_id') as string;
+      let data = this.setUpdatePurchasingData();
+      
       this.inventoryApi.updatePurchasing(id, data)
         .then((res) => {
           // console.log(res);
@@ -157,6 +126,44 @@ export class ViewPurchasingComponent {
 
     this.selectedSupplierId = this.purchasingData.data().supplier.id;
     this.selectedSupplierData = this.purchasingData.data().supplier.data;
+  }
+
+  setUpdatePurchasingData(){
+    let data: Purchasing = {
+      created_at: this.purchasingData.data().created_at,
+      updated_at: serverTimestamp(),
+      purchasing_code: this.purchasingData.data().purchasing_code,
+      purchasing_date: this.purchasingForm.controls.purchasingDate.value,
+      purchasing_status: this.purchasingForm.controls.purchasingStatus.value as string,
+      date_received: this.purchasingForm.controls.dateReceived.value,
+      total_price: 0.00,
+      comments: this.purchasingForm.controls.dateReceived.value,
+      received_by: {
+        id: this.purchasingData.data().received_by.id,
+        data: {
+          staff_code: this.purchasingData.data().received_by.data.staff_code as string,
+          full_name: this.purchasingData.data().received_by.data.full_name as string,
+          staff_role: this.purchasingData.data().received_by.data.staff_role as string,
+        }
+      },
+      supplier: {
+        id: this.selectedSupplierId,
+        data: {
+          supplier_code: this.selectedSupplierData.supplier_code,
+          supplier_name: this.selectedSupplierData.supplier_name
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      },
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

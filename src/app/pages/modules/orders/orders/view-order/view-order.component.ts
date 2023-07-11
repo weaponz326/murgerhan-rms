@@ -39,11 +39,12 @@ export class ViewOrderComponent {
   isFetchingData = false;
   isSavingOrder = false;
   isDeletingOrder = false;
+  isSaved = false;
 
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
+    vendorCode: new FormControl({value: '', disabled: true}),
     vendorName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
     deliveryDate: new FormControl(),
@@ -71,35 +72,14 @@ export class ViewOrderComponent {
       };
   }
 
-  updateOrder() {    
-    const id = sessionStorage.getItem('orders_order_id') as string;
-
-    let data: Order = {
-      created_at: this.orderData.data().created_at,
-      updated_at: serverTimestamp(),
-      order_code: this.orderData.data().order_code,
-      order_date: this.orderForm.controls.orderDate.value,
-      order_status: this.orderForm.controls.orderStatus.value as string,
-      delivery_date: this.orderForm.controls.deliveryDate.value,
-      total_price: 0.00,
-      vendor: {
-        id: this.selectedVendorData.id,
-        data: {
-          vendor_code: this.selectedVendorData.data.vendor_code,
-          vendor_name: this.selectedVendorData.data.vendor_name
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      },
-    }
-
+  updateOrder() {       
+    this.isSaved = true;
+     
     if(this.orderForm.valid){
       this.isSavingOrder = true;
+
+      const id = sessionStorage.getItem('orders_order_id') as string;
+      let data = this.setUpdateOrderData();
 
       this.ordersApi.updateOrder(id, data)
         .then((res) => {
@@ -144,6 +124,35 @@ export class ViewOrderComponent {
 
     this.selectedVendorId = this.orderData.data().vendor.id;
     this.selectedVendorData = this.orderData.data().vendor.data;
+  }
+
+  setUpdateOrderData(){
+    let data: Order = {
+      created_at: this.orderData.data().created_at,
+      updated_at: serverTimestamp(),
+      order_code: this.orderData.data().order_code,
+      order_date: this.orderForm.controls.orderDate.value,
+      order_status: this.orderForm.controls.orderStatus.value as string,
+      delivery_date: this.orderForm.controls.deliveryDate.value,
+      total_price: 0.00,
+      vendor: {
+        id: this.selectedVendorData.id,
+        data: {
+          vendor_code: this.selectedVendorData.data.vendor_code,
+          vendor_name: this.selectedVendorData.data.vendor_name
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      },
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

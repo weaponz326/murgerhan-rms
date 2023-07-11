@@ -67,39 +67,40 @@ export class AddStockItemComponent {
   }
 
   saveItem(){
-    this.stockItemForm.isSaved = true;
-    
-    let data: StockItem = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      item_code: this.thisId,
-      item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
-      unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
-      stock: this.stockItemForm.stockItemForm.controls.stock.value as number,
-      refill_ordered: this.stockItemForm.stockItemForm.controls.refillOrdered.value as number,
-      location: this.stockItemForm.stockItemForm.controls.location.value as string,
-      container: this.stockItemForm.stockItemForm.controls.container.value as string,
-      batch_number: this.stockItemForm.stockItemForm.controls.batchNumber.value as string,
-      manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
-      expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
-      item_category: {
-        id: this.selectedItemCategoryId,
-        data: {
-          category_code: this.selectedItemCategoryData.category_code,
-          category_name: this.selectedItemCategoryData.category_name,
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      },
-    }
+    this.stockItemForm.isSaved = true;        
 
-    if(this.stockItemForm.stockItemForm.valid)
+    if(this.stockItemForm.stockItemForm.valid){
+      let data: StockItem = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        item_code: this.thisId,
+        item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
+        unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
+        stock: this.stockItemForm.stockItemForm.controls.stock.value as number,
+        refill_ordered: this.stockItemForm.stockItemForm.controls.refillOrdered.value as number,
+        location: this.stockItemForm.stockItemForm.controls.location.value as string,
+        container: this.stockItemForm.stockItemForm.controls.container.value as string,
+        batch_number: this.stockItemForm.stockItemForm.controls.batchNumber.value as string,
+        manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
+        expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
+        item_category: {
+          id: this.selectedItemCategoryId,
+          data: {
+            category_code: this.selectedItemCategoryData.category_code,
+            category_name: this.selectedItemCategoryData.category_name,
+          }
+        },
+        branch: {
+          id: this.selectedBranchData.id,
+          data: {
+            branch_name: this.selectedBranchData.data.branch_name,
+            location: this.selectedBranchData.data.location
+          }
+        },
+      }
+
       this.saveItemEvent.emit(data);
+    }
   }
 
   resetForm(){

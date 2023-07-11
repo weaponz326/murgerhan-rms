@@ -69,6 +69,32 @@ export class NewMaintenanceServiceComponent {
   }
 
   createService() {
+    this.serviceForm.isSaved = true;
+    
+    if(this.serviceForm.serviceForm.valid){
+      this.isSavingService = true;
+
+      let data = this.setCreateServiceData();
+
+      this.maintenanceApi.createService(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('maintenance_service_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/services/view-service");
+          }
+          this.isSavingService = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingService = false;
+        });
+    }
+  }
+
+  setCreateServiceData(){
     let data: Service = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -105,26 +131,7 @@ export class NewMaintenanceServiceComponent {
     }
 
     // console.log(data);
-
-    if(this.serviceForm.serviceForm.valid){
-      this.isSavingService = true;
-
-      this.maintenanceApi.createService(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('maintenance_service_id', res.id);
-            this.router.navigateByUrl("/modules/maintenance/services/view-service");
-          }
-          this.isSavingService = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingService = false;
-        });
-    }
+    return data;
   }
   
   openSystemWindow(){

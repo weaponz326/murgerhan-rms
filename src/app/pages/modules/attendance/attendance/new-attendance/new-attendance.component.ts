@@ -90,26 +90,10 @@ export class NewAttendanceComponent {
   createAttendance() {
     this.isSaved = true;
 
-    let data: Attendance = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      attendance_code: this.thisId,
-      attendance_name: this.attendanceForm.controls.attendanceName.value as string,
-      from_date: this.attendanceForm.controls.fromDate.value,
-      to_date: this.attendanceForm.controls.toDate.value,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
-    // console.log(data);
-
     if(this.attendanceForm.valid){
       this.isSavingAttendance = true;
+      
+      let data = this.setCreateAttendanceData()
 
       this.attendanceApi.createAttendance(data)
         .then((res: any) => {
@@ -145,6 +129,27 @@ export class NewAttendanceComponent {
         console.error('Error performing batch operation:', error);
         this.isSavingAttendance = false;
       });
+  }
+
+  setCreateAttendanceData(){
+    let data: Attendance = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      attendance_code: this.thisId,
+      attendance_name: this.attendanceForm.controls.attendanceName.value as string,
+      from_date: this.attendanceForm.controls.fromDate.value,
+      to_date: this.attendanceForm.controls.toDate.value,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   setPersonnelData(){

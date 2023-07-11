@@ -60,27 +60,12 @@ export class AddItemCategoryComponent {
   }
 
   createItemCategory() {
-    this.categoryForm.isSaved = true;
-    
-    let data: ItemCategory = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      category_code: this.thisId,
-      category_name: this.categoryForm.categoryForm.controls.categoryName.value as string,
-      description: this.categoryForm.categoryForm.controls.description.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      }
-    }
-
-    // console.log(data);
+    this.categoryForm.isSaved = true;    
 
     if(this.categoryForm.categoryForm.valid){
       this.isSavingCategory = true;
+
+      let data = this.setCreateItemCategoryData();
 
       this.inventoryApi.createItemCategory(data)
         .then((res: any) => {
@@ -98,6 +83,26 @@ export class AddItemCategoryComponent {
           this.isSavingCategory = false;
         });
     } 
+  }
+
+  setCreateItemCategoryData(){
+    let data: ItemCategory = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      category_code: this.thisId,
+      category_name: this.categoryForm.categoryForm.controls.categoryName.value as string,
+      description: this.categoryForm.categoryForm.controls.description.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
   
 }

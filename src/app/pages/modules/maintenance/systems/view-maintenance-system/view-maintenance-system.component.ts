@@ -60,31 +60,13 @@ export class ViewMaintenanceSystemComponent {
 
   updateSystem() {    
     this.systemForm.isSaved = true;
-    
-    const id = sessionStorage.getItem('maintenance_system_id') as string;
-
-    let data: System = {
-      created_at: this.systemData.data().created_at,
-      updated_at: serverTimestamp(),
-      system_code: this.systemData.data().system_code,
-      system_name: this.systemForm.systemForm.controls.systemName.value as string,
-      system_type: this.systemForm.systemForm.controls.systemType.value as string,
-      location: this.systemForm.systemForm.controls.location.value as string,
-      condition: this.systemForm.systemForm.controls.condition.value as string,
-      description: this.systemForm.systemForm.controls.description.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
-    // console.log(this.systemForm.systemForm.controls.systemCode.value)
-
+        
     if(this.systemForm.systemForm.valid){
       this.isSavingSystem = true;
+
+      const id = sessionStorage.getItem('maintenance_system_id') as string;
+      let data = this.setUpdateSystemData();
+      
       this.maintenanceApi.updateSystem(id, data)
         .then((res) => {
           // console.log(res);
@@ -123,6 +105,29 @@ export class ViewMaintenanceSystemComponent {
     this.systemForm.systemForm.controls.location.setValue(this.systemData.data().location);
     this.systemForm.systemForm.controls.condition.setValue(this.systemData.data().condition);
     this.systemForm.systemForm.controls.description.setValue(this.systemData.data().description);
+  }
+
+  setUpdateSystemData(){
+    let data: System = {
+      created_at: this.systemData.data().created_at,
+      updated_at: serverTimestamp(),
+      system_code: this.systemData.data().system_code,
+      system_name: this.systemForm.systemForm.controls.systemName.value as string,
+      system_type: this.systemForm.systemForm.controls.systemType.value as string,
+      location: this.systemForm.systemForm.controls.location.value as string,
+      condition: this.systemForm.systemForm.controls.condition.value as string,
+      description: this.systemForm.systemForm.controls.description.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data)
+    return data;
   }
 
   confirmDelete(){

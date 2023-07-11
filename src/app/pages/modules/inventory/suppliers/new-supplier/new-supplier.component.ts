@@ -60,29 +60,12 @@ export class NewSupplierComponent {
   }
 
   createSupplier() {
-    this.supplierForm.isSaved = true;
-    
-    let data: Supplier = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      supplier_code: this.thisId,
-      supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
-      phone: this.supplierForm.supplierForm.controls.phone.value as string,
-      email: this.supplierForm.supplierForm.controls.email.value as string,
-      address: this.supplierForm.supplierForm.controls.address.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
-    // console.log(data);
+    this.supplierForm.isSaved = true;        
 
     if(this.supplierForm.supplierForm.valid){
       this.isSavingSupplier = true;
+
+      let data = this.setCreateSupplierData();
 
       this.inventoryApi.createSupplier(data)
         .then((res: any) => {
@@ -102,4 +85,25 @@ export class NewSupplierComponent {
       }
   }
   
+  setCreateSupplierData(){
+    let data: Supplier = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      supplier_code: this.thisId,
+      supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
+      phone: this.supplierForm.supplierForm.controls.phone.value as string,
+      email: this.supplierForm.supplierForm.controls.email.value as string,
+      address: this.supplierForm.supplierForm.controls.address.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
+  }
 }

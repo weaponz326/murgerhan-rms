@@ -76,6 +76,30 @@ export class NewMaintnenanceIssueComponent {
   createIssue() {
     this.issueForm.isSaved = true;
     
+    if(this.issueForm.issueForm.valid){
+      this.isSavingIssue = true;
+
+      let data = this.setCreateIssueData();
+      
+      this.maintenanceApi.createIssue(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('maintenance_issue_id', res.id);
+            this.router.navigateByUrl("/modules/maintenance/issues/view-issue");
+          }
+          this.isSavingIssue = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingIssue = false;
+        });
+      }
+  }
+
+  setCreateIssueData(){
     let systemData = {
       id: "",
       data: {
@@ -83,6 +107,7 @@ export class NewMaintnenanceIssueComponent {
         system_name: "",
       }
     }
+
     if(this.selectedSystemId){
       systemData = {
         id: this.selectedSystemId,
@@ -122,26 +147,7 @@ export class NewMaintnenanceIssueComponent {
     }
 
     // console.log(data);
-
-    if(this.issueForm.issueForm.valid){
-      this.isSavingIssue = true;
-      
-      this.maintenanceApi.createIssue(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('maintenance_issue_id', res.id);
-            this.router.navigateByUrl("/modules/maintenance/issues/view-issue");
-          }
-          this.isSavingIssue = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingIssue = false;
-        });
-      }
+    return data;
   }
 
   openSystemWindow(){

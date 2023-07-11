@@ -59,28 +59,12 @@ export class ViewVendorComponent {
 
   updateVendor() {    
     this.vendorForm.isSaved = true;
-
-    const id = sessionStorage.getItem('orders_vendor_id') as string;
-
-    let data: Vendor = {
-      created_at: this.vendorData.data().created_at,
-      updated_at: serverTimestamp(),
-      vendor_code: this.vendorData.data().vendor_code,
-      vendor_name: this.vendorForm.vendorForm.controls.vendorName.value as string,
-      phone: this.vendorForm.vendorForm.controls.phone.value as string,
-      email: this.vendorForm.vendorForm.controls.email.value as string,
-      address: this.vendorForm.vendorForm.controls.address.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
+    
     if(this.vendorForm.vendorForm.valid){
       this.isSavingVendor = true;
+  
+      const id = sessionStorage.getItem('orders_vendor_id') as string;
+      let data = this.setUpdateVendorData();
 
       this.ordersApi.updateVendor(id, data)
         .then((res) => {
@@ -119,6 +103,28 @@ export class ViewVendorComponent {
     this.vendorForm.vendorForm.controls.phone.setValue(this.vendorData.data().phone);
     this.vendorForm.vendorForm.controls.email.setValue(this.vendorData.data().email);
     this.vendorForm.vendorForm.controls.address.setValue(this.vendorData.data().address);
+  }
+
+  setUpdateVendorData(){
+    let data: Vendor = {
+      created_at: this.vendorData.data().created_at,
+      updated_at: serverTimestamp(),
+      vendor_code: this.vendorData.data().vendor_code,
+      vendor_name: this.vendorForm.vendorForm.controls.vendorName.value as string,
+      phone: this.vendorForm.vendorForm.controls.phone.value as string,
+      email: this.vendorForm.vendorForm.controls.email.value as string,
+      address: this.vendorForm.vendorForm.controls.address.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

@@ -40,30 +40,31 @@ export class AddPersonnelComponent {
     this.addButton.nativeElement.click();
   }
 
-  saveItem(){
-    let data: RosterPersonnel = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem('attendance_roster_id') as string,
-      personnel: {
-        id: this.selectedUserRoleId,
-        data: {
-          staff_code: this.selectedUserRoleData.staff_code,
-          full_name: this.selectedUserRoleData.full_name,
-          staff_role: this.selectedUserRoleData.staff_role,
-        }
-      },
-      batch: {
-        id: this.selectedBatchId,
-        data: {
-          batch_name: this.selectedBatchData.batch_name,
-          batch_symbol: this.selectedBatchData.batch_symbol,
-        }
-      },
-    }
-
-    if(this.personnelForm.personnelForm.valid)
+  saveItem(){    
+    if(this.personnelForm.personnelForm.valid){
+      let data: RosterPersonnel = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        roster: sessionStorage.getItem('attendance_roster_id') as string,
+        personnel: {
+          id: this.selectedUserRoleId,
+          data: {
+            staff_code: this.selectedUserRoleData.staff_code,
+            full_name: this.selectedUserRoleData.full_name,
+            staff_role: this.selectedUserRoleData.staff_role,
+          }
+        },
+        batch: {
+          id: this.selectedBatchId,
+          data: {
+            batch_name: this.selectedBatchData.batch_name,
+            batch_symbol: this.selectedBatchData.batch_symbol,
+          }
+        },
+      }
+      
       this.saveItemEvent.emit(data);
+    }
   }
 
   resetForm(){

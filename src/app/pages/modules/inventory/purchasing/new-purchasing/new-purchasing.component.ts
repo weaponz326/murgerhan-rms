@@ -78,6 +78,32 @@ export class NewPurchasingComponent {
   createPurchasing() {
     this.isSaved = true;
 
+    if(this.purchasingForm.valid){
+      this.isSavingPurchasing = true;
+
+      let data = this.setCreatePurchasingData();
+
+      this.inventoryApi.createPurchasing(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('inventory_purchasing_id', res.id);
+            this.router.navigateByUrl("/modules/inventory/purchasing/view-purchasing");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingPurchasing = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingPurchasing = false;
+        });
+      }
+  }
+
+  setCreatePurchasingData(){
     let data: Purchasing = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -112,28 +138,7 @@ export class NewPurchasingComponent {
     }
 
     // console.log(data);
-
-    if(this.purchasingForm.valid){
-      this.isSavingPurchasing = true;
-
-      this.inventoryApi.createPurchasing(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('inventory_purchasing_id', res.id);
-            this.router.navigateByUrl("/modules/inventory/purchasing/view-purchasing");
-          }
-
-          this.dismissButton.nativeElement.click();
-          this.isSavingPurchasing = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingPurchasing = false;
-        });
-      }
+    return data;
   }
   
   openSupplierWindow(){

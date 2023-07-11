@@ -35,23 +35,24 @@ export class EditBatchComponent {
   }
 
   saveItem(){
-    this.isSaved = true;
-    
-    let data: RosterBatch = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem('attendance_roster_id') as string,
-      batch_name: this.rosterBatchForm.controls.batchName.value as string,
-      batch_symbol: this.rosterBatchForm.controls.batchSymbol.value as string,
-    }
+    this.isSaved = true;        
 
-    let item = {
-      id: this.rosterShiftData.id,
-      data: data
-    }
-
-    if(this.rosterBatchForm.valid)
+    if(this.rosterBatchForm.valid){
+      let data: RosterBatch = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        roster: sessionStorage.getItem('attendance_roster_id') as string,
+        batch_name: this.rosterBatchForm.controls.batchName.value as string,
+        batch_symbol: this.rosterBatchForm.controls.batchSymbol.value as string,
+      }
+  
+      let item = {
+        id: this.rosterShiftData.id,
+        data: data
+      }
+      
       this.saveItemEvent.emit(item);
+    }
   }
 
   setRosterShiftData(data: any){

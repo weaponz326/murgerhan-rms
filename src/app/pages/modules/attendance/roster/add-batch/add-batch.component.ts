@@ -30,18 +30,19 @@ export class AddBatchComponent {
   }
 
   saveItem(){
-    this.isSaved = true;
-    
-    let data: RosterBatch = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem('attendance_roster_id') as string,
-      batch_name: this.rosterBatchForm.controls.batchName.value as string,
-      batch_symbol: this.rosterBatchForm.controls.batchSymbol.value as string,
-    }
+    this.isSaved = true;    
 
-    if(this.rosterBatchForm.valid)
+    if(this.rosterBatchForm.valid){
+      let data: RosterBatch = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        roster: sessionStorage.getItem('attendance_roster_id') as string,
+        batch_name: this.rosterBatchForm.controls.batchName.value as string,
+        batch_symbol: this.rosterBatchForm.controls.batchSymbol.value as string,
+      }
+      
       this.saveItemEvent.emit(data);
+    }
   }
 
   resetForm(){

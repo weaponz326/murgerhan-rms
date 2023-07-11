@@ -31,19 +31,20 @@ export class AddShiftComponent {
   }
 
   saveItem(){
-    this.isSaved = true;
-    
-    let data: RosterShift = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem('attendance_roster_id') as string,
-      shift_name: this.rosterShiftForm.controls.shiftName.value as string,
-      start_time: this.rosterShiftForm.controls.startTime.value,
-      end_time: this.rosterShiftForm.controls.endTime.value,
-    }
+    this.isSaved = true;    
 
-    if(this.rosterShiftForm.valid)
+    if(this.rosterShiftForm.valid){
+      let data: RosterShift = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        roster: sessionStorage.getItem('attendance_roster_id') as string,
+        shift_name: this.rosterShiftForm.controls.shiftName.value as string,
+        start_time: this.rosterShiftForm.controls.startTime.value,
+        end_time: this.rosterShiftForm.controls.endTime.value,
+      }
+      
       this.saveItemEvent.emit(data);
+    }
   }
 
   resetForm(){

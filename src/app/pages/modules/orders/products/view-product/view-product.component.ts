@@ -60,27 +60,11 @@ export class ViewProductComponent {
   updateProduct() {    
     this.productForm.isSaved = true;
     
-    const id = sessionStorage.getItem('orders_product_id') as string;
-
-    let data: Product = {
-      created_at: this.productData.data().created_at,
-      updated_at: serverTimestamp(),
-      product_code: this.productData.data().product_code,
-      product_name: this.productForm.productForm.controls.productName.value as string,
-      product_type: this.productForm.productForm.controls.productType.value as string,
-      price: this.productForm.productForm.controls.price.value as number,
-      description: this.productForm.productForm.controls.description.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
     if(this.productForm.productForm.valid){
       this.isSavingProduct = true;
+
+      const id = sessionStorage.getItem('orders_product_id') as string;
+      let data = this.setUpdateProductData();
 
       this.ordersApi.updateProduct(id, data)
         .then((res) => {
@@ -119,6 +103,28 @@ export class ViewProductComponent {
     this.productForm.productForm.controls.productType.setValue(this.productData.data().product_type);
     this.productForm.productForm.controls.price.setValue(this.productData.data().price);
     this.productForm.productForm.controls.description.setValue(this.productData.data().description);
+  }
+
+  setUpdateProductData(){
+    let data: Product = {
+      created_at: this.productData.data().created_at,
+      updated_at: serverTimestamp(),
+      product_code: this.productData.data().product_code,
+      product_name: this.productForm.productForm.controls.productName.value as string,
+      product_type: this.productForm.productForm.controls.productType.value as string,
+      price: this.productForm.productForm.controls.price.value as number,
+      description: this.productForm.productForm.controls.description.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

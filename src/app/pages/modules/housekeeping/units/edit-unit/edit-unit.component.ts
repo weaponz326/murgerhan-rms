@@ -60,29 +60,12 @@ export class EditUnitComponent {
 
   updateUnit() {    
     this.unitForm.isSaved = true;
-    
-    const id = sessionStorage.getItem('housekeeping_unit_id') as string;
-
-    let data: Unit = {
-      created_at: this.unitData.data().created_at,
-      updated_at: serverTimestamp(),
-      unit_code: this.unitData.data().unit_code,
-      unit_name: this.unitForm.unitForm.controls.unitName.value as string,
-      unit_type: this.unitForm.unitForm.controls.unitType.value as string,
-      location: this.unitForm.unitForm.controls.location.value as string,
-      condition: this.unitForm.unitForm.controls.condition.value as string,
-      description: this.unitForm.unitForm.controls.description.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
+        
     if(this.unitForm.unitForm.valid){
       this.isSavingUnit = true;
+
+      const id = sessionStorage.getItem('housekeeping_unit_id') as string;
+      let data = this.setUpdateUnitData();
 
       this.housekeepingApi.updateUnit(id, data)
         .then((res) => {
@@ -122,6 +105,29 @@ export class EditUnitComponent {
     this.unitForm.unitForm.controls.location.setValue(this.unitData.data().location);
     this.unitForm.unitForm.controls.condition.setValue(this.unitData.data().condition);
     this.unitForm.unitForm.controls.description.setValue(this.unitData.data().description);
+  }
+
+  setUpdateUnitData(){
+    let data: Unit = {
+      created_at: this.unitData.data().created_at,
+      updated_at: serverTimestamp(),
+      unit_code: this.unitData.data().unit_code,
+      unit_name: this.unitForm.unitForm.controls.unitName.value as string,
+      unit_type: this.unitForm.unitForm.controls.unitType.value as string,
+      location: this.unitForm.unitForm.controls.location.value as string,
+      condition: this.unitForm.unitForm.controls.condition.value as string,
+      description: this.unitForm.unitForm.controls.description.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

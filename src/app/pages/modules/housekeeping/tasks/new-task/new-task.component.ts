@@ -82,6 +82,32 @@ export class NewTaskComponent {
   createTask() {
     this.isSaved = true;
     
+    if(this.taskForm.valid){
+      this.isSavingTask = true;
+
+      let data = this.setCreateTaskData();
+
+      this.housekeepingApi.createTask(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('housekeeping_task_id', res.id);
+            this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingTask = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingTask = false;
+        });
+    }
+  }
+
+  setCreateTaskData(){
     let data: Task = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -112,28 +138,7 @@ export class NewTaskComponent {
     }
 
     // console.log(data);
-
-    if(this.taskForm.valid){
-      this.isSavingTask = true;
-
-      this.housekeepingApi.createTask(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('housekeeping_task_id', res.id);
-            this.router.navigateByUrl("/modules/housekeeping/tasks/view-task");
-          }
-
-          this.dismissButton.nativeElement.click();
-          this.isSavingTask = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingTask = false;
-        });
-    }
+    return data;
   }
 
   openUserRoleWindow(){

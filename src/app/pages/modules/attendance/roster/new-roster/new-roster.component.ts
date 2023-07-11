@@ -71,27 +71,11 @@ export class NewRosterComponent {
 
   createRoster() {
     this.isSaved = true;
-
-    let data: Roster = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster_code: this.thisId,
-      roster_name: this.rosterForm.controls.rosterName.value as string,
-      from_date: this.rosterForm.controls.fromDate.value,
-      to_date: this.rosterForm.controls.toDate.value,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
-    // console.log(data);
-
+    
     if(this.rosterForm.valid){
       this.isSavingRoster = true;
+
+      let data = this.setCreateRosterData();
 
       this.attendanceApi.createRoster(data)
         .then((res: any) => {
@@ -111,6 +95,27 @@ export class NewRosterComponent {
           this.isSavingRoster = false;
         });
     }
+  }
+
+  setCreateRosterData(){
+    let data: Roster = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      roster_code: this.thisId,
+      roster_name: this.rosterForm.controls.rosterName.value as string,
+      from_date: this.rosterForm.controls.fromDate.value,
+      to_date: this.rosterForm.controls.toDate.value,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
   
 }

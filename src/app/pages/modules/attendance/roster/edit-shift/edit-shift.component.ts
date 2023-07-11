@@ -38,23 +38,24 @@ export class EditShiftComponent {
 
   saveItem(){
     this.isSaved = true;
-    
-    let data: RosterShift = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      roster: sessionStorage.getItem('attendance_roster_id') as string,
-      shift_name: this.rosterShiftForm.controls.shiftName.value as string,
-      start_time: this.rosterShiftForm.controls.startTime.value,
-      end_time: this.rosterShiftForm.controls.endTime.value,
-    }
-
-    let item = {
-      id: this.rosterShiftData.id,
-      data: data
-    }
-
-    if(this.rosterShiftForm.valid)
+        
+    if(this.rosterShiftForm.valid){
+      let data: RosterShift = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        roster: sessionStorage.getItem('attendance_roster_id') as string,
+        shift_name: this.rosterShiftForm.controls.shiftName.value as string,
+        start_time: this.rosterShiftForm.controls.startTime.value,
+        end_time: this.rosterShiftForm.controls.endTime.value,
+      }
+  
+      let item = {
+        id: this.rosterShiftData.id,
+        data: data
+      }
+  
       this.saveItemEvent.emit(item);
+    }
   }
 
   setRosterShiftData(data: any){

@@ -59,27 +59,13 @@ export class EditItemCategoryComponent {
   }
 
   updateItemCategory() {    
-    this.categoryForm.isSaved = true;
-    
-    const id = sessionStorage.getItem('inventory_category_id') as string;
-
-    let data: ItemCategory = {
-      created_at: this.itemcategoryData.data().created_at,
-      updated_at: serverTimestamp(),
-      category_code: this.itemcategoryData.data().category_code,
-      category_name: this.categoryForm.categoryForm.controls.categoryName.value as string,
-      description: this.categoryForm.categoryForm.controls.description.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      }
-    }
+    this.categoryForm.isSaved = true;    
 
     if(this.categoryForm.categoryForm.valid){
       this.isSavingCategory = true;
+
+      const id = sessionStorage.getItem('inventory_category_id') as string;
+      let data = this.setUpdateItemCategoryData();
 
       this.inventoryApi.updateItemCategory(id, data)
         .then((res) => {
@@ -116,6 +102,26 @@ export class EditItemCategoryComponent {
     this.categoryForm.categoryForm.controls.categoryCode.setValue(this.formatId.formatId(this.itemcategoryData.data().category_code, 3, "#", "CT"));
     this.categoryForm.categoryForm.controls.categoryName.setValue(this.itemcategoryData.data().category_name);
     this.categoryForm.categoryForm.controls.description.setValue(this.itemcategoryData.data().description);
+  }
+
+  setUpdateItemCategoryData(){
+    let data: ItemCategory = {
+      created_at: this.itemcategoryData.data().created_at,
+      updated_at: serverTimestamp(),
+      category_code: this.itemcategoryData.data().category_code,
+      category_name: this.categoryForm.categoryForm.controls.categoryName.value as string,
+      description: this.categoryForm.categoryForm.controls.description.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

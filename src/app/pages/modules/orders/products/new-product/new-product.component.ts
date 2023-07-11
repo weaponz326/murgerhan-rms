@@ -62,6 +62,30 @@ export class NewProductComponent {
   createProduct() {
     this.productForm.isSaved = true;
     
+    if(this.productForm.productForm.valid){
+      this.isSavingProduct = true;
+
+      let data = this.setCreateProductData();
+
+      this.ordersApi.createProduct(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('orders_product_id', res.id);
+            this.router.navigateByUrl("/modules/orders/products/view-product");
+          }
+          this.isSavingProduct = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingProduct = false;
+        });
+    }
+  }
+
+  setCreateProductData(){
     let data: Product = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -80,26 +104,7 @@ export class NewProductComponent {
     }
 
     // console.log(data);
-
-    if(this.productForm.productForm.valid){
-      this.isSavingProduct = true;
-
-      this.ordersApi.createProduct(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('orders_product_id', res.id);
-            this.router.navigateByUrl("/modules/orders/products/view-product");
-          }
-          this.isSavingProduct = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingProduct = false;
-        });
-    }
+    return data;
   }
   
 }

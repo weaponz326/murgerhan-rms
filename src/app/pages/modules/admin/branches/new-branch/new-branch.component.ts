@@ -35,26 +35,10 @@ export class NewBranchComponent {
   createBranch() {
     this.isSaved = true;
 
-    let data: Branch = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      branch_name: this.branchForm.controls.branchName.value as string,
-      location: this.branchForm.controls.location.value as string,
-      special_features: this.branchForm.controls.specialFeatures.value as string,
-      number_of_staff: 0,
-      manager: {
-        id: "",
-        data: {
-          staff_id: "",
-          full_name: ""
-        }
-      },
-    }
-
-    // console.log(data);
-
     if(this.branchForm.valid){
       this.isSavingBranch = true;
+      
+      let data = this.setCreateBranchData();
 
       this.adminApi.createBranch(data)
         .then((res: any) => {
@@ -72,6 +56,27 @@ export class NewBranchComponent {
           this.isSavingBranch = false;
         });
     }
+  }
+
+  setCreateBranchData(){
+    let data: Branch = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      branch_name: this.branchForm.controls.branchName.value as string,
+      location: this.branchForm.controls.location.value as string,
+      special_features: this.branchForm.controls.specialFeatures.value as string,
+      number_of_staff: 0,
+      manager: {
+        id: "",
+        data: {
+          staff_id: "",
+          full_name: ""
+        }
+      },
+    }
+
+    // console.log(data);
+    return data;
   }
 
 }

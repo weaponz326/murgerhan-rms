@@ -62,7 +62,31 @@ export class AddUnitComponent {
 
   createUnit() {
     this.unitForm.isSaved = true;
-    
+        
+    if(this.unitForm.unitForm.valid){
+      this.isSavingUnit = true;
+
+      let data = this.setCreateUnitData();
+
+      this.housekeepingApi.createUnit(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('housekeeping_unit_id', res.id);
+            this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
+          }
+          this.isSavingUnit = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingUnit = false;
+        });
+    }
+  }
+
+  setCreateUnitData(){
     let data: Unit = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -82,26 +106,7 @@ export class AddUnitComponent {
     }
 
     // console.log(data);
-
-    if(this.unitForm.unitForm.valid){
-      this.isSavingUnit = true;
-
-      this.housekeepingApi.createUnit(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('housekeeping_unit_id', res.id);
-            this.router.navigateByUrl("/modules/housekeeping/units/edit-unit");
-          }
-          this.isSavingUnit = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingUnit = false;
-        });
-    }
+    return data;
   }
   
 }

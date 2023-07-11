@@ -44,31 +44,32 @@ export class EditOrderItemComponent {
   }
 
   saveItem(){
-    this.orderItemForm.isSaved = true;
-    
-    let data: OrderItem = {
-      created_at: this.orderItemData.data().created_at,
-      updated_at: serverTimestamp(),
-      item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
-      order: sessionStorage.getItem('orders_order_id') as string,
-      quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
-      product: {
-        id: this.selectedProductId,
-        data: {
-          product_code: this.selectedProductData.product_code,
-          product_name: this.selectedProductData.product_name,
-          price: this.selectedProductData.price,
-        }
-      },
-    }
+    this.orderItemForm.isSaved = true;        
 
-    let item = {
-      id: this.orderItemData.id,
-      data: data
-    }
-
-    if(this.orderItemForm.orderItemForm.valid)
+    if(this.orderItemForm.orderItemForm.valid){
+      let data: OrderItem = {
+        created_at: this.orderItemData.data().created_at,
+        updated_at: serverTimestamp(),
+        item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
+        order: sessionStorage.getItem('orders_order_id') as string,
+        quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
+        product: {
+          id: this.selectedProductId,
+          data: {
+            product_code: this.selectedProductData.product_code,
+            product_name: this.selectedProductData.product_name,
+            price: this.selectedProductData.price,
+          }
+        },
+      }
+  
+      let item = {
+        id: this.orderItemData.id,
+        data: data
+      }
+      
       this.saveItemEvent.emit(item);
+    }
   }
 
   setOrderItemData(data: any){

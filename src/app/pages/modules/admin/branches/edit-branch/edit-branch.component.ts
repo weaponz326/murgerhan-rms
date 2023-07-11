@@ -64,26 +64,12 @@ export class EditBranchComponent {
 
   updateBranch() {
     this.isSaved = true;    
-    const id = sessionStorage.getItem('admin_branch_id') as string;
-
-    let data: Branch = {
-      created_at: this.branchData.data().created_at,
-      updated_at: serverTimestamp(),
-      branch_name: this.branchForm.controls.branchName.value as string,
-      location: this.branchForm.controls.location.value as string,
-      special_features: this.branchForm.controls.specialFeatures.value as string,
-      number_of_staff: this.branchData.data().number_of_staff,
-      manager: {
-        id: this.branchData.data().manager?.id,
-        data: {
-          staff_id: this.branchData.data().manager?.data?.staff_id,
-          full_name: this.branchData.data().manager?.data?.full_name
-        }
-      },
-    }
 
     if(this.branchForm.valid){
       this.isSavingBranch = true;
+      
+      let data = this.setUpdateBranchData();
+      const id = sessionStorage.getItem('admin_branch_id') as string;    
 
       this.adminApi.updateBranch(id, data)
         .then((res) => {
@@ -122,6 +108,27 @@ export class EditBranchComponent {
     this.branchForm.controls.specialFeatures.setValue(this.branchData.data().special_features);
     this.branchForm.controls.manager.setValue(this.branchData.data().manager?.data?.full_name);
     this.branchForm.controls.noOfStaff.setValue(this.branchData.data().number_of_staff);
+  }
+
+  setUpdateBranchData(){
+    let data: Branch = {
+      created_at: this.branchData.data().created_at,
+      updated_at: serverTimestamp(),
+      branch_name: this.branchForm.controls.branchName.value as string,
+      location: this.branchForm.controls.location.value as string,
+      special_features: this.branchForm.controls.specialFeatures.value as string,
+      number_of_staff: this.branchData.data().number_of_staff,
+      manager: {
+        id: this.branchData.data().manager?.id,
+        data: {
+          staff_id: this.branchData.data().manager?.data?.staff_id,
+          full_name: this.branchData.data().manager?.data?.full_name
+        }
+      },
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

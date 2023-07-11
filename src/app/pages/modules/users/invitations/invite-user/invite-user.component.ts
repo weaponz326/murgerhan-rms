@@ -73,24 +73,11 @@ export class InviteUserComponent {
 
   createInvitation() {
     this.isSaved = true;
-
-    let data: Invitation = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      invitation_code: this.thisId,
-      invitation_date: serverTimestamp(),
-      invitee_name: this.invitationForm.controls.inviteeName.value as string,
-      invitee_email: this.invitationForm.controls.inviteeEmail.value as string,
-      date_accepted: null,
-      invitation_status: "Awaiting",
-      email_subject: this.invitationForm.controls.emailSubject.value as string,
-      email_message: this.invitationForm.controls.emailMessage.value as string,
-    }
-
-    // console.log(data);
-
+    
     if(this.invitationForm.valid){
       this.isSavingInvitation = true;
+      
+      let data = this.setCreateInvitationData();
 
       this.usersApi.createInvitation(data)
         .then((res: any) => {
@@ -110,6 +97,24 @@ export class InviteUserComponent {
           this.isSavingInvitation = false;
         });
     }
+  }
+
+  setCreateInvitationData(){
+    let data: Invitation = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      invitation_code: this.thisId,
+      invitation_date: serverTimestamp(),
+      invitee_name: this.invitationForm.controls.inviteeName.value as string,
+      invitee_email: this.invitationForm.controls.inviteeEmail.value as string,
+      date_accepted: null,
+      invitation_status: "Awaiting",
+      email_subject: this.invitationForm.controls.emailSubject.value as string,
+      email_message: this.invitationForm.controls.emailMessage.value as string,
+    }
+
+    // console.log(data);
+    return data;
   }
 
 }

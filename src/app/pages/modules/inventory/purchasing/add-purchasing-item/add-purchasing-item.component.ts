@@ -42,33 +42,34 @@ export class AddPurchasingItemComponent {
   }
 
   saveItem(){
-    this.purchasingItemForm.isSaved = true;
-    
-    let data: PurchasingItem = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      item_number: this.purchasingItemForm.purchasingItemForm.controls.itemNumber.value as number,
-      purchasing: sessionStorage.getItem('inventory_purchasing_id') as string,
-      quantity: this.purchasingItemForm.purchasingItemForm.controls.quantity.value as number,
-      stock_item: {
-        id: this.selectedItemId,
-        data: {
-          item_code: this.selectedItemData.item_code,
-          item_name: this.selectedItemData.item_name,
-          unit_price: this.selectedItemData.unit_price,
-          item_category: {
-            id: this.selectedItemData.item_category.id,
-            data: {
-              category_code: this.selectedItemData.item_category.data.category_code,
-              category_name: this.selectedItemData.item_category.data.category_name,
+    this.purchasingItemForm.isSaved = true;        
+
+    if(this.purchasingItemForm.purchasingItemForm.valid){
+      let data: PurchasingItem = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        item_number: this.purchasingItemForm.purchasingItemForm.controls.itemNumber.value as number,
+        purchasing: sessionStorage.getItem('inventory_purchasing_id') as string,
+        quantity: this.purchasingItemForm.purchasingItemForm.controls.quantity.value as number,
+        stock_item: {
+          id: this.selectedItemId,
+          data: {
+            item_code: this.selectedItemData.item_code,
+            item_name: this.selectedItemData.item_name,
+            unit_price: this.selectedItemData.unit_price,
+            item_category: {
+              id: this.selectedItemData.item_category.id,
+              data: {
+                category_code: this.selectedItemData.item_category.data.category_code,
+                category_name: this.selectedItemData.item_category.data.category_name,
+              }
             }
           }
-        }
-      },
-    }
-
-    if(this.purchasingItemForm.purchasingItemForm.valid)
+        },
+      }
+      
       this.saveItemEvent.emit(data);
+    }
   }
 
   resetForm(){

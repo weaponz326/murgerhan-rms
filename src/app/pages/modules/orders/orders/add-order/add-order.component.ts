@@ -78,6 +78,32 @@ export class AddOrderComponent {
   createOrder() {
     this.isSaved = true;
     
+    if(this.orderForm.valid){
+      this.isSavingOrder = true;
+
+      let data = this.setCreateOrderData();
+      
+      this.ordersApi.createOrder(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('orders_order_id', res.id);
+            this.router.navigateByUrl("/modules/orders/orders/view-order");
+          }
+
+          this.dismissButton.nativeElement.click();
+          this.isSavingOrder = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingOrder = false;
+        });
+    }
+  }
+
+  setCreateOrderData(){
     let data: Order = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -103,28 +129,7 @@ export class AddOrderComponent {
     }
 
     // console.log(data);
-
-    if(this.orderForm.valid){
-      this.isSavingOrder = true;
-
-      this.ordersApi.createOrder(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('orders_order_id', res.id);
-            this.router.navigateByUrl("/modules/orders/orders/view-order");
-          }
-
-          this.dismissButton.nativeElement.click();
-          this.isSavingOrder = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingOrder = false;
-        });
-    }
+    return data;
   }
 
   openVendorWindow(){

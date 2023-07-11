@@ -83,40 +83,12 @@ export class ViewTaskComponent {
 
   updateTask() {    
     this.isSaved = true;
-
-    const id = sessionStorage.getItem('housekeeping_task_id') as string;
-
-    let data: Task = {
-      created_at: this.taskData.data().created_at,
-      updated_at: serverTimestamp(),
-      task_code: this.taskData.data().task_code,
-      task_name: this.taskForm.controls.taskName.value as string,
-      task_type: this.taskForm.controls.taskType.value as string,
-      from_date: this.taskForm.controls.fromDate.value,
-      to_date: this.taskForm.controls.toDate.value,
-      task_status: this.taskForm.controls.taskStatus.value as string,
-      description: this.taskForm.controls.description.value as string,
-      occurance: this.taskForm.controls.occurance.value as string,
-      frequency: this.taskForm.controls.frequency.value as string,
-      primary_assignee: {
-        id: this.selectedUserRoleId,
-        data: {
-          staff_code: this.selectedUserRoleData.staff_code,
-          full_name: this.selectedUserRoleData.full_name,
-          staff_role: this.selectedUserRoleData.staff_role,
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
+    
     if(this.taskForm.valid){
       this.isSavingTask = true;
+
+      const id = sessionStorage.getItem('housekeeping_task_id') as string;
+      let data = this.setUpdateTaskData();
 
       this.housekeepingApi.updateTask(id, data)
         .then((res) => {
@@ -163,6 +135,40 @@ export class ViewTaskComponent {
 
     this.selectedUserRoleId = this.taskData.data().primary_assignee.id;
     this.selectedUserRoleData = this.taskData.data().primary_assignee.data;
+  }
+
+  setUpdateTaskData(){
+    let data: Task = {
+      created_at: this.taskData.data().created_at,
+      updated_at: serverTimestamp(),
+      task_code: this.taskData.data().task_code,
+      task_name: this.taskForm.controls.taskName.value as string,
+      task_type: this.taskForm.controls.taskType.value as string,
+      from_date: this.taskForm.controls.fromDate.value,
+      to_date: this.taskForm.controls.toDate.value,
+      task_status: this.taskForm.controls.taskStatus.value as string,
+      description: this.taskForm.controls.description.value as string,
+      occurance: this.taskForm.controls.occurance.value as string,
+      frequency: this.taskForm.controls.frequency.value as string,
+      primary_assignee: {
+        id: this.selectedUserRoleId,
+        data: {
+          staff_code: this.selectedUserRoleData.staff_code,
+          full_name: this.selectedUserRoleData.full_name,
+          staff_role: this.selectedUserRoleData.staff_role,
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

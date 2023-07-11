@@ -65,27 +65,13 @@ export class ViewRosterComponent {
   }
 
   updateRoster() {    
-    const id = sessionStorage.getItem('attendance_roster_id') as string;
-
-    let data: Roster = {
-      created_at: this.rosterData.data().created_at,
-      updated_at: serverTimestamp(),
-      roster_code: this.rosterData.data().roster_code,
-      roster_name: this.rosterForm.controls.rosterName.value as string,
-      from_date: this.rosterForm.controls.fromDate.value,
-      to_date: this.rosterForm.controls.toDate.value,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
 
     if(this.rosterForm.valid){
       this.isSavingRoster = true;
       
+      let data = this.setUpdateRosterData();
+      const id = sessionStorage.getItem('attendance_roster_id') as string;
+
       this.attendanceApi.updateRoster(id, data)
         .then((res) => {
           // console.log(res);
@@ -122,6 +108,27 @@ export class ViewRosterComponent {
     this.rosterForm.controls.rosterName.setValue(this.rosterData.data().roster_name);
     this.rosterForm.controls.fromDate.setValue(this.rosterData.data().from_date);
     this.rosterForm.controls.toDate.setValue(this.rosterData.data().to_date);
+  }
+
+  setUpdateRosterData(){
+    let data: Roster = {
+      created_at: this.rosterData.data().created_at,
+      updated_at: serverTimestamp(),
+      roster_code: this.rosterData.data().roster_code,
+      roster_name: this.rosterForm.controls.rosterName.value as string,
+      from_date: this.rosterForm.controls.fromDate.value,
+      to_date: this.rosterForm.controls.toDate.value,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

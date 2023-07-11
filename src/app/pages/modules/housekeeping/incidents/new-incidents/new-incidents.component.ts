@@ -62,7 +62,31 @@ export class NewIncidentsComponent {
 
   createIncident() {
     this.incidentForm.isSaved = true;
-    
+        
+    if(this.incidentForm.incidentForm.valid){
+      this.isSavingIncident = true;
+
+      let data = this.setCreateIncidentData();
+
+      this.housekeepingApi.createIncident(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('housekeeping_incident_id', res.id);
+            this.router.navigateByUrl("/modules/housekeeping/incidents/view-incident");
+          }
+          this.isSavingIncident = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingIncident = false;
+        });
+    }
+  }
+
+  setCreateIncidentData(){
     let data: Incident = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -84,26 +108,7 @@ export class NewIncidentsComponent {
     }
 
     // console.log(data);
-
-    if(this.incidentForm.incidentForm.valid){
-      this.isSavingIncident = true;
-
-      this.housekeepingApi.createIncident(data)
-        .then((res: any) => {
-          // console.log(res);
-
-          if(res.id){
-            sessionStorage.setItem('housekeeping_incident_id', res.id);
-            this.router.navigateByUrl("/modules/housekeeping/incidents/view-incident");
-          }
-          this.isSavingIncident = false;
-        })
-        .catch((err: any) => {
-          // console.log(err);
-          this.connectionToast.openToast();
-          this.isSavingIncident = false;
-        });
-    }
+    return data;
   }
   
 }

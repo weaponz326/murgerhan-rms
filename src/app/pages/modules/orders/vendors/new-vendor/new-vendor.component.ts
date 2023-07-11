@@ -62,25 +62,10 @@ export class NewVendorComponent {
   createVendor() {
     this.vendorForm.isSaved = true;
     
-    let data: Vendor = {
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp(),
-      vendor_code: this.thisId,
-      vendor_name: this.vendorForm.vendorForm.controls.vendorName.value as string,
-      phone: this.vendorForm.vendorForm.controls.phone.value as string,
-      email: this.vendorForm.vendorForm.controls.email.value as string,
-      address: this.vendorForm.vendorForm.controls.address.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
     if(this.vendorForm.vendorForm.valid){
       this.isSavingVendor = true;
+
+      let data = this.setCreateVendorData();
 
       this.ordersApi.createVendor(data)
         .then((res: any) => {
@@ -98,6 +83,28 @@ export class NewVendorComponent {
           this.isSavingVendor = false;
         });
     }
+  }
+
+  setCreateVendorData(){
+    let data: Vendor = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      vendor_code: this.thisId,
+      vendor_name: this.vendorForm.vendorForm.controls.vendorName.value as string,
+      phone: this.vendorForm.vendorForm.controls.phone.value as string,
+      email: this.vendorForm.vendorForm.controls.email.value as string,
+      address: this.vendorForm.vendorForm.controls.address.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
   
 }

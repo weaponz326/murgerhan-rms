@@ -59,31 +59,13 @@ export class EditContractorsComponent {
   }
 
   updateContractor() {    
-    this.contractorForm.isSaved = true;
+    this.contractorForm.isSaved = true;    
     
-    const id = sessionStorage.getItem('maintenance_contractor_id') as string;
-
-    let data: Contractor = {
-      created_at: this.contractorData.data().created_at,
-      updated_at: serverTimestamp(),
-      contractor_code: this.contractorData.data().contractor_code,
-      contractor_name: this.contractorForm.contractorForm.controls.contractorName.value as string,
-      contractor_type: this.contractorForm.contractorForm.controls.contractorType.value as string,
-      main_service: this.contractorForm.contractorForm.controls.mainService.value as string,
-      phone: this.contractorForm.contractorForm.controls.phone.value as string,
-      email: this.contractorForm.contractorForm.controls.email.value as string,
-      address: this.contractorForm.contractorForm.controls.address.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
     if(this.contractorForm.contractorForm.valid){
       this.isSavingContractor = true;
+
+      const id = sessionStorage.getItem('maintenance_contractor_id') as string;
+      let data = this.setUpdateContractorData();
 
       this.maintenanceApi.updateContractor(id, data)
         .then((res) => {
@@ -124,6 +106,30 @@ export class EditContractorsComponent {
     this.contractorForm.contractorForm.controls.phone.setValue(this.contractorData.data().phone);
     this.contractorForm.contractorForm.controls.email.setValue(this.contractorData.data().email);
     this.contractorForm.contractorForm.controls.address.setValue(this.contractorData.data().address);
+  }
+
+  setUpdateContractorData(){
+    let data: Contractor = {
+      created_at: this.contractorData.data().created_at,
+      updated_at: serverTimestamp(),
+      contractor_code: this.contractorData.data().contractor_code,
+      contractor_name: this.contractorForm.contractorForm.controls.contractorName.value as string,
+      contractor_type: this.contractorForm.contractorForm.controls.contractorType.value as string,
+      main_service: this.contractorForm.contractorForm.controls.mainService.value as string,
+      phone: this.contractorForm.contractorForm.controls.phone.value as string,
+      email: this.contractorForm.contractorForm.controls.email.value as string,
+      address: this.contractorForm.contractorForm.controls.address.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

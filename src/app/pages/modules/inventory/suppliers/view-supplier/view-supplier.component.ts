@@ -61,27 +61,12 @@ export class ViewSupplierComponent {
   updateSupplier() {    
     this.supplierForm.isSaved = true;
     
-    const id = sessionStorage.getItem('inventory_supplier_id') as string;
-
-    let data: Supplier = {
-      created_at: this.supplierData.data().created_at,
-      updated_at: serverTimestamp(),
-      supplier_code: this.supplierData.data().supplier_code,
-      supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
-      phone: this.supplierForm.supplierForm.controls.phone.value as string,
-      email: this.supplierForm.supplierForm.controls.email.value as string,
-      address: this.supplierForm.supplierForm.controls.address.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
     if(this.supplierForm.supplierForm.valid){
       this.isSavingSupplier = true;
+
+      const id = sessionStorage.getItem('inventory_supplier_id') as string;    
+      let data = this.setUpdateSuplierData();
+      
       this.inventoryApi.updateSupplier(id, data)
         .then((res) => {
           // console.log(res);
@@ -119,6 +104,28 @@ export class ViewSupplierComponent {
     this.supplierForm.supplierForm.controls.phone.setValue(this.supplierData.data().phone);
     this.supplierForm.supplierForm.controls.email.setValue(this.supplierData.data().email);
     this.supplierForm.supplierForm.controls.address.setValue(this.supplierData.data().address);
+  }
+
+  setUpdateSuplierData(){
+    let data: Supplier = {
+      created_at: this.supplierData.data().created_at,
+      updated_at: serverTimestamp(),
+      supplier_code: this.supplierData.data().supplier_code,
+      supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
+      phone: this.supplierForm.supplierForm.controls.phone.value as string,
+      email: this.supplierForm.supplierForm.controls.email.value as string,
+      address: this.supplierForm.supplierForm.controls.address.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

@@ -71,44 +71,12 @@ export class ViewMaintnenanceIssueComponent {
 
   updateIssue() {    
     this.issueForm.isSaved = true;
-    const id = sessionStorage.getItem('maintenance_issue_id') as string;
-
-    let data: Issue = {
-      created_at: this.issueData.data().created_at,
-      updated_at: serverTimestamp(),
-      issue_code: this.issueData.data().issue_code,
-      issue_subject: this.issueForm.issueForm.controls.issueSubject.value as string,
-      issue_type: this.issueForm.issueForm.controls.issueType.value as string,
-      issue_date: this.issueForm.issueForm.controls.issueDate.value,
-      description: this.issueForm.issueForm.controls.description.value as string,
-      issue_status: this.issueForm.issueForm.controls.issueStatus.value as string,
-      comments: this.issueForm.issueForm.controls.comments.value as string,
-      reported_to: {
-        id: this.selectedUserRoleId,
-        data: {
-          staff_code: this.selectedUserRoleData.staff_code,
-          full_name: this.selectedUserRoleData.full_name,
-          staff_role: this.selectedUserRoleData.staff_role,
-        }
-      },
-      system: {
-        id: this.selectedSystemId,
-        data: {
-          system_code: this.selectedSystemData.system_code,
-          system_name: this.selectedSystemData.system_name,
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
+    
     if(this.issueForm.issueForm.valid){
       this.isSavingIssue = true;
+
+      const id = sessionStorage.getItem('maintenance_issue_id') as string;
+      let data = this.setUpdateIssueData();
       
       this.maintenanceApi.updateIssue(id, data)
         .then((res) => {
@@ -175,6 +143,45 @@ export class ViewMaintnenanceIssueComponent {
     this.selectedSystemData = this.issueData.data().system.data;
     this.selectedUserRoleId = this.issueData.data().reported_to.id;
     this.selectedUserRoleData = this.issueData.data().reported_to.data;
+  }
+
+  setUpdateIssueData(){
+    let data: Issue = {
+      created_at: this.issueData.data().created_at,
+      updated_at: serverTimestamp(),
+      issue_code: this.issueData.data().issue_code,
+      issue_subject: this.issueForm.issueForm.controls.issueSubject.value as string,
+      issue_type: this.issueForm.issueForm.controls.issueType.value as string,
+      issue_date: this.issueForm.issueForm.controls.issueDate.value,
+      description: this.issueForm.issueForm.controls.description.value as string,
+      issue_status: this.issueForm.issueForm.controls.issueStatus.value as string,
+      comments: this.issueForm.issueForm.controls.comments.value as string,
+      reported_to: {
+        id: this.selectedUserRoleId,
+        data: {
+          staff_code: this.selectedUserRoleData.staff_code,
+          full_name: this.selectedUserRoleData.full_name,
+          staff_role: this.selectedUserRoleData.staff_role,
+        }
+      },
+      system: {
+        id: this.selectedSystemId,
+        data: {
+          system_code: this.selectedSystemData.system_code,
+          system_name: this.selectedSystemData.system_name,
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

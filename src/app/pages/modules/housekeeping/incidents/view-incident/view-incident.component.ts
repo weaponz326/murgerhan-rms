@@ -61,32 +61,13 @@ export class ViewIncidentComponent {
   }
 
   updateIncident() {
-    this.incidentForm.isSaved = true;
+    this.incidentForm.isSaved = true;    
     
-    const id = sessionStorage.getItem('housekeeping_incident_id') as string;
-
-    let data: Incident = {
-      created_at: this.incidentData.data().created_at,
-      updated_at: serverTimestamp(),
-      incident_code: this.incidentData.data().incident_code,
-      incident_subject: this.incidentForm.incidentForm.controls.incidentSubject.value as string,
-      incident_type: this.incidentForm.incidentForm.controls.incidentType.value as string,
-      incident_date: this.incidentForm.incidentForm.controls.incidentDate.value,
-      incident_status: this.incidentForm.incidentForm.controls.incidentStatus.value as string,
-      description: this.incidentDetails.incidentDetails.controls.description.value as string,
-      resolution: this.incidentDetails.incidentDetails.controls.resolution.value as string,
-      comments: this.incidentDetails.incidentDetails.controls.comments.value as string,
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
     if(this.incidentForm.incidentForm.valid){
       this.isSavingIncident = true;
+
+      const id = sessionStorage.getItem('housekeeping_incident_id') as string;
+      let data = this.setUpdateIncidentData();
 
       this.housekeepingApi.updateIncident(id, data)
         .then((res) => {
@@ -128,6 +109,31 @@ export class ViewIncidentComponent {
     this.incidentDetails.incidentDetails.controls.description.setValue(this.incidentData.data().description);
     this.incidentDetails.incidentDetails.controls.resolution.setValue(this.incidentData.data().resolution);
     this.incidentDetails.incidentDetails.controls.comments.setValue(this.incidentData.data().comments);
+  }
+
+  setUpdateIncidentData(){
+    let data: Incident = {
+      created_at: this.incidentData.data().created_at,
+      updated_at: serverTimestamp(),
+      incident_code: this.incidentData.data().incident_code,
+      incident_subject: this.incidentForm.incidentForm.controls.incidentSubject.value as string,
+      incident_type: this.incidentForm.incidentForm.controls.incidentType.value as string,
+      incident_date: this.incidentForm.incidentForm.controls.incidentDate.value,
+      incident_status: this.incidentForm.incidentForm.controls.incidentStatus.value as string,
+      description: this.incidentDetails.incidentDetails.controls.description.value as string,
+      resolution: this.incidentDetails.incidentDetails.controls.resolution.value as string,
+      comments: this.incidentDetails.incidentDetails.controls.comments.value as string,
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){

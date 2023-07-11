@@ -68,46 +68,14 @@ export class ViewMaintenanceServiceComponent {
   }
 
   updateService() {    
-    const id = sessionStorage.getItem('maintenance_service_id') as string;
-
-    let data: Service = {
-      created_at: this.serviceData.data().created_at,
-      updated_at: serverTimestamp(),
-      service_code: this.serviceData.data().service_code,
-      service_subject: this.serviceForm.serviceForm.controls.serviceSubject.value as string,
-      service_type: this.serviceForm.serviceForm.controls.serviceType.value as string,
-      cost: this.serviceForm.serviceForm.controls.cost.value as number,
-      date_from: this.serviceForm.serviceForm.controls.dateFrom.value,
-      date_to: this.serviceForm.serviceForm.controls.dateTo.value,
-      description: this.serviceForm.serviceForm.controls.description.value as string,
-      service_status: this.serviceForm.serviceForm.controls.serviceStatus.value as string,
-      comments: this.serviceForm.serviceForm.controls.comments.value as string,
-      contractor: {
-        id: this.selectedContractorId,
-        data: {
-          contractor_code: this.selectedContractorData.contractor_code,
-          contractor_name: this.selectedContractorData.contractor_name,
-        }
-      },
-      system: {
-        id: this.selectedSystemId,
-        data: {
-          system_code: this.selectedSystemData.system_code,
-          system_name: this.selectedSystemData.system_name,
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location,
-        }
-      }
-    }
-
+    this.serviceForm.isSaved = true;
+    
     if(this.serviceForm.serviceForm.valid){
       this.isSavingService = true;
 
+      const id = sessionStorage.getItem('maintenance_service_id') as string;
+      let data = this.setUpdateServiceData()
+      
       this.maintenanceApi.updateService(id, data)
         .then((res) => {
           // console.log(res);
@@ -157,6 +125,46 @@ export class ViewMaintenanceServiceComponent {
     this.selectedSystemData = this.serviceData.data().system.data;
     this.selectedContractorId = this.serviceData.data().contractor.id;
     this.selectedContractorData = this.serviceData.data().contractor.data;
+  }
+
+  setUpdateServiceData(){
+    let data: Service = {
+      created_at: this.serviceData.data().created_at,
+      updated_at: serverTimestamp(),
+      service_code: this.serviceData.data().service_code,
+      service_subject: this.serviceForm.serviceForm.controls.serviceSubject.value as string,
+      service_type: this.serviceForm.serviceForm.controls.serviceType.value as string,
+      cost: this.serviceForm.serviceForm.controls.cost.value as number,
+      date_from: this.serviceForm.serviceForm.controls.dateFrom.value,
+      date_to: this.serviceForm.serviceForm.controls.dateTo.value,
+      description: this.serviceForm.serviceForm.controls.description.value as string,
+      service_status: this.serviceForm.serviceForm.controls.serviceStatus.value as string,
+      comments: this.serviceForm.serviceForm.controls.comments.value as string,
+      contractor: {
+        id: this.selectedContractorId,
+        data: {
+          contractor_code: this.selectedContractorData.contractor_code,
+          contractor_name: this.selectedContractorData.contractor_name,
+        }
+      },
+      system: {
+        id: this.selectedSystemId,
+        data: {
+          system_code: this.selectedSystemData.system_code,
+          system_name: this.selectedSystemData.system_name,
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location,
+        }
+      }
+    }
+
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){
