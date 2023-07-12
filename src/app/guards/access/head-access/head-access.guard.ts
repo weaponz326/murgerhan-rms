@@ -8,6 +8,8 @@ export const headAccessGuard: CanActivateChildFn = (childRoute, state) => {
   // console.log(userRole);
 
   if (
+    !!(userRole == "General Manager") ||
+    !!(userRole == "Administrator") ||
     !!(userRole == "Head Manager") ||
     !!(userRole == "Head Chef")
   ) {

@@ -43,7 +43,7 @@ export class AddOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}, Validators.required),
+    vendorCode: new FormControl({value: '', disabled: true}),
     vendorName: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
@@ -78,7 +78,7 @@ export class AddOrderComponent {
   createOrder() {
     this.isSaved = true;
     
-    if(this.orderForm.valid){
+    if(this.orderForm.valid && this.selectedVendorId){
       this.isSavingOrder = true;
 
       let data = this.setCreateOrderData();

@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="branch" class="form-control" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.branch.invalid }" required>
+                                <input formControlName="branch" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedBranchId }" required>
                                 <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>

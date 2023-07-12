@@ -71,7 +71,7 @@ export class NewMaintenanceServiceComponent {
   createService() {
     this.serviceForm.isSaved = true;
     
-    if(this.serviceForm.serviceForm.valid){
+    if(this.serviceForm.serviceForm.valid && this.selectedContractorId && this.selectedSystemId){
       this.isSavingService = true;
 
       let data = this.setCreateServiceData();

@@ -78,7 +78,7 @@ export class NewPurchasingComponent {
   createPurchasing() {
     this.isSaved = true;
 
-    if(this.purchasingForm.valid){
+    if(this.purchasingForm.valid && this.selectedSupplierId){
       this.isSavingPurchasing = true;
 
       let data = this.setCreatePurchasingData();

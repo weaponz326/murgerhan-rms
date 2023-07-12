@@ -70,7 +70,7 @@ export class ViewMaintenanceServiceComponent {
   updateService() {    
     this.serviceForm.isSaved = true;
     
-    if(this.serviceForm.serviceForm.valid){
+    if(this.serviceForm.serviceForm.valid && this.selectedContractorId && this.selectedSystemId){
       this.isSavingService = true;
 
       const id = sessionStorage.getItem('maintenance_service_id') as string;

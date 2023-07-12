@@ -43,7 +43,7 @@ export class EditPurchasingItemComponent {
   saveItem(){
     this.purchasingItemForm.isSaved = true;
         
-    if(this.purchasingItemForm.purchasingItemForm.valid){
+    if(this.purchasingItemForm.purchasingItemForm.valid && this.selectedItemId){
       let data: PurchasingItem = {
         created_at: this.purchasingItemData.data().created_at,
         updated_at: serverTimestamp(),

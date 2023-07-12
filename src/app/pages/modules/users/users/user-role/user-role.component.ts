@@ -38,8 +38,8 @@ export class UserRoleComponent {
     staffRole: new FormControl('', Validators.required),
   })
 
-  selectdBranchId: any;
-  selectdBranchData: any;
+  selectedBranchId: any;
+  selectedBranchData: any;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
@@ -90,29 +90,13 @@ export class UserRoleComponent {
   }
 
   updateUserRole() {
-    this.isSaved = true;
+    this.isSaved = true;    
     
-    const id = sessionStorage.getItem('users_user_id') as string;
-
-    let data: UserRole = {
-      created_at: this.roleData.data().created_at,
-      updated_at: serverTimestamp(),
-      full_name: this.roleForm.controls.fullName.value as string,
-      staff_code: this.roleForm.controls.staffCode.value as string,
-      staff_role: this.roleForm.controls.staffRole.value as string,
-      branch: {
-        id: this.selectdBranchId,
-        data: {
-          branch_name: this.selectdBranchData.branch_name,
-          location: this.selectdBranchData.location
-        }
-      },
-    }
-
-    // console.log(data)
-
-    if(this.roleForm.valid){
+    if(this.roleForm.valid && this.selectedBranchId){
       this.isSavingRole = true; 
+
+      const id = sessionStorage.getItem('users_user_id') as string;
+      let data = this.setUpdateUserRoleData();
 
       this.usersApi.updateUserRole(id, data)
         .then((res) => {
@@ -145,6 +129,36 @@ export class UserRoleComponent {
       });
   }
 
+  setRoleData(){
+    this.roleForm.controls.fullName.setValue(this.roleData.data().full_name);
+    this.roleForm.controls.staffCode.setValue(this.roleData.data().staff_code);
+    this.roleForm.controls.branch.setValue(this.roleData.data().branch?.data.branch_name);
+    this.roleForm.controls.staffRole.setValue(this.roleData.data().staff_role);
+
+    this.selectedBranchId = this.roleData.data().branch.id;
+    this.selectedBranchData = this.roleData.data().branch.data;
+  }
+
+  setUpdateUserRoleData(){
+    let data: UserRole = {
+      created_at: this.roleData.data().created_at,
+      updated_at: serverTimestamp(),
+      full_name: this.roleForm.controls.fullName.value as string,
+      staff_code: this.roleForm.controls.staffCode.value as string,
+      staff_role: this.roleForm.controls.staffRole.value as string,
+      branch: {
+        id: this.selectedBranchId,
+        data: {
+          branch_name: this.selectedBranchData.branch_name,
+          location: this.selectedBranchData.location
+        }
+      },
+    }
+
+    // console.log(data)
+    return data;
+  }
+
   openBranchWindow(){
     // console.log("You are opening select branch window")
     this.selectBranch.openModal();
@@ -154,18 +168,8 @@ export class UserRoleComponent {
     // console.log(data);
 
     this.roleForm.controls.branch.setValue(data.data().branch_name);
-    this.selectdBranchId = data.id;
-    this.selectdBranchData = data.data();
-  }
-
-  setRoleData(){
-    this.roleForm.controls.fullName.setValue(this.roleData.data().full_name);
-    this.roleForm.controls.staffCode.setValue(this.roleData.data().staff_code);
-    this.roleForm.controls.branch.setValue(this.roleData.data().branch?.data.branch_name);
-    this.roleForm.controls.staffRole.setValue(this.roleData.data().staff_role);
-
-    this.selectdBranchId = this.roleData.data().branch.id;
-    this.selectdBranchData = this.roleData.data().branch.data;
+    this.selectedBranchId = data.id;
+    this.selectedBranchData = data.data();
   }
 
   confirmDelete(){

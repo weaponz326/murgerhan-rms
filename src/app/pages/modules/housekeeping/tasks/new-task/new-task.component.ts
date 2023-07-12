@@ -82,7 +82,7 @@ export class NewTaskComponent {
   createTask() {
     this.isSaved = true;
     
-    if(this.taskForm.valid){
+    if(this.taskForm.valid && this.selectedUserRoleId){
       this.isSavingTask = true;
 
       let data = this.setCreateTaskData();

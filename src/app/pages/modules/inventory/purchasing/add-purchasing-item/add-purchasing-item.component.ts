@@ -44,7 +44,7 @@ export class AddPurchasingItemComponent {
   saveItem(){
     this.purchasingItemForm.isSaved = true;        
 
-    if(this.purchasingItemForm.purchasingItemForm.valid){
+    if(this.purchasingItemForm.purchasingItemForm.valid && this.selectedItemId){
       let data: PurchasingItem = {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),

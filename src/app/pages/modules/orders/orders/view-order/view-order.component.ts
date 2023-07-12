@@ -75,7 +75,7 @@ export class ViewOrderComponent {
   updateOrder() {       
     this.isSaved = true;
      
-    if(this.orderForm.valid){
+    if(this.orderForm.valid && this.selectedVendorId){
       this.isSavingOrder = true;
 
       const id = sessionStorage.getItem('orders_order_id') as string;

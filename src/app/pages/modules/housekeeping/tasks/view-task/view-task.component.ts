@@ -46,7 +46,7 @@ export class ViewTaskComponent {
   selectedPeriod: any;
 
   taskForm = new FormGroup({
-    taskCode: new FormControl(''),
+    taskCode: new FormControl({value: '', disabled: true}),
     taskName: new FormControl('', Validators.required),
     taskType: new FormControl(''),
     primaryAssignee: new FormControl({value: '', disabled: true}, Validators.required),
@@ -84,7 +84,7 @@ export class ViewTaskComponent {
   updateTask() {    
     this.isSaved = true;
     
-    if(this.taskForm.valid){
+    if(this.taskForm.valid && this.selectedUserRoleId){
       this.isSavingTask = true;
 
       const id = sessionStorage.getItem('housekeeping_task_id') as string;

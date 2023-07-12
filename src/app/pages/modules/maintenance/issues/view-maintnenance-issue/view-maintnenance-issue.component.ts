@@ -72,7 +72,7 @@ export class ViewMaintnenanceIssueComponent {
   updateIssue() {    
     this.issueForm.isSaved = true;
     
-    if(this.issueForm.issueForm.valid){
+    if(this.issueForm.issueForm.valid && this.selectedUserRoleId){
       this.isSavingIssue = true;
 
       const id = sessionStorage.getItem('maintenance_issue_id') as string;

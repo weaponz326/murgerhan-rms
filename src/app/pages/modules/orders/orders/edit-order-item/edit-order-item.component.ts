@@ -46,7 +46,7 @@ export class EditOrderItemComponent {
   saveItem(){
     this.orderItemForm.isSaved = true;        
 
-    if(this.orderItemForm.orderItemForm.valid){
+    if(this.orderItemForm.orderItemForm.valid && this.selectedProductId){
       let data: OrderItem = {
         created_at: this.orderItemData.data().created_at,
         updated_at: serverTimestamp(),

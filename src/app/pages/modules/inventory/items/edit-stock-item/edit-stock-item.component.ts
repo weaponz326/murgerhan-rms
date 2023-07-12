@@ -47,7 +47,7 @@ export class EditStockItemComponent {
   saveItem(){
     this.stockItemForm.isSaved = true;        
 
-    if(this.stockItemForm.stockItemForm.valid){
+    if(this.stockItemForm.stockItemForm.valid && this.selectedItemCategoryId){
       let data: StockItem = {
         created_at: this.stockItemData.data().created_at,
         updated_at: serverTimestamp(),

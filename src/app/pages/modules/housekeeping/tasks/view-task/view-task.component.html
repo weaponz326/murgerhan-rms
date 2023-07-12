@@ -30,7 +30,7 @@
                                     <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Task Name :</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input formControlName="taskName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && taskForm.controls.taskName.invalid }" required>
+                                    <input formControlName="taskName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && !selectedUserRoleId }" required>
                                 </div>
                             </div>
         

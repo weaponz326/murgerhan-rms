@@ -76,7 +76,7 @@ export class NewMaintnenanceIssueComponent {
   createIssue() {
     this.issueForm.isSaved = true;
     
-    if(this.issueForm.issueForm.valid){
+    if(this.issueForm.issueForm.valid && this.selectedUserRoleId){
       this.isSavingIssue = true;
 
       let data = this.setCreateIssueData();

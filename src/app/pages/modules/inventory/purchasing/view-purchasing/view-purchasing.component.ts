@@ -44,7 +44,7 @@ export class ViewPurchasingComponent {
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
     purchasingDate: new FormControl(),
-    supplierCode: new FormControl({value: '', disabled: true}, Validators.required),
+    supplierCode: new FormControl({value: '', disabled: true}),
     supplierName: new FormControl({value: '', disabled: true}, Validators.required),
     receivedBy: new FormControl({value: '', disabled: true}),
     purchasingStatus: new FormControl(''),
@@ -77,7 +77,7 @@ export class ViewPurchasingComponent {
   updatePurchasing() {
     this.isSaved = true;
     
-    if(this.purchasingForm.valid){
+    if(this.purchasingForm.valid && this.selectedSupplierId){
       this.isSavingPurchasing = true;
 
       const id = sessionStorage.getItem('inventory_purchasing_id') as string;
