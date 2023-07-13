@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Purchasing } from 'src/app/models/modules/inventory/inventory.model';
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+import { InventoryPrintService } from 'src/app/services/modules-print/inventory-print/inventory-print.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -22,6 +23,7 @@ export class ViewPurchasingComponent {
   constructor(
     private router: Router,
     private inventoryApi: InventoryApiService,
+    private inventoryPrint: InventoryPrintService,
     private formatId: FormatIdService
   ) {}
 
@@ -120,7 +122,7 @@ export class ViewPurchasingComponent {
     this.purchasingForm.controls.supplierCode.setValue(this.formatId.formatId(this.purchasingData.data().supplier.data.supplier_code, 4, "#", "SU"));
     this.purchasingForm.controls.supplierName.setValue(this.purchasingData.data().supplier.data.supplier_name);
     this.purchasingForm.controls.purchasingStatus.setValue(this.purchasingData.data().purchasing_status);
-    this.purchasingForm.controls.dateReceived.setValue(this.purchasingData.data().delivery_date);
+    this.purchasingForm.controls.dateReceived.setValue(this.purchasingData.data().date_received);
     this.purchasingForm.controls.receivedBy.setValue(this.purchasingData.data().received_by?.data?.full_name);
     this.purchasingForm.controls.comments.setValue(this.purchasingData.data().comments);
 
@@ -181,6 +183,11 @@ export class ViewPurchasingComponent {
     this.selectedSupplierData = supplierData.data();
     this.purchasingForm.controls.supplierCode.setValue(supplierData.data().supplier_code);
     this.purchasingForm.controls.supplierName.setValue(supplierData.data().supplier_name);
+  }
+
+  onPrint(){
+    console.log("lets print!.......");
+    this.inventoryPrint.printPurchasing();
   }
 
 }

@@ -113,6 +113,28 @@
 
 <app-order-items (setOrderTotal)="orderTotal = $event"></app-order-items>
 
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="offset-md-7 col-md-5">
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                            
+                        <button class="btn btn-light border" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Order
+                        </button>
+
+                    </div>
+                </div>
+            
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>

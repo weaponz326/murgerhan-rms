@@ -77,13 +77,16 @@ export class InventoryPrintService {
     const purchasingData: any = await this.inventoryApi.getPurchasing(sessionStorage.getItem('inventory_purchasing_id'));
     const purchasingItemListData: any = await this.inventoryApi.getPurchasingItemList();
     
-    var purchasingBody = [
+    var purchasingBody1 = [
       ['Purchasing ID', ':', this.formatId.formatId(purchasingData.data().purchasing_code, 5, "#", "PC")],
       ['Purchasing Date', ':', purchasingData.data().purchasing_date],
       ['Supplier ID', ':', this.formatId.formatId(purchasingData.data().supplier.data.supplier_code, 4, "#", "SU")],
       ['Supplier Name', ':', purchasingData.data().supplier.data.supplier_name],
       ['Purchasing Status', ':', purchasingData.data().purchasing_status],
-      ['Delivery Date', ':', purchasingData.data().delivery_date],
+    ]
+
+    var purchasingBody2 = [
+      ['Date Received', ':', purchasingData.data().date_received],
       ['Received By', ':', purchasingData.data().received_by?.data?.full_name],
     ]
 
@@ -109,11 +112,18 @@ export class InventoryPrintService {
               table: {
                 headerRows: 0,
                 widths: ['33%', '2%', '65%'],
-                body: purchasingBody
+                body: purchasingBody1
               }
             }
           ],
-          []
+          [{
+            layout: 'noBorders',
+            table: {
+              headerRows: 0,
+              widths: ['33%', '2%', '65%'],
+              body: purchasingBody2
+            }
+          }]
         ]
       },
       { text: 'Purchasing Items', bold: true, margin: [0, 30, 0, 10] },
