@@ -12,8 +12,8 @@ export const managerAccessGuard: CanActivateChildFn = (childRoute, state) => {
     !!(userRole == "Administrator") ||
     !!(userRole == "Head Manager") ||
     !!(userRole == "Head Chef") ||
-    !!(userRole == "Manager") ||
-    !!(userRole == "Assistant Manager") 
+    !!(userRole == "Branch Manager") ||
+    !!(userRole == "Assistant Branch Manager") 
   ) {
     return true;
   }

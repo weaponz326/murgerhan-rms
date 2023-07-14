@@ -81,8 +81,8 @@ export class AllBranchesComponent {
         location: branchData.data().location,
       }
     }
+
     localStorage.setItem("selected_branch", JSON.stringify(data));
-    window.location.reload();
   }
 
 }

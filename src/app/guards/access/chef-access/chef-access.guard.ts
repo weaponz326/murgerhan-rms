@@ -12,10 +12,10 @@ export const chefAccessGuard: CanActivateChildFn = (childRoute, state) => {
     !!(userRole == "Administrator") ||
     !!(userRole == "Head Manager") ||
     !!(userRole == "Head Chef") ||
-    !!(userRole == "Manager") ||
-    !!(userRole == "Assistant Manager") ||
-    !!(userRole == "Chef") ||
-    !!(userRole == "Assistant Chef")
+    !!(userRole == "Branch Manager") ||
+    !!(userRole == "Assistant Branch Manager") ||
+    !!(userRole == "Branch Chef") ||
+    !!(userRole == "Assistant Branch Chef")
   ) {
     return true;
   }

@@ -53,9 +53,10 @@ export class SignupFormComponent {
   getInvitation() {
     this.usersApi.getInvitation(this.invitationId)
       .then((res) => {
-        // console.log(res);
+        // console.log(res.data());
 
         let invitationData: any = res;
+
         if(invitationData.data().invitation_status == 'Awaiting'){
           this.signupForm.controls.email.setValue(invitationData.data().invitee_email);
           this.isLoading = false;

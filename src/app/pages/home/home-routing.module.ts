@@ -27,27 +27,27 @@ const routes: Routes = [
       {
         path: "modules/admin/dashboard",
         loadChildren: () => import("../modules/admin/dashboard/dashboard.module").then(m => m.DashboardModule),
-        canActivateChild: [authGuard, adminAccessGuard, headAccessGuard],
+        canActivateChild: [authGuard, headAccessGuard],
       },
       {
         path: "modules/admin/configuration",
         loadChildren: () => import("../modules/admin/configuration/configuration.module").then(m => m.ConfigurationModule),
-        canActivateChild: [authGuard, adminAccessGuard, headAccessGuard],
+        canActivateChild: [authGuard, headAccessGuard],
       },
       {
         path: "modules/admin/branches",
         loadChildren: () => import("../modules/admin/branches/branches.module").then(m => m.BranchesModule),
-        canActivateChild: [authGuard, adminAccessGuard, headAccessGuard],
+        canActivateChild: [authGuard, headAccessGuard],
       },
       {
         path: "modules/admin/reports",
         loadChildren: () => import("../modules/admin/reports/reports.module").then(m => m.ReportsModule),
-        canActivateChild: [authGuard, adminAccessGuard, headAccessGuard],
+        canActivateChild: [authGuard, headAccessGuard],
       },
       {
         path: "modules/admin/logs",
         loadChildren: () => import("../modules/admin/logs/logs.module").then(m => m.LogsModule),
-        canActivateChild: [authGuard, adminAccessGuard, headAccessGuard],
+        canActivateChild: [authGuard, headAccessGuard],
       },
 
       // users pages
