@@ -211,6 +211,30 @@ const routes: Routes = [
         loadChildren: () => import("../modules/maintenance/systems/systems.module").then(m => m.SystemsModule),
         canActivateChild: [authGuard, branchGuard, managerAccessGuard],
       },
+
+      // factory main pages
+      {
+        path: "modules/factory-main/dashboard",
+        loadChildren: () => import("../modules/factory-main/dashboard/dashboard.module").then(m => m.DashboardModule),
+      },
+      {
+        path: "modules/factory-main/factory-items",
+        loadChildren: () => import("../modules/factory-main/factory-items/factory-items.module").then(m => m.FactoryItemsModule),
+      },
+      {
+        path: "modules/factory-main/factory-orders",
+        loadChildren: () => import("../modules/factory-main/factory-orders/factory-orders.module").then(m => m.FactoryOrdersModule),
+      },
+
+      // factory main pages
+      {
+        path: "modules/branch-factory/dashboard",
+        loadChildren: () => import("../modules/branch-factory/dashboard/dashboard.module").then(m => m.DashboardModule),
+      },
+      {
+        path: "modules/branch-factory/branch-orders",
+        loadChildren: () => import("../modules/branch-factory/branch-orders/branch-orders.module").then(m => m.BranchOrdersModule),
+      },
     ]
   },
 ];

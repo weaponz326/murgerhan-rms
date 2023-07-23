@@ -10,8 +10,19 @@
 
     <!-- Navbar-->
     <ul *ngIf="isLoggedIn && !isAuthLoading" class="navbar-nav ms-auto me-3">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+        <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-bell-fill"></i>
+                <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                    4
+                    <span class="visually-hidden">unread messages</span>
+                </span>                
+            </a>
+        </li>
+        <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill"></i>
+            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><span class="ms-3 user-info">{{email}}</span></li>
                 <li><hr class="dropdown-divider" /></li>
@@ -278,6 +289,50 @@
                                 <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
                                 Configuration
                             </a> -->
+                        </nav>
+                    </div>
+
+                    <div class="sb-sidenav-menu-heading">Factory</div>
+
+                    <!-- factory main module -->
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFactoryMain" aria-expanded="false" aria-controls="collapseFactoryMain">
+                        <div class="sb-nav-link-icon"><i class="bi bi-robot"></i></div>
+                        Factory Main
+                        <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseFactoryMain" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link nav-router-link" href="#" routerLink="/modules/factory-main/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>                            
+                            <a class="nav-link nav-router-link" href="#" routerLink="/modules/factory-main/factory-items">
+                                <div class="sb-nav-link-icon"><i class="bi bi-tag-fill"></i></div>
+                                Factory Items
+                            </a>
+                            <a class="nav-link nav-router-link" href="#" routerLink="/modules/factory-main/factory-orders">
+                                <div class="sb-nav-link-icon"><i class="bi bi-truck"></i></div>
+                                Factory Orders
+                            </a>
+                        </nav>
+                    </div>
+
+                    <!-- branch factory module -->
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBranchFactory" aria-expanded="false" aria-controls="collapseBranchFactory">
+                        <div class="sb-nav-link-icon"><i class="bi bi-building"></i></div>
+                        Branch Factory
+                        <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseBranchFactory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link nav-router-link" href="#" routerLink="/modules/branch-factory/dashboard">
+                                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                                Dashboard
+                            </a>                            
+                            <a class="nav-link nav-router-link" href="#" routerLink="/modules/branch-factory/branch-orders">
+                                <div class="sb-nav-link-icon"><i class="bi bi-truck"></i></div>
+                                Branch Orders
+                            </a>
                         </nav>
                     </div>
 
