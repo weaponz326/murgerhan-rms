@@ -180,7 +180,7 @@ const routes: Routes = [
         canActivateChild: [authGuard, branchGuard, chefAccessGuard],
       },
       {
-        path: "modules/inventory/purchasing",
+        path: "modules/inventory/stock-batches",
         loadChildren: () => import("../modules/inventory/stock-batches/stock-batches.module").then(m => m.StockBatchesModule),
         canActivateChild: [authGuard, branchGuard, chefAccessGuard],
       },
