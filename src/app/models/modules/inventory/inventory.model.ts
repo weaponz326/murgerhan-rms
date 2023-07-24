@@ -3,14 +3,9 @@ export class StockItem {
     updated_at!: any;
     item_code!: number;
     item_name!: string;
-    unit_price!: number;
-    stock!: number;
+    total_stock!: number;
     refill_ordered!: number;
     location!: string;
-    container!: string;
-    batch_number!: string;
-    manufacturing_date!: any;
-    expiry_date!: any;
     item_category!: {
         id: string;
         data: {

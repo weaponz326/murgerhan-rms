@@ -1,31 +1,43 @@
-<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addInventoryModal">
-    Launch demo modal
-</button>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/items/all-stock-items">All Stock Items</a>
+    </li>
+    <li class="breadcrumb-item active">New Stock Item</li>
+</ol>
 
-<div class="modal fade form-modal" id="addInventoryModal" tabindex="-1" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
 
-            <div class="modal-header bg-light">
-                <span class="modal-title" id="addInventoryModalLabel">Add New Stock Item</span>
-                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- item form component -->
+                <p class="lead">Add New Stock Item</p>
                 
-                <app-stock-item-form #stockItemFormComponentReference (openCategoryWindow)="openItemCategoryWindow()"></app-stock-item-form>                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- item category form component -->
+
+                        <app-stock-item-form #stockItemFormComponentReference (openCategoryWindow)="openItemCategoryWindow()"></app-stock-item-form>
+                        
+                        <div class="row mt-3 float-end">
+                            <div class="col">
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isSavingItem || isFetchingData" (click)="createStockItem()">Save</button>
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/inventory/items">Cancel</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
 
             </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving || isFetchingData" (click)="saveItem()">Save</button>
-                <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
-            </div>
-
         </div>
     </div>
 </div>
 
-<app-select-item-category #selectItemCategoryComponentReference (rowSelected)="onItemCategorySelected($event)" [closeTarget]="'#addInventoryModal'"></app-select-item-category>
+<!-- select item category window component -->
+
+<app-select-item-category #selectItemCategoryComponentReference (rowSelected)="onItemCategorySelected($event)"></app-select-item-category>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

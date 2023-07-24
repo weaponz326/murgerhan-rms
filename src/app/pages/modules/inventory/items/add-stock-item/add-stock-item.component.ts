@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
 import { StockItem } from 'src/app/models/modules/inventory/inventory.model';
@@ -7,6 +8,7 @@ import { FormatIdService } from 'src/app/services/module-utilities/format-id/for
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 import { SelectItemCategoryComponent } from 'src/app/components/select-windows/inventory-windows/select-item-category/select-item-category.component';
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 
 @Component({
@@ -17,6 +19,7 @@ import { SelectItemCategoryComponent } from 'src/app/components/select-windows/i
 export class AddStockItemComponent {
 
   constructor(
+    private router: Router,
     private inventoryApi: InventoryApiService,
     private formatId: FormatIdService,
   ) { }
@@ -25,11 +28,13 @@ export class AddStockItemComponent {
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+  
   @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
   @ViewChild('selectItemCategoryComponentReference', { read: SelectItemCategoryComponent, static: false }) selectItemCategory!: SelectItemCategoryComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isFetchingData = false;
-  isItemSaving = false;
+  isSavingItem = false;
   isSaved = false;
 
   thisId = 0;
@@ -39,8 +44,7 @@ export class AddStockItemComponent {
   
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
-  openModal(){
-    this.addButton.nativeElement.click();
+  ngOnInit(): void {
     this.getLastStockItem();
   }
 
@@ -66,23 +70,41 @@ export class AddStockItemComponent {
       )
   }
 
-  saveItem(){
-    this.stockItemForm.isSaved = true;        
+  createStockItem() {
+    this.stockItemForm.isSaved = true;    
 
-    if(this.stockItemForm.stockItemForm.valid && this.selectedItemCategoryId){
-      let data: StockItem = {
-        created_at: serverTimestamp(),
+    if(this.stockItemForm.stockItemForm.valid){
+      this.isSavingItem = true;
+
+      let data = this.setCreateStockItemData();
+
+      this.inventoryApi.createStockItem(data)
+        .then((res: any) => {
+          // console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('inventory_category_id', res.id);
+            this.router.navigateByUrl("/modules/inventory/items/view-stock-item");
+          }
+          this.isSavingItem = false;
+        })
+        .catch((err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingItem = false;
+        });
+    } 
+  }
+
+  setCreateStockItemData(){
+    let data: StockItem = {
+      created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
         item_code: this.thisId,
         item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
-        unit_price: this.stockItemForm.stockItemForm.controls.unitPrice.value as number,
-        stock: this.stockItemForm.stockItemForm.controls.stock.value as number,
+        total_stock: this.stockItemForm.stockItemForm.controls.totalStock.value as number,
         refill_ordered: this.stockItemForm.stockItemForm.controls.refillOrdered.value as number,
         location: this.stockItemForm.stockItemForm.controls.location.value as string,
-        container: this.stockItemForm.stockItemForm.controls.container.value as string,
-        batch_number: this.stockItemForm.stockItemForm.controls.batchNumber.value as string,
-        manufacturing_date: this.stockItemForm.stockItemForm.controls.manufacturingDate.value,
-        expiry_date: this.stockItemForm.stockItemForm.controls.expiryDate.value,
         item_category: {
           id: this.selectedItemCategoryId,
           data: {
@@ -97,25 +119,10 @@ export class AddStockItemComponent {
             location: this.selectedBranchData.data.location
           }
         },
-      }
-
-      this.saveItemEvent.emit(data);
     }
-  }
 
-  resetForm(){
-    this.stockItemForm.stockItemForm.controls.itemCode.setValue('');
-    this.stockItemForm.stockItemForm.controls.itemName.setValue('');
-    this.stockItemForm.stockItemForm.controls.itemCategory.setValue('');
-    this.stockItemForm.stockItemForm.controls.unitPrice.setValue(0.00);
-    this.stockItemForm.stockItemForm.controls.stock.setValue(0);
-    this.stockItemForm.stockItemForm.controls.refillOrdered.setValue(0);
-    this.stockItemForm.stockItemForm.controls.location.setValue('');
-    this.stockItemForm.stockItemForm.controls.container.setValue('');
-    this.stockItemForm.stockItemForm.controls.batchNumber.setValue('');
-    this.stockItemForm.stockItemForm.controls.manufacturingDate.setValue(null);
-    this.stockItemForm.stockItemForm.controls.expiryDate.setValue(null);
-    this.selectedItemCategoryData = null;
+    // console.log(data);
+    return data;
   }
 
   openItemCategoryWindow(){

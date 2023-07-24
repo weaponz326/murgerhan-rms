@@ -1,13 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
-import { EditStockItemComponent } from '../edit-stock-item/edit-stock-item.component';
-import { AddStockItemComponent } from '../add-stock-item/add-stock-item.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
 
 
 @Component({
@@ -18,15 +16,13 @@ import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/del
 export class AllStockItemsComponent {
 
   constructor(
+    private router: Router,
     private inventoryApi: InventoryApiService,
     private aggregateTable: AggregateTableService,
     private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-  @ViewChild('addStockItemComponentReference', { read: AddStockItemComponent, static: false }) addStockItem!: AddStockItemComponent;
-  @ViewChild('editStockItemComponentReference', { read: EditStockItemComponent, static: false }) editStockItem!: EditStockItemComponent;
   
   stockItemListData: any[] = [];
 
@@ -36,7 +32,7 @@ export class AllStockItemsComponent {
   deleteId = "";
   isItemDeleting = false;
 
-  tableColumns = ['item_code', 'item_name', 'unit_price', 'stock', 'location', 'item_category'];
+  tableColumns = ['item_code', 'item_name', 'total_stock', 'location', 'item_category'];
   filterText = "";
   sortDirection = "";
   sortColumn = "";
@@ -77,73 +73,13 @@ export class AllStockItemsComponent {
       )
   }
 
-  createStockItem(data: any) {
-    this.addStockItem.isItemSaving = true;
+  viewStockItem(itemId: any){
+    // console.log(itemId);
 
-    // console.log(data);
-
-    this.inventoryApi.createStockItem(data)
-      .then((res: any) => {
-        // console.log(res);
-
-        if(res.id){
-          this.getStockItemList();
-
-          this.addStockItem.isItemSaving = false;
-          this.addStockItem.dismissButton.nativeElement.click();
-          this.addStockItem.resetForm();
-        }
-      })
-      .catch((err: any) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.addStockItem.isItemSaving = false;
-      });
+    sessionStorage.setItem("inventory_stockItem_id", itemId);
+    this.router.navigateByUrl("/modules/inventory/items/view-stock-item");
   }
 
-  updateStockItem(item: any) {
-    this.editStockItem.isItemSaving = true;
-    
-    this.inventoryApi.updateStockItem(item.id, item.data)
-      .then((res) => {
-        // console.log(res);
-        this.editStockItem.isItemSaving = false;
-        this.editStockItem.dismissButton.nativeElement.click();
-        this.getStockItemList();
-      })
-      .catch((err) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.editStockItem.isItemSaving = false;
-      });
-  }
-
-  deleteStockItem() {
-    this.isItemDeleting = true;
-
-    this.inventoryApi.deleteStockItem(this.deleteId)
-      .then((res) => {
-        // console.log(res);
-        this.isItemDeleting = false;
-        this.getStockItemList();
-      })
-      .catch((err) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.isItemDeleting = false;
-      });
-  }
-
-  openEditItem(data: any){
-    // console.log(data);
-    this.editStockItem.openModal(data);
-  }
-
-  confirmDelete(id: any){
-    this.deleteId = id;
-    this.deleteModal.openModal();
-  }
-  
   aggregateData(){
     // console.log("lets aggregate this table's data...");
     this.stockItemListData = this.aggregateTable.filterData(this.stockItemListData, this.filterText, this.tableColumns);
