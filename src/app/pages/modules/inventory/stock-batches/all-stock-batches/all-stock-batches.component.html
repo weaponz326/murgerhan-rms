@@ -1,0 +1,100 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">All Stock Batches</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Stock Batches</p>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm add-item-btn" (click)="addStockBatch.openModal()">Add Stock Batch</button>
+                        <input [(ngModel)]="filterText" (change)="getStockBatchList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search stock batches">
+                        <button [disabled]="isFetchingData" (click)="getStockBatchList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="10%" class="min-width-2">
+                                            <app-table-sorting [fieldTitle]="'Batch ID'" [thisColumn]="'batch_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>                                
+                                        <th width="20%" class="min-width-4">
+                                            <app-table-sorting [fieldTitle]="'Stock Item Name'" [thisColumn]="'item_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>
+                                        <th width="10%" class="min-width-2">
+                                            <app-table-sorting [fieldTitle]="'Stock Item ID'" [thisColumn]="'item_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>
+                                        <th width="20%" class="min-width-4">
+                                            <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>
+                                        <th width="10%" class="min-width-2">
+                                            <app-table-sorting [fieldTitle]="'Unit Price'" [thisColumn]="'unit_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>
+                                        <th width="10%" class="min-width-2">
+                                            <app-table-sorting [fieldTitle]="'Stock'" [thisColumn]="'stock'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>
+                                        <th width="20%" class="min-width-4">
+                                            <app-table-sorting [fieldTitle]="'Location'" [thisColumn]="'location'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                        </th>                                            
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of stockBatchListData" (dblclick)="openEditBatch(data)">
+                                        <td>{{getFormatId(data?.data().batch_code)}}</td>
+                                        <td>{{data?.data().batch_name}}</td>
+                                        <td>{{data?.data().unit_price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().stock}}</td>
+                                        <td>{{data?.data().location}}</td>
+                                        <td>{{data?.data().batch_category.data.category_name}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="7">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getStockBatchList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add and edit stock batch components -->
+
+<app-add-stock-batch #addStockBatchComponentReference (saveBatchEvent)="createStockBatch($event)"></app-add-stock-batch>
+
+<app-edit-stock-batch #editStockBatchComponentReference (saveBatchEvent)="updateStockBatch($event)" (deleteBatchEvent)="confirmDelete($event)"></app-edit-stock-batch>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteStockBatch()"></app-delete-modal-two>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

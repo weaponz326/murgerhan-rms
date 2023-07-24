@@ -42,6 +42,40 @@ export class ItemCategory {
     };
 }
 
+export class StockBatch {
+    created_at!: any;
+    updated_at!: any;
+    batch_code!: number;
+    unit_price!: number;
+    stock!: number;
+    location!: string;
+    container!: string;
+    batch_number!: string;
+    manufacturing_date!: any;
+    expiry_date!: any;
+    stock_item!: {
+        id: string;
+        data: {
+            item_code: string;
+            item_name: string;
+            item_category: {
+                id: string;
+                data: {
+                    category_code: string;
+                    category_name: string;
+                }
+            };
+        }
+    };    
+    branch!: {
+        id: string;
+        data: {
+            branch_name: string;
+            location: string;
+        }
+    };
+}
+
 export class CategoryChecklist {
     created_at!: any;
     updated_at!: any;

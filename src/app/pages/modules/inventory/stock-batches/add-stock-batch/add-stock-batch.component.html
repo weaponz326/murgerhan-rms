@@ -1,0 +1,33 @@
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addInventoryModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addInventoryModal" tabindex="-1" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="addInventoryModalLabel">Add New Stock Batch</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- batch form component -->
+                
+                <app-stock-batch-form #stockBatchFormComponentReference (openStockItemWindow)="openStockItemWindow()"></app-stock-batch-form>                
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isBatchSaving || isFetchingData" (click)="saveBatch()">Save</button>
+                <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- select stock item window -->
+
+<app-select-stock-item #selectStockItemComponentReference (rowSelected)="onStockItemSelected($event)" [closeTarget]="'#addInventoryModal'"></app-select-stock-item>

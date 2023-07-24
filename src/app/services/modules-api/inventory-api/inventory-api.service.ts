@@ -15,6 +15,7 @@ export class InventoryApiService {
 
   stockItemRef = this.firestore.collection('inventory_stock_item');
   itemCategoryRef = this.firestore.collection('inventory_item_category');
+  stockBatchRef = this.firestore.collection('inventory_stock_batch');
   categoryChecklistRef = this.firestore.collection('inventory_item_category_checklist');
   supplierRef = this.firestore.collection('inventory_supplier');
   supplierItemRef = this.firestore.collection('inventory_supplier_item');
@@ -109,6 +110,38 @@ export class InventoryApiService {
     return this.categoryChecklistRef.ref
       .where("category", "==", sessionStorage.getItem("inventory_category_id"))
       .orderBy("created_at", "asc")
+      .get();
+  }
+
+  // stock batch
+
+  createStockBatch(data: any){
+    return this.stockBatchRef.add(data);
+  }
+
+  updateStockBatch(id:any, data: any){
+    return this.stockBatchRef.doc(id).update(data);
+  }
+
+  deleteStockBatch(id: any){
+    return this.stockBatchRef.doc(id).delete();
+  }
+
+  getStockBatch(id: any){
+    return this.stockBatchRef.doc(id).ref.get();
+  }
+
+  getLastStockBatch(){
+    return this.stockBatchRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
+  getStockBatchList(){
+    return this.stockBatchRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
       .get();
   }
 

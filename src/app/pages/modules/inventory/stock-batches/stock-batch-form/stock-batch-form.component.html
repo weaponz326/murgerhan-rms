@@ -1,0 +1,93 @@
+<form [formGroup]="stockBatchForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Item ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="batchCode" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Item Name :</label>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="itemName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && stockBatchForm.controls.itemName.invalid }" required>
+                <button type="button" class="btn btn-secondary" (click)="openStockItemWindow.emit()" required>
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Item ID :</label></div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="itemCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && stockBatchForm.controls.itemCode.invalid }" required>
+                <button type="button" class="btn btn-secondary" (click)="openStockItemWindow.emit()" required>
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>    
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Item Category :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="itemCategory" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Unit Price :</label></div>
+        <div class="col-md-8">
+            <input type="number" min="0" step="0.01" formControlName="unitPrice" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Stock :</label></div>
+        <div class="col-md-8">
+            <input type="number" min="0" step="1" formControlName="stock" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Location :</label></div>
+        <div class="col-md-8">
+            <input formControlName="location" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Container :</label></div>
+        <div class="col-md-8">
+            <input formControlName="container" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch Number :</label></div>
+        <div class="col-md-8">
+            <input formControlName="batchNumber" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Manufacturing Date :</label></div>
+        <div class="col-md-8">
+            <input type="date" formControlName="manufacturingDate" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Expiry Date :</label></div>
+        <div class="col-md-8">
+            <input type="date" formControlName="expiryDate" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+</form>

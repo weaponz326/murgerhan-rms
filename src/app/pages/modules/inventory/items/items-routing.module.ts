@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ItemsPage } from './items.page';
 import { AllStockItemsComponent } from './all-stock-items/all-stock-items.component';
+import { AddStockItemComponent } from './add-stock-item/add-stock-item.component';
+import { EditStockItemComponent } from './edit-stock-item/edit-stock-item.component';
 
 
 const routes: Routes = [
@@ -12,6 +14,8 @@ const routes: Routes = [
     children: [
       { path: "", component: AllStockItemsComponent },
       { path: "all-stock-items", component: AllStockItemsComponent },
+      { path: "new-stock-item", component: AddStockItemComponent },
+      { path: "view-stock-item", component: EditStockItemComponent },
     ]
   }
 ];
