@@ -179,6 +179,11 @@ const routes: Routes = [
         loadChildren: () => import("../modules/inventory/purchasing/purchasing.module").then(m => m.PurchasingModule),
         canActivateChild: [authGuard, branchGuard, chefAccessGuard],
       },
+      {
+        path: "modules/inventory/purchasing",
+        loadChildren: () => import("../modules/inventory/stock-batches/stock-batches.module").then(m => m.StockBatchesModule),
+        canActivateChild: [authGuard, branchGuard, chefAccessGuard],
+      },
 
       // maintenance pages
       {
