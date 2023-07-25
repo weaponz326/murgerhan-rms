@@ -40,13 +40,13 @@ export class AllBranchOrdersComponent {
   pageSize = 25;
 
   ngOnInit(): void {
-    this.getOrderList();
+    this.getBranchOrderList();
   }
 
-  getOrderList(){
+  getBranchOrderList(){
     this.isFetchingData = true;
 
-    this.factoryApi.getOrderList()
+    this.factoryApi.getBranchOrderList()
       .then(
         (res: any) => {
           // console.log(res);
@@ -84,7 +84,7 @@ export class AllBranchOrdersComponent {
   }
 
   getFormatId(id: any){
-    return this.formatId.formatId(id, 5, "#", "RD");
+    return this.formatId.formatId(id, 5, "#", "FO");
   }
   
 }
