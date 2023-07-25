@@ -1,1 +1,44 @@
-<p>edit-factory-item works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/factory-main/factory-items/all-factory-items">All Factory Items</a>
+    </li>
+    <li class="breadcrumb-item active">View Factory Item</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <p class="lead">View Factory Item</p>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- factory item form component -->
+                        
+                        <app-factory-item-form #factoryItemFormComponentReference></app-factory-item-form>
+                        
+                        <div class="row mt-3">
+                            <div class="col">
+                                <button class="btn btn-sm btn-warning ms-2 form-control-btn float-end" routerLink="/modules/factory-main/factory-items">Cancel</button>
+                                <button class="btn btn-sm btn-danger ms-2 form-control-btn float-end" [disabled]="isFetchingData || isDeletingItem" (click)="confirmDelete()">Delete</button>
+                                <button class="btn btn-sm btn-success ms-2 form-control-btn float-end" [disabled]="isFetchingData || isSavingItem" (click)="updateFactoryItem()">Save</button>
+                            </div>
+                        </div>                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteFactoryItem()"></app-delete-modal-one>

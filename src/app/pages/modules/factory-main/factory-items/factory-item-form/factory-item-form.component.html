@@ -1,1 +1,38 @@
-<p>factory-item-form works!</p>
+<form [formGroup]="factoryItemForm">
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Factory Item ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="itemCode" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">            
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Factory Item Name :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="itemName" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && factoryItemForm.controls.itemName.invalid }" required>
+        </div>
+    </div>    
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Item Price :</label></div>
+        <div class="col-md-8">
+            <input formControlName="price" type="number" min="0" step="0.01" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Factory Item Type :</label></div>
+        <div class="col-md-8">
+            <input formControlName="itemType" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+        <div class="col-md-8">
+            <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
+    </div>
+</form>
