@@ -1,1 +1,33 @@
-<p>add-branch-order-item works!</p>
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="addItemModalLabel">Add Item</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- item form component -->
+
+                <app-branch-order-item-form #branchOrderItemFormComponentReference (openItemWindow)="openFactoryItemWindow()"></app-branch-order-item-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
+                <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- select item window -->
+
+<!-- <app-factory-select-item #selectFactoryItemComponentReference (rowSelected)="onFactoryItemSelected($event)" [closeTarget]="'#addItemModal'"></app-select-factory-item> -->

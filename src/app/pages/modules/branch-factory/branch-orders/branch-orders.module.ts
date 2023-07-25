@@ -12,6 +12,7 @@ import { ViewBranchOrderComponent } from './view-branch-order/view-branch-order.
 import { BranchOrderItemsComponent } from './branch-order-items/branch-order-items.component';
 import { AddBranchOrderItemComponent } from './add-branch-order-item/add-branch-order-item.component';
 import { EditBranchOrderItemComponent } from './edit-branch-order-item/edit-branch-order-item.component';
+import { BranchOrderItemFormComponent } from './branch-order-item-form/branch-order-item-form.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EditBranchOrderItemComponent } from './edit-branch-order-item/edit-bran
     ViewBranchOrderComponent,
     BranchOrderItemsComponent,
     AddBranchOrderItemComponent,
-    EditBranchOrderItemComponent
+    EditBranchOrderItemComponent,
+    BranchOrderItemFormComponent
   ],
   imports: [
     CommonModule,

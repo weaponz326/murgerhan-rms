@@ -11,7 +11,7 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn" (click)="addOrder.openModal()">Add order</button>
+                        <button class="btn btn-primary btn-sm add-item-btn" (click)="addOrder.openModal()">Add Order</button>
                         
                         <input [(ngModel)]="filterText" (change)="getOrderList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search orders">
                         <button [disabled]="isFetchingData" (click)="getOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
