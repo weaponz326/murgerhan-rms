@@ -3,6 +3,8 @@ import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angula
 
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
+import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -17,7 +19,9 @@ export class HomePage {
   constructor(
     private authApi: AuthApiService,
     private router: Router,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private hosuekeepingApi: HousekeepingApiService,
+    private maintenanceApi: MaintenanceApiService
   ) { 
     this.initProgressBar();
   }
@@ -43,11 +47,18 @@ export class HomePage {
   userRoleData: any;
   basicProfileData: any;
 
+  issuesData: any[] = [];
+  incidentsData: any[] = [];
+  notificationsData: any[] = [];
+  notificationAlerts = 0;
+
   ngOnInit(): void {
     this.getAuth();
     this.getUserRole();
     this.initTheme();
     this.initBranch();
+    this.getUserIssueList();
+    this.getUserIncidentList();
   }
 
   ngAfterViewInit(): void {
@@ -230,6 +241,36 @@ export class HomePage {
         this.connectionToast.openToast();
       };
   }
+
+  getUserIssueList() {
+    const id = localStorage.getItem('uid') as string;
+
+    this.maintenanceApi.getUserIssueList(id)
+      .then((res) => {
+        // console.log(res);
+        this.issuesData = res.docs;
+        this.setNotificationsData();
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+      };
+  }
+
+  getUserIncidentList() {
+    const id = localStorage.getItem('uid') as string;
+
+    this.hosuekeepingApi.getUserIncidentList(id)
+      .then((res) => {
+        // console.log(res;
+        this.incidentsData = res.docs;
+        this.setNotificationsData();
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+      };
+  }
   
   logout(){
     // e.stopPropagation();
@@ -248,5 +289,31 @@ export class HomePage {
         }
       )
   }  
+
+  setNotificationsData(){
+    this.notificationsData = this.issuesData.concat(this.incidentsData);
+
+    this.notificationsData.sort((a: any, b: any) => {
+      return new Date(b.data().created_at).getTime() - new Date(a.data().created_at).getTime();
+    });
+  
+    let issueAlerts = this.issuesData.filter(obj => obj.data().issue_status === 'Needs Fixing').length;
+    let incidentAlerts = this.incidentsData.filter(obj => obj.data().incident_status === 'Unresolved').length;
+    this.notificationAlerts = issueAlerts + incidentAlerts;
+
+    this.notificationsData = this.notificationsData.slice(0, 5);
+
+  }
+
+  viewNotification(data: any){
+    if(data.data().hasOwnProperty('incident_status')){
+      sessionStorage.setItem('housekeeping_incident_id', data.id)
+      this.router.navigateByUrl('/modules/housekeeping/incidents/view-incident');
+    }
+    else if(data.data().hasOwnProperty('issue_status')){
+      sessionStorage.setItem('maintenance_issue_id', data.id)
+      this.router.navigateByUrl('/modules/maintenance/issues/view-issue');
+    }
+  }
 
 }

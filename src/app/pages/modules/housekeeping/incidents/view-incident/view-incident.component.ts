@@ -10,6 +10,7 @@ import { IncidentFormComponent } from '../incident-form/incident-form.component'
 import { IncidentDetailsComponent } from '../incident-details/incident-details.component';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
 
 
 @Component({
@@ -29,10 +30,14 @@ export class ViewIncidentComponent {
   @ViewChild('incidentDetailsComponentReference', { read: IncidentDetailsComponent, static: false }) incidentDetails!: IncidentDetailsComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+  @ViewChild('selectUserRoleComponentReference', { read: SelectUserRoleComponent, static: false }) selectUserRole!: SelectUserRoleComponent;
 
   incidentData: any;
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+
+  selectedUserRoleId: any;
+  selectedUserRoleData: any;  
 
   isFetchingData = false;
   isSavingIncident = false;
@@ -109,6 +114,10 @@ export class ViewIncidentComponent {
     this.incidentDetails.incidentDetails.controls.description.setValue(this.incidentData.data().description);
     this.incidentDetails.incidentDetails.controls.resolution.setValue(this.incidentData.data().resolution);
     this.incidentDetails.incidentDetails.controls.comments.setValue(this.incidentData.data().comments);
+    this.incidentForm.incidentForm.controls.reportedTo.setValue(this.incidentData.data().reported_to.data.full_name);
+
+    this.selectedUserRoleId = this.incidentData.data().reported_to.id;
+    this.selectedUserRoleData = this.incidentData.data().reported_to.data;
   }
 
   setUpdateIncidentData(){
@@ -123,6 +132,14 @@ export class ViewIncidentComponent {
       description: this.incidentDetails.incidentDetails.controls.description.value as string,
       resolution: this.incidentDetails.incidentDetails.controls.resolution.value as string,
       comments: this.incidentDetails.incidentDetails.controls.comments.value as string,
+      reported_to: {
+        id: this.selectedUserRoleId,
+        data: {
+          staff_code: this.selectedUserRoleData.staff_code,
+          full_name: this.selectedUserRoleData.full_name,
+          staff_role: this.selectedUserRoleData.staff_role,
+        }
+      },
       branch: {
         id: this.selectedBranchData.id,
         data: {
@@ -140,4 +157,18 @@ export class ViewIncidentComponent {
     this.deleteModal.openModal();
   }
   
+  openUserRoleWindow(){
+    // console.log("You are opening select user role window")
+    this.selectUserRole.openModal();
+  }
+
+  onUserRoleSelected(userRoleData: any){
+    // console.log(userRoleData);
+    this.selectedUserRoleData = userRoleData;
+    this.incidentForm.incidentForm.controls.reportedTo.setValue(userRoleData.data().full_name);
+
+    this.selectedUserRoleId = userRoleData.id;
+    this.selectedUserRoleData = userRoleData.data();
+  }
+
 }

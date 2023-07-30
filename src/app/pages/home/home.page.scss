@@ -1,0 +1,20 @@
+.login-btn{
+    width: 6rem;
+}
+
+.user-info .notification-description{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+.user-dropdown {
+	z-index: 1100;
+    max-width: 150px;
+}
+
+.notifications-dropdown {
+	z-index: 1100;
+    width: 320px;
+    max-width: 320px;
+}

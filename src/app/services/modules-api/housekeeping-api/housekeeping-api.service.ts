@@ -84,6 +84,14 @@ export class HousekeepingApiService {
       .orderBy("created_at", "desc")
       .get();
   }
+
+  getUserIncidentList(id: any){
+    return this.incidentRef.ref
+      .where("reported_to.id", "==", id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+  
  
   // task
 

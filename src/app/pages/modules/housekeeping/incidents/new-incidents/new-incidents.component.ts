@@ -8,6 +8,7 @@ import { FormatIdService } from 'src/app/services/module-utilities/format-id/for
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { IncidentFormComponent } from '../incident-form/incident-form.component';
+import { SelectUserRoleComponent } from 'src/app/components/select-windows/users-windows/select-user-role/select-user-role.component';
 
 
 @Component({
@@ -25,9 +26,13 @@ export class NewIncidentsComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('incidentFormComponentReference', { read: IncidentFormComponent, static: false }) incidentForm!: IncidentFormComponent;
+  @ViewChild('selectUserRoleComponentReference', { read: SelectUserRoleComponent, static: false }) selectUserRole!: SelectUserRoleComponent;
 
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
   
+  selectedUserRoleId: any;
+  selectedUserRoleData: any;  
+
   isFetchingData = false;
   isSavingIncident = false;
   isSaved = false;
@@ -98,6 +103,14 @@ export class NewIncidentsComponent {
       description: "",
       resolution: "",
       comments: "",
+      reported_to: {
+        id: this.selectedUserRoleId,
+        data: {
+          staff_code: this.selectedUserRoleData.staff_code,
+          full_name: this.selectedUserRoleData.full_name,
+          staff_role: this.selectedUserRoleData.staff_role,
+        }
+      },
       branch: {
         id: this.selectedBranchData.id,
         data: {
@@ -111,4 +124,18 @@ export class NewIncidentsComponent {
     return data;
   }
   
+  openUserRoleWindow(){
+    // console.log("You are opening select user role window")
+    this.selectUserRole.openModal();
+  }
+
+  onUserRoleSelected(userRoleData: any){
+    // console.log(userRoleData);
+    this.selectedUserRoleData = userRoleData;
+    this.incidentForm.incidentForm.controls.reportedTo.setValue(userRoleData.data().full_name);
+
+    this.selectedUserRoleId = userRoleData.id;
+    this.selectedUserRoleData = userRoleData.data();
+  }
+
 }

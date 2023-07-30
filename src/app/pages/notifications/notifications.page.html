@@ -1,0 +1,83 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand px-3" href="/#/landing">
+        <img src="../../../assets/images/murger-han/mh.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top border rounded me-2">
+        Murger Han Hub
+    </a>
+  
+    <!-- Navbar-->
+    <ul *ngIf="isLoggedIn && !isAuthLoading" class="navbar-nav ms-auto me-3">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><span class="ms-3 user-info">{{email}}</span></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="small dropdown-item" href="#!" routerLink="/settings">Settings</a></li>
+                <li><a class="small dropdown-item" href="#!" (click)="logout()">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+    <button *ngIf="!isLoggedIn && !isAuthLoading" routerLink="/auth/login" class="btn btn-sm btn-success ms-auto me-3 login-btn">
+        Login
+    </button>
+    <button *ngIf="isAuthLoading" disabled class="btn btn-sm btn-secondary ms-auto me-3 login-btn">.</button>
+</nav>
+
+<div class="bg-light">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+
+                            <p class="h3 text-center mt-5 mb-3">
+                                <i class="bi bi-bell me-2"></i>
+                                Notifications
+                            </p>
+
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr *ngFor="let data of notificationsData" (dblclick)="viewNotification(data)">
+                                        <td>
+                                            <div *ngIf="data.data().hasOwnProperty('incident_status')">
+                                                <p class="m-0 p-0 text-muted">{{data.data().incident_date | date: 'short'}}</p>
+                                                <p class="m-0 p-0">{{data.data().incident_subject}}</p>
+                                                <p class="m-0 p-0 fw-bold" [ngClass]="{ 'text-warning': data.data().incident_status == 'Unresolved' }">{{data.data().incident_status}}</p>
+                                            </div>
+                                            <div *ngIf="data.data().hasOwnProperty('issue_status')">
+                                                <p class="m-0 p-0 text-muted">{{data.data().issue_date | date: 'short'}}</p>
+                                                <p class="m-0 p-0">{{data.data().issue_subject}}</p>
+                                                <p class="m-0 p-0 fw-bold" [ngClass]="{ 'text-warning': data.data().issue_status == 'Needs Fixing' }">{{data.data().issue_status}}</p>
+                                            </div>
+                                        </td>                                        
+                                    </tr>
+                                    <tr *ngIf="notificationsData.length == 0">
+                                        <td class="text-center text-muted">
+                                            No notifications available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">&copy; Murger Han 2023</div>
+                        <!-- <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div> -->
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>

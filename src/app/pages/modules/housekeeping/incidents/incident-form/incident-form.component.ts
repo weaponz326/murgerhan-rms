@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
@@ -9,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class IncidentFormComponent {
 
+  @Output() openUserRoleWindow = new EventEmitter<any>();
+
   isSaved = false;
   
   incidentForm = new FormGroup({
@@ -17,6 +19,7 @@ export class IncidentFormComponent {
     incidentType: new FormControl(''),
     incidentDate: new FormControl(),
     incidentStatus: new FormControl(''),
+    reportedTo: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
 }

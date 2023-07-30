@@ -27,6 +27,14 @@ export class Incident {
     description!: string;
     resolution!: string;
     comments!: string;
+    reported_to!: {
+        id: string;
+        data: {
+            staff_code: string;
+            full_name: string;
+            staff_role: string;
+        }
+    };
     branch!: {
         id: string;
         data: {

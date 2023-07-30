@@ -11,20 +11,47 @@
     <!-- Navbar-->
     <ul *ngIf="isLoggedIn && !isAuthLoading" class="navbar-nav ms-auto me-3">
         <li class="nav-item dropdown ms-3">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarNotificationsDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-bell-fill"></i>
-                <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                <span *ngIf="notificationAlerts != 0" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                     4
                     <span class="visually-hidden">unread messages</span>
                 </span>                
             </a>
+            <ul class="dropdown-menu dropdown-menu-end notifications-dropdown" aria-labelledby="navbarNotificationsDropdown">
+                <li *ngFor="let data of notificationsData" (dblclick)="viewNotification(data)">
+                    <a class="small dropdown-item" href="#!" routerLink="/settings">
+                        <div *ngIf="data.data().hasOwnProperty('incident_status')">
+                            <p class="m-0 p-0 fw-bold small">Incident</p>
+                            <p class="m-0 p-0 notification-description">{{data.data().incident_subject}}</p>
+                            <p class="m-0 p-0 text-warning fw-bold small" [ngClass]="{ 'text-warning': data.data().incident_status == 'Unresolved' }">{{data.data().incident_status}}</p>
+                        </div>
+                        <div *ngIf="data.data().hasOwnProperty('issue_status')">
+                            <p class="m-0 p-0 text-muted">Issue</p>
+                            <p class="m-0 p-0 notification-description">{{data.data().issue_subject}}</p>
+                            <p class="m-0 p-0 text-warning fw-bold small" [ngClass]="{ 'text-warning': data.data().issue_status == 'Needs Fixing' }">{{data.data().issue_status}}</p>
+                        </div>
+                    </a>
+                    <hr class="dropdown-divider" />
+                </li>
+                <li *ngIf="notificationsData.length == 0">
+                    <p class="small text-center text-muted p-3">No notifications available</p>
+                    <hr class="dropdown-divider" />
+                </li>
+                <li>
+                    <a class="small dropdown-item" href="#!" routerLink="/notifications">
+                        View all notifications
+                        <i class="bi bi-arrow-right ms-3"></i>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item dropdown ms-3">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarUserDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-fill"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><span class="ms-3 user-info">{{email}}</span></li>
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown" aria-labelledby="navbarUserDropdown">
+                <li><p class="ms-3 user-info">{{email}}</p></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="small dropdown-item" href="#!" routerLink="/settings">Settings</a></li>
                 <li><a class="small dropdown-item" href="#!" (click)="logout()">Logout</a></li>

@@ -33,10 +33,23 @@
         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Incident Status :</label></div>
         <div class="col-md-8">
             <select formControlName="incidentStatus" class="form-control form-control-sm w-100">
-                <option value=""></option>
-                <option value="Resolved">Resolved</option>
                 <option value="Unresolved">Unresolved</option>
+                <option value="Resolved">Resolved</option>
             </select>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Reported to :</label>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="reportedTo" class="form-control" [ngClass]="{ 'is-invalid': isSaved && incidentForm.controls.reportedTo.invalid }" required>
+                <button type="button" class="btn btn-secondary" (click)="openUserRoleWindow.emit()">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
         </div>
     </div>
 </form>

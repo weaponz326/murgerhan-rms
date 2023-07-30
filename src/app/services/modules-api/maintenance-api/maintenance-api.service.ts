@@ -51,6 +51,13 @@ export class MaintenanceApiService {
       .get();
   }
 
+  getUserIssueList(id: any){
+    return this.maintenanceIssueRef.ref
+      .where("reported_to.id", "==", id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   getSystemIssueList(){
     return this.maintenanceIssueRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)

@@ -17,6 +17,11 @@ const routes: Routes = [
     path: "settings",
     loadChildren: () => import("./pages/settings/settings.module").then(m => m.SettingsModule),
     canActivateChild: [authGuard],
+  },
+  {
+    path: "notifications",
+    loadChildren: () => import("./pages/notifications/notifications.module").then(m => m.NotificationsModule),
+    canActivateChild: [authGuard],
   }
 ];
 

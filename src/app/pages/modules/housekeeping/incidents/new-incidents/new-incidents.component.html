@@ -17,7 +17,7 @@
 
                         <!-- incident form component -->
 
-                        <app-incident-form #incidentFormComponentReference></app-incident-form>
+                        <app-incident-form #incidentFormComponentReference (openUserRoleWindow)="openUserRoleWindow()"></app-incident-form>
                         
                         <div class="row mt-3 float-end">
                             <div class="col">
@@ -37,3 +37,7 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select user role window -->
+
+<app-select-user-role #selectUserRoleComponentReference (rowSelected)="onUserRoleSelected($event)"></app-select-user-role>

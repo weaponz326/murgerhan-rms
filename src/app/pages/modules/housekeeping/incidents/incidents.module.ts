@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IncidentsRoutingModule } from './incidents-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { UsersWindowsModule } from 'src/app/components/select-windows/users-windows/users-windows.module';
 
 import { IncidentsPage } from './incidents.page';
 import { AllIncidentsComponent } from './all-incidents/all-incidents.component';
@@ -28,6 +29,7 @@ import { IncidentDetailsComponent } from './incident-details/incident-details.co
     FormsModule,
     IncidentsRoutingModule,
     ModuleUtilitiesModule,
+    UsersWindowsModule
   ]
 })
 export class IncidentsModule { }
