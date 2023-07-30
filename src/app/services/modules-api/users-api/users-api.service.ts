@@ -19,6 +19,7 @@ export class UsersApiService {
   usersAvailabilityRef = this.firestore.collection('users_user_availability');
   usersRoleRef = this.firestore.collection('users_role');
   usersInvitationRef = this.firestore.collection('users_invitation');
+  usersInvitationsConfigurationRef = this.firestore.collection('users_invitations_configuration');
 
   // user basic profile
 
@@ -178,6 +179,24 @@ export class UsersApiService {
       .get();
   }
 
+  // invitations configuration
+
+  createInvitationConfiguration(data: any){
+    return this.usersInvitationsConfigurationRef.add(data);
+  }
+
+  updateInvitationConfiguration(id:any, data: any){
+    return this.usersInvitationsConfigurationRef.doc(id).update(data);
+  }
+
+  deleteInvitationConfiguration(id: any){
+    return this.usersInvitationsConfigurationRef.doc(id).delete();
+  }
+
+  getInvitationConfiguration(id: any){
+    return this.usersInvitationsConfigurationRef.doc(id).ref.get();
+  }
+
   // profile photo
 
   uploadImage(id: any, image: File): Promise<void> {
@@ -199,11 +218,28 @@ export class UsersApiService {
   
   // terms file
 
-  uploadTermsFile(id: any, image: File): Promise<void> {
+  uploadTermsFile(id: any, file: File): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      const filePath = `files/users/${Date.now()}_${image.name}`;
+      const filePath = `files/general/${Date.now()}_${file.name}`;
       const fileRef = this.storage.ref(filePath);
-      const uploadTask = this.storage.upload(filePath, image);
+      const uploadTask = this.storage.upload(filePath, file);
+  
+      uploadTask
+        .then(() => fileRef.getDownloadURL().toPromise())
+        .then((downloadUrl) => {
+          const data = { terms_file: downloadUrl };
+          return this.updateInvitationConfiguration(id, data);
+        })
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
+  }
+
+  uploadUserTermsFile(id: any, file: File): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const filePath = `files/users/${Date.now()}_${file.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, file);
   
       uploadTask
         .then(() => fileRef.getDownloadURL().toPromise())

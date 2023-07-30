@@ -40,6 +40,7 @@ export class InviteUserComponent {
     invitationCode: new FormControl({value: '', disabled: true}),
     inviteeName: new FormControl('', Validators.required),
     inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
+    invitationType: new FormControl('', [Validators.required, Validators.email]),
     emailSubject: new FormControl(this.defaultEmailSubject),
     emailMessage: new FormControl(this.defaultEmailMessage),
   })
@@ -107,6 +108,7 @@ export class InviteUserComponent {
       invitation_date: serverTimestamp(),
       invitee_name: this.invitationForm.controls.inviteeName.value as string,
       invitee_email: this.invitationForm.controls.inviteeEmail.value as string,
+      invitation_type: this.invitationForm.controls.invitationType.value as string,
       date_accepted: null,
       invitation_status: "Awaiting",
       email_subject: this.invitationForm.controls.emailSubject.value as string,

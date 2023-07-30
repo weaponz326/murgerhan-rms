@@ -6,6 +6,7 @@ import { AllInvitationsComponent } from './all-invitations/all-invitations.compo
 import { ViewInvitationComponent } from './view-invitation/view-invitation.component';
 
 import { viewInvitationGuard } from 'src/app/guards/modules/users/view-invitaion/view-invitation.guard';
+import { InvitationConfigurationComponent } from './invitation-configuration/invitation-configuration.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: "", component: AllInvitationsComponent },
       { path: "all-invitations", component: AllInvitationsComponent },
       { path: "view-invitation", component: ViewInvitationComponent, canActivate: [viewInvitationGuard] },
+      { path: "invitations-configuration", component: InvitationConfigurationComponent },
     ]
   }
 ];

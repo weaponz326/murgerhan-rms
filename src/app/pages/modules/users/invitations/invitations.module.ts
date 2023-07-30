@@ -9,6 +9,7 @@ import { InvitationsPage } from './invitations.page';
 import { AllInvitationsComponent } from './all-invitations/all-invitations.component';
 import { InviteUserComponent } from './invite-user/invite-user.component';
 import { ViewInvitationComponent } from './view-invitation/view-invitation.component';
+import { InvitationConfigurationComponent } from './invitation-configuration/invitation-configuration.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ViewInvitationComponent } from './view-invitation/view-invitation.compo
     InvitationsPage,
     AllInvitationsComponent,
     InviteUserComponent,
-    ViewInvitationComponent
+    ViewInvitationComponent,
+    InvitationConfigurationComponent
   ],
   imports: [
     CommonModule,

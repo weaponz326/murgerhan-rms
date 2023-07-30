@@ -73,7 +73,7 @@ export class TermsComponent {
     const id = localStorage.getItem('uid') as string;
 
     if (this.selectedFile) {
-      this.usersApi.uploadTermsFile(id, this.selectedFile)
+      this.usersApi.uploadUserTermsFile(id, this.selectedFile)
         .then(() => {
           // console.log("file uploaded...");
           this.isUploadingFile = false;

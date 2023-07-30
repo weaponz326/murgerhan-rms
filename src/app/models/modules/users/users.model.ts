@@ -73,8 +73,18 @@ export class Invitation {
     invitation_date!: any;
     invitee_name!: string;
     invitee_email!: string;
+    invitation_type!: string;
     invitation_status!: string;
     date_accepted!: any;
     email_subject!: string;
     email_message!: string;
+}
+
+export class InvitationsConfiguration {
+    created_at!: any;
+    updated_at!: any;
+    staff_email_subject!: string;
+    staff_email_message!: string;
+    third_party_email_subject!: string;
+    third_party_email_message!: string;
 }

@@ -1,0 +1,71 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/users/invitations/all-invitations">All Invitations</a>
+    </li>
+    <li class="breadcrumb-item active">Invitations Configurations</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Invitations Configuration</p>
+
+                <form [formGroup]="configurationForm" (ngSubmit)="updateInvitationConfiguration()">
+                    <div class="mb-3">
+                        <label for="staffEmailSubject" class="form-label">Staff Email Subject</label>
+                        <input formControlName="staffEmailSubject" type="text" class="form-control form-control-sm" id="staffEmailSubject">
+                    </div>
+                    <div class="mb-3">
+                        <label for="staffEmailMessage" class="form-label">Staff Email Message</label>
+                        <textarea formControlName="staffEmailMessage" class="form-control form-control-sm" rows="4" id="staffEmailMessage"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="thirdPartyEmailSubject" class="form-label">3rd Party Email Subject</label>
+                        <input formControlName="thirdPartyEmailSubject" type="text" class="form-control form-control-sm" id="thirdPartyEmailSubject">
+                    </div>
+                    <div class="mb-3">
+                        <label for="thirdPartyEmailMessage" class="form-label">3rd Party Email Message</label>
+                        <textarea formControlName="thirdPartyEmailMessage" class="form-control form-control-sm" rows="4" id="thirdPartyEmailMessage"></textarea>
+                    </div>
+        
+                    <div class="page-form-btn mt-4">
+                        <button class="btn btn-sm btn-warning ms-2 float-end form-control-btn" routerLink="/modules/users/invitations">Cancel</button>
+                        <button [disabled]="isFetchingData || isSavingConfiguration" class="btn btn-sm btn-primary ms-2 float-end form-control-btn">Save</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Invitations Terms File</p>
+
+                <div class="text-center mt-4 mb-4">
+                    <input #fileInput [hidden]="true" type="file" accept=".pdf" class="d-none" (change)="onFileSelected($event) "/>                    
+
+                    <div class="card border rounded mx-auto mt-4 img-pointer" [style.width.px]="100" [style.height.px]="120">
+                        <div class="card-img-top text-center m-auto">
+                            <a [href]="fileUrl">
+                                <iframe *ngIf="fileUrl" class="border rounded" [src]="fileUrl" [width]="100" [height]="120"></iframe>
+                            </a>
+                            <i *ngIf="!fileUrl || fileUrl == ''" class="bi bi-file-earmark fs-3 p-3 border rounded text-muted"></i>
+                        </div>
+                        <p *ngIf="selectedFileName">{{selectedFileName}}</p>
+                    </div>
+
+                    <button [disabled]="isUploadingFile" class="btn btn-sm btn-outline-success px-4 mt-3 mb-2" (click)="fileInput.click()">
+                        <i class="bi bi-upload me-3"></i>
+                        Upload Terms File
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
