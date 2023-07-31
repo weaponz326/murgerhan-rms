@@ -5,7 +5,7 @@ import { CanActivateFn, Router } from '@angular/router';
 export const viewSystemGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
 
-  if (!!sessionStorage.getItem('maintenance_contractor_id')) {
+  if (!!sessionStorage.getItem('maintenance_system_id')) {
     return true;
   }
   else{

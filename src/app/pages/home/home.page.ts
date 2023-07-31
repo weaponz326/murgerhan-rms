@@ -305,12 +305,16 @@ export class HomePage {
 
   }
 
-  viewNotification(data: any){
+  viewNotification(event: any, data: any){
+    event.stopPropagation();
+
     if(data.data().hasOwnProperty('incident_status')){
+      // console.log(data.id);
       sessionStorage.setItem('housekeeping_incident_id', data.id)
       this.router.navigateByUrl('/modules/housekeeping/incidents/view-incident');
     }
     else if(data.data().hasOwnProperty('issue_status')){
+      // console.log(data.id);
       sessionStorage.setItem('maintenance_issue_id', data.id)
       this.router.navigateByUrl('/modules/maintenance/issues/view-issue');
     }

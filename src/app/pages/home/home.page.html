@@ -14,13 +14,13 @@
             <a class="nav-link dropdown-toggle" id="navbarNotificationsDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-bell-fill"></i>
                 <span *ngIf="notificationAlerts != 0" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                    4
+                    {{notificationAlerts}}
                     <span class="visually-hidden">unread messages</span>
                 </span>                
             </a>
             <ul class="dropdown-menu dropdown-menu-end notifications-dropdown" aria-labelledby="navbarNotificationsDropdown">
-                <li *ngFor="let data of notificationsData" (dblclick)="viewNotification(data)">
-                    <a class="small dropdown-item" href="#!" routerLink="/settings">
+                <li *ngFor="let data of notificationsData">
+                    <a class="small dropdown-item" href="#!" (click)="viewNotification($event, data)">
                         <div *ngIf="data.data().hasOwnProperty('incident_status')">
                             <p class="m-0 p-0 fw-bold small">Incident</p>
                             <p class="m-0 p-0 notification-description">{{data.data().incident_subject}}</p>

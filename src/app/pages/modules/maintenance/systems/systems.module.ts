@@ -12,6 +12,7 @@ import { ViewMaintenanceSystemComponent } from './view-maintenance-system/view-m
 import { MaintenanceSystemFormComponent } from './maintenance-system-form/maintenance-system-form.component';
 import { SystemMaintenanceHistoryComponent } from './system-maintenance-history/system-maintenance-history.component';
 import { SystemIssuesHistoryComponent } from './system-issues-history/system-issues-history.component';
+import { SystemImagesComponent } from './system-images/system-images.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SystemIssuesHistoryComponent } from './system-issues-history/system-iss
     ViewMaintenanceSystemComponent,
     MaintenanceSystemFormComponent,
     SystemMaintenanceHistoryComponent,
-    SystemIssuesHistoryComponent
+    SystemIssuesHistoryComponent,
+    SystemImagesComponent
   ],
   imports: [
     CommonModule,

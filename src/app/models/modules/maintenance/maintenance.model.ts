@@ -110,3 +110,11 @@ export class System {
         }
     };
 }
+
+export class SystemImage {
+    created_at!: any;
+    updated_at!: any;
+    system!: string;
+    image_category!: string;
+    url!: string;
+}

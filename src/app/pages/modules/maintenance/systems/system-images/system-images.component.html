@@ -1,0 +1,119 @@
+<div class="row">
+
+    <div class="col">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <input #imageInputElementReference [hidden]="true" type="file" multiple requiredFileType="image" class="d-none" (change)="onFileSelected($event)"/>
+
+                <p class="lead">System Images</p>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('system_image')">Add System Image</button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#systemImagesCarousel" data-bs-slide="prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#systemImagesCarousel" data-bs-slide="next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length != 0" id="systemImagesCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length == 0" class="row">
+                    <div class="col-md-3">
+                        <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
+                            <div class="card-img-top text-center m-auto">
+                                <i class="bi bi-image fs-3 p-3 border rounded text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p class="lead">Waranty Labels</p>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('waranty_label')">Add Warranty label</button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#warrantyLabelsCarousel" data-bs-slide="prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#warrantyLabelsCarousel" data-bs-slide="next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length != 0" id="warrantyLabelsCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length == 0" class="row">
+                    <div class="col-md-3">
+                        <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
+                            <div class="card-img-top text-center m-auto">
+                                <i class="bi bi-image fs-3 p-3 border rounded text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p class="lead">Information Labels</p>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('information_label')">Add Information Label</button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#sinformationLabelsCarousel" data-bs-slide="prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#sinformationLabelsCarousel" data-bs-slide="next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length != 0" id="sinformationLabelsCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="systemImageListData.length == 0" class="row">
+                    <div class="col-md-3">
+                        <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
+                            <div class="card-img-top text-center m-auto">
+                                <i class="bi bi-image fs-3 p-3 border rounded text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                
+            </div>
+        </div>
+    </div>
+
+</div>

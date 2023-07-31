@@ -36,6 +36,8 @@ export class ViewMaintenanceSystemComponent {
   isSavingSystem = false;
   isDeletingSystem = false;
 
+  imageCategory = '';
+
   ngOnInit(): void {
     this.getSystem();
   }
@@ -96,7 +98,7 @@ export class ViewMaintenanceSystemComponent {
         this.connectionToast.openToast();
         this.isDeletingSystem = false;
       });
-  }
+  }  
 
   setSystemData(){
     this.systemForm.systemForm.controls.systemCode.setValue(this.formatId.formatId(this.systemData.data().system_code, 4, "#", "SY"));

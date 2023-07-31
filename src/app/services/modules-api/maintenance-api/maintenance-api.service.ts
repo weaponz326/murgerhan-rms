@@ -18,7 +18,7 @@ export class MaintenanceApiService {
   maintenanceServiceRef = this.firestore.collection('maintenance_service');
   contractorRef = this.firestore.collection('maintenance_contractor');
   systemRef = this.firestore.collection('maintenance_system');
-
+  systemImageRef = this.firestore.collection('maintenance_system_image');
   // issue
 
   createIssue(data: any){
@@ -203,6 +203,31 @@ export class MaintenanceApiService {
       .get();
   }
 
+  // system image
+
+  createSystemImage(data: any){
+    return this.systemImageRef.add(data);
+  }
+
+  updateSystemImage(id:any, data: any){
+    return this.systemImageRef.doc(id).update(data);
+  }
+
+  deleteSystemImage(id: any){
+    return this.systemImageRef.doc(id).delete();
+  }
+
+  getSystemImage(id: any){
+    return this.systemImageRef.doc(id).ref.get();
+  }
+
+  getSystemImageList(){
+    return this.systemImageRef.ref
+      .where("system", "==", sessionStorage.getItem("maintenance_system_id"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
   // image uploads
 
   uploadIssueImage(images: File[], data: any): Promise<void> {
@@ -211,6 +236,32 @@ export class MaintenanceApiService {
 
       images.forEach((image) => {
         const filePath = `images/maintenance/issue/${Date.now()}_${image.name}`;
+        const fileRef = this.storage.ref(filePath);
+        const uploadIssue = this.storage.upload(filePath, image);
+
+        uploadIssue
+          .then(() => fileRef.getDownloadURL().toPromise())
+          .then((downloadUrl) => {
+            const dataWithImages = { ...data, url: downloadUrl };
+            return this.createIssueImage(dataWithImages);
+          })
+          .then(() => uploadIssues.push())
+          .catch((error) => reject(error));
+      });
+
+      // Wait for all upload issues to complete
+      Promise.all(uploadIssues)
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
+  }
+
+  uploadSystemImage(images: File[], data: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const uploadIssues: Promise<string>[] = [];
+
+      images.forEach((image) => {
+        const filePath = `images/maintenance/system/${Date.now()}_${image.name}`;
         const fileRef = this.storage.ref(filePath);
         const uploadIssue = this.storage.upload(filePath, image);
 

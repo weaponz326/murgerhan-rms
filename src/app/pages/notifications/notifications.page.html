@@ -36,17 +36,17 @@
                                 Notifications
                             </p>
 
-                            <table class="table table-hover">
+                            <table class="table table-hover border-top">
                                 <tbody>
                                     <tr *ngFor="let data of notificationsData" (dblclick)="viewNotification(data)">
                                         <td>
                                             <div *ngIf="data.data().hasOwnProperty('incident_status')">
-                                                <p class="m-0 p-0 text-muted">{{data.data().incident_date | date: 'short'}}</p>
+                                                <p class="m-0 p-0 text-muted"><span class="fw-bold me-4">Incident</span>{{data.data().incident_date | date: 'short'}}</p>
                                                 <p class="m-0 p-0">{{data.data().incident_subject}}</p>
                                                 <p class="m-0 p-0 fw-bold" [ngClass]="{ 'text-warning': data.data().incident_status == 'Unresolved' }">{{data.data().incident_status}}</p>
                                             </div>
                                             <div *ngIf="data.data().hasOwnProperty('issue_status')">
-                                                <p class="m-0 p-0 text-muted">{{data.data().issue_date | date: 'short'}}</p>
+                                                <p class="m-0 p-0 text-muted"><span class="fw-bold me-4">Issue</span>{{data.data().issue_date | date: 'short'}}</p>
                                                 <p class="m-0 p-0">{{data.data().issue_subject}}</p>
                                                 <p class="m-0 p-0 fw-bold" [ngClass]="{ 'text-warning': data.data().issue_status == 'Needs Fixing' }">{{data.data().issue_status}}</p>
                                             </div>
