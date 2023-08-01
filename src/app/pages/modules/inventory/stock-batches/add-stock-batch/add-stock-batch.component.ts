@@ -75,7 +75,8 @@ export class AddStockBatchComponent {
         updated_at: serverTimestamp(),
         batch_code: this.thisId,
         unit_price: this.stockBatchForm.stockBatchForm.controls.unitPrice.value as number,
-        stock: this.stockBatchForm.stockBatchForm.controls.stock.value as number,
+        initial_stock: this.stockBatchForm.stockBatchForm.controls.initialStock.value as number,
+        current_stock: this.stockBatchForm.stockBatchForm.controls.currentStock.value as number,
         location: this.stockBatchForm.stockBatchForm.controls.location.value as string,
         container: this.stockBatchForm.stockBatchForm.controls.container.value as string,
         batch_number: this.stockBatchForm.stockBatchForm.controls.batchNumber.value as string,
@@ -113,7 +114,8 @@ export class AddStockBatchComponent {
     this.stockBatchForm.stockBatchForm.controls.itemCode.setValue('');
     this.stockBatchForm.stockBatchForm.controls.itemName.setValue('');
     this.stockBatchForm.stockBatchForm.controls.unitPrice.setValue(0.00);
-    this.stockBatchForm.stockBatchForm.controls.stock.setValue(0);
+    this.stockBatchForm.stockBatchForm.controls.initialStock.setValue(0);
+    this.stockBatchForm.stockBatchForm.controls.currentStock.setValue(0);
     this.stockBatchForm.stockBatchForm.controls.location.setValue('');
     this.stockBatchForm.stockBatchForm.controls.container.setValue('');
     this.stockBatchForm.stockBatchForm.controls.batchNumber.setValue('');

@@ -42,7 +42,8 @@ export class StockBatch {
     updated_at!: any;
     batch_code!: number;
     unit_price!: number;
-    stock!: number;
+    initial_stock!: number;
+    current_stock!: number;
     location!: string;
     container!: string;
     batch_number!: string;

@@ -1,9 +1,12 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { serverTimestamp } from 'firebase/firestore';
+
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
+import { StockBatch } from 'src/app/models/modules/inventory/inventory.model';
+
 import { StockBatchFormComponent } from '../stock-batch-form/stock-batch-form.component';
 import { SelectStockItemComponent } from 'src/app/components/select-windows/inventory-windows/select-stock-item/select-stock-item.component';
-import { serverTimestamp } from 'firebase/firestore';
-import { StockBatch } from 'src/app/models/modules/inventory/inventory.model';
+
 
 @Component({
   selector: 'app-edit-stock-batch',
@@ -50,7 +53,8 @@ export class EditStockBatchComponent {
         updated_at: serverTimestamp(),
         batch_code: this.stockBatchData.data().batch_code,
         unit_price: this.stockBatchForm.stockBatchForm.controls.unitPrice.value as number,
-        stock: this.stockBatchForm.stockBatchForm.controls.stock.value as number,
+        initial_stock: this.stockBatchForm.stockBatchForm.controls.initialStock.value as number,
+        current_stock: this.stockBatchForm.stockBatchForm.controls.currentStock.value as number,
         location: this.stockBatchForm.stockBatchForm.controls.location.value as string,
         container: this.stockBatchForm.stockBatchForm.controls.container.value as string,
         batch_number: this.stockBatchForm.stockBatchForm.controls.batchNumber.value as string,
@@ -98,7 +102,8 @@ export class EditStockBatchComponent {
     this.stockBatchForm.stockBatchForm.controls.itemName.setValue(data.stock_item.data.item_name);
     this.stockBatchForm.stockBatchForm.controls.itemCategory.setValue(data.stock_item.data.item_category.data.category_name);
     this.stockBatchForm.stockBatchForm.controls.unitPrice.setValue(data.unit_price);
-    this.stockBatchForm.stockBatchForm.controls.stock.setValue(data.stock);
+    this.stockBatchForm.stockBatchForm.controls.initialStock.setValue(data.initial_stock);
+    this.stockBatchForm.stockBatchForm.controls.currentStock.setValue(data.current_stock);
     this.stockBatchForm.stockBatchForm.controls.location.setValue(data.location);
     this.stockBatchForm.stockBatchForm.controls.container.setValue(data.container);
     this.stockBatchForm.stockBatchForm.controls.batchNumber.setValue(data.batch_number);
