@@ -18,6 +18,7 @@ export class UsersApiService {
   usersAdditionalRef = this.firestore.collection('users_user_additional_profile');
   usersAvailabilityRef = this.firestore.collection('users_user_availability');
   usersRoleRef = this.firestore.collection('users_role');
+  thirdPartyRoleRef = this.firestore.collection('users_third_party_role');
   usersInvitationRef = this.firestore.collection('users_invitation');
   usersInvitationsConfigurationRef = this.firestore.collection('users_invitations_configuration');
 
@@ -138,6 +139,41 @@ export class UsersApiService {
   getBranchUserRoleList(){
     return this.usersRoleRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  // user role
+
+  createThirdPartyRole(data: any){
+    return this.thirdPartyRoleRef.add(data);
+  }
+
+  updateThirdPartyRole(id:any, data: any){
+    return this.thirdPartyRoleRef.doc(id).update(data);
+  }
+
+  deleteThirdPartyRole(id: any){
+    return this.thirdPartyRoleRef.doc(id).delete();
+  }
+
+  setThirdPartyRole(id:any, data: any){
+    return this.thirdPartyRoleRef.doc(id).set(data);
+  }
+
+  getThirdPartyRole(id: any){
+    return this.thirdPartyRoleRef.doc(id).ref.get();
+  }
+
+  getThirdPartyRoleList(){
+    return this.thirdPartyRoleRef.ref
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  getCompanyThirdPartyRoleList(){
+    return this.thirdPartyRoleRef.ref
+      // .where("company.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
       .orderBy("created_at", "desc")
       .get();
   }

@@ -66,6 +66,23 @@ export class UserRole {
     }
 }
 
+export class ThirdPartyRole {
+    created_at!: any;
+    updated_at!: any;
+    full_name!: string;
+    user_code!: string;
+    company_type!: string;
+    company!: {
+        id: string;
+        data: {
+            company_code: string;
+            company_name: string;
+            phone: string;
+            email: string;
+        }
+    }
+}
+
 export class Invitation {
     created_at!: any;
     updated_at!: any;

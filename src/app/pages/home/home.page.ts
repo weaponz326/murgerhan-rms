@@ -17,8 +17,8 @@ import { ConnectionToastComponent } from 'src/app/components/module-utilities/co
 export class HomePage {
 
   constructor(
-    private authApi: AuthApiService,
     private router: Router,
+    private authApi: AuthApiService,
     private usersApi: UsersApiService,
     private hosuekeepingApi: HousekeepingApiService,
     private maintenanceApi: MaintenanceApiService

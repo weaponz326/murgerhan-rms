@@ -3,9 +3,9 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
-                <p class="lead">User Role</p>
+                <p class="lead">Third Party User</p>
 
-                <form [formGroup]="roleForm" (ngSubmit)="updateUserRole()">
+                <form [formGroup]="roleForm" (ngSubmit)="updateThirdPartyRole()">
                     <div class="row mb-1">
                         <div class="col-md-4">
                             <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Full Name :</label>
@@ -17,7 +17,7 @@
 
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <label class="text-muted float-md-end float-sm-start mt-1">Staff ID :</label>
+                            <label class="text-muted float-md-end float-sm-start mt-1">User ID :</label>
                         </div>
                         <div class="col-md-8">
                             <input formControlName="staffCode" type="text" class="form-control form-control-sm w-100">
@@ -26,39 +26,45 @@
 
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Branch :</label>
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Company Type :</label>
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="branch" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedBranchId }" required>
-                                <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
+                                <select formControlName="staffRole" class="form-control" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.companyType.invalid }" required>
+                                    <option>Vendor</option>
+                                    <option>Supplier</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Staff Role :</label>
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Company ID :</label>
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <select formControlName="staffRole" class="form-control" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.staffRole.invalid }" required>
-                                    <option>General Manager</option>
-                                    <option>Administrator</option>
-                                    <option>Head Manager</option>
-                                    <option>Branch Manager</option>
-                                    <option>Assistant Branch manager</option>
-                                    <option>Head Chef</option>
-                                    <option>Branch Chef</option>
-                                    <option>Assistant Branch Chef</option>
-                                    <option>Waiter/Waitress</option>
-                                    <option>Kitchen Staff</option>
-                                </select>
+                                <input formControlName="companyCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedVendorId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
+                    </div>   
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Company Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedVendorId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                                                   
 
                     <div class="row float-end mt-2">
                         <div class="col">
@@ -79,8 +85,4 @@
 
 <!-- delete confirmation modal component -->
 
-<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteUserRole()"></app-delete-modal-one>
-
-<!-- select branch window component -->
-
-<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)"></app-select-branch>
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteThirdPartyRole()"></app-delete-modal-one>

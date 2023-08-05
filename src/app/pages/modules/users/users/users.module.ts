@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminWindowsModule } from 'src/app/components/select-windows/admin-windows/admin-windows.module';
 
 import { UsersPage } from './users.page';

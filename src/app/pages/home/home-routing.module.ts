@@ -67,6 +67,11 @@ const routes: Routes = [
         canActivateChild: [authGuard, adminAccessGuard],
       },
       {
+        path: "modules/users/third-party",
+        loadChildren: () => import("../modules/users/third-party/third-party.module").then(m => m.ThirdPartyModule),
+        canActivateChild: [authGuard, adminAccessGuard],
+      },
+      {
         path: "modules/users/invitations",
         loadChildren: () => import("../modules/users/invitations/invitations.module").then(m => m.InvitationsModule),
         canActivateChild: [authGuard, adminAccessGuard],
