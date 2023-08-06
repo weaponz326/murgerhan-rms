@@ -306,7 +306,7 @@ export class HomePage {
   }
 
   viewNotification(event: any, data: any){
-    event.stopPropagation();
+    event.preventDefault();
 
     if(data.data().hasOwnProperty('incident_status')){
       // console.log(data.id);

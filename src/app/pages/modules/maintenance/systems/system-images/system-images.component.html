@@ -19,18 +19,18 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length != 0" id="systemImagesCarousel" class="carousel slide">
+                <div *ngIf="isSystemImagesDataAvailable" id="systemImagesCarousel" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                        <div class="carousel-item" *ngFor="let image of systemImagesListData; let i = index" [class.active]="i === 0">
                             <div class="row">
-                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                <div class="col-md-3" *ngFor="let img of systemImagesListData.slice(i * 4, (i + 1) * 4)">
                                     <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
                                 </div>                                
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length == 0" class="row">
+                <div *ngIf="!isSystemImagesDataAvailable" class="row">
                     <div class="col-md-3">
                         <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
                             <div class="card-img-top text-center m-auto">
@@ -55,18 +55,18 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length != 0" id="warrantyLabelsCarousel" class="carousel slide">
+                <div *ngIf="isWarantyLabelsDataAvailable" id="warrantyLabelsCarousel" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                        <div class="carousel-item" *ngFor="let image of warantyLabelsListData; let i = index" [class.active]="i === 0">
                             <div class="row">
-                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                <div class="col-md-3" *ngFor="let img of warantyLabelsListData.slice(i * 4, (i + 1) * 4)">
                                     <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
                                 </div>                                
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length == 0" class="row">
+                <div *ngIf="!isWarantyLabelsDataAvailable" class="row">
                     <div class="col-md-3">
                         <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
                             <div class="card-img-top text-center m-auto">
@@ -91,18 +91,18 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length != 0" id="sinformationLabelsCarousel" class="carousel slide">
+                <div *ngIf="isInformationLabelsDataAvailable" id="sinformationLabelsCarousel" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let image of systemImageListData; let i = index" [class.active]="i === 0">
+                        <div class="carousel-item" *ngFor="let image of informationLabelsListData; let i = index" [class.active]="i === 0">
                             <div class="row">
-                                <div class="col-md-3" *ngFor="let img of systemImageListData.slice(i * 4, (i + 1) * 4)">
+                                <div class="col-md-3" *ngFor="let img of informationLabelsListData.slice(i * 4, (i + 1) * 4)">
                                     <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
                                 </div>                                
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="systemImageListData.length == 0" class="row">
+                <div *ngIf="!isInformationLabelsDataAvailable" class="row">
                     <div class="col-md-3">
                         <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
                             <div class="card-img-top text-center m-auto">
@@ -117,3 +117,7 @@
     </div>
 
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

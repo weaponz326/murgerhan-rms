@@ -23,13 +23,27 @@ export class SystemImagesComponent {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   selectedFiles: File[] = [];
-  systemImageListData: any;
+  AllSystemImagesListData: any;
   isUploading = false;
 
   imageCategory = '';
 
+  systemImagesListData: any;
+  warantyLabelsListData: any;
+  informationLabelsListData: any;
+
+  isSystemImagesDataAvailable = false;
+  isWarantyLabelsDataAvailable = false;
+  isInformationLabelsDataAvailable = false;
+
   ngOnInit(): void {
     this.getSystemImageList();
+  }
+
+  selectFile(category: any){
+    console.log(category);
+    this.imageCategory = category;
+    this.imageInput.nativeElement.click();
   }
 
   onFileSelected(e: any): void {
@@ -67,7 +81,7 @@ export class SystemImagesComponent {
       .then(
         (res: any) => {
           // console.log(res);
-          this.systemImageListData = res.docs;
+          this.AllSystemImagesListData = res.docs;
           this.isUploading = false;
         },
         (err: any) => {
@@ -76,12 +90,25 @@ export class SystemImagesComponent {
           this.isUploading = false;
         }
       )
-  }
+  }  
 
-  selectFile(category: any){
-    console.log(category);
-    this.imageCategory = category;
-    this.imageInput.nativeElement.click();
+  groupSystemImageList(){
+    const groupedArrays: any = {};
+
+    this.AllSystemImagesListData.forEach((item: any) => {
+      const category = item.category;
+      
+      if (!groupedArrays[category]) {
+        groupedArrays[category] = [];
+      }
+      
+      groupedArrays[category].push(item);
+    });
+
+    // Now you have separate arrays for each category
+    this.systemImagesListData = groupedArrays['system_images'];
+    this.warantyLabelsListData = groupedArrays['waranty_labels'];
+    this.informationLabelsListData = groupedArrays['information_labels'];
   }
 
 }

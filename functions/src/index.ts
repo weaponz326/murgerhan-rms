@@ -24,6 +24,8 @@ import * as nodemailer from "nodemailer";
 
 admin.initializeApp();
 
+const db = admin.firestore();
+
 exports.sendEmailOnDocumentCreate = functions.firestore
   .document("users_invitation/{documentId}")
   .onCreate(async (snapshot: any, context: any) => {
@@ -88,5 +90,47 @@ exports.sendEmailOnDocumentCreate = functions.firestore
       // console.log("Email sent successfully");
     } catch (error) {
       console.error("Error sending email:", error);
+    }
+  });
+
+exports.calculateSumAndUpdateDocument = functions.firestore
+  .document('inventory_stock_batch/{docId}')
+  .onWrite(async (change, context) => {
+    const collectionRef = db.collection('inventory_stock_batch');
+    const fieldToSum = 'current_stock';
+    const stockItemField = 'stock_item.id';
+
+    try {
+      const changedDocument = change.after; // Use change.after to get DocumentSnapshot
+      const stockItemValue = changedDocument.get(stockItemField);
+
+      if (stockItemValue === undefined) {
+        console.log('stock_item field not found in the changed document.');
+        return null;
+      }
+
+      // Get all documents in the collection
+      const snapshot = await collectionRef.where(stockItemField, '==', stockItemValue).get();
+
+      let totalSum = 0;
+      snapshot.forEach(doc => {
+        const fieldValue = doc.data()[fieldToSum];
+        if (typeof fieldValue === 'number') {
+          totalSum += fieldValue;
+        }
+      });
+
+      // Update another document in a different collection
+      // const targetDocRef = db.collection('inventory_stock_item').where('item_name', '==', stockItemValue).limit(1);
+      const targetDocRef = db.collection('inventory_stock_item').doc(stockItemField);
+      const targetDocSnapshot = await targetDocRef.get();
+      
+      const targetDoc = targetDocSnapshot;
+      await targetDoc.ref.update({ total_stock: totalSum });
+      
+      return null;
+    } catch (error) {
+      console.error('Error calculating sum and updating document:', error);
+      return null;
     }
   });
