@@ -1,0 +1,75 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/factory-main/factory-orders/all-daily-factory-orders">All Daily Factory Orders</a>
+    </li>
+    <li class="breadcrumb-item active">View Daily Factory Order</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Daily Factory Order</p>
+
+                <div class="row mb-3">
+                    <div class="col">                        
+                        <button [disabled]="isFetchingData" (click)="getOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" rowspan="2" class="min-width-3">Factory Item</th>
+                                        <th scope="col" rowspan="2" class="min-width-3">Item Price</th>
+                                        <th *ngFor="let branch of branchListData" colspan="2" scope="col" class="min-width-3">{{branch.data().branch_name}}</th>
+                                        <th scope="col" rowspan="2" class="min-width-3">Total Quantity</th>
+                                        <th scope="col" rowspan="2" class="min-width-3">Total Price</th>
+                                    </tr>
+                                    <tr>
+                                        <ng-container *ngFor="let branch of branchListData">
+                                            <th scope="col" class="min-width-3">Quantity</th>
+                                            <th scope="col" class="min-width-3">Price</th>
+                                        </ng-container>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of orderItemListData">
+                                        <td>{{data?.data().factory_item.item_name}}</td>
+                                        <td>{{data?.data().factory_item.price | currency: 'GBP'}}</td>
+                                        <ng-container *ngFor="let branch of branchListData">
+                                            <td *ngIf="branch.id == data.data().branch.id">{{data.data().quantity}}</td>
+                                            <td *ngIf="branch.id == data.data().branch.id">{{(data.data().quantity * data?.data().factory_item.price) | currency: 'GBP'}}</td>
+                                        </ng-container>
+                                        <td>{{ getTotalQuantity(data) }}</td>    
+                                        <td>{{ getTotalPrice(data) | currency: 'GBP' }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="22">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

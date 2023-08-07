@@ -109,5 +109,14 @@ export class FactoryApiService {
       .orderBy("created_at", "asc")
       .get();
   }
+
+  createOrderItemBatch(items: any): Promise<void> {
+    const batch = this.firestore.firestore.batch();
+    items.forEach((item: any) => {
+      const newItemRef = this.factoryOrderItemRef.doc().ref;
+      batch.set(newItemRef, item);
+    });
+    return batch.commit();
+  }
   
 }

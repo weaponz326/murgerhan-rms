@@ -29,6 +29,9 @@ export class NewBranchOrderComponent {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;  
   @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
+  factoryItemListData: any;
+  batchData: any;
+
   isFetchingData = false;
   isSavingOrder = false;
   isSaved = false;
@@ -46,9 +49,10 @@ export class NewBranchOrderComponent {
   })
 
   openModal(){
-    this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 16));
+    this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 10));
     this.newButton.nativeElement.click();
     this.getLastOrder();
+    this.getFactoryItemList();
   }
 
   getLastOrder(){
@@ -85,13 +89,12 @@ export class NewBranchOrderComponent {
         .then((res: any) => {
           // console.log(res);
 
+          this.setOrderItemsBatchData();
+          this.createOrderItemBatch();
+
           if(res.id){
             sessionStorage.setItem('orders_order_id', res.id);
-            this.router.navigateByUrl("/modules/orders/orders/view-order");
           }
-
-          this.dismissButton.nativeElement.click();
-          this.isSavingOrder = false;
         })
         .catch((err: any) => {
           // console.log(err);
@@ -99,6 +102,44 @@ export class NewBranchOrderComponent {
           this.isSavingOrder = false;
         });
     }
+  }
+
+  getFactoryItemList(){
+    this.isFetchingData = true;
+
+    this.factoryApi.getFactoryItemList()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          this.factoryItemListData = res.docs;
+          this.isFetchingData = false;
+
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
+  createOrderItemBatch() {   
+    this.isSavingOrder = true;
+      
+    this.factoryApi.createOrderItemBatch(this.batchData)
+      .then((res: any) => {
+        // console.log(res);
+
+        this.router.navigateByUrl("/modules/orders/orders/view-order");
+
+        this.dismissButton.nativeElement.click();
+        this.isSavingOrder = false;
+      })
+      .catch((err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isSavingOrder = false;
+      });
   }
 
   setCreateOrderData(){
@@ -120,6 +161,27 @@ export class NewBranchOrderComponent {
 
     // console.log(data);
     return data;
+  }
+
+  setOrderItemsBatchData(){
+    let itemNumber = 0;
+    this.batchData = this.factoryItemListData.map((item: any) => {
+      return {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        item_number: itemNumber++,
+        order: sessionStorage.getItem('factory_order_id') as string,
+        quantity: 0,
+        factory_item: {
+          id: item.id,
+          data: {
+            item_code: item.data().item_code,
+            item_name: item.data().item_name,
+            price: item.data().price,
+          }
+        },
+      };
+    });
   }
   
 }
