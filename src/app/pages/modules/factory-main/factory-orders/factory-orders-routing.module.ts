@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: "all-daily-factory-orders", component: AllDailyFactoryOrdersComponent },
       { path: "view-daily-factory-order", component: ViewDailyFactoryOrderComponent },
       { path: "all-factory-orders", component: AllFactoryOrdersComponent },
-      { path: "view-factory-order", component: ViewFactoryOrderComponent },
+      { path: "view-branch-factory-order", component: ViewFactoryOrderComponent },
     ]
   }
 ];

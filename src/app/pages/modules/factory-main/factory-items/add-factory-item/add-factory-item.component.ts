@@ -71,7 +71,7 @@ export class AddFactoryItemComponent {
 
           if(res.id){
             sessionStorage.setItem('factory_factory_item_id', res.id);
-            this.router.navigateByUrl("/modules/factory-main/factory-items/view-factory-item");
+            this.router.navigateByUrl("/modules/factory-main/factory-items/edit-factory-item");
           }
           this.isSavingItem = false;
         })

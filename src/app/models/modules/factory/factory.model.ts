@@ -27,9 +27,21 @@ export class FactoryOrder {
 export class FactoryOrderItem {
     created_at!: any;
     updated_at!: any;
-    item_number!: number;
     quantity!: number;
-    order!: string;
+    order!: {
+        id: string;
+        data: {
+            order_date: any;
+            order_code: string;
+            branch: {
+                id: string;
+                data: {
+                    branch_name: string;
+                    location: string;
+                }
+            }
+        }
+    }
     factory_item!: {
         id: string;
         data: {

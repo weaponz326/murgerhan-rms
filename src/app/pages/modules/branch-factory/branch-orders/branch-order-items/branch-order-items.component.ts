@@ -2,12 +2,10 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-
-import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
-import { AddBranchOrderItemComponent } from '../add-branch-order-item/add-branch-order-item.component';
-import { EditBranchOrderItemComponent } from '../edit-branch-order-item/edit-branch-order-item.component';
 import { FactoryApiService } from 'src/app/services/modules-api/factory-api/factory-api.service';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { EditBranchOrderItemComponent } from '../edit-branch-order-item/edit-branch-order-item.component';
 
 
 @Component({
@@ -19,14 +17,13 @@ export class BranchOrderItemsComponent {
 
   constructor(
     private router: Router,
+    private formatId: FormatIdService,
     private factoryApi: FactoryApiService,
   ) { }
 
   @Output() setOrderTotal = new EventEmitter<any>();
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-  @ViewChild('addBranchOrderItemComponentReference', { read: AddBranchOrderItemComponent, static: false }) addOrderItem!: AddBranchOrderItemComponent;
   @ViewChild('editBranchOrderItemComponentReference', { read: EditBranchOrderItemComponent, static: false }) editOrderItem!: EditBranchOrderItemComponent;
   
   orderItemListData: any[] = [];
@@ -79,30 +76,6 @@ export class BranchOrderItemsComponent {
       )
   }
 
-  createOrderItem(data: any) {
-    // console.log(data);
-
-    this.addOrderItem.isItemSaving = true;
-
-    this.factoryApi.createBranchOrderItem(data)
-      .then((res: any) => {
-        // console.log(res);
-
-        if(res.id){
-          this.getOrderItemList();
-
-          this.addOrderItem.isItemSaving = false;
-          this.addOrderItem.dismissButton.nativeElement.click();
-          this.addOrderItem.resetForm();
-        }
-      })
-      .catch((err: any) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.addOrderItem.isItemSaving = false;
-      });
-  }
-
   updateOrderItem(order_item: any) {
     this.editOrderItem.isItemSaving = true;
     
@@ -120,24 +93,8 @@ export class BranchOrderItemsComponent {
       });
   }
 
-  deleteOrderItem() {
-    this.isItemDeleting = true;
-
-    this.factoryApi.deleteBranchOrderItem(this.deleteId)
-      .then((res) => {
-        // console.log(res);
-        this.isItemDeleting = false;
-        this.getOrderItemList();
-      })
-      .catch((err) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.isItemDeleting = false;
-      });
-  }
-
   patchTotalAmount(){
-    const id = sessionStorage.getItem('orders_order_id') as string;
+    const id = sessionStorage.getItem('factory_order_id') as string;
     let data = { total_price: this.totalPrice }
 
     this.factoryApi.updateOrder(id, data)
@@ -155,9 +112,8 @@ export class BranchOrderItemsComponent {
     this.editOrderItem.openModal(data);
   }
 
-  confirmDelete(id: any){
-    this.deleteId = id;
-    this.deleteModal.openModal();
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "FI");
   }
   
 }

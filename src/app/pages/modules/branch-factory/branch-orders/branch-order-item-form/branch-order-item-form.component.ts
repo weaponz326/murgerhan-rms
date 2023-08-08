@@ -14,7 +14,6 @@ export class BranchOrderItemFormComponent {
   isSaved = false;
   
   orderItemForm = new FormGroup({
-    itemNumber: new FormControl(),
     itemCode: new FormControl({value: '', disabled: true}),
     itemName: new FormControl({value: '', disabled: true}, Validators.required),
     price: new FormControl({value: 0.00, disabled: true}),

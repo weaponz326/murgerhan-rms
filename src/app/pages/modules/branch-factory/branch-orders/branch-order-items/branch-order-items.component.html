@@ -12,31 +12,28 @@
                             <table class="table table-bordered table-sm w-100 page-table">
                                 <thead>
                                     <tr class="bg-light">
-                                        <th width="5%" class="min-width-1">No.</th>
+                                        <th width="10%" class="min-width-1">No.</th>
                                         <th width="35%" class="min-width-3">Factory Item Name</th>
                                         <th width="15%" class="min-width-2">Price</th>
                                         <th width="10%" class="min-width-2">Quantity</th>
                                         <th width="15%" class="min-width-2">Total Price</th>
-                                        <th width="10%" class="p-0 min-width-2">
-                                            <button class="btn btn-primary btn-sm w-100" (click)="addOrderItem.openModal(lastItem)">
-                                                <i class="bi bi-plus"></i>
+                                        <th width="5%" class="p-0 min-width-2">
+                                            <button class="btn btn-light btn-sm w-100">
+                                                <i class="bi bi-pen"></i>
                                             </button>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of orderItemListData">
-                                        <td>{{data?.data().item_number}}</td>
+                                        <td>{{getFormatId(data?.data()?.factory_item?.data?.item_code)}}</td>
                                         <td>{{data?.data().factory_item?.data?.item_name}}</td>
                                         <td>{{data?.data().factory_item?.data?.price | currency:'GBP'}}</td>
                                         <td>{{data?.data().quantity}}</td>
                                         <td>{{data?.data().factory_item?.data?.price * data?.data().quantity | currency:'GBP'}}</td>
                                         <td class="p-0">
-                                            <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
+                                            <button class="btn btn-sm btn-success border w-100" (click)="openEditItem(data)">
                                                 <i class="bi bi-pen"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger border w-50" (click)="confirmDelete(data.id)">
-                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
                                     </tr>      
@@ -62,12 +59,10 @@
     </div>
 </div>
 
-<!-- add and edit item modal components -->
-
-<app-add-branch-order-item #addBranchOrderItemComponentReference (saveItemEvent)="createOrderItem($event)"></app-add-branch-order-item>
+<!-- edit item modal components -->
 
 <app-edit-branch-order-item #editBranchOrderItemComponentReference (saveItemEvent)="updateOrderItem($event)"></app-edit-branch-order-item>
 
-<!-- delete confirmation modal component -->
+<!-- connection error toast component -->
 
-<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteOrderItem()"></app-delete-modal-two>
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

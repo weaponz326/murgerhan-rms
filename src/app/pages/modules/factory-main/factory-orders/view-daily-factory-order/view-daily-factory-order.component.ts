@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { FactoryApiService } from 'src/app/services/modules-api/factory-api/factory-api.service';
 import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -18,11 +19,13 @@ export class ViewDailyFactoryOrderComponent {
     private router: Router,
     private factoryApi: FactoryApiService,
     private adminApi: AdminApiService,
+    private formatId: FormatIdService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   orderItemListData: any[] = [];
+  factoryItemListData: any[] = [];
   branchListData: any[] = [];
 
   isFetchingData: boolean =  false;
@@ -41,8 +44,7 @@ export class ViewDailyFactoryOrderComponent {
           // console.log(res);
           this.branchListData = res.docs;
           this.isFetchingData = false;
-
-          this.getOrderList();
+          this.getFactoryItemList();
         },
         (err: any) => {
           // console.log(err);
@@ -52,10 +54,29 @@ export class ViewDailyFactoryOrderComponent {
       )
   }
 
-  getOrderList(){
+  getFactoryItemList(){
     this.isFetchingData = true;
 
-    this.factoryApi.getOrderList()
+    this.factoryApi.getFactoryItemList()
+      .then(
+        (res: any) => {
+          // console.log(res);
+          this.factoryItemListData = res.docs;
+          this.isFetchingData = false;
+          this.getMainOrderItemList();
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
+  getMainOrderItemList(){
+    this.isFetchingData = true;
+
+    this.factoryApi.getMainOrderItemList()
       .then(
         (res: any) => {
           // console.log(res);
@@ -70,24 +91,36 @@ export class ViewDailyFactoryOrderComponent {
       )
   }
 
-  getTotalQuantity(data: any): number {
-    let totalQuantity = 0;
-    for (const branch of this.branchListData) {
-      if (branch.id === data.data().branch.id) {
-          totalQuantity += data.data().quantity;
-      }
-    }
-    return totalQuantity;
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "FI");
   }
 
-  getTotalPrice(data: any): number {
-    let totalPrice = 0;
-    for (const branch of this.branchListData) {
-      if (branch.id === data.data().branch.id) {
-          totalPrice += data.data().quantity * data.data().factory_item.price;
-      }
-    }
-    return totalPrice;
+  hasMatchingItem(itemId: string, branchId: string): boolean {
+    return this.orderItemListData.some(item =>
+      item?.data()?.order?.data?.branch?.id === branchId && item?.data()?.factory_item?.id === itemId
+    );
+  }
+
+  getItemQuantity(itemId: string, branchId: string): number {
+    const matchingItem = this.orderItemListData.find(item =>
+      item?.data()?.order?.data?.branch?.id === branchId && item?.data()?.factory_item?.id === itemId
+    );
+    return matchingItem?.data().quantity || 0;
+  }
+
+  getTotalPrice(itemId: string, branchId: string): number {
+    const matchingItem = this.orderItemListData.find(item =>
+      item?.data()?.order?.data?.branch?.id === branchId && item?.data()?.factory_item?.id === itemId
+    );
+    return (matchingItem?.data().quantity || 0) * (matchingItem?.data()?.factory_item?.data?.price || 0);
+  }
+
+  getTotalQuantity(itemId: string): number {
+    return this.branchListData.reduce((total, branch) => total + this.getItemQuantity(itemId, branch.id), 0);
+  }
+
+  getTotalPriceForItem(itemId: string): number {
+    return this.branchListData.reduce((total, branch) => total + this.getTotalPrice(itemId, branch.id), 0);
   }
 
 }

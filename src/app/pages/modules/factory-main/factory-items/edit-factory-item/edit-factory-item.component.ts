@@ -81,7 +81,7 @@ export class EditFactoryItemComponent {
   deleteFactoryItem() {
     this.isDeletingItem = true;
 
-    const id = sessionStorage.getItem('orders_product_id') as string;
+    const id = sessionStorage.getItem('factory_factory_item_id') as string;
 
     this.factoryApi.deleteFactoryItem(id)
       .then((res) => {
@@ -97,7 +97,7 @@ export class EditFactoryItemComponent {
   }
 
   setFactoryItemData(){
-    this.factoryItemForm.factoryItemForm.controls.itemCode.setValue(this.formatId.formatId(this.factoryItemData.data().product_code, 4, "#", "FI"));
+    this.factoryItemForm.factoryItemForm.controls.itemCode.setValue(this.formatId.formatId(this.factoryItemData.data().item_code, 4, "#", "FI"));
     this.factoryItemForm.factoryItemForm.controls.itemName.setValue(this.factoryItemData.data().item_name);
     this.factoryItemForm.factoryItemForm.controls.itemType.setValue(this.factoryItemData.data().item_type);
     this.factoryItemForm.factoryItemForm.controls.price.setValue(this.factoryItemData.data().price);

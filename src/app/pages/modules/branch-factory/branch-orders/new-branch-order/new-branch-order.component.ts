@@ -80,7 +80,7 @@ export class NewBranchOrderComponent {
   createOrder() {
     this.isSaved = true;
     
-    if(this.orderForm.valid && this.selectedVendorId){
+    if(this.orderForm.valid){
       this.isSavingOrder = true;
 
       let data = this.setCreateOrderData();
@@ -89,12 +89,12 @@ export class NewBranchOrderComponent {
         .then((res: any) => {
           // console.log(res);
 
-          this.setOrderItemsBatchData();
-          this.createOrderItemBatch();
-
           if(res.id){
-            sessionStorage.setItem('orders_order_id', res.id);
+            sessionStorage.setItem('factory_order_id', res.id);
           }
+
+          this.setOrderItemsBatchData();
+          this.createOrderItemBatch();          
         })
         .catch((err: any) => {
           // console.log(err);
@@ -130,7 +130,7 @@ export class NewBranchOrderComponent {
       .then((res: any) => {
         // console.log(res);
 
-        this.router.navigateByUrl("/modules/orders/orders/view-order");
+        this.router.navigateByUrl("/modules/branch-factory/branch-orders/view-branch-order");
 
         this.dismissButton.nativeElement.click();
         this.isSavingOrder = false;
@@ -164,14 +164,25 @@ export class NewBranchOrderComponent {
   }
 
   setOrderItemsBatchData(){
-    let itemNumber = 0;
     this.batchData = this.factoryItemListData.map((item: any) => {
       return {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
-        item_number: itemNumber++,
-        order: sessionStorage.getItem('factory_order_id') as string,
         quantity: 0,
+        order: {
+          id: sessionStorage.getItem('factory_order_id') as string,
+          data: {
+            order_date: this.orderForm.controls.orderDate.value,
+            order_code: this.thisId,
+            branch: {
+              id: this.selectedBranchData.id,
+              data: {
+                branch_name: this.selectedBranchData.data.branch_name,
+                location: this.selectedBranchData.data.location
+              }
+            },
+          }
+        },
         factory_item: {
           id: item.id,
           data: {

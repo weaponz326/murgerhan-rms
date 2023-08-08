@@ -50,9 +50,21 @@ export class EditBranchOrderItemComponent {
       let data: FactoryOrderItem = {
         created_at: this.orderItemData.data().created_at,
         updated_at: serverTimestamp(),
-        item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
-        order: sessionStorage.getItem('factory_order_id') as string,
         quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
+        order: {
+          id: sessionStorage.getItem('factory_order_id') as string,
+          data: {
+            order_date: this.orderItemData.data().order.data.order_date,
+            order_code: this.orderItemData.data().order.data.order_code,
+            branch: {
+              id: this.orderItemData.data().order.data.branch.id,
+              data: {
+                branch_name: this.orderItemData.data().order.data.branch.data.branch_name,
+                location: this.orderItemData.data().order.data.branch.data.location,
+              }
+            },
+          }
+        },
         factory_item: {
           id: this.selectedItemId,
           data: {
@@ -73,14 +85,13 @@ export class EditBranchOrderItemComponent {
   }
 
   setOrderItemData(data: any){
-    this.orderItemForm.orderItemForm.controls.itemNumber.setValue(data.data().item_number);
-    this.orderItemForm.orderItemForm.controls.itemCode.setValue(this.formatId.formatId(data.data().item?.data.item_code, 4, "#", "PR"));
-    this.orderItemForm.orderItemForm.controls.itemName.setValue(data.data().item?.data.item_name);
-    this.orderItemForm.orderItemForm.controls.price.setValue(data.data().item.data.price);
+    this.orderItemForm.orderItemForm.controls.itemCode.setValue(this.formatId.formatId(data.data().factory_item?.data.item_code, 4, "#", "FI"));
+    this.orderItemForm.orderItemForm.controls.itemName.setValue(data.data().factory_item?.data.item_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(data.data().factory_item.data.price);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(data.data().quantity);
 
-    this.selectedItemId = data.data().item.id;
-    this.selectedItemData = data.data().item.data;
+    this.selectedItemId = data.data().factory_item.id;
+    this.selectedItemData = data.data().factory_item.data;
   }
   
   openFactoryItemWindow(){

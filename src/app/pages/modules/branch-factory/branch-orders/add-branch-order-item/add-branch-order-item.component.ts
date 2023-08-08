@@ -32,7 +32,6 @@ export class AddBranchOrderItemComponent {
   selectedItemData: any;
 
   openModal(lastId: any){
-    this.orderItemForm.orderItemForm.controls.itemNumber.setValue(lastId + 1);
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(1);
 
@@ -43,20 +42,8 @@ export class AddBranchOrderItemComponent {
     this.orderItemForm.isSaved = true;    
 
     if(this.orderItemForm.orderItemForm.valid && this.selectedItemId){
-      let data: FactoryOrderItem = {
-        created_at: serverTimestamp(),
-        updated_at: serverTimestamp(),
-        item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
-        order: sessionStorage.getItem('factory_order_id') as string,
-        quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
-        factory_item: {
-          id: this.selectedItemId,
-          data: {
-            item_code: this.selectedItemData.item_code,
-            item_name: this.selectedItemData.item_name,
-            price: this.selectedItemData.price,
-          }
-        },
+      let data = {
+        
       }
       
       this.saveItemEvent.emit(data);
@@ -64,7 +51,6 @@ export class AddBranchOrderItemComponent {
   }
 
   resetForm(){
-    this.orderItemForm.orderItemForm.controls.itemNumber.setValue(null);
     this.orderItemForm.orderItemForm.controls.itemCode.setValue('');
     this.orderItemForm.orderItemForm.controls.itemName.setValue('');
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);

@@ -41,7 +41,7 @@
                                 <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of orderListData" (dblclick)="viewOrder(data?.id)">
                                         <td>{{getFormatId(data?.data().order_code)}}</td>
-                                        <td>{{data?.data().order_date | date: 'short'}}</td>
+                                        <td>{{data?.data().order_date | date: 'dd-MM-yyyy'}}</td>
                                         <td>{{data?.data().total_price | currency:'GBP'}}</td>
                                     </tr>
                                 </tbody>

@@ -39,7 +39,7 @@ export class ViewBranchOrderComponent {
 
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
-    orderDate: new FormControl(),
+    orderDate: new FormControl({value: null, disabled: true}),
     orderStatus: new FormControl(''),
   })
 
@@ -53,7 +53,7 @@ export class ViewBranchOrderComponent {
 
     this.factoryApi.getOrder(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res);
         this.orderData = res;
         this.isFetchingData = false;
         this.setOrderData();        
