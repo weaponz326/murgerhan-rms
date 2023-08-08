@@ -269,7 +269,7 @@ export class MaintenanceApiService {
           .then(() => fileRef.getDownloadURL().toPromise())
           .then((downloadUrl) => {
             const dataWithImages = { ...data, url: downloadUrl };
-            return this.createIssueImage(dataWithImages);
+            return this.createSystemImage(dataWithImages);
           })
           .then(() => uploadIssues.push())
           .catch((error) => reject(error));

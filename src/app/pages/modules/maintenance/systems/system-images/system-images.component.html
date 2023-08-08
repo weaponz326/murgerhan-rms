@@ -10,7 +10,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('system_image')">Add System Image</button>
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" [disabled]="isUploading" (click)="selectFile('system_image')">Add System Image</button>
                         <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#systemImagesCarousel" data-bs-slide="prev">
                             <i class="bi bi-arrow-left"></i>
                         </button>
@@ -22,9 +22,11 @@
                 <div *ngIf="isSystemImagesDataAvailable" id="systemImagesCarousel" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="carousel-item" *ngFor="let image of systemImagesListData; let i = index" [class.active]="i === 0">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-md-3" *ngFor="let img of systemImagesListData.slice(i * 4, (i + 1) * 4)">
-                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                    <a [href]="img.data().url">
+                                        <img [src]="img.data().url" class="d-block rounded w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                    </a>
                                 </div>                                
                             </div>
                         </div>
@@ -42,11 +44,11 @@
 
                 <hr>
 
-                <p class="lead">Waranty Labels</p>
+                <p class="lead">Warranty Labels</p>
 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('waranty_label')">Add Warranty label</button>
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" [disabled]="isUploading" (click)="selectFile('warranty_label')">Add Warranty label</button>
                         <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#warrantyLabelsCarousel" data-bs-slide="prev">
                             <i class="bi bi-arrow-left"></i>
                         </button>
@@ -55,18 +57,20 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="isWarantyLabelsDataAvailable" id="warrantyLabelsCarousel" class="carousel slide">
+                <div *ngIf="isWarrantyLabelsDataAvailable" id="warrantyLabelsCarousel" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let image of warantyLabelsListData; let i = index" [class.active]="i === 0">
-                            <div class="row">
-                                <div class="col-md-3" *ngFor="let img of warantyLabelsListData.slice(i * 4, (i + 1) * 4)">
-                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                        <div class="carousel-item" *ngFor="let image of warrantyLabelsListData; let i = index" [class.active]="i === 0">
+                            <div class="row mt-3">
+                                <div class="col-md-3" *ngFor="let img of warrantyLabelsListData.slice(i * 4, (i + 1) * 4)">
+                                    <a [href]="img.data().url">
+                                        <img [src]="img.data().url" class="d-block rounded w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                    </a>
                                 </div>                                
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!isWarantyLabelsDataAvailable" class="row">
+                <div *ngIf="!isWarrantyLabelsDataAvailable" class="row">
                     <div class="col-md-3">
                         <div class="card border rounded mx-auto mt-4 img-pointer" [style.height.px]="150">
                             <div class="card-img-top text-center m-auto">
@@ -82,7 +86,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn me-3" (click)="selectFile('information_label')">Add Information Label</button>
+                        <button class="btn btn-primary btn-sm add-item-btn me-3" [disabled]="isUploading" (click)="selectFile('information_label')">Add Information Label</button>
                         <button class="btn btn-light btn-sm border page-refresh-btn mx-1" type="button" data-bs-target="#sinformationLabelsCarousel" data-bs-slide="prev">
                             <i class="bi bi-arrow-left"></i>
                         </button>
@@ -94,9 +98,11 @@
                 <div *ngIf="isInformationLabelsDataAvailable" id="sinformationLabelsCarousel" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="carousel-item" *ngFor="let image of informationLabelsListData; let i = index" [class.active]="i === 0">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-md-3" *ngFor="let img of informationLabelsListData.slice(i * 4, (i + 1) * 4)">
-                                    <img [src]="img.data().url" class="d-block w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                    <a [href]="img.data().url">
+                                        <img [src]="img.data().url" class="d-block rounded w-100 img-responsive" alt="..." [style.height.px]="150">                                    
+                                    </a>
                                 </div>                                
                             </div>
                         </div>

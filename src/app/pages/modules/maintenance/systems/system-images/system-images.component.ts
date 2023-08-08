@@ -29,11 +29,11 @@ export class SystemImagesComponent {
   imageCategory = '';
 
   systemImagesListData: any;
-  warantyLabelsListData: any;
+  warrantyLabelsListData: any;
   informationLabelsListData: any;
 
   isSystemImagesDataAvailable = false;
-  isWarantyLabelsDataAvailable = false;
+  isWarrantyLabelsDataAvailable = false;
   isInformationLabelsDataAvailable = false;
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class SystemImagesComponent {
   }
 
   selectFile(category: any){
-    console.log(category);
+    // console.log(category);
     this.imageCategory = category;
     this.imageInput.nativeElement.click();
   }
@@ -80,8 +80,9 @@ export class SystemImagesComponent {
     this.maintenanceApi.getSystemImageList()
       .then(
         (res: any) => {
-          // console.log(res);
+          // console.log(res.docs[0].data());
           this.AllSystemImagesListData = res.docs;
+          this.groupSystemImageList();
           this.isUploading = false;
         },
         (err: any) => {
@@ -96,19 +97,25 @@ export class SystemImagesComponent {
     const groupedArrays: any = {};
 
     this.AllSystemImagesListData.forEach((item: any) => {
-      const category = item.category;
+      const category = item.data().image_category;
+      // console.log(item.data().image_category)
       
       if (!groupedArrays[category]) {
         groupedArrays[category] = [];
       }
       
       groupedArrays[category].push(item);
+      // console.log(groupedArrays)
     });
 
     // Now you have separate arrays for each category
-    this.systemImagesListData = groupedArrays['system_images'];
-    this.warantyLabelsListData = groupedArrays['waranty_labels'];
-    this.informationLabelsListData = groupedArrays['information_labels'];
+    this.systemImagesListData = groupedArrays['system_image'];
+    this.warrantyLabelsListData = groupedArrays['warranty_label'];
+    this.informationLabelsListData = groupedArrays['information_label'];
+
+    if (this.systemImagesListData?.length > 0) this.isSystemImagesDataAvailable = true;
+    if (this.warrantyLabelsListData?.length > 0) this.isWarrantyLabelsDataAvailable = true;
+    if (this.informationLabelsListData?.length > 0) this.isInformationLabelsDataAvailable = true;
   }
 
 }
