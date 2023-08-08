@@ -40,7 +40,7 @@ export class InviteUserComponent {
     invitationCode: new FormControl({value: '', disabled: true}),
     inviteeName: new FormControl('', Validators.required),
     inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
-    invitationType: new FormControl('', [Validators.required, Validators.email]),
+    invitationType: new FormControl('Staff', [Validators.required, Validators.email]),
     emailSubject: new FormControl(this.defaultEmailSubject),
     emailMessage: new FormControl(this.defaultEmailMessage),
   })

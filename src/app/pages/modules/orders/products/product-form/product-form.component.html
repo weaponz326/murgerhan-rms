@@ -30,6 +30,14 @@
     </div>
 
     <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Tax :</label></div>
+        <div class="col-md-4">
+            <input formControlName="tax" type="number" min="0" max="100" step="0.01" class="form-control form-control-sm w-100">
+        </div>
+        <div class="col-md-4 mt-1">%</div>
+    </div>
+
+    <div class="row mb-1">
         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
         <div class="col-md-8">
             <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>

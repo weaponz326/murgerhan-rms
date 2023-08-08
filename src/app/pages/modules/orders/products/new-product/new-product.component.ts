@@ -93,6 +93,7 @@ export class NewProductComponent {
       product_name: this.productForm.productForm.controls.productName.value as string,
       product_type: this.productForm.productForm.controls.productType.value as string,
       price: this.productForm.productForm.controls.price.value as number,
+      tax: this.productForm.productForm.controls.tax.value as number,
       description: this.productForm.productForm.controls.description.value as string,
       branch: {
         id: this.selectedBranchData.id,

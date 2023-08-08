@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { serverTimestamp } from 'firebase/firestore';
-import { UserAdditionalProfile, UserAvailabilty, UserBasicProfile } from 'src/app/models/modules/users/users.model';
 
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
@@ -20,6 +19,8 @@ export class SignupFormComponent {
     private authApi: AuthApiService,
     private usersApi: UsersApiService,
   ) { }
+
+  invitationData: any;
 
   signupForm = new FormGroup({
     email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
@@ -55,10 +56,10 @@ export class SignupFormComponent {
       .then((res) => {
         // console.log(res.data());
 
-        let invitationData: any = res;
+        this.invitationData = res;
 
-        if(invitationData.data().invitation_status == 'Awaiting'){
-          this.signupForm.controls.email.setValue(invitationData.data().invitee_email);
+        if(this.invitationData.data().invitation_status == 'Awaiting'){
+          this.signupForm.controls.email.setValue(this.invitationData.data().invitee_email);
           this.isLoading = false;
         }
       }),

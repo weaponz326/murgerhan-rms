@@ -34,10 +34,22 @@
             <div class="col">
                 <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
                 <p class="lead">Seccessfully created account</p>
-                <p class="lead">Continue to set your profile</p>
-                <div class="d-grid gap-2 mt-5">
-                    <button routerLink="/settings" class="btn btn-primary btn">Set Profile</button>
-                </div>
+
+                <ng-container *ngIf="invitationData.data().invitation_type == 'Staff'">
+                    <p class="lead">Continue to set your profile</p>
+                    <div class="d-grid gap-2 mt-5">
+                        <button routerLink="/settings" class="btn btn-primary btn">Set Profile</button>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="invitationData.data().invitation_type == '3rd Party User'">
+                    <p class="lead">Continue to 3rd Party Portal</p>
+                    <div class="d-grid gap-2 mt-5">
+                        <a href="/#/">
+                            <button class="btn btn-primary btn">Portal</button>
+                        </a>
+                    </div>
+                </ng-container>
             </div>
         </div>
 
