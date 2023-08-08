@@ -29,13 +29,10 @@
                                 <th width="20%" class="min-width-2">
                                     <app-table-sorting [fieldTitle]="'Item ID'" [thisColumn]="'item_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                 </th>                                
-                                <th width="35%" class="min-width-4">
+                                <th width="50%" class="min-width-4">
                                     <app-table-sorting [fieldTitle]="'Item Name'" [thisColumn]="'item_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-3">
-                                    <app-table-sorting [fieldTitle]="'Unit Price'" [thisColumn]="'unit_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
-                                </th>
-                                <th width="25%" class="min-width-3">
+                                <th width="30%" class="min-width-3">
                                     <app-table-sorting [fieldTitle]="'Category Name'" [thisColumn]="'category_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockItemList()"></app-table-sorting>
                                 </th>    
                             </tr>
@@ -44,7 +41,6 @@
                             <tr *ngFor="let data of stockItemListData" (dblclick)="selectRow(data)">
                                 <td>{{getFormatId(data?.data().item_code)}}</td>
                                 <td>{{data?.data().item_name}}</td>
-                                <td>{{data?.data().unit_price | currency:'GBP'}}</td>
                                 <td>{{data?.data().item_category.data.category_name}}</td>
                             </tr>
                         </tbody>

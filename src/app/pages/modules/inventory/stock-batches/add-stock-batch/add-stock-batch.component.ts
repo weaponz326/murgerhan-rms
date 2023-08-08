@@ -88,10 +88,10 @@ export class AddStockBatchComponent {
             item_code: this.selectedStockItemData.item_code,
             item_name: this.selectedStockItemData.item_name,
             item_category: {
-              id: this.selectedStockItemData.data.item_category.id,
+              id: this.selectedStockItemData.item_category.id,
               data: {
-                category_code: this.selectedStockItemData.data.item_category.data.category_code,
-                category_name: this.selectedStockItemData.data.item_category.data.category_name,
+                category_code: this.selectedStockItemData.item_category.data.category_code,
+                category_name: this.selectedStockItemData.item_category.data.category_name,
               }
             },
           }
@@ -129,16 +129,17 @@ export class AddStockBatchComponent {
     this.selectStockItem.openModal();
   }
 
-  onStockItemSelected(categoryData: any){
-    // console.log(categoryData);
+  onStockItemSelected(itemData: any){
+    // console.log(itemData);
 
-    this.selectedStockItemData = categoryData;
-    this.stockBatchForm.stockBatchForm.controls.itemCode.setValue(categoryData.data().item_code);
-    this.stockBatchForm.stockBatchForm.controls.itemName.setValue(categoryData.data().item_name);
-    this.stockBatchForm.stockBatchForm.controls.itemCategory.setValue(categoryData.data().item_category.data.category_name);
+    this.selectedStockItemData = itemData;
+    this.stockBatchForm.stockBatchForm.controls.itemCode.setValue(itemData.data().item_code);
+    this.stockBatchForm.stockBatchForm.controls.itemName.setValue(itemData.data().item_name);
+    this.stockBatchForm.stockBatchForm.controls.itemCategory.setValue(itemData.data().item_category.data.category_name);
+    this.stockBatchForm.stockBatchForm.controls.unitPrice.setValue(itemData.data().item_name);
 
-    this.selectedStockItemId = categoryData.id;
-    this.selectedStockItemData = categoryData.data();
+    this.selectedStockItemId = itemData.id;
+    this.selectedStockItemData = itemData.data();
   }
   
 }

@@ -42,7 +42,7 @@
                                             <app-table-sorting [fieldTitle]="'Unit Price'" [thisColumn]="'unit_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
                                         </th>
                                         <th width="10%" class="min-width-2">
-                                            <app-table-sorting [fieldTitle]="'Stock'" [thisColumn]="'stock'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Current Stock'" [thisColumn]="'stock'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
                                         </th>
                                         <th width="20%" class="min-width-4">
                                             <app-table-sorting [fieldTitle]="'Location'" [thisColumn]="'location'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getStockBatchList()"></app-table-sorting>
@@ -51,12 +51,13 @@
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of stockBatchListData" (dblclick)="openEditBatch(data)">
-                                        <td>{{getFormatId(data?.data().batch_code)}}</td>
-                                        <td>{{data?.data().batch_name}}</td>
+                                        <td>{{getBatchFormatId(data?.data().batch_code)}}</td>
+                                        <td>{{data?.data().stock_item.data.item_name}}</td>
+                                        <td>{{getStockItemFormatId(data?.data().stock_item.data.item_code)}}</td>
+                                        <td>{{data?.data().stock_item.data.item_category.data.category_name}}</td>
                                         <td>{{data?.data().unit_price | currency:'GBP'}}</td>
-                                        <td>{{data?.data().stock}}</td>
+                                        <td>{{data?.data().current_stock}}</td>
                                         <td>{{data?.data().location}}</td>
-                                        <td>{{data?.data().batch_category.data.category_name}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">

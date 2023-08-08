@@ -33,7 +33,7 @@ export class SelectStockItemComponent {
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  tableColumns = ['item_code', 'item_name', 'unit_price', 'item_category'];
+  tableColumns = ['item_code', 'item_name', 'item_category'];
   filterText = "";
   sortDirection = "";
   sortColumn = "";

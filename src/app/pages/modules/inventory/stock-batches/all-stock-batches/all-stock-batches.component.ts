@@ -151,8 +151,12 @@ export class AllStockBatchesComponent {
     this.stockBatchListData = this.aggregateTable.paginateData(this.stockBatchListData, this.currentPage, this.pageSize);
   }
 
-  getFormatId(id: any){
+  getBatchFormatId(id: any){
     return this.formatId.formatId(id, 5, "#", "SB");
+  }
+
+  getStockItemFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "SI");
   }
 
 }

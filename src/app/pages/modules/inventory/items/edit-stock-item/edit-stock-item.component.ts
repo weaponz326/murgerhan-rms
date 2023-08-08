@@ -53,11 +53,11 @@ export class EditStockItemComponent {
 
   getStockItem() {
     this.isFetchingData = true;
-    const id = sessionStorage.getItem('inventory_category_id') as string;
+    const id = sessionStorage.getItem('inventory_stock_item_id') as string;
 
     this.inventoryApi.getStockItem(id)
       .then((res) => {
-        // console.log(res);
+        console.log(res.data());
         this.stockItemData = res;
         this.isFetchingData = false;
         this.setStockItemData();        
@@ -75,7 +75,7 @@ export class EditStockItemComponent {
     if(this.stockItemForm.stockItemForm.valid){
       this.isSavingItem = true;
 
-      const id = sessionStorage.getItem('inventory_category_id') as string;
+      const id = sessionStorage.getItem('inventory_stock_item_id') as string;
       let data = this.setUpdateStockItemData();
 
       this.inventoryApi.updateStockItem(id, data)
@@ -94,7 +94,7 @@ export class EditStockItemComponent {
   deleteStockItem() {
     this.isDeletingItem = true;
 
-    const id = sessionStorage.getItem('inventory_category_id') as string;
+    const id = sessionStorage.getItem('inventory_stock_item_id') as string;
 
     this.inventoryApi.deleteStockItem(id)
       .then((res) => {
@@ -143,15 +143,15 @@ export class EditStockItemComponent {
   }
 
   setStockItemData(){
-    this.stockItemForm.stockItemForm.controls.itemCode.setValue(this.formatId.formatId(this.stockItemData.item_code, 5, "#", "SI"));
-    this.stockItemForm.stockItemForm.controls.itemName.setValue(this.stockItemData.item_name);
-    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(this.stockItemData.item_category.data.category_name);
-    this.stockItemForm.stockItemForm.controls.totalStock.setValue(this.stockItemData.total_stock);
-    this.stockItemForm.stockItemForm.controls.refillOrdered.setValue(this.stockItemData.refill_ordered);
-    this.stockItemForm.stockItemForm.controls.location.setValue(this.stockItemData.location);
+    this.stockItemForm.stockItemForm.controls.itemCode.setValue(this.formatId.formatId(this.stockItemData.data().item_code, 5, "#", "SI"));
+    this.stockItemForm.stockItemForm.controls.itemName.setValue(this.stockItemData.data().item_name);
+    this.stockItemForm.stockItemForm.controls.itemCategory.setValue(this.stockItemData.data().item_category.data.category_name);
+    this.stockItemForm.stockItemForm.controls.totalStock.setValue(this.stockItemData.data().total_stock);
+    this.stockItemForm.stockItemForm.controls.refillOrdered.setValue(this.stockItemData.data().refill_ordered);
+    this.stockItemForm.stockItemForm.controls.location.setValue(this.stockItemData.data().location);
     
-    this.selectedItemCategoryId = this.stockItemData.item_category.id;
-    this.selectedItemCategoryData = this.stockItemData.item_category.data;
+    this.selectedItemCategoryId = this.stockItemData.data().item_category.id;
+    this.selectedItemCategoryData = this.stockItemData.data().item_category.data;
   }
 
   openItemCategoryWindow(){

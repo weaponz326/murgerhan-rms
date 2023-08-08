@@ -50,7 +50,7 @@ export class AllStockItemsComponent {
     this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
-          // console.log(res);
+          console.log(res.docs[0].data());
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
@@ -76,7 +76,7 @@ export class AllStockItemsComponent {
   viewStockItem(itemId: any){
     // console.log(itemId);
 
-    sessionStorage.setItem("inventory_stockItem_id", itemId);
+    sessionStorage.setItem("inventory_stock_item_id", itemId);
     this.router.navigateByUrl("/modules/inventory/items/view-stock-item");
   }
 

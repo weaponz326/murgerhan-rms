@@ -83,7 +83,7 @@ export class AddStockItemComponent {
           // console.log(res);
 
           if(res.id){
-            sessionStorage.setItem('inventory_category_id', res.id);
+            sessionStorage.setItem('inventory_stock_item_id', res.id);
             this.router.navigateByUrl("/modules/inventory/items/view-stock-item");
           }
           this.isSavingItem = false;
