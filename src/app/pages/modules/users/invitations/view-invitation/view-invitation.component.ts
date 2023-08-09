@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
-import { UserRole } from 'src/app/models/modules/users/users.model';
+import { ThirdPartyRole, UserRole } from 'src/app/models/modules/users/users.model';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
@@ -91,6 +91,12 @@ export class ViewInvitationComponent {
   }
 
   setUserRole() {
+    if(this.invitationData?.data()?.invitation_type == 'Staff')
+      this.setStaffUserRole;
+    else this.setThirdPartyUserRole;
+  }
+
+  setStaffUserRole() {
     let id = this.basicUserData.id;
 
     let data: UserRole = {
@@ -113,6 +119,39 @@ export class ViewInvitationComponent {
         // console.log(res);
         sessionStorage.setItem('users_user_id', id);
         this.router.navigateByUrl("/modules/users/users/view-user");
+
+        this.isSavingInvitation = false;
+      })
+      .catch((err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isSavingInvitation = false;
+      });
+  }
+
+  setThirdPartyUserRole() {
+    let data: ThirdPartyRole = {
+      created_at: serverTimestamp(),
+      updated_at: serverTimestamp(),
+      full_name: this.basicUserData.data().full_name,
+      user_code: "",
+      company_type: "",
+      company: {
+          id: "",
+          data: {
+              company_code: "",
+              company_name: "",
+              phone: "",
+              email: "",
+          }
+      }
+    }
+
+    this.usersApi.createThirdPartyRole(data)
+      .then((res: any) => {
+        // console.log(res);
+        sessionStorage.setItem('users_third_party_id', res.id);
+        this.router.navigateByUrl("/modules/users/users/view-third-party");
 
         this.isSavingInvitation = false;
       })

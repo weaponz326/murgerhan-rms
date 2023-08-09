@@ -59,12 +59,11 @@ export class InvitationConfigurationComponent {
 
   getConfiguration() {
     this.isFetchingData = true;
-    const id = 'config';
 
-    this.usersApi.getUserRole(id)
+    this.usersApi.getInvitationConfiguration()
       .then((res) => {
         // console.log(res);
-        this.configurationData = res;
+        this.configurationData = res.docs[0];
         this.isFetchingData = false;
         this.setConfigurationData();        
       }),
@@ -81,12 +80,13 @@ export class InvitationConfigurationComponent {
     if(this.configurationForm.valid){
       this.isSavingConfiguration = true;
       
-      const id = 'config';
+      const id = this.configurationData.id;
       let data = this.setUpdateConfigurationData();
 
       this.usersApi.updateInvitationConfiguration(id, data)
         .then((res: any) => {
           // console.log(res);
+          this.isSavingConfiguration = false;
         })
         .catch((err: any) => {
           // console.log(err);
@@ -99,10 +99,10 @@ export class InvitationConfigurationComponent {
   uploadFile() {
     this.isUploadingFile = true;
 
-    const id = 'config';
+    const id = this.configurationData.id;
 
     if (this.selectedFile) {
-      this.usersApi.uploadTermsFile(id, this.selectedFile)
+      this.usersApi.uploadConfigurationTermsFile(id, this.selectedFile)
         .then(() => {
           // console.log("file uploaded...");
           this.isUploadingFile = false;
@@ -110,7 +110,7 @@ export class InvitationConfigurationComponent {
           this.getConfiguration();
         })
         .catch((error: any) => {
-          console.error('Error uploading file:', error);
+          // console.error('Error uploading file:', error);
           this.isUploadingFile = false;
         });
     }

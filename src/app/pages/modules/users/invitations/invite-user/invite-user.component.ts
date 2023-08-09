@@ -33,21 +33,38 @@ export class InviteUserComponent {
 
   thisId = 0;
 
-  defaultEmailSubject = "Invitation to Murger Han Hub";
-  defaultEmailMessage = "Thank you for expressing your interest in being a staff at Murger Han. We would like to invite you to visit our operations website to register with us.";
+  configurationData: any;
 
   invitationForm = new FormGroup({
     invitationCode: new FormControl({value: '', disabled: true}),
     inviteeName: new FormControl('', Validators.required),
     inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
     invitationType: new FormControl('Staff', [Validators.required, Validators.email]),
-    emailSubject: new FormControl(this.defaultEmailSubject),
-    emailMessage: new FormControl(this.defaultEmailMessage),
+    emailSubject: new FormControl(''),
+    emailMessage: new FormControl(''),
   })
 
   openModal(){
     this.newButton.nativeElement.click();
     this.getLastInvitation();
+    this.getConfiguration();
+  }
+
+  getConfiguration() {
+    this.isFetchingData = true;
+
+    this.usersApi.getInvitationConfiguration()
+      .then((res) => {
+        // console.log(res);
+        this.configurationData = res.docs[0];
+        this.isFetchingData = false;
+        this.setEmailText();
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
   }
 
   getLastInvitation(){
@@ -113,10 +130,22 @@ export class InviteUserComponent {
       invitation_status: "Awaiting",
       email_subject: this.invitationForm.controls.emailSubject.value as string,
       email_message: this.invitationForm.controls.emailMessage.value as string,
+      terms_file_url: this.configurationData.data().terms_file_url,
     }
 
     // console.log(data);
     return data;
+  }
+
+  setEmailText(){
+    if(this.invitationForm.controls.invitationType.value == 'Staff'){
+      this.invitationForm.controls.emailSubject.setValue(this.configurationData.data().staff_email_subject);
+      this.invitationForm.controls.emailMessage.setValue(this.configurationData.data().staff_email_message);
+    }
+    else{
+      this.invitationForm.controls.emailSubject.setValue(this.configurationData.data().third_party_email_subject);
+      this.invitationForm.controls.emailMessage.setValue(this.configurationData.data().third_party_email_message);
+    }
   }
 
 }

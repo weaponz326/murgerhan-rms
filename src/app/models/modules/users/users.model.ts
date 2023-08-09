@@ -95,6 +95,7 @@ export class Invitation {
     date_accepted!: any;
     email_subject!: string;
     email_message!: string;
+    terms_file_url!: string;
 }
 
 export class InvitationsConfiguration {

@@ -44,7 +44,7 @@ exports.sendEmailOnDocumentCreate = functions.firestore
     const documentLink = "https://firebasestorage.googleapis.com/v0/b/weapons-7d089.appspot.com/o/admin_files%2FMHH%20-%20terms.pdf?alt=media&token=b140154c-d75d-4df7-b4aa-e1ec7f74eef8";
 
     // Construct the email content
-    const emailContent = `        
+    const staffEmailContent = `        
       <p>Hello ${documentData.invitee_name},</p>
       <p>${documentData.email_message}</p>
       <p>
@@ -62,6 +62,27 @@ exports.sendEmailOnDocumentCreate = functions.firestore
         Murger Han.
       </p>
     `;
+
+    const thirdPartyEmailContent = `        
+      <p>Hello ${documentData.invitee_name},</p>
+      <p>${documentData.email_message}</p>
+        Click on the following link to sign up: 
+        <a href="${redirectLink}/auth/signup?id=${context.params.documentId}">
+          Sign Up
+        </a>   
+      </p>
+      <p>We look forward to seeing you there!</p>
+      <p>
+        Best regards, <br> 
+        Murger Han.
+      </p>
+    `;
+
+    var emailContent = ``;
+    if (documentData.invitee_type == 'Staff')
+      emailContent = staffEmailContent;
+    else
+      emailContent = thirdPartyEmailContent;
 
     // Create a Nodemailer transporter
     const transporter = nodemailer.createTransport({

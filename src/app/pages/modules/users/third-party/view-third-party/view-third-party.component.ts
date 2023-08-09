@@ -50,36 +50,14 @@ export class ViewThirdPartyComponent {
 
   getThirdPartyRole() {
     this.isFetchingData = true;
-    const id = sessionStorage.getItem('users_user_id') as string;
+    const id = sessionStorage.getItem('users_third_party_id') as string;
 
     this.usersApi.getThirdPartyRole(id)
       .then((res) => {
         // console.log(res);
         this.roleData = res;
         this.isFetchingData = false;
-        this.setRoleData();
-        
-        if (this.roleData.data().full_name == "")
-          this.getBasicUser();
-      }),
-      (err: any) => {
-        // console.log(err);
-        this.connectionToast.openToast();
-        this.isFetchingData = false;
-      };
-  }
-
-  getBasicUser() {
-    this.isFetchingData = true;
-    const id = sessionStorage.getItem('users_user_id') as string;
-
-    this.usersApi.getBasicUser(id)
-      .then((res) => {
-        // console.log(res);
-        this.basicProfileData = res;
-        this.isFetchingData = false;
-
-        this.roleForm.controls.fullName.setValue(this.basicProfileData.data().full_name);
+        this.setRoleData();        
       }),
       (err: any) => {
         // console.log(err);
@@ -94,7 +72,7 @@ export class ViewThirdPartyComponent {
     if(this.roleForm.valid && this.selectedVendorId){
       this.isSavingRole = true; 
 
-      const id = sessionStorage.getItem('users_user_id') as string;
+      const id = sessionStorage.getItem('users_third_party_id') as string;
       let data = this.setUpdateThirdPartyRoleData();
 
       this.usersApi.updateThirdPartyRole(id, data)
@@ -113,7 +91,7 @@ export class ViewThirdPartyComponent {
   deleteThirdPartyRole(){
     this.isDeletingRole = true;
 
-    const id = sessionStorage.getItem('users_user_id') as string;
+    const id = sessionStorage.getItem('users_third_party_id') as string;
 
     this.usersApi.deleteThirdPartyRole(id)
       .then((res) => {

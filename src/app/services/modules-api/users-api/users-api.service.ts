@@ -20,7 +20,7 @@ export class UsersApiService {
   usersRoleRef = this.firestore.collection('users_role');
   thirdPartyRoleRef = this.firestore.collection('users_third_party_role');
   usersInvitationRef = this.firestore.collection('users_invitation');
-  usersInvitationsConfigurationRef = this.firestore.collection('users_invitations_configuration');
+  usersInvitationsConfigurationRef = this.firestore.collection('users_invitation_configuration');
 
   // user basic profile
 
@@ -229,8 +229,8 @@ export class UsersApiService {
     return this.usersInvitationsConfigurationRef.doc(id).delete();
   }
 
-  getInvitationConfiguration(id: any){
-    return this.usersInvitationsConfigurationRef.doc(id).ref.get();
+  getInvitationConfiguration(){
+    return this.usersInvitationsConfigurationRef.ref.limit(1).get();
   }
 
   // profile photo
@@ -254,7 +254,7 @@ export class UsersApiService {
   
   // terms file
 
-  uploadTermsFile(id: any, file: File): Promise<void> {
+  uploadConfigurationTermsFile(id: any, file: File): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const filePath = `files/general/${Date.now()}_${file.name}`;
       const fileRef = this.storage.ref(filePath);
@@ -263,7 +263,7 @@ export class UsersApiService {
       uploadTask
         .then(() => fileRef.getDownloadURL().toPromise())
         .then((downloadUrl) => {
-          const data = { terms_file: downloadUrl };
+          const data = { terms_file_url: downloadUrl };
           return this.updateInvitationConfiguration(id, data);
         })
         .then(() => resolve())

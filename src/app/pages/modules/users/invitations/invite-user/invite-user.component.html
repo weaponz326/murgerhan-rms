@@ -46,7 +46,7 @@
                             <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Invitation Type :</label>
                         </div>
                         <div class="col-md-8">
-                            <select formControlName="invitationType" type="text" class="form-control form-control-sm w-100">
+                            <select formControlName="invitationType" type="text" class="form-control form-control-sm w-100" (change)="setEmailText()">
                                 <option value="Staff" selected>Staff</option>
                                 <option value="3rd Party User">3rd Party User</option>
                             </select>
