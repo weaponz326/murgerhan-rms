@@ -37,7 +37,7 @@
                         <div class="col-md-4 text-muted"><span class="float-end">Invitation Status :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitation_status}}</div>
                     </div>
-                    <div *ngIf="invitationData.data().invitation_status != 'Awaiting'" class="row mb-3">
+                    <div *ngIf="invitationData.data().invitation_type == 'Staff' && invitationData.data().invitation_status != 'Awaiting'" class="row mb-3">
                         <div class="col-md-4 text-muted"><span class="float-end">Acceptance File :</span></div>
                         <div class="col-md-8">
                             <a [href]="termsFile" target="_blank">

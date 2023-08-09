@@ -8,6 +8,8 @@ import { UsersApiService } from 'src/app/services/modules-api/users-api/users-ap
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
+import { SelectSupplierComponent } from 'src/app/components/select-windows/inventory-windows/select-supplier/select-supplier.component';
 
 
 @Component({
@@ -22,6 +24,9 @@ export class ViewThirdPartyComponent {
     private usersApi: UsersApiService
   ) {}
   
+  @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
+  @ViewChild('selectSupplierComponentReference', { read: SelectSupplierComponent, static: false }) selectSupplier!: SelectSupplierComponent;
+
   roleData: any;
   basicProfileData: any;
 
@@ -31,6 +36,7 @@ export class ViewThirdPartyComponent {
   isSaved = false;
 
   roleForm = new FormGroup({
+    email: new FormControl({value: '', disabled: true}),
     fullName: new FormControl('', Validators.required),
     userCode: new FormControl(''),
     companyCode: new FormControl({value: '', disabled: true}, Validators.required),
@@ -38,8 +44,8 @@ export class ViewThirdPartyComponent {
     companyType: new FormControl('', Validators.required),
   })
 
-  selectedVendorId: any;
-  selectedVendorData: any;
+  selectedCompanyId: any;
+  selectedCompanyData: any;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
@@ -69,7 +75,7 @@ export class ViewThirdPartyComponent {
   updateThirdPartyRole() {
     this.isSaved = true;    
     
-    if(this.roleForm.valid && this.selectedVendorId){
+    if(this.roleForm.valid && this.selectedCompanyId){
       this.isSavingRole = true; 
 
       const id = sessionStorage.getItem('users_third_party_id') as string;
@@ -107,30 +113,32 @@ export class ViewThirdPartyComponent {
   }
 
   setRoleData(){
+    this.roleForm.controls.email.setValue(this.roleData.data().email);
     this.roleForm.controls.fullName.setValue(this.roleData.data().full_name);
     this.roleForm.controls.userCode.setValue(this.roleData.data().user_code);
     this.roleForm.controls.companyCode.setValue(this.roleData.data().company?.data.company_code);
     this.roleForm.controls.companyName.setValue(this.roleData.data().company?.data.company_name);
     this.roleForm.controls.companyType.setValue(this.roleData.data().company_type);
 
-    this.selectedVendorId = this.roleData.data().vendor.id;
-    this.selectedVendorData = this.roleData.data().vendor.data;
+    this.selectedCompanyId = this.roleData.data().company.id;
+    this.selectedCompanyData = this.roleData.data().company.data;
   }
 
   setUpdateThirdPartyRoleData(){
     let data: ThirdPartyRole = {
       created_at: this.roleData.data().created_at,
       updated_at: serverTimestamp(),
+      email: this.roleData.data().email,
       full_name: this.roleForm.controls.fullName.value as string,
       user_code: this.roleForm.controls.userCode.value as string,
       company_type: this.roleForm.controls.companyType.value as string,
       company: {
-        id: this.selectedVendorId,
+        id: this.selectedCompanyId,
         data: {
-          company_code: this.selectedVendorData.company_code,
-          company_name: this.selectedVendorData.company_name,
-          phone: this.selectedVendorData.phone,
-          email: this.selectedVendorData.email
+          company_code: this.selectedCompanyData.company_code,
+          company_name: this.selectedCompanyData.company_name,
+          phone: this.selectedCompanyData.phone,
+          email: this.selectedCompanyData.email
         }
       },
     }
@@ -139,9 +147,16 @@ export class ViewThirdPartyComponent {
     return data;
   }
 
+  openCompanyWindow(){
+    if(this.roleForm.controls.companyType.value == "Vendor")
+      this.openVendorWindow();
+    if(this.roleForm.controls.companyType.value == "Supplier")
+      this.openSupplierWindow();
+  }
+
   openVendorWindow(){
     // console.log("You are opening select branch window")
-    // this.selectVendor.openModal();
+    this.selectVendor.openModal();
   }
 
   onVendorSelected(data: any){
@@ -149,8 +164,32 @@ export class ViewThirdPartyComponent {
 
     this.roleForm.controls.companyCode.setValue(data.data().vendor_code);
     this.roleForm.controls.companyName.setValue(data.data().vendor_name);
-    this.selectedVendorId = data.id;
-    this.selectedVendorData = data.data();
+    this.selectedCompanyId = data.id;
+    this.selectedCompanyData = {
+      company_code: data.data().vendor_code,
+      company_name: data.data().vendor_name,
+      phone: data.data().phone,
+      email: data.data().email,
+    };
+  }
+
+  openSupplierWindow(){
+    // console.log("You are opening select branch window")
+    this.selectSupplier.openModal();
+  }
+
+  onSupplierSelected(data: any){
+    // console.log(data);
+
+    this.roleForm.controls.companyCode.setValue(data.data().suplier_code);
+    this.roleForm.controls.companyName.setValue(data.data().suplier_name);
+    this.selectedCompanyId = data.id;
+    this.selectedCompanyData = {
+      company_code: data.data().suppler_code,
+      company_name: data.data().suppler_name,
+      phone: data.data().phone,
+      email: data.data().email,
+    };
   }
 
   confirmDelete(){

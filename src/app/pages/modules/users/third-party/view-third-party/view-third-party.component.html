@@ -1,3 +1,10 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/users/third-party/all-third-parties">All Third Party Users</a>
+    </li>
+    <li class="breadcrumb-item active">View Third Party User</li>
+</ol>
+
 <div class="row">
     <div class="col-md-7">
         <div class="card shadow-sm mb-4">
@@ -17,10 +24,19 @@
 
                     <div class="row mb-1">
                         <div class="col-md-4">
+                            <label class="text-muted float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>User Email :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="email" type="text" class="form-control form-control-sm w-100" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.fullName.invalid }" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
                             <label class="text-muted float-md-end float-sm-start mt-1">User ID :</label>
                         </div>
                         <div class="col-md-8">
-                            <input formControlName="staffCode" type="text" class="form-control form-control-sm w-100">
+                            <input formControlName="userCode" type="text" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -30,7 +46,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <select formControlName="staffRole" class="form-control" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.companyType.invalid }" required>
+                                <select formControlName="companyType" class="form-control" [ngClass]="{ 'is-invalid': isSaved && roleForm.controls.companyType.invalid }" required>
                                     <option>Vendor</option>
                                     <option>Supplier</option>
                                 </select>
@@ -44,8 +60,8 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="companyCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedVendorId }" required>
-                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                <input formControlName="companyCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedCompanyId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openCompanyWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -58,8 +74,8 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedVendorId }" required>
-                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                <input formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedCompanyId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openCompanyWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -86,3 +102,11 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteThirdPartyRole()"></app-delete-modal-one>
+
+<!-- select vendor component -->
+
+<app-select-vendor #selectVendorComponentReference (rowSelected)="onVendorSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-vendor>
+
+<!-- select supplier component -->
+
+<app-select-supplier #selectSupplierComponentReference (rowSelected)="onSupplierSelected($event)" [closeTarget]="'#newPurchasingModal'"></app-select-supplier>

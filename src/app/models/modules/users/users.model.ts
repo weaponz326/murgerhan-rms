@@ -69,6 +69,7 @@ export class UserRole {
 export class ThirdPartyRole {
     created_at!: any;
     updated_at!: any;
+    email!: string;
     full_name!: string;
     user_code!: string;
     company_type!: string;
@@ -92,10 +93,11 @@ export class Invitation {
     invitee_email!: string;
     invitation_type!: string;
     invitation_status!: string;
-    date_accepted!: any;
     email_subject!: string;
     email_message!: string;
     terms_file_url!: string;
+    date_accepted!: any;
+    account_accepted_id!: string;
 }
 
 export class InvitationsConfiguration {

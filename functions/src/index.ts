@@ -78,11 +78,12 @@ exports.sendEmailOnDocumentCreate = functions.firestore
       </p>
     `;
 
-    var emailContent = ``;
-    if (documentData.invitee_type == 'Staff')
+    let emailContent = null;
+    if (documentData.invitee_type == "Staff") {
       emailContent = staffEmailContent;
-    else
+    } else {
       emailContent = thirdPartyEmailContent;
+    }
 
     // Create a Nodemailer transporter
     const transporter = nodemailer.createTransport({

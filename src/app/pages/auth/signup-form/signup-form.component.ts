@@ -85,6 +85,9 @@ export class SignupFormComponent {
             this.isSending = false;
             this.showPrompt = true;
             localStorage.setItem('uid', res.user.uid);
+
+            if (this.invitationData.data().invitation_type == '3rd Party User')
+              this.updateInvitationStatus()
           },
           (err: any) => {
             // console.log(err);
@@ -101,6 +104,22 @@ export class SignupFormComponent {
     }
 
     // console.log(this.signupForm.value);
+  }
+
+  updateInvitationStatus() {    
+    let data = {
+      date_accepted: serverTimestamp(),
+      invitation_status: "Accepted",
+      account_accpeted_id: localStorage.getItem('uid'),
+    };
+
+    this.usersApi.updateInvitation(this.invitationId, data)
+      .then((res) => {
+        // console.log(res);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
   }
 
 }

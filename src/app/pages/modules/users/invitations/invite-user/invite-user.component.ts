@@ -39,7 +39,7 @@ export class InviteUserComponent {
     invitationCode: new FormControl({value: '', disabled: true}),
     inviteeName: new FormControl('', Validators.required),
     inviteeEmail: new FormControl('', [Validators.required, Validators.email]),
-    invitationType: new FormControl('Staff', [Validators.required, Validators.email]),
+    invitationType: new FormControl('Staff', Validators.required),
     emailSubject: new FormControl(''),
     emailMessage: new FormControl(''),
   })
@@ -126,11 +126,12 @@ export class InviteUserComponent {
       invitee_name: this.invitationForm.controls.inviteeName.value as string,
       invitee_email: this.invitationForm.controls.inviteeEmail.value as string,
       invitation_type: this.invitationForm.controls.invitationType.value as string,
-      date_accepted: null,
       invitation_status: "Awaiting",
       email_subject: this.invitationForm.controls.emailSubject.value as string,
       email_message: this.invitationForm.controls.emailMessage.value as string,
       terms_file_url: this.configurationData.data().terms_file_url,
+      date_accepted: null,
+      account_accepted_id: '',
     }
 
     // console.log(data);
