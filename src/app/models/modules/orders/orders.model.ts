@@ -5,7 +5,7 @@ export class Product {
     product_name!: string;
     product_type!: string;
     price!: number;
-    tax!: number;
+    vat!: number;
     description!: string;
     branch!: {
         id: string;

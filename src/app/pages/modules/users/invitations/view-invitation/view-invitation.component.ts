@@ -43,7 +43,7 @@ export class ViewInvitationComponent {
 
     this.usersApi.getInvitation(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res.data());
         this.invitationData = res;
         this.isFetchingData = false;
 
@@ -51,7 +51,7 @@ export class ViewInvitationComponent {
         this.getBasicuserWithEmail();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -60,13 +60,13 @@ export class ViewInvitationComponent {
   getBasicuserWithEmail() {
     this.usersApi.getBasicUserWithEmail(this.invitationEmail)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.basicUserData = res.docs[0];
         this.termsFile = this.basicUserData?.data()?.terms_file;
         this.isFetchingData = false;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -80,11 +80,11 @@ export class ViewInvitationComponent {
 
     this.usersApi.updateInvitation(id, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.setUserRole();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingInvitation = false;
       });
@@ -114,30 +114,30 @@ export class ViewInvitationComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
     this.usersApi.setUserRole(id, data)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         sessionStorage.setItem('users_user_id', id);
         this.router.navigateByUrl("/modules/users/users/view-user");
 
         this.isSavingInvitation = false;
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingInvitation = false;
       });
   }
 
   setThirdPartyUserRole() {
-    let id = this.basicUserData.data().account_accepted_id;
+    let id = this.invitationData.data().account_accepted_id;
 
     let data: ThirdPartyRole = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
-      email: this.invitationData.data().email,
+      email: this.invitationData.data().invitee_email,
       full_name: "",
       user_code: "",
       company_type: "",
@@ -152,18 +152,18 @@ export class ViewInvitationComponent {
       }
     }
 
-    console.log(data);
+    // console.log(id, data);
 
     this.usersApi.setThirdPartyRole(id, data)
       .then((res: any) => {
-        console.log(res);
-        sessionStorage.setItem('users_third_party_id', res.id);
+        // console.log(res);
+        sessionStorage.setItem('users_third_party_id', id);
         this.router.navigateByUrl("/modules/users/third-party/view-third-party");
 
         this.isSavingInvitation = false;
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isSavingInvitation = false;
       });

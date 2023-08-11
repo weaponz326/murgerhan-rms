@@ -110,7 +110,7 @@ export class SignupFormComponent {
     let data = {
       date_accepted: serverTimestamp(),
       invitation_status: "Accepted",
-      account_accpeted_id: localStorage.getItem('uid'),
+      account_accepted_id: localStorage.getItem('uid'),
     };
 
     this.usersApi.updateInvitation(this.invitationId, data)

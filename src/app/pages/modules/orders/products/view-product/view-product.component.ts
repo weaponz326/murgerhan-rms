@@ -102,7 +102,7 @@ export class ViewProductComponent {
     this.productForm.productForm.controls.productName.setValue(this.productData.data().product_name);
     this.productForm.productForm.controls.productType.setValue(this.productData.data().product_type);
     this.productForm.productForm.controls.price.setValue(this.productData.data().price);
-    this.productForm.productForm.controls.tax.setValue(this.productData.data().tax);
+    this.productForm.productForm.controls.vat.setValue(this.productData.data().vat);
     this.productForm.productForm.controls.description.setValue(this.productData.data().description);
   }
 
@@ -114,7 +114,7 @@ export class ViewProductComponent {
       product_name: this.productForm.productForm.controls.productName.value as string,
       product_type: this.productForm.productForm.controls.productType.value as string,
       price: this.productForm.productForm.controls.price.value as number,
-      tax: this.productForm.productForm.controls.tax.value as number,
+      vat: this.productForm.productForm.controls.vat.value as number,
       description: this.productForm.productForm.controls.description.value as string,
       branch: {
         id: this.selectedBranchData.id,

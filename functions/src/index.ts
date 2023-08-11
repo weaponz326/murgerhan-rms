@@ -39,16 +39,18 @@ exports.sendEmailOnDocumentCreate = functions.firestore
     // `;
 
     // const redirectLink = "http://localhost:4200";
-    // const redirectLink = "https://weapons-7d089.firebaseapp.com/#";
-    const redirectLink = "https://www.murgerhanhub.com/#";
-    const documentLink = "https://firebasestorage.googleapis.com/v0/b/weapons-7d089.appspot.com/o/admin_files%2FMHH%20-%20terms.pdf?alt=media&token=b140154c-d75d-4df7-b4aa-e1ec7f74eef8";
+    const redirectLink = "https://weapons-7d089.firebaseapp.com/#";
+    // const redirectLink = "https://www.murgerhanhub.com/#";
 
     // Construct the email content
     const staffEmailContent = `        
       <p>Hello ${documentData.invitee_name},</p>
       <p>${documentData.email_message}</p>
       <p>
-        Please download the <a href="${documentLink}">terms and conditions</a>,
+        Please download the 
+        <a href="${documentData.terms_file_url}">
+          terms and conditions
+        </a>,
         to be submitted during your registration.</p>
       <p>
         Click on the following link to sign up: 

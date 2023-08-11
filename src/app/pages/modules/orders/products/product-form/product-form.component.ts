@@ -18,7 +18,7 @@ export class ProductFormComponent {
     productName: new FormControl('', Validators.required),
     productType: new FormControl(''),
     price: new FormControl(0.00),
-    tax: new FormControl(0.00),
+    vat: new FormControl(0.00),
     description: new FormControl(''),
   })
 
