@@ -176,7 +176,7 @@ export class DashboardPage {
         const createdAtDate = new Date(obj.data().created_at.toDate());
         return createdAtDate.toDateString() == today.toDateString();
       })
-      .reduce((accumulator, currentObject) => accumulator + currentObject.data().total_price, 0);
+      .reduce((accumulator, currentObject) => accumulator + currentObject.data().order_total, 0);
 
     this.ordersToday = this.orderListData
       .filter(obj => {
@@ -226,7 +226,7 @@ export class DashboardPage {
         return createdAt >= date && createdAt < new Date(date.getTime() + 24 * 60 * 60 * 1000);
       });
   
-      const sum = objectsForDay.reduce((acc, obj) => acc + obj.data().total_price, 0);
+      const sum = objectsForDay.reduce((acc, obj) => acc + obj.data().order_total, 0);
       this.salesWeekDataSets.push(sum);
       this.salesWeekLabels.push(date.toISOString().split('T')[0]);
     }

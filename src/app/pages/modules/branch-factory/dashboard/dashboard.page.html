@@ -3,3 +3,34 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
 </ol>
+
+<div class="row">
+
+    <div class="col-md-3 mb-4">
+        <div class="card shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row g-0 align-items-center">
+                    <div class="col mr-2">
+                        <div class="h6 mb-3">Branch Orders <span class="text-muted">| this week</span></div>
+                        <div class="h3 mb-0">{{salesThisWeek | currency:'GBP'}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+        
+                <div class="h6 mb-3">Branch Orders <span class="text-muted">| this week</span></div>
+
+                <canvas id="salesLineChart"></canvas>
+
+            </div>
+        </div>
+    </div>
+</div>
