@@ -111,7 +111,7 @@ export class AddOrderComponent {
       order_date: this.orderForm.controls.orderDate.value,
       order_status: "Processing",
       delivery_date: null,
-      total_price: 0.00,
+      order_total: 0.00,
       vendor: {
         id: this.selectedVendorId,
         data: {

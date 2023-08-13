@@ -23,7 +23,7 @@ export class Order {
     order_date!: any;
     order_status!: string;
     delivery_date!: any;
-    total_price!: number;
+    order_total!: number;
     vendor!: {
         id: string;
         data: {
@@ -52,6 +52,7 @@ export class OrderItem {
             product_code: string;
             product_name: string;
             price: number;
+            vat: number;
         }
     };
 }

@@ -17,6 +17,7 @@ export class OrderItemFormComponent {
     itemNumber: new FormControl(),
     productCode: new FormControl({value: '', disabled: true}),
     productName: new FormControl({value: '', disabled: true}, Validators.required),
+    vat: new FormControl({value: 0.00, disabled: true}),
     price: new FormControl({value: 0.00, disabled: true}),
     quantity: new FormControl(1),
   })
