@@ -113,6 +113,8 @@ export class SignupFormComponent {
       account_accepted_id: localStorage.getItem('uid'),
     };
 
+    // console.log(data);
+
     this.usersApi.updateInvitation(this.invitationId, data)
       .then((res) => {
         // console.log(res);
