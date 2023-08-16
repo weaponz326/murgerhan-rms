@@ -39,8 +39,8 @@ exports.sendEmailOnDocumentCreate = functions.firestore
     // `;
 
     // const redirectLink = "http://localhost:4200";
-    const redirectLink = "https://weapons-7d089.firebaseapp.com/#";
-    // const redirectLink = "https://www.murgerhanhub.com/#";
+    // const redirectLink = "https://weapons-7d089.firebaseapp.com/#";
+    const redirectLink = "https://www.murgerhanhub.com/#";
 
     // Construct the email content
     const staffEmailContent = `        
