@@ -37,9 +37,6 @@ export class InvitationConfigurationComponent {
   selectedFileName = "";
   fileUrl: any;
 
-  // defaultEmailSubject = "Invitation to Murger Han Hub";
-  // defaultEmailMessage = "Thank you for expressing your interest in being a staff at Murger Han. We would like to invite you to visit our operations website to register with us.";
-
   configurationForm = new FormGroup({
     staffEmailSubject: new FormControl(),
     staffEmailMessage: new FormControl(),
@@ -133,6 +130,7 @@ export class InvitationConfigurationComponent {
       staff_email_message: this.configurationForm.controls.staffEmailMessage.value as string,
       third_party_email_subject: this.configurationForm.controls.thirdPartyEmailSubject.value as string,
       third_party_email_message: this.configurationForm.controls.thirdPartyEmailMessage.value as string,
+      terms_file_url: this.configurationData.data().terms_file_url
     }
 
     // console.log(data);

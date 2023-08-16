@@ -235,6 +235,10 @@ const routes: Routes = [
         path: "modules/factory-main/factory-orders",
         loadChildren: () => import("../modules/factory-main/factory-orders/factory-orders.module").then(m => m.FactoryOrdersModule),
       },
+      {
+        path: "modules/factory-main/vendor-orders",
+        loadChildren: () => import("../modules/factory-main/vendor-orders/vendor-orders.module").then(m => m.VendorOrdersModule),
+      },
 
       // factory main pages
       {

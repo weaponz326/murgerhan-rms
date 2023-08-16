@@ -5,6 +5,7 @@ export class FactoryItem {
     item_name!: string;
     item_type!: string;
     price!: number;
+    vat!: number;
     description!: string;
 }
 

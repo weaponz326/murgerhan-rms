@@ -90,7 +90,8 @@ export class AddFactoryItemComponent {
       item_code: this.thisId,
       item_name: this.factoryItemForm.factoryItemForm.controls.itemName.value as string,
       item_type: this.factoryItemForm.factoryItemForm.controls.itemType.value as string,
-      price: this.factoryItemForm.factoryItemForm.controls.price.value as number,
+      price: this.factoryItemForm.factoryItemForm.controls.vat.value as number,
+      vat: this.factoryItemForm.factoryItemForm.controls.price.value as number,
       description: this.factoryItemForm.factoryItemForm.controls.description.value as string,
     }
 

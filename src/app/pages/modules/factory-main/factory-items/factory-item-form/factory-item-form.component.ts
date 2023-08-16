@@ -16,6 +16,7 @@ export class FactoryItemFormComponent {
     itemName: new FormControl('', Validators.required),
     itemType: new FormControl(''),
     price: new FormControl(0.00),
+    vat: new FormControl(0.00),
     description: new FormControl(''),
   })
 

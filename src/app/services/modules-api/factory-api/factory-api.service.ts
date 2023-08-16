@@ -15,6 +15,8 @@ export class FactoryApiService {
   factoryItemRef = this.firestore.collection('factory_factory_item');
   factoryOrderRef = this.firestore.collection('factory_order');
   factoryOrderItemRef = this.firestore.collection('factory_order_item');
+  factoryVendorOrderRef = this.firestore.collection('factory_vendor_order');
+  factoryVendorOrderItemRef = this.firestore.collection('factory_vendor_order_item');
 
   // factory item
 
@@ -124,5 +126,61 @@ export class FactoryApiService {
     });
     return batch.commit();
   }
-  
+
+  // factory vendor order
+
+  createVendorOrder(data: any){
+    return this.factoryVendorOrderRef.add(data);
+  }
+
+  updateVendorOrder(id:any, data: any){
+    return this.factoryVendorOrderRef.doc(id).update(data);
+  }
+
+  deleteVendorOrder(id: any){
+    return this.factoryVendorOrderRef.doc(id).delete();
+  }
+
+  getVendorOrder(id: any){
+    return this.factoryVendorOrderRef.doc(id).ref.get();
+  }
+
+  getVendorLastOrder(){
+    return this.factoryVendorOrderRef.ref
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+  }
+
+  getVendorOrderList(){
+    return this.factoryVendorOrderRef.ref
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  // vendor order items
+
+  createVendorOrderItem(data: any){
+    return this.factoryVendorOrderItemRef.add(data);
+  }
+
+  updateVendorOrderItem(id:any, data: any){
+    return this.factoryVendorOrderItemRef.doc(id).update(data);
+  }
+
+  deleteVendorOrderItem(id: any){
+    return this.factoryVendorOrderItemRef.doc(id).delete();
+  }
+
+  getVendorOrderItem(id: any){
+    return this.factoryVendorOrderItemRef.doc(id).ref.get();
+  }
+
+  getVendorOrderItemList(){
+    return this.factoryVendorOrderItemRef.ref
+      .where("vendor.id", "==", sessionStorage.getItem('factory_vendor_order_id'))
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
 }

@@ -107,4 +107,5 @@ export class InvitationsConfiguration {
     staff_email_message!: string;
     third_party_email_subject!: string;
     third_party_email_message!: string;
+    terms_file_url!: string;
 }
