@@ -66,7 +66,7 @@ export class ViewFactoryOrderComponent {
 
     this.factoryApi.getOrder(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res);
         this.orderData = res;
         this.isFetchingData = false;
         this.setOrderData();        

@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="itemCode" class="form-control">
-                <button type="button" class="btn btn-secondary" (click)="openProductWindow.emit()">
+                <button type="button" class="btn btn-secondary" (click)="openProductWindow.emit()" disabled>
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
@@ -21,7 +21,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="itemName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderItemForm.controls.itemName.invalid }" required>
-                <button type="button" class="btn btn-secondary" (click)="openProductWindow.emit()">
+                <button type="button" class="btn btn-secondary" (click)="openProductWindow.emit()" disabled>
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>

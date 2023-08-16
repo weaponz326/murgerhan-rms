@@ -10,8 +10,8 @@ const routes: Routes = [
     component: VendorOrdersPage,
     children: [
       { path: "", component: AllVendorOrdersComponent },
-      { path: "all-vendor-factory-orders", component: AllVendorOrdersComponent },
-      { path: "view-vendor-factory-order", component: ViewVendorOrderComponent },
+      { path: "all-factory-vendor-orders", component: AllVendorOrdersComponent },
+      { path: "view-factory-vendor-order", component: ViewVendorOrderComponent },
     ]
   }
 ];

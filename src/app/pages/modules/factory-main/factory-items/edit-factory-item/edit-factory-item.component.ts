@@ -101,6 +101,7 @@ export class EditFactoryItemComponent {
     this.factoryItemForm.factoryItemForm.controls.itemName.setValue(this.factoryItemData.data().item_name);
     this.factoryItemForm.factoryItemForm.controls.itemType.setValue(this.factoryItemData.data().item_type);
     this.factoryItemForm.factoryItemForm.controls.price.setValue(this.factoryItemData.data().price);
+    this.factoryItemForm.factoryItemForm.controls.vat.setValue(this.factoryItemData.data().vat);
     this.factoryItemForm.factoryItemForm.controls.description.setValue(this.factoryItemData.data().description);
   }
 

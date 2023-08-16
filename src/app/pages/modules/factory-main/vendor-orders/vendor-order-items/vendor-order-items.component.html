@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
@@ -13,7 +13,7 @@
                                 <thead>
                                     <tr class="bg-light">
                                         <th width="5%" class="min-width-1">No.</th>
-                                        <th width="25%" class="min-width-3">Product Name</th>
+                                        <th width="25%" class="min-width-3">Item Name</th>
                                         <th width="10%" class="min-width-2">Unit Price</th>
                                         <th width="10%" class="min-width-2">Quantity</th>
                                         <th width="10%" class="min-width-2">Total Price</th>
@@ -24,12 +24,12 @@
                                 <tbody>
                                     <tr *ngFor="let data of orderItemListData">
                                         <td>{{data?.data().item_number}}</td>
-                                        <td>{{data?.data().product?.data?.product_name}}</td>
-                                        <td>{{data?.data().product?.data?.price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().factory_item?.data?.item_name}}</td>
+                                        <td>{{data?.data().factory_item?.data?.price | currency:'GBP'}}</td>
                                         <td>{{data?.data().quantity}}</td>
-                                        <td>{{data?.data().product?.data?.price * data?.data().quantity | currency:'GBP'}}</td>
-                                        <td>{{data?.data()?.product?.data?.vat}}</td>
-                                        <td>{{(data?.data().product?.data?.price * data?.data().quantity) * (data?.data()?.product?.data?.vat / 100) | currency:'GBP'}}</td>
+                                        <td>{{data?.data().factory_item?.data?.price * data?.data().quantity | currency:'GBP'}}</td>
+                                        <td>{{data?.data()?.factory_item?.data?.vat}}</td>
+                                        <td>{{(data?.data().factory_item?.data?.price * data?.data().quantity) * (data?.data()?.factory_item?.data?.vat / 100) | currency:'GBP'}}</td>
                                     </tr>      
                                     <tr *ngIf="isFetchingData || !isDataAvailable">
                                         <td colspan="8">

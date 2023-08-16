@@ -71,7 +71,7 @@ export class AllVendorOrdersComponent {
     // console.log(orderId);
 
     sessionStorage.setItem("factory_vendor_order_id", orderId);
-    this.router.navigateByUrl("/modules/factory/vendor-orders/view-factory-vendor-order");
+    this.router.navigateByUrl("/modules/factory-main/vendor-orders/view-factory-vendor-order");
   }
 
   aggregateData(){

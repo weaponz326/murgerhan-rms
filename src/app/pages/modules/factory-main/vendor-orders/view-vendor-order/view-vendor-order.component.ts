@@ -41,11 +41,11 @@ export class ViewVendorOrderComponent {
 
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
-    orderDate: new FormControl(),
+    orderDate: new FormControl({value: '', disabled: true}),
     vendorCode: new FormControl({value: '', disabled: true}),
     vendorName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
-    deliveryDate: new FormControl(),
+    deliveryDate: new FormControl({value: '', disabled: true}),
   })
 
   ngOnInit(): void {
@@ -77,7 +77,7 @@ export class ViewVendorOrderComponent {
       this.isSavingOrder = true;
 
       const id = sessionStorage.getItem('factory_vendor_order_id') as string;
-      let data = this.setUpdateVendorOrderData();
+      let data = { order_status: this.orderForm.controls.orderStatus.value as string };
 
       this.factoryApi.updateVendorOrder(id, data)
         .then((res) => {
@@ -122,35 +122,6 @@ export class ViewVendorOrderComponent {
 
     this.selectedVendorId = this.orderData.data().vendor.id;
     this.selectedVendorData = this.orderData.data().vendor.data;
-  }
-
-  setUpdateVendorOrderData(){
-    let data: Order = {
-      created_at: this.orderData.data().created_at,
-      updated_at: serverTimestamp(),
-      order_code: this.orderData.data().order_code,
-      order_date: this.orderForm.controls.orderDate.value,
-      order_status: this.orderForm.controls.orderStatus.value as string,
-      delivery_date: this.orderForm.controls.deliveryDate.value,
-      order_total: this.orderTotal,
-      vendor: {
-        id: this.selectedVendorData.id,
-        data: {
-          vendor_code: this.selectedVendorData.data.vendor_code,
-          vendor_name: this.selectedVendorData.data.vendor_name
-        }
-      },
-      branch: {
-        id: this.selectedBranchData.id,
-        data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
-        }
-      },
-    }
-
-    // console.log(data);
-    return data;
   }
 
   onPrint(){

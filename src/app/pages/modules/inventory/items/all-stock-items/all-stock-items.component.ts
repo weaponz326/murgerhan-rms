@@ -50,7 +50,7 @@ export class AllStockItemsComponent {
     this.inventoryApi.getStockItemList()
       .then(
         (res: any) => {
-          console.log(res.docs[0].data());
+          // console.log(res);
           this.stockItemListData = res.docs;
           this.isFetchingData = false;
 
