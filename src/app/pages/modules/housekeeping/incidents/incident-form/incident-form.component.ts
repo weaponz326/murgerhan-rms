@@ -18,7 +18,7 @@ export class IncidentFormComponent {
     incidentSubject: new FormControl('', Validators.required),
     incidentType: new FormControl(''),
     incidentDate: new FormControl(),
-    incidentStatus: new FormControl(''),
+    incidentStatus: new FormControl('Unresolved'),
     reportedTo: new FormControl({value: '', disabled: true}, Validators.required),
   })
 

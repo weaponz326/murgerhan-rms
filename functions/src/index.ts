@@ -155,3 +155,78 @@ exports.calculateSumAndUpdateDocument = functions.firestore
       return null;
     }
   });
+
+exports.sendEmailOnVendorOrderSubmitted = functions.firestore
+  .document("factory_vendor_order/{docId}")
+  .onWrite(async (change, context) => {
+
+    try {
+      const changedDocument = change.after;
+      const sumittedFieldValue = changedDocument.get('submitted');
+
+      const db = admin.firestore();
+      const querySnapshot = await db.collection('users_role').where('staff_role', '==', 'General Manager').get();
+
+      if (sumittedFieldValue === undefined) {
+        return null;
+      }
+
+      let emailContent = `
+        <p>
+          Order submitted at Murger Han Hub by customer: 
+          ${changedDocument.get('vendor.data.vendor_name')} 
+        </p>
+        <p>
+          Murger Han.
+        </p>
+      `
+
+      if (sumittedFieldValue == true) {
+        // Create a Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+          // Configure your email provider here
+          // See nodemailer documentation for details
+          host: "smtp.gmail.com",
+          port: 587,
+          secure: false, // upgrade later with STARTTLS
+          auth: {
+            user: "netrink18@gmail.com",
+            pass: "lawvkzjdeaadaosa",
+          },
+        });
+
+        // Define the email options
+        const mailOptions = {
+          from: "noreply@murgerhan.com",
+          to: '',
+          subject: 'Order Submitted',
+          html: emailContent,
+        };
+
+        querySnapshot.forEach(async doc => {
+          const userEmail = doc.get('email');
+          mailOptions.to = userEmail;
+  
+          try {
+            await transporter.sendMail(mailOptions);
+            console.log(`Email sent successfully to ${userEmail}`);
+          } catch (error) {
+            console.error(`Error sending email to ${userEmail}:`, error);
+          }
+        });
+
+        try {
+          // Send the email
+          await transporter.sendMail(mailOptions);
+          // console.log("Email sent successfully");
+        } catch (error) {
+          console.error("Error sending email:", error);
+        }
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error calculating sum and updating document:", error);
+      return null;
+    }
+  });

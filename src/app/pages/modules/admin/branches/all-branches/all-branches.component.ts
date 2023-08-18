@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AdminApiService } from 'src/app/services/modules-api/admin-api/admin-api.service';
+import { BranchEventService } from 'src/app/services/module-utilities/branch-event/branch-event.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { SelectBranchComponent } from 'src/app/components/select-windows/admin-windows/select-branch/select-branch.component';
@@ -17,6 +18,7 @@ export class AllBranchesComponent {
   constructor(
     private router: Router,
     private adminApi: AdminApiService,
+    private branchEvent: BranchEventService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -83,6 +85,8 @@ export class AllBranchesComponent {
     }
 
     localStorage.setItem("selected_branch", JSON.stringify(data));
+
+    this.branchEvent.emitEvent(branchData.data().branch_name);
   }
 
 }

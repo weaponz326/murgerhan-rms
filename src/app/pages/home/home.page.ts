@@ -5,8 +5,10 @@ import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { BranchEventService } from 'src/app/services/module-utilities/branch-event/branch-event.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,15 +23,21 @@ export class HomePage {
     private authApi: AuthApiService,
     private usersApi: UsersApiService,
     private hosuekeepingApi: HousekeepingApiService,
-    private maintenanceApi: MaintenanceApiService
+    private maintenanceApi: MaintenanceApiService,
+    private branchEvent: BranchEventService
   ) { 
     this.initProgressBar();
+    this.subscription = this.branchEvent.getEvent().subscribe(data => {
+      this.branchName = data;
+    });
   }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  isMobileView: boolean = false;
+  subscription: Subscription;
 
+  isMobileView: boolean = false;
+  
   themeCheck = false;
   themeClass = "dark"
   themeBackground = "light";
@@ -65,6 +73,10 @@ export class HomePage {
     this.isMobileView = window.innerWidth < 992;
     this.toggleSideNav();
     this.toggleSideNavByLink();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   initTheme(){

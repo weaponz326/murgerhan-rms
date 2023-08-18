@@ -1,8 +1,8 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/factory-main/vendor-orders/all-factory-vendor-orders">All Vendor Orders</a>
+        <a href="#" routerLink="/modules/factory-main/vendor-orders/all-factory-vendor-orders">All Customer Orders</a>
     </li>
-    <li class="breadcrumb-item active">View Vendor Order</li>
+    <li class="breadcrumb-item active">View Customer Order</li>
 </ol>
 
 <div class="row">
@@ -33,7 +33,7 @@
         
                             <div class="row mb-1">
                                 <div class="col-md-4">
-                                    <label class="float-md-end float-sm-start mt-1">Vendor ID :</label>
+                                    <label class="float-md-end float-sm-start mt-1">Customer ID :</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
@@ -47,7 +47,7 @@
         
                             <div class="row mb-1">
                                 <div class="col-md-4">
-                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Vendor Name :</label>
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Customer Name :</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group input-group-sm w-100">
@@ -76,6 +76,13 @@
                                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Delivery Date :</label></div>
                                 <div class="col-md-8">
                                     <input type="date" formControlName="deliveryDate" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Submitted :</label></div>
+                                <div class="col-md-8">
+                                    <td><input [checked]="orderData?.data()?.submitted" type="checkbox" class="mt-2 form-check-input"></td>
                                 </div>
                             </div>
                             
