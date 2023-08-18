@@ -35,7 +35,7 @@ export class InvitationConfigurationComponent {
 
   selectedFile: any;
   selectedFileName = "";
-  fileUrl: any;
+  fileUrl = "";
 
   configurationForm = new FormGroup({
     staffEmailSubject: new FormControl(),
@@ -59,7 +59,7 @@ export class InvitationConfigurationComponent {
 
     this.usersApi.getInvitationConfiguration()
       .then((res) => {
-        // console.log(res);
+        // console.log(res.docs[0].data());
         this.configurationData = res.docs[0];
         this.isFetchingData = false;
         this.setConfigurationData();        

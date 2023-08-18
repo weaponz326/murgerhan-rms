@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { MaintenanceApiService } from 'src/app/services/modules-api/maintenance-api/maintenance-api.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class SystemImagesComponent {
 
   @ViewChild('imageInputElementReference', { read: ElementRef, static: false }) imageInput!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   selectedFiles: File[] = [];
   AllSystemImagesListData: any;
@@ -35,6 +37,8 @@ export class SystemImagesComponent {
   isSystemImagesDataAvailable = false;
   isWarrantyLabelsDataAvailable = false;
   isInformationLabelsDataAvailable = false;
+
+  deleteId: any;
 
   ngOnInit(): void {
     this.getSystemImageList();
@@ -71,7 +75,7 @@ export class SystemImagesComponent {
         }, 5000);
       })
       .catch((error) => {
-        console.error('Error uploading images', error);
+        // console.error('Error uploading images', error);
         this.isUploading = false;
       });
   }
@@ -92,6 +96,20 @@ export class SystemImagesComponent {
         }
       )
   }  
+
+  deleteSystemImage(){
+    this.maintenanceApi.deleteSystemImage(this.deleteId)
+      .then(
+        (res: any) => {
+          // console.log(res);
+          this.getSystemImageList();
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
 
   groupSystemImageList(){
     const groupedArrays: any = {};
@@ -116,6 +134,14 @@ export class SystemImagesComponent {
     if (this.systemImagesListData?.length > 0) this.isSystemImagesDataAvailable = true;
     if (this.warrantyLabelsListData?.length > 0) this.isWarrantyLabelsDataAvailable = true;
     if (this.informationLabelsListData?.length > 0) this.isInformationLabelsDataAvailable = true;
+  }
+
+  confirmDelete(event: any, id: any){
+    event.preventDefault();
+
+    // console.log(id);
+    this.deleteId = id;
+    this.deleteModal.openModal();
   }
 
 }

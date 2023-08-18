@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { serverTimestamp } from 'firebase/firestore';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 import { InventoryApiService } from 'src/app/services/modules-api/inventory-api/inventory-api.service';
+
+import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 
 @Component({
   selector: 'app-purchasing-check-images',
@@ -15,9 +19,14 @@ export class PurchasingCheckImagesComponent {
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   selectedFiles: File[] = [];
   purchasingCheckImageListData: any;
+
+  isUploading = false;
+
+  deleteId: any;
 
   ngOnInit(): void {
     this.getPurchasingCheckImageList();
@@ -29,6 +38,8 @@ export class PurchasingCheckImagesComponent {
   }
 
   uploadPurchasingCheckImage() {
+    this.isUploading = true;
+
     const data = {
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
@@ -43,7 +54,8 @@ export class PurchasingCheckImagesComponent {
         this.getPurchasingCheckImageList();
       })
       .catch((error) => {
-        console.error('Error uploading images', error);
+        // console.error('Error uploading images', error);
+        this.isUploading = false;
       });
   }
 
@@ -53,12 +65,36 @@ export class PurchasingCheckImagesComponent {
         (res: any) => {
           // console.log(res);
           this.purchasingCheckImageListData = res.docs;
+          this.isUploading = false;
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isUploading = false;
+        }
+      )
+  }
+
+  deletePurchasingCheckImage(){
+    this.inventoryApi.deletePurchasingCheckImage(this.deleteId)
+      .then(
+        (res: any) => {
+          // console.log(res);
+          this.getPurchasingCheckImageList();
         },
         (err: any) => {
           // console.log(err);
           this.connectionToast.openToast();
         }
       )
+  }
+
+  confirmDelete(event: any, id: any){
+    event.preventDefault();
+
+    // console.log(id);
+    this.deleteId = id;
+    this.deleteModal.openModal();
   }
 
 }

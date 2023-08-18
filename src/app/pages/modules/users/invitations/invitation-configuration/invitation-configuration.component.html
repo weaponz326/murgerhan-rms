@@ -51,14 +51,14 @@
 
                     <div class="card border rounded mx-auto mt-4 img-pointer" [style.width.px]="100" [style.height.px]="120">
                         <div class="card-img-top text-center m-auto">
-                            <a *ngIf="configurationData.data().terms_file_url != ''" [href]="configurationData.data().terms_file_url">
-                                <iframe class="border rounded" [src]="configurationData.data().terms_file_url" [width]="100" [height]="120"></iframe>
+                            <a *ngIf="fileUrl != ''" [href]="fileUrl">
+                                <i class="bi bi-file-earmark-pdf fs-3 p-3 rounded text-muted"></i>
                             </a>
-                            <i *ngIf="!configurationData.data().terms_file_url || configurationData.data().terms_file_url == ''" class="bi bi-file-earmark fs-3 p-3 rounded text-muted"></i>
-                            <p *ngIf="!configurationData.data().terms_file_url || configurationData.data().terms_file_url == ''" class="small text-muted mt-3">No file available</p>
+                            <i *ngIf="!fileUrl || fileUrl == ''" class="bi bi-file-earmark fs-3 p-3 rounded text-muted"></i>
+                            <p *ngIf="!fileUrl || fileUrl == ''" class="small text-muted mt-3">No file available</p>
                         </div>
-                        <p *ngIf="selectedFileName">{{selectedFileName}}</p>
                     </div>
+                    <p *ngIf="selectedFileName">{{selectedFileName}}</p>
 
                     <button [disabled]="isUploadingFile" class="btn btn-sm btn-outline-success px-4 mt-3 mb-2" (click)="fileInput.click()">
                         <i class="bi bi-upload me-3"></i>

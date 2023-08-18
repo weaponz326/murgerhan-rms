@@ -20,18 +20,12 @@
 
                 <div class="row mb-5">
                     <div class="col">
-                        <input #imageInput [hidden]="true" type="file" multiple requiredFileType="image" class="d-none" (change)="onFileSelected($event)"/>
+                        <input #imageInput [hidden]="true" type="file" multiple accept="image/*" class="d-none" (change)="onFileSelected($event)"/>
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="imageInput.click()">Add Image</button>
                     </div>
                 </div>
 
                 <div class="row text-center">
-                    <div *ngFor="let data of taskImageListData" class="col-md-3 mb-5">
-                        <a [href]="data?.data().url" class="thumbnail">
-                            <img class="image-thumbnail border rounded" [src]="data?.data().url"  [style.width.px]="180" [style.height.px]="150"/>
-                        </a>
-                    </div>
-
                     <div *ngIf="isUploading" class="col-md-3 mb-5">
                         <div class="card border rounded mx-auto img-pointer" [style.width.px]="180" [style.height.px]="150" (click)="imageInput.click()">
                             <div class="card-img-top text-center m-auto">
@@ -41,9 +35,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div *ngFor="let data of taskImageListData" class="col-md-3 mb-5">
+                        <a [href]="data?.data().url" class="thumbnail">
+                            <div class="card-img-top text-center m-auto position-relative" [style.width.px]="180" [style.height.px]="150">
+                                <img class="image-thumbnail border rounded w-100 h-100" [src]="data?.data().url"/>
+                                <button class="btn btn-outline-danger btn-sm position-absolute bottom-0 end-0 m-2" (click)="confirmDelete($event, data.id)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </a>
+                    </div>                    
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+
+<!-- delete modal -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteTaskImage()"></app-delete-modal-one>

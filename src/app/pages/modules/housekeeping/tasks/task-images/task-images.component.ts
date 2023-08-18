@@ -2,9 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { TaskImage } from 'src/app/models/modules/housekeeping/housekeeping.model';
 import { serverTimestamp } from 'firebase/firestore';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
 
 @Component({
@@ -19,12 +21,15 @@ export class TaskImagesComponent {
   ) {}
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   selectedFiles: File[] = [];
   taskImageListData: any;
   taskData: any;
 
   isUploading = false;
+
+  deleteId: any;
 
   ngOnInit(): void {
     this.getTask();
@@ -83,7 +88,7 @@ export class TaskImagesComponent {
         }, 5000);
       })
       .catch((error) => {
-        console.error('Error uploading images', error);
+        // console.error('Error uploading images', error);
         this.isUploading = false;  
       });
   }
@@ -118,6 +123,33 @@ export class TaskImagesComponent {
           this.isUploading = false;  
         }
       )
+  }
+
+  deleteTaskImage(){
+    this.housekeepingApi.deleteTaskImage(this.deleteId)
+      .then(
+        (res: any) => {
+          // console.log(res);
+          
+          if(this.taskData.data().occurance == "Non-Recurring") 
+            this.getTaskImageList();
+          else
+            this.getRecurringTaskImageList();
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isUploading = false;  
+        }
+      )
+  }
+
+  confirmDelete(event: any, id: any){
+    event.preventDefault();
+
+    // console.log(id);
+    this.deleteId = id;
+    this.deleteModal.openModal();
   }
 
 }
