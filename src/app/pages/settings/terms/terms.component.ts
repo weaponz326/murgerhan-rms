@@ -110,7 +110,7 @@ export class TermsComponent {
   getInvitationWithEmail() {
     this.usersApi.getInvitationWithEmail(this.invitationEmail)
       .then((res) => {
-        // console.log(res.docs[0]);
+        console.log(res.docs[0]);
         this.invitationData = res.docs;
         this.isFetchingData = false;
       }),
@@ -124,7 +124,10 @@ export class TermsComponent {
     let data = { 
       date_accepted: serverTimestamp(),
       invitation_status: "Accepted",
+      account_accepted_id: localStorage.getItem('uid'),
     };
+
+    console.log(id, data);
 
     this.usersApi.updateInvitation(id, data)
       .then((res) => {

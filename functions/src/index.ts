@@ -81,7 +81,7 @@ exports.sendEmailOnDocumentCreate = functions.firestore
     `;
 
     let emailContent = null;
-    if (documentData.invitee_type == "Staff") {
+    if (documentData.invitation_type == "Staff") {
       emailContent = staffEmailContent;
     } else {
       emailContent = thirdPartyEmailContent;

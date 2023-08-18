@@ -84,7 +84,11 @@ export class SignupFormComponent {
             // console.log(res);
             this.isSending = false;
             this.showPrompt = true;
-            localStorage.setItem('uid', res.user.uid);
+
+            const user = res.user;
+            const uid = user.uid; // This is the UID of the signed-in user
+            console.log('UID:', uid);
+            localStorage.setItem('uid', uid);
 
             if (this.invitationData.data().invitation_type == '3rd Party User')
               this.updateInvitationStatus()
@@ -113,7 +117,7 @@ export class SignupFormComponent {
       account_accepted_id: localStorage.getItem('uid'),
     };
 
-    // console.log(data);
+    console.log(data);
 
     this.usersApi.updateInvitation(this.invitationId, data)
       .then((res) => {

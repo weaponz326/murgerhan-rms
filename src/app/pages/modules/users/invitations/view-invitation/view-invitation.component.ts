@@ -43,7 +43,7 @@ export class ViewInvitationComponent {
 
     this.usersApi.getInvitation(id)
       .then((res) => {
-        // console.log(res.data());
+        console.log(id, res.data());
         this.invitationData = res;
         this.isFetchingData = false;
 
@@ -51,7 +51,7 @@ export class ViewInvitationComponent {
         this.getBasicuserWithEmail();
       }),
       (err: any) => {
-        // console.log(err);
+        console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -60,7 +60,7 @@ export class ViewInvitationComponent {
   getBasicuserWithEmail() {
     this.usersApi.getBasicUserWithEmail(this.invitationEmail)
       .then((res) => {
-        // console.log(res);
+        console.log(res.docs[0].data());
         this.basicUserData = res.docs[0];
         this.termsFile = this.basicUserData?.data()?.terms_file;
         this.isFetchingData = false;
@@ -93,11 +93,12 @@ export class ViewInvitationComponent {
   setUserRole() {
     if(this.invitationData?.data()?.invitation_type == 'Staff')
       this.setStaffUserRole();
-    else this.setThirdPartyUserRole();
+    else 
+      this.setThirdPartyUserRole();
   }
 
   setStaffUserRole() {
-    let id = this.basicUserData.data().account_accepted_id;
+    let id = this.invitationData.data().account_accepted_id;
 
     let data: UserRole = {
       created_at: serverTimestamp(),
@@ -114,7 +115,7 @@ export class ViewInvitationComponent {
       }
     }
 
-    // console.log(data);
+    console.log(id, data);
 
     this.usersApi.setUserRole(id, data)
       .then((res: any) => {
