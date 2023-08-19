@@ -1,7 +1,6 @@
 {
   "projects": {
-    "default": "weapons-7d089",
-    "wep-murgerhan": "weapons-7d089"
+    "default": "weapons-7d089"
   },
   "targets": {},
   "etags": {}

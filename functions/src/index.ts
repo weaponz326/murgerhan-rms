@@ -159,27 +159,27 @@ exports.calculateSumAndUpdateDocument = functions.firestore
 exports.sendEmailOnVendorOrderSubmitted = functions.firestore
   .document("factory_vendor_order/{docId}")
   .onWrite(async (change, context) => {
-
     try {
       const changedDocument = change.after;
-      const sumittedFieldValue = changedDocument.get('submitted');
+      const sumittedFieldValue = changedDocument.get("submitted");
 
       const db = admin.firestore();
-      const querySnapshot = await db.collection('users_role').where('staff_role', '==', 'General Manager').get();
+      const querySnapshot = await db.collection("users_role")
+        .where("staff_role", "==", "General Manager").get();
 
       if (sumittedFieldValue === undefined) {
         return null;
       }
 
-      let emailContent = `
+      const emailContent = `
         <p>
           Order submitted at Murger Han Hub by customer: 
-          ${changedDocument.get('vendor.data.vendor_name')} 
+          ${changedDocument.get("vendor.data.vendor_name")} 
         </p>
         <p>
           Murger Han.
         </p>
-      `
+      `;
 
       if (sumittedFieldValue == true) {
         // Create a Nodemailer transporter
@@ -198,15 +198,15 @@ exports.sendEmailOnVendorOrderSubmitted = functions.firestore
         // Define the email options
         const mailOptions = {
           from: "noreply@murgerhan.com",
-          to: '',
-          subject: 'Order Submitted',
+          to: "",
+          subject: "Order Submitted",
           html: emailContent,
         };
 
-        querySnapshot.forEach(async doc => {
-          const userEmail = doc.get('email');
+        querySnapshot.forEach(async (doc) => {
+          const userEmail = doc.get("email");
           mailOptions.to = userEmail;
-  
+
           try {
             await transporter.sendMail(mailOptions);
             console.log(`Email sent successfully to ${userEmail}`);
