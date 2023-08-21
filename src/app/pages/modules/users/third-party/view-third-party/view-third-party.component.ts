@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { ThirdPartyRole } from 'src/app/models/modules/users/users.model';
 import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
@@ -21,7 +22,8 @@ export class ViewThirdPartyComponent {
 
   constructor(
     private router: Router,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private formatId: FormatIdService
   ) {}
   
   @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
@@ -116,7 +118,7 @@ export class ViewThirdPartyComponent {
     this.roleForm.controls.email.setValue(this.roleData.data().email);
     this.roleForm.controls.fullName.setValue(this.roleData.data().full_name);
     this.roleForm.controls.userCode.setValue(this.roleData.data().user_code);
-    this.roleForm.controls.companyCode.setValue(this.roleData.data().company?.data.company_code);
+    this.roleForm.controls.companyCode.setValue(this.formatId.formatId(this.roleData.data().company?.data.company_code, 4, "#", "VE"));
     this.roleForm.controls.companyName.setValue(this.roleData.data().company?.data.company_name);
     this.roleForm.controls.companyType.setValue(this.roleData.data().company_type);
 
@@ -194,6 +196,10 @@ export class ViewThirdPartyComponent {
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  getFormatId(id: any){
+    return this.formatId.formatId(id, 4, "#", "VE");
   }
 
 }

@@ -1,5 +1,5 @@
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">All Vendors</li>
+    <li class="breadcrumb-item active">All Customers</li>
 </ol>
 
 <div class="row">
@@ -7,11 +7,11 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
-                <p class="lead">Vendors</p>
+                <p class="lead">Customers</p>
 
                 <div class="row mb-3">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/orders/vendors/new-vendor">New Vendor</button>
+                        <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/orders/vendors/new-vendor">New Customer</button>
                         
                         <input [(ngModel)]="filterText" (change)="getVendorList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search vendors">
                         <button [disabled]="isFetchingData" (click)="getVendorList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
@@ -28,10 +28,10 @@
                                 <thead>
                                     <tr>
                                         <th width="25%" scope="col" class="min-width-2">
-                                            <app-table-sorting [fieldTitle]="'Vendor ID'" [thisColumn]="'vendor_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Customer ID'" [thisColumn]="'vendor_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorList()"></app-table-sorting>
                                         </th>
                                         <th width="50%" scope="col" class="min-width-4">
-                                            <app-table-sorting [fieldTitle]="'Vendor Name'" [thisColumn]="'vendor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Customer Name'" [thisColumn]="'vendor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorList()"></app-table-sorting>
                                         </th>
                                         <th width="25%" scope="col" class="min-width-3">
                                             <app-table-sorting [fieldTitle]="'Phone No.'" [thisColumn]="'phone'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorList()"></app-table-sorting>

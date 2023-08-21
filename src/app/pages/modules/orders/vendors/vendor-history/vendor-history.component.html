@@ -3,9 +3,9 @@
         <a href="#" routerLink="/modules/orders/vendors/all-vendors">All vendors</a>
     </li>
     <li class="breadcrumb-item active">
-        <a href="#" routerLink="/modules/orders/vendors/view-vendor">View Vendor</a>
+        <a href="#" routerLink="/modules/orders/vendors/view-vendor">View Customer</a>
     </li>
-    <li class="breadcrumb-item active">Vendor History</li>
+    <li class="breadcrumb-item active">Customer History</li>
 </ol>
 
 <div class="row">
@@ -13,7 +13,7 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
 
-                <p class="lead">Vendor Details</p>
+                <p class="lead">Customer Details</p>
                 
                 <div class="row">
                     <div class="col">
@@ -21,14 +21,14 @@
                         <form [formGroup]="vendorForm">
 
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor ID :</label></div>
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer ID :</label></div>
                                 <div class="col-md-8">
                                     <input formControlName="vendorCode" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
                             
                             <div class="row mb-1">
-                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor Name :</label></div>
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer Name :</label></div>
                                 <div class="col-md-8">
                                     <input formControlName="vendorName" class="form-control form-control-sm w-100">
                                 </div>
@@ -49,7 +49,7 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
-                <p class="lead">Vendor Orders History</p>
+                <p class="lead">Customer Orders History</p>
 
                 <div class="row mb-3">
                     <div class="col">                        
