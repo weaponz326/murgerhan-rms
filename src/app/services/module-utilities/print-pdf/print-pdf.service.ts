@@ -13,8 +13,14 @@ export class PrintPdfService {
 
   constructor() { }
 
-  openPdf(header: any, content: any) {
-    const def = { header: header, content: content };
+  openPdf(content: any) {
+    const def = { content: content };
+    pdfMake.createPdf(def).open();
+  }
+
+  openPortraitPdf(content: any) {
+    // const def = { content: content, pageOrientation: 'portrait' };
+    const def = { content: content };
     pdfMake.createPdf(def).open();
   }
 

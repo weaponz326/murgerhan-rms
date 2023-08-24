@@ -5,6 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Roster } from 'src/app/models/modules/attendance/attendance.model';
 import { AttendanceApiService } from 'src/app/services/modules-api/attendance-api/attendance-api.service';
+import { AttendancePrintService } from 'src/app/services/modules-print/attendance-print/attendance-print.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -21,6 +22,7 @@ export class ViewRosterComponent {
   constructor(
     private router: Router,
     private attendanceApi: AttendanceApiService,
+    private attendancePrint: AttendancePrintService,
     private formatId: FormatIdService
   ) {}
 
@@ -133,6 +135,12 @@ export class ViewRosterComponent {
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  onPrint(){
+    // console.log("lets print!.......");
+    this.attendancePrint.printRoster();
+    this.attendancePrint.printRosterSheet();
   }
 
 }

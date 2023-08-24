@@ -106,6 +106,28 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-7">
+        <div class="row">
+            <div class="offset-md-5 col-md-7">
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                            
+                        <button class="btn btn-light border" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Roster Batces
+                        </button>
+
+                    </div>
+                </div>
+            
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- add and edit batch modal components -->
 
 <app-add-batch #addBatchComponentReference (saveItemEvent)="createRosterBatch($event)"></app-add-batch>

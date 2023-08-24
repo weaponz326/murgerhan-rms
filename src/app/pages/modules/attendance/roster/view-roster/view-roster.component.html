@@ -70,23 +70,45 @@
     </div>
 
     <div class="col-md-6">
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
 
-                <p class="lead">Roster Shifts</p>
-                
-                <div class="row">
-                    <div class="col">
-
-                        <!-- all shifts component -->
+                        <p class="lead">Roster Shifts</p>
                         
-                        <app-all-shifts></app-all-shifts>
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- all shifts component -->
+                                
+                                <app-all-shifts></app-all-shifts>
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+        
+                        <p class="lead">Roster Batches</p>
+                        
+                        <button class="btn btn-light bordered" routerLink="/modules/attendance/roster/manage-batches">
+                            Manage Batches
+                            <i class="bi bi-arrow-right ms-3"></i>
+                        </button>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
 </div>
@@ -114,17 +136,22 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-
-                <p class="lead">Roster Batches</p>
+    <div class="col">
+        <div class="row">
+            <div class="offset-md-8 col-md-4">
                 
-                <button class="btn btn-light bordered" routerLink="/modules/attendance/roster/manage-batches">
-                    Manage Batches
-                    <i class="bi bi-arrow-right ms-3"></i>
-                </button>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                            
+                        <button class="btn btn-light border" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Roster Sheet
+                        </button>
 
+                    </div>
+                </div>
+            
+                
             </div>
         </div>
     </div>

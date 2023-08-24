@@ -66,7 +66,7 @@ export class MaintenancePrintService {
     ]
 
     var header = 'Murger Han Hub - Issues Report';
-    this.printPdf.openPdf(header, content);
+    this.printPdf.openPdf(content);
   }
 
   // print services
@@ -122,7 +122,7 @@ export class MaintenancePrintService {
     ]
 
     var header = 'Murger Han Hub - Services Report';
-    this.printPdf.openPdf(header, content);
+    this.printPdf.openPdf(content);
   }
 
   dateFormat(date: any){

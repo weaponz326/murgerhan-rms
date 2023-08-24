@@ -68,7 +68,7 @@ export class OrdersPrintService {
     ]
 
     var header = 'Murger Han Hub - Orders Report';
-    this.printPdf.openPdf(header, content);
+    this.printPdf.openPdf(content);
   }
 
   // print view order
@@ -130,7 +130,7 @@ export class OrdersPrintService {
     ]
 
     var header = 'Murger Han Hub - Order';
-    this.printPdf.openPdf(header, content);
+    this.printPdf.openPdf(content);
   }
 
   dateFormat(date: any){
