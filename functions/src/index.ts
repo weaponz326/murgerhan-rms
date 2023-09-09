@@ -230,3 +230,37 @@ exports.sendEmailOnVendorOrderSubmitted = functions.firestore
       return null;
     }
   });
+
+exports.removeUserOnUserDeletion = functions.firestore
+  .document("users_role/{userId}")
+  .onDelete((snap, context) => {
+    const userId = context.params.userId;
+
+    // Delete the user from Firebase Authentication
+    return admin.auth().deleteUser(userId)
+      .then(() => {
+        console.log("User with ID ${userId} deleted successfully.");
+        return null;
+      })
+      .catch((error) => {
+        console.error("Error deleting user with ID ${userId}:", error);
+        return null;
+      });
+  });
+
+exports.removeUserOnThirdPartyDeletion = functions.firestore
+  .document("users_role/{userId}")
+  .onDelete((snap, context) => {
+    const userId = context.params.userId;
+
+    // Delete the user from Firebase Authentication
+    return admin.auth().deleteUser(userId)
+      .then(() => {
+        console.log("User with ID ${userId} deleted successfully.");
+        return null;
+      })
+      .catch((error) => {
+        console.error("Error deleting user with ID ${userId}:", error);
+        return null;
+      });
+  });
