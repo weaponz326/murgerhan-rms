@@ -116,6 +116,8 @@ export class UserAttendanceRecordsComponent {
     this.totalHoursToday = this.calculateTotalHoursForEntries(todayEntries);
     this.totalHoursThisWeek = this.calculateTotalHoursForEntries(weekTodayEntries);
     this.totalHoursThisMonth = this.calculateTotalHoursForEntries(monthTodayEntries);
+
+    console.log(todayEntries)
   }
 
   calculateTotalHoursForEntries(items: any) {
@@ -130,6 +132,7 @@ export class UserAttendanceRecordsComponent {
       const hoursBeforeBreak = (breakStartTime.getTime() - clockedInTime.getTime()) / (1000 * 60 * 60);
       const hoursAfterBreak = (clockedOutTime.getTime() - breakEndTime.getTime()) / (1000 * 60 * 60);
 
+      console.log(breakStartTime, clockedInTime)
       totalHours += hoursBeforeBreak + hoursAfterBreak;
     });
 

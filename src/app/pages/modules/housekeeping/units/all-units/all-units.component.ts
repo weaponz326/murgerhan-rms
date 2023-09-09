@@ -33,7 +33,7 @@ export class AllUnitsComponent {
   filterText = "";
   sortDirection = "";
   sortColumn = "";
-  currentPage = 0;
+  currentPage = 1;
   totalPages = 0;
   pageSize = 25;
 
@@ -52,10 +52,10 @@ export class AllUnitsComponent {
           this.isFetchingData = false;
 
           this.totalPages = Math.ceil(res.docs.length / this.pageSize);
-          if(res.docs.length == 0)
+          if(res.docs.length == 0){
+            this.currentPage = 0;
             this.isDataAvailable = false;
-          else
-            this.currentPage = 1
+          }
 
           this.aggregateData();
         },

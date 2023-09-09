@@ -77,6 +77,9 @@ export class GeneralAttendanceSheetComponent {
     this.attendanceApi.getGeneralAttendanceSheetList()
       .then((res) => {
         // console.log(res);
+        res.docs.forEach((e: any) => {
+          console.log(e.data())
+        });
         this.sheetListData = res.docs;
         this.isFetchingData = false;
       }),
