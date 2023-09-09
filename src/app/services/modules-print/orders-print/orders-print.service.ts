@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatDate, formatCurrency } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
@@ -93,9 +93,9 @@ export class OrdersPrintService {
       let rowData: any = data.data();
       row.push(rowData.item_number);
       row.push(rowData.product.data.product_name);
-      row.push(rowData.product.data.price);
+      row.push(this.currencyFormat(rowData.product.data.price));
       row.push(rowData.quantity);
-      row.push(rowData.product.data.price * rowData.quantity);
+      row.push(this.currencyFormat(rowData.product.data.price * rowData.quantity));
       orderItemListBody.push(row);
     }
 
@@ -114,7 +114,7 @@ export class OrdersPrintService {
           ],
           [
             { text: 'OrderTotal', alignment: 'center' },
-            { text: '$' + orderData.data().total_price, bold: true, alignment: 'center', margin: [0, 20] }
+            { text: this.currencyFormat(orderData.data().total_price), bold: true, alignment: 'center', margin: [0, 20] }
           ]
         ]
       },
@@ -129,12 +129,15 @@ export class OrdersPrintService {
       }
     ]
 
-    var header = 'Murger Han Hub - Order';
     this.printPdf.openPdf(content);
   }
 
   dateFormat(date: any){
     return formatDate(new Date(date), 'yyyy-MM-dd', 'en-US');
+  }
+
+  currencyFormat(currency: any){
+    return formatCurrency(currency, 'en-GB', '\u00A3');
   }
 
 }

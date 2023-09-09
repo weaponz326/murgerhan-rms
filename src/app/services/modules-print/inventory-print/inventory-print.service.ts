@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatCurrency, formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
@@ -34,7 +34,7 @@ export class InventoryPrintService {
       row.push(this.formatId.formatId(rowData.purchasing_code, 5, "#", "PC"));
       row.push(rowData.purchasing_date);
       row.push(rowData.supplier.data.supplier_name);
-      row.push(rowData.total_price);
+      row.push(this.currencyFormat(rowData.total_price));
       tableBody.push(row);
     }
 
@@ -97,9 +97,9 @@ export class InventoryPrintService {
       let rowData: any = data.data();
       row.push(rowData.item_number);
       row.push(rowData.stock_item.data.item_name);
-      row.push(rowData.stock_item.data.unit_price);
+      row.push(this.currencyFormat(rowData.stock_item.data.unit_price));
       row.push(rowData.quantity);
-      row.push(rowData.stock_item.data.unit_price * rowData.quantity);
+      row.push(this.currencyFormat(rowData.stock_item.data.unit_price * rowData.quantity));
       purchasingItemListBody.push(row);
     }
 
@@ -145,4 +145,8 @@ export class InventoryPrintService {
     return formatDate(new Date(date), 'yyyy-MM-dd', 'en-US');
   }
 
+  currencyFormat(currency: any){
+    return formatCurrency(currency, 'en-GB', '\u00A3');
+  }
+  
 }
