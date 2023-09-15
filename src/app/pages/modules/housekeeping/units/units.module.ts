@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UnitsRoutingModule } from './units-routing.module';
 import { ModuleUtilitiesModule } from 'src/app/components/module-utilities/module-utilities.module';
+import { AdminWindowsModule } from 'src/app/components/select-windows/admin-windows/admin-windows.module';
 
 import { UnitsPage } from './units.page';
 import { AllUnitsComponent } from './all-units/all-units.component';
@@ -26,6 +27,7 @@ import { UnitFormComponent } from './unit-form/unit-form.component';
     FormsModule,
     UnitsRoutingModule,
     ModuleUtilitiesModule,
+    AdminWindowsModule
   ]
 })
 export class UnitsModule { }

@@ -1,11 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { serverTimestamp } from 'firebase/firestore';
 
 import { HousekeepingApiService } from 'src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
+import { Unit } from 'src/app/models/modules/housekeeping/housekeeping.model';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { SelectBranchComponent } from 'src/app/components/select-windows/admin-windows/select-branch/select-branch.component';
 
 
 @Component({
@@ -23,6 +26,8 @@ export class AllUnitsComponent {
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
+  @ViewChild('confirmButtonElementReference', { read: ElementRef, static: false }) confirmButtonElement!: ElementRef;
 
   unitListData: any[] = [];
 
@@ -36,6 +41,11 @@ export class AllUnitsComponent {
   currentPage = 1;
   totalPages = 0;
   pageSize = 25;
+
+  importBranchId: any;
+  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+
+  lastId = 0;
 
   ngOnInit(): void {
     this.getUnitList();
@@ -67,6 +77,48 @@ export class AllUnitsComponent {
       )
   }
 
+  getBranchUnitList(){
+    this.housekeepingApi.getBranchUnitList(this.importBranchId)
+      .then(
+        (res: any) => {
+          // console.log(res.docs);
+          this.setUnitBatchData(res.docs);
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+        }
+      )
+  }
+
+  createCopyUnitBatch(data: any) {         
+    this.housekeepingApi.createCopyUnitBatch(data)
+      .then((res: any) => {
+        console.log(res);
+        this.getUnitList();
+      })
+      .catch((err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+      });
+  }
+
+  getLastUnit(){
+    this.housekeepingApi.getLastUnit()
+      .then(
+        (res: any) => {
+          // console.log(res.docs[0]);
+          if(res.docs[0])
+            this.lastId = res.docs[0]?.data()?.unit_code;        
+        },
+        (err: any) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
   viewUnit(unitId: any){
     // console.log(unitId);
 
@@ -83,6 +135,58 @@ export class AllUnitsComponent {
 
   getFormatId(id: any){
     return this.formatId.formatId(id, 4, "#", "UT");
+  }
+
+  openBranchWindow(){
+    // console.log("You are opening select branch window")
+    this.selectBranch.openModal();
+    this.getLastUnit();
+  }
+
+  onBranchSelected(data: any){
+    // console.log(data);
+    this.importBranchId = data.id;
+    this.openConfirmModal();
+  }
+
+  openConfirmModal(){
+    this.confirmButtonElement.nativeElement.click();
+  }
+
+  onConfirm() {
+    // console.log('import confirmed...');
+    this.getBranchUnitList();
+  }
+
+  setUnitBatchData(units: any){
+    let newUnitList: any[] = [];
+
+    units.forEach((unit: any) => {
+      // Create a new unit document with a different branch
+      // const newUnit = { ...unit };
+      const newUnit: Unit = {
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+        unit_code: this.lastId++,
+        unit_name: unit.data().unit_name,
+        unit_type: unit.data().unit_type,
+        location: unit.data().location,
+        condition: unit.data().condition,
+        description: unit.data().description,
+        branch: {
+          id: this.selectedBranchData.id,
+          data: {
+            branch_name: this.selectedBranchData.data.branch_name,
+            location: this.selectedBranchData.data.location,
+          }
+        }
+      }
+      
+      newUnitList.push(newUnit);
+    });
+
+    // console.log(newUnitList);
+    this.createCopyUnitBatch(newUnitList);
   }
 
 }

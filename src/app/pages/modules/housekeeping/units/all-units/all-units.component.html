@@ -11,7 +11,11 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <button class="btn btn-primary btn-sm add-item-btn" routerLink="/modules/housekeeping/units/add-unit">Add Unit</button>
+                        <button class="btn btn-primary btn-sm me-2 add-item-btn" routerLink="/modules/housekeeping/units/add-unit">Add Unit</button>
+                        <button class="btn btn-outline-primary btn-sm me-2 import-item-btn" data-bs-toggle="tooltip" data-bs-title="Import from another branch" (click)="openBranchWindow()">
+                            <i class="bi bi-clipboard-plus"></i>
+                        </button>
+                        
                         <input [(ngModel)]="filterText" (change)="getUnitList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search units">
                         <button [disabled]="isFetchingData" (click)="getUnitList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
@@ -73,3 +77,27 @@
 <!-- connection toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select branch window component -->
+
+<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)"></app-select-branch>
+
+<!-- confirm setup modal -->
+
+<button [hidden]="true" #confirmButtonElementReference data-bs-toggle="modal" data-bs-target="#confirmationModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="confirmationModalOne" tabindex="-1" aria-labelledby="confirmationModalOneLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body py-4">
+                <p>Copy Units from {{selectedBranchData?.branch_name}} branch</p>
+                <button class="btn btn-sm btn-success mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal" (click)="onConfirm()">Confirm</button>
+                <button class="btn btn-sm btn-warning mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal">Cancel</button>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -52,6 +52,21 @@ export class HousekeepingApiService {
       .orderBy("created_at", "desc")
       .get();
   }
+  
+  getBranchUnitList(branchId: any){
+    return this.unitRef.ref
+      .where("branch.id", "==", branchId)
+      .get();
+  }
+
+  createCopyUnitBatch(units: any): Promise<void> {
+    const batch = this.firestore.firestore.batch();
+    units.forEach((unit: any) => {
+      const newUnitRef = this.unitRef.doc().ref;
+      batch.set(newUnitRef, unit);
+    });
+    return batch.commit();
+  }
 
   // incident
 
