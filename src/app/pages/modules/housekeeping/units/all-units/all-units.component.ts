@@ -42,7 +42,7 @@ export class AllUnitsComponent {
   totalPages = 0;
   pageSize = 25;
 
-  importBranchId: any;
+  importBranch: any;
   selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
 
   lastId = 0;
@@ -78,7 +78,7 @@ export class AllUnitsComponent {
   }
 
   getBranchUnitList(){
-    this.housekeepingApi.getBranchUnitList(this.importBranchId)
+    this.housekeepingApi.getBranchUnitList(this.importBranch.id)
       .then(
         (res: any) => {
           // console.log(res.docs);
@@ -145,7 +145,7 @@ export class AllUnitsComponent {
 
   onBranchSelected(data: any){
     // console.log(data);
-    this.importBranchId = data.id;
+    this.importBranch = data;
     this.openConfirmModal();
   }
 

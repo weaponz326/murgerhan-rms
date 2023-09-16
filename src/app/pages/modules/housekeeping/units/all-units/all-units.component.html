@@ -93,7 +93,8 @@
         <div class="modal-content text-center">
 
             <div class="modal-body py-4">
-                <p>Copy Units from {{selectedBranchData?.branch_name}} branch</p>
+                <p class="lead">Copy units from {{importBranch?.data().branch_name}} branch</p>
+                <p><i class="bi bi-exclamation-diamond text-warning me-2"></i> This may result in duplicate data if data already exist</p>
                 <button class="btn btn-sm btn-success mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal" (click)="onConfirm()">Confirm</button>
                 <button class="btn btn-sm btn-warning mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal">Cancel</button>
             </div>
