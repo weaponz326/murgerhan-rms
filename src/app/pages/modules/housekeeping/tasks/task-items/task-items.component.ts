@@ -106,7 +106,7 @@ export class TaskItemsComponent {
   deleteTaskItem() {
     this.isItemDeleting = true;
 
-    this.housekeepingApi.deleteTask(this.deleteId)
+    this.housekeepingApi.deleteTaskItem(this.deleteId)
       .then((res) => {
         // console.log(res);
         this.isItemDeleting = false;
@@ -125,6 +125,7 @@ export class TaskItemsComponent {
   }
 
   confirmDelete(id: any){
+    // console.log(id);
     this.deleteId = id;
     this.deleteModal.openModal();
   }
