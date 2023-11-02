@@ -104,7 +104,7 @@ export class ViewThirdPartyComponent {
     this.usersApi.deleteThirdPartyRole(id)
       .then((res) => {
         // console.log(res);
-        this.router.navigateByUrl('modules/users/users/all-users')
+        this.router.navigateByUrl('modules/users/users/third-party')
         this.isDeletingRole = false;
       })
       .catch((err) => {

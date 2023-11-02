@@ -249,7 +249,7 @@ exports.removeUserOnUserDeletion = functions.firestore
   });
 
 exports.removeUserOnThirdPartyDeletion = functions.firestore
-  .document("users_role/{userId}")
+  .document("users_third_party_role/{userId}")
   .onDelete((snap, context) => {
     const userId = context.params.userId;
 
