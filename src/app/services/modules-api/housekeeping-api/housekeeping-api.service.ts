@@ -203,7 +203,7 @@ export class HousekeepingApiService {
 
   getRecurringTaskImageList(){
     return this.taskImageRef.ref
-      .where("task", "==", sessionStorage.getItem("housekeeping_task_id"))
+      .where("task", "==", sessionStorage.getItem("housekeeping_task_inspection_id"))
       .orderBy("created_at", "asc")
       .get();
   }

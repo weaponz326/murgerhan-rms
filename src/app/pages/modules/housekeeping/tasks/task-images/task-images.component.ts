@@ -70,7 +70,7 @@ export class TaskImagesComponent {
     if(this.taskData.data().occurance == "Non-Recurring") 
       taskId = sessionStorage.getItem('housekeeping_task_id') as string;
     else
-      sessionStorage.getItem('housekeeping_task_inpection_id') as string
+      taskId = sessionStorage.getItem('housekeeping_task_inspection_id') as string
 
     let data = {
       created_at: serverTimestamp(),
