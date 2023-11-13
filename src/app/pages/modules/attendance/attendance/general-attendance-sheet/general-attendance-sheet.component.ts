@@ -78,7 +78,7 @@ export class GeneralAttendanceSheetComponent {
       .then((res) => {
         // console.log(res);
         res.docs.forEach((e: any) => {
-          console.log(e.data())
+          // console.log(e.data())
         });
         this.sheetListData = res.docs;
         this.isFetchingData = false;

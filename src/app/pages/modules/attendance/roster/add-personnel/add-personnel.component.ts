@@ -41,7 +41,7 @@ export class AddPersonnelComponent {
   }
 
   saveItem(){    
-    if(this.personnelForm.personnelForm.valid && this.selectedUserRoleId && this.selectedBatchId){
+    if(this.selectedUserRoleId && this.selectedBatchId){
       let data: RosterPersonnel = {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),

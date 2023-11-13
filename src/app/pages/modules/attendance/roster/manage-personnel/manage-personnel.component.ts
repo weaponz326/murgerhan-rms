@@ -61,11 +61,11 @@ export class ManagePersonnelComponent {
   createRosterPersonnel(data: any) {
     this.addPersonnel.isItemSaving = true;
 
-    // console.log(data);
+    console.log(data);
 
     this.attendanceApi.createRosterPersonnel(data)
       .then((res: any) => {
-        // console.log(res);
+        console.log(res);
 
         if(res.id){
           this.getRosterPersonnelList();
@@ -76,7 +76,7 @@ export class ManagePersonnelComponent {
         }
       })
       .catch((err: any) => {
-        // console.log(err);
+        console.log(err);
         this.connectionToast.openToast();
         this.addPersonnel.isItemSaving = false;
       });

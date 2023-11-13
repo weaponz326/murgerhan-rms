@@ -113,7 +113,7 @@ export class OrdersPrintService {
             }
           ],
           [
-            { text: 'OrderTotal', alignment: 'center' },
+            { text: 'Order Total', alignment: 'center' },
             { text: this.currencyFormat(orderData.data().total_price), bold: true, alignment: 'center', margin: [0, 20] }
           ]
         ]

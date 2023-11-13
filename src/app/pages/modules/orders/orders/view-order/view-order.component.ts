@@ -138,10 +138,10 @@ export class ViewOrderComponent {
       delivery_date: this.orderForm.controls.deliveryDate.value,
       order_total: this.orderTotal,
       vendor: {
-        id: this.selectedVendorData.id,
+        id: this.selectedVendorId,
         data: {
-          vendor_code: this.selectedVendorData.data.vendor_code,
-          vendor_name: this.selectedVendorData.data.vendor_name
+          vendor_code: this.selectedVendorData.vendor_code,
+          vendor_name: this.selectedVendorData.vendor_name
         }
       },
       branch: {

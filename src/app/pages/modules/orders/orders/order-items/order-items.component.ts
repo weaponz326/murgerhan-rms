@@ -82,6 +82,7 @@ export class OrderItemsComponent {
           this.orderItemListData = res.docs;
 
           this.calculateTotalPrice();
+          this.calculateTotalVat();
 
           try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
