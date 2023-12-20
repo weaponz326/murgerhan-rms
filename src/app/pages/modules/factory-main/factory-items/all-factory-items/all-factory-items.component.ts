@@ -70,7 +70,7 @@ export class AllFactoryItemsComponent {
   viewFactoryItem(factoryItemId: any){
     // console.log(factoryItemId);
 
-    sessionStorage.setItem("factory_factory_item", factoryItemId);
+    sessionStorage.setItem("factory_factory_item_id", factoryItemId);
     this.router.navigateByUrl("/modules/factory-main/factory-items/edit-factory-item");
   }
 

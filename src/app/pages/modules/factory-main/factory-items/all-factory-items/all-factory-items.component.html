@@ -46,6 +46,7 @@
                                         <td>{{getFormatId(data?.data().item_code)}}</td>
                                         <td>{{data?.data().item_name}}</td>
                                         <td>{{data?.data().price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().item_type}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">
