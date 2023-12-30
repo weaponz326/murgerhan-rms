@@ -123,4 +123,29 @@ export class ViewDailyFactoryOrderComponent {
     return this.branchListData.reduce((total, branch) => total + this.getTotalPrice(itemId, branch.id), 0);
   }
 
+  // getTotalPriceForBranch(branchId: string): number {
+  //   return this.orderItemListData.reduce((total, item) => {
+  //     const orderData = item?.data()?.order?.data;
+  //     const factoryItemData = item?.data()?.factory_item?.data;
+  
+  //     if (orderData?.branch?.id === branchId) {
+  //       const quantity = item?.data().quantity || 0;
+  //       const price = factoryItemData?.price || 0;
+  //       total += quantity * price;
+  //     }
+  
+  //     return total;
+  //   }, 0);
+  // }
+  
+  getTotalPriceForBranch(branchId: string): number {
+    return this.orderItemListData
+      .filter(item => item?.data()?.order?.data?.branch?.id === branchId)
+      .reduce((total, item) => {
+        const quantity = item?.data().quantity || 0;
+        const price = item?.data()?.factory_item?.data?.price || 0;
+        return total + quantity * price;
+      }, 0);
+  }
+  
 }

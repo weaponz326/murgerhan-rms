@@ -57,7 +57,7 @@
                                                 <td>
                                                     <span *ngFor="let item of orderItemListData">
                                                         <span *ngIf="branch?.id == item?.data()?.order?.data?.branch?.id && data?.id == item?.data()?.factory_item?.id">
-                                                            {{item.data().quantity}}
+                                                            <span *ngIf="item.data().quantity != 0">{{item.data().quantity}}</span>
                                                         </span>
                                                     </span>
                                                 </td>
@@ -65,7 +65,7 @@
                                             <td>
                                                 <span *ngFor="let item of orderItemListData">
                                                     <span *ngIf="branch?.id == item?.data()?.order?.data?.branch?.id && data?.id == item?.data()?.factory_item?.id">
-                                                        {{(item.data().quantity * item?.data()?.factory_item?.data?.price) | currency: 'GBP'}}
+                                                        <span *ngIf="item.data().quantity != 0">{{(item.data().quantity * item?.data()?.factory_item?.data?.price) | currency: 'GBP'}}</span>
                                                     </span>
                                                 </span>
                                             </td>
@@ -81,6 +81,18 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot class="bg-light">
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <ng-container *ngFor="let branch of branchListData">
+                                            <ng-container *ngIf="branch.data().branch_name != 'Head Office'">
+                                                <td scope="col"></td>
+                                                <td scope="col">{{getTotalPriceForBranch(branch?.id) | currency:'GBP'}}</td>
+                                            </ng-container>
+                                        </ng-container>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                 
