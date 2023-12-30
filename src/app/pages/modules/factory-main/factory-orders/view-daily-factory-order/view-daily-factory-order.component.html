@@ -28,16 +28,22 @@
                                 <thead>
                                     <tr>
                                         <th width="10%" scope="col" rowspan="2" class="min-width-2">Item ID</th>
-                                        <th width="20%" scope="col" rowspan="2" class="min-width-4">Item Name</th>
+                                        <th width="20%" scope="col" rowspan="2" class="min-width-6">Item Name</th>
                                         <th width="10%" scope="col" rowspan="2" class="min-width-2">Item Price</th>
-                                        <th *ngFor="let branch of branchListData" colspan="2" scope="col" class="min-width-3">{{branch.data().branch_name}}</th>
+                                        <th *ngFor="let branch of branchListData" colspan="2" scope="col" class="min-width-3">
+                                            <ng-container *ngFor="let branch of branchListData">
+                                                {{branch.data().branch_name}}
+                                            </ng-container>
+                                        </th>
                                         <th scope="col" rowspan="2" class="min-width-3">Total Quantity</th>
                                         <th scope="col" rowspan="2" class="min-width-3">Total Price</th>
                                     </tr>
                                     <tr>
                                         <ng-container *ngFor="let branch of branchListData">
-                                            <th scope="col" class="min-width-2">Quantity</th>
-                                            <th scope="col" class="min-width-2">Price</th>
+                                            <ng-container *ngIf="branch.data().branch_name != 'Head Office'">
+                                                <th scope="col" class="min-width-2">Quantity</th>
+                                                <th scope="col" class="min-width-2">Price</th>
+                                            </ng-container>
                                         </ng-container>
                                     </tr>
                                 </thead>
@@ -47,13 +53,15 @@
                                         <td>{{data?.data()?.item_name}}</td>
                                         <td>{{data?.data()?.price | currency: 'GBP'}}</td>
                                         <ng-container *ngFor="let branch of branchListData">
-                                            <td>
-                                                <span *ngFor="let item of orderItemListData">
-                                                    <span *ngIf="branch?.id == item?.data()?.order?.data?.branch?.id && data?.id == item?.data()?.factory_item?.id">
-                                                        {{item.data().quantity}}
+                                            <ng-container *ngIf="branch.data().branch_name != 'Head Office'">
+                                                <td>
+                                                    <span *ngFor="let item of orderItemListData">
+                                                        <span *ngIf="branch?.id == item?.data()?.order?.data?.branch?.id && data?.id == item?.data()?.factory_item?.id">
+                                                            {{item.data().quantity}}
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </td>
+                                                </td>
+                                            </ng-container>
                                             <td>
                                                 <span *ngFor="let item of orderItemListData">
                                                     <span *ngIf="branch?.id == item?.data()?.order?.data?.branch?.id && data?.id == item?.data()?.factory_item?.id">
