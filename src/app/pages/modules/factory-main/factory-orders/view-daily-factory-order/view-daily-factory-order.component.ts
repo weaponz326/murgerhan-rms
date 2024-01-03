@@ -91,6 +91,22 @@ export class ViewDailyFactoryOrderComponent {
       )
   }
 
+  arrangeBranchListData(){
+    this.branchListData = this.branchListData
+      .filter(branch => branch.data().branch_name !== 'Head Office')
+      .sort((a, b) => {
+          const order = ['Euston', 'Mayfair', 'City', 'E&C'];
+
+          const indexA = order.indexOf(a.data().branch_name);
+          const indexB = order.indexOf(b.data().branch_name);
+
+          if (indexA === -1) return 1; // Move unspecified branches to the end
+          if (indexB === -1) return -1;
+
+          return indexA - indexB;
+      });
+  }
+
   getFormatId(id: any){
     return this.formatId.formatId(id, 4, "#", "FI");
   }

@@ -226,22 +226,22 @@ const routes: Routes = [
       {
         path: "modules/factory-main/dashboard",
         loadChildren: () => import("../modules/factory-main/dashboard/dashboard.module").then(m => m.DashboardModule),
-        canActivateChild: [authGuard, headAccessGuard],
+        canActivateChild: [authGuard, managerAccessGuard],
       },
       {
         path: "modules/factory-main/factory-items",
         loadChildren: () => import("../modules/factory-main/factory-items/factory-items.module").then(m => m.FactoryItemsModule),
-        canActivateChild: [authGuard, headAccessGuard],
+        canActivateChild: [authGuard, managerAccessGuard],
       },
       {
         path: "modules/factory-main/factory-orders",
         loadChildren: () => import("../modules/factory-main/factory-orders/factory-orders.module").then(m => m.FactoryOrdersModule),
-        canActivateChild: [authGuard, headAccessGuard],
+        canActivateChild: [authGuard, managerAccessGuard],
       },
       {
         path: "modules/factory-main/vendor-orders",
         loadChildren: () => import("../modules/factory-main/vendor-orders/vendor-orders.module").then(m => m.VendorOrdersModule),
-        canActivateChild: [authGuard, headAccessGuard],
+        canActivateChild: [authGuard, managerAccessGuard],
       },
 
       // factory main pages
@@ -253,6 +253,11 @@ const routes: Routes = [
       {
         path: "modules/branch-factory/branch-orders",
         loadChildren: () => import("../modules/branch-factory/branch-orders/branch-orders.module").then(m => m.BranchOrdersModule),
+        canActivateChild: [authGuard, headAccessGuard],
+      },
+      {
+        path: "modules/branch-factory/monthly-orders",
+        loadChildren: () => import("../modules/branch-factory/monthly-orders/monthly-orders.module").then(m => m.MonthlyOrdersModule),
         canActivateChild: [authGuard, headAccessGuard],
       },
     ]

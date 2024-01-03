@@ -43,7 +43,7 @@ export class ViewInvitationComponent {
 
     this.usersApi.getInvitation(id)
       .then((res) => {
-        console.log(id, res.data());
+        // console.log(id, res.data());
         this.invitationData = res;
         this.isFetchingData = false;
 
@@ -51,7 +51,7 @@ export class ViewInvitationComponent {
         this.getBasicuserWithEmail();
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.connectionToast.openToast();
         this.isFetchingData = false;
       };
@@ -60,7 +60,7 @@ export class ViewInvitationComponent {
   getBasicuserWithEmail() {
     this.usersApi.getBasicUserWithEmail(this.invitationEmail)
       .then((res) => {
-        console.log(res.docs[0].data());
+        // console.log(res.docs[0].data());
         this.basicUserData = res.docs[0];
         this.termsFile = this.basicUserData?.data()?.terms_file;
         this.isFetchingData = false;
