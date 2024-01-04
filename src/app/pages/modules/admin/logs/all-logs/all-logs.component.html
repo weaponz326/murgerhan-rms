@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of logListData" (dblclick)="viewLogDetails(data?.id)" class="table-pointer">
+                                <tr *ngFor="let data of logListData" (click)="viewLogDetails(data?.id)" class="table-pointer">
                                     <td>{{data?.data().log_code}}</td>
                                     <td>{{data?.data().date_created}}</td>
                                     <td>{{data?.data().user?.full_name}}</td>

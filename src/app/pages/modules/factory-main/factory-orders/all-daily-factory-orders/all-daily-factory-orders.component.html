@@ -34,7 +34,7 @@
                                     <ng-container *ngFor="let data of orderListData; let i = index">
                                         <!-- Check if the order_date is different from the previous row -->
                                         <ng-container *ngIf="i === 0 || data?.data().order_date !== orderListData[i - 1]?.data().order_date">
-                                            <tr (dblclick)="viewOrder(data?.data().order_date)">
+                                            <tr (click)="viewOrder(data?.data().order_date)">
                                                 <td>{{ data?.data().order_date | date: 'dd-MM-yyyy' }}</td>
                                             </tr>
                                         </ng-container>

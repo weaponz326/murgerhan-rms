@@ -39,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of vendorListData" (dblclick)="viewVendor(data?.id)">
+                                    <tr *ngFor="let data of vendorListData" (click)="viewVendor(data?.id)">
                                         <td>{{getFormatId(data?.data().vendor_code)}}</td>
                                         <td>{{data?.data().vendor_name}}</td>
                                         <td>{{data?.data().phone}}</td>

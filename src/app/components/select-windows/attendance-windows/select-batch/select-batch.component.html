@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rosterBatchListData" (dblclick)="selectRow(data)">
+                        <tr *ngFor="let data of rosterBatchListData" (click)="selectRow(data)">
                             <td>{{data.data()?.batch_name}}</td>
                             <td>{{data.data()?.batch_symbol}}</td>
                         </tr>

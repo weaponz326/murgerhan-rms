@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="!isFetchingData">
-                            <tr *ngFor="let data of stockItemListData" (dblclick)="selectRow(data)">
+                            <tr *ngFor="let data of stockItemListData" (click)="selectRow(data)">
                                 <td>{{getFormatId(data?.data().item_code)}}</td>
                                 <td>{{data?.data().item_name}}</td>
                                 <td>{{data?.data().item_category.data.category_name}}</td>

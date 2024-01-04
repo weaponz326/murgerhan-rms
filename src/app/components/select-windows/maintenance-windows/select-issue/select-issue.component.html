@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="!isFetchingData">
-                            <tr *ngFor="let data of issueListData" (dblclick)="selectRow(data)">
+                            <tr *ngFor="let data of issueListData" (click)="selectRow(data)">
                                 <td>{{getFormatId(data?.data().issue_code)}}</td>
                                 <td>{{data?.data().issue_subject}}</td>
                                 <td>{{data?.data().issue_date | date: 'short'}}</td>

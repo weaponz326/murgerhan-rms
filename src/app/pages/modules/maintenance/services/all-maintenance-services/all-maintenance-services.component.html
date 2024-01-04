@@ -44,7 +44,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of serviceListData" (dblclick)="viewService(data.id)">
+                                    <tr *ngFor="let data of serviceListData" (click)="viewService(data.id)">
                                         <td>{{getFormatId(data?.data().service_code)}}</td>
                                         <td>{{data?.data().service_subject}}</td>
                                         <td>{{data?.data().date_from | date: 'short'}}</td>

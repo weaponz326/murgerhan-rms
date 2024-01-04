@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="!isFetchingData">
-                            <tr *ngFor="let data of invitationListData" (dblclick)="selectRow(data)">
+                            <tr *ngFor="let data of invitationListData" (click)="selectRow(data)">
                                 <td>{{getFormatId(data?.data().invitation_code)}}</td>
                                 <td>{{data?.data().invitation_date.toDate() | date}}</td>
                                 <td>{{data?.data().invitee_name}}</td>

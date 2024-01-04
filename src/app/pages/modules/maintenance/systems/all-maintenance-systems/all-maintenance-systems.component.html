@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of systemListData" (dblclick)="viewSystem(data?.id)">
+                                    <tr *ngFor="let data of systemListData" (click)="viewSystem(data?.id)">
                                         <td>{{getFormatId(data?.data().system_code)}}</td>
                                         <td>{{data?.data().system_name}}</td>
                                         <td>{{data?.data().system_type}}</td>

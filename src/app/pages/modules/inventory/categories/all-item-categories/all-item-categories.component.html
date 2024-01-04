@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of itemcategoryListData" (dblclick)="viewItemCategory(data?.id)">
+                                    <tr *ngFor="let data of itemcategoryListData" (click)="viewItemCategory(data?.id)">
                                         <td>{{getFormatId(data?.data().category_code)}}</td>
                                         <td>{{data?.data().category_name}}</td>
                                     </tr> 

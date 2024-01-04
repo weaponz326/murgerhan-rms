@@ -43,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of userListData" (dblclick)="viewUserDetails(data?.id)">
+                                    <tr *ngFor="let data of userListData" (click)="viewUserDetails(data?.id)">
                                         <td>{{data?.data().user_code}}</td>
                                         <td>{{data?.data().full_name}}</td>
                                         <td>{{data?.data().email}}</td>

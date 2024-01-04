@@ -38,7 +38,7 @@
 
                             <table class="table table-hover border-top">
                                 <tbody>
-                                    <tr *ngFor="let data of notificationsData" (dblclick)="viewNotification(data)">
+                                    <tr *ngFor="let data of notificationsData" (click)="viewNotification(data)">
                                         <td>
                                             <div *ngIf="data.data().hasOwnProperty('incident_status')">
                                                 <p class="m-0 p-0 text-muted"><span class="fw-bold me-4">Incident</span>{{data.data().incident_date | date: 'short'}}</p>

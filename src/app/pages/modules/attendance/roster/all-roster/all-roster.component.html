@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of rosterListData" (dblclick)="viewRoster(data?.id)">
+                                    <tr *ngFor="let data of rosterListData" (click)="viewRoster(data?.id)">
                                         <td>{{getFormatId(data?.data().roster_code)}}</td>
                                         <td>{{data?.data().roster_name}}</td>
                                     </tr>

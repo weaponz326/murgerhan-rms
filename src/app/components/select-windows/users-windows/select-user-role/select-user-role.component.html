@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="!isFetchingData">
-                            <tr *ngFor="let data of userListData" (dblclick)="selectRow(data)">
+                            <tr *ngFor="let data of userListData" (click)="selectRow(data)">
                                 <td>{{data?.data().staff_code}}</td>
                                 <td>{{data?.data().full_name}}</td>
                                 <td>{{data?.data().branch?.data.branch_name}}</td>

@@ -42,7 +42,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of factoryItemListData" (dblclick)="viewFactoryItem(data?.id)">
+                                    <tr *ngFor="let data of factoryItemListData" (click)="viewFactoryItem(data?.id)">
                                         <td>{{getFormatId(data?.data().item_code)}}</td>
                                         <td>{{data?.data().item_name}}</td>
                                         <td>{{data?.data().price | currency:'GBP'}}</td>

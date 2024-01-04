@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rosterShiftListData" (dblclick)="selectRow(data)">
+                        <tr *ngFor="let data of rosterShiftListData" (click)="selectRow(data)">
                             <td>{{data?.shift_name}}</td>
                             <td>{{data?.start_time}}</td>
                             <td>{{data?.end_time}}</td>

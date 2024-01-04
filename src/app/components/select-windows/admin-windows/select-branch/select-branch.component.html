@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of branchListData" (dblclick)="selectRow(data)">
+                        <tr *ngFor="let data of branchListData" (click)="selectRow(data)">
                             <td class="py-3">{{data?.data().branch_name}}</td>
                             <td class="py-3">{{data?.data().location}}</td>
                             <td class="py-3">{{data?.data().manager.manager}}</td>

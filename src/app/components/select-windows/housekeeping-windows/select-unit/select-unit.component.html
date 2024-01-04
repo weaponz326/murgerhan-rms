@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="!isFetchingData">
-                            <tr *ngFor="let data of unitListData" (dblclick)="selectRow(data)">
+                            <tr *ngFor="let data of unitListData" (click)="selectRow(data)">
                                 <td>{{getFormatId(data?.data().unit_code)}}</td>
                                 <td>{{data?.data().unit_name}}</td>
                                 <td>{{data?.data().unit_type}}</td>

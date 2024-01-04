@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of taskListData" (dblclick)="viewTask(data?.id)">
+                                    <tr *ngFor="let data of taskListData" (click)="viewTask(data?.id)">
                                         <td>{{getFormatId(data?.data().task_code)}}</td>
                                         <td>{{data?.data().task_name}}</td>
                                         <td>{{data?.data().from_date | date}}</td>

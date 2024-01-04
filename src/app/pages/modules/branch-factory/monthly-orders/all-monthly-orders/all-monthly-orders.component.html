@@ -34,7 +34,7 @@
                                     <ng-container *ngFor="let data of orderListData; let i = index">
                                         <!-- Extract the month from the order_date -->
                                         <ng-container *ngIf="i === 0 || getMonth(data?.data().order_date) !== getMonth(orderListData[i - 1]?.data().order_date)">
-                                            <tr (dblclick)="viewMonthlyOrder(data?.data().order_date)">
+                                            <tr (click)="viewMonthlyOrder(data?.data().order_date)">
                                                 <td>{{ data?.data().order_date | date: 'MMMM yyyy' }}</td>
                                             </tr>
                                         </ng-container>

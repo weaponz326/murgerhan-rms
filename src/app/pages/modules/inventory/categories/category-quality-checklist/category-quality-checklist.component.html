@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of checklistListData" (dblclick)="openEditItem(data)">
+                    <tr *ngFor="let data of checklistListData" (click)="openEditItem(data)">
                         <td>{{data?.data().item_number}}</td>
                         <td>{{data?.data().description}}</td>
                     </tr>

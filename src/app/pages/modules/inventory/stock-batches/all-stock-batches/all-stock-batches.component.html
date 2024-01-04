@@ -50,7 +50,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of stockBatchListData" (dblclick)="openEditBatch(data)">
+                                    <tr *ngFor="let data of stockBatchListData" (click)="openEditBatch(data)">
                                         <td>{{getBatchFormatId(data?.data().batch_code)}}</td>
                                         <td>{{data?.data().stock_item.data.item_name}}</td>
                                         <td>{{getStockItemFormatId(data?.data().stock_item.data.item_code)}}</td>

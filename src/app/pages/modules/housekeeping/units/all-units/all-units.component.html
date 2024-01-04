@@ -42,7 +42,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                    <tr *ngFor="let data of unitListData" (dblclick)="viewUnit(data?.id)">
+                                    <tr *ngFor="let data of unitListData" (click)="viewUnit(data?.id)">
                                         <td>{{getFormatId(data?.data().unit_code)}}</td>
                                         <td>{{data?.data().unit_name}}</td>
                                         <td>{{data?.data().unit_type}}</td>
