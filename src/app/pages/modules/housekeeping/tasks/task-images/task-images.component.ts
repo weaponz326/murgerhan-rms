@@ -80,7 +80,7 @@ export class TaskImagesComponent {
 
     this.housekeepingApi.uploadTaskImage(this.selectedFiles, data)
       .then(() => {
-        // console.log('Images uploaded successfully');
+        console.log('Images uploaded successfully');
         // Reset the selected files array
         this.selectedFiles = [];
         setTimeout(() => {

@@ -1,1 +1,71 @@
-<p>all-monthly-orders works!</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">All Monthly Orders</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Branch Monthly Orders</p>
+
+                <div class="row mb-3">
+                    <div class="col">                        
+                        <input [(ngModel)]="filterText" (change)="getBranchOrderList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search orders">
+                        <button [disabled]="isFetchingData" (click)="getBranchOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-sm table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="40%" scope="col" class="min-width-3">
+                                            <app-table-sorting [fieldTitle]="'Order Date'" [thisColumn]="'order_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getBranchOrderList()"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="!isFetchingData">
+                                    <ng-container *ngFor="let data of orderListData; let i = index">
+                                        <!-- Extract the month from the order_date -->
+                                        <ng-container *ngIf="i === 0 || getMonth(data?.data().order_date) !== getMonth(orderListData[i - 1]?.data().order_date)">
+                                            <tr (dblclick)="viewMonthlyOrder(data?.data().order_date)">
+                                                <td>{{ data?.data().order_date | date: 'MMMM yyyy' }}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>                                    
+                                </tbody>
+                                <tbody *ngIf="isFetchingData || !isDataAvailable">
+                                    <tr>
+                                        <td colspan="3">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getBranchOrderList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- connection toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

@@ -112,6 +112,13 @@ export class FactoryApiService {
       .get();
   }
 
+  getAllBranchOrderItemList(){
+    return this.factoryOrderItemRef.ref
+      .where("order.data.branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "asc")
+      .get();
+  }
+
   getMainOrderItemList(){
     return this.factoryOrderItemRef.ref
       .where("order.data.order_date", "==", sessionStorage.getItem('factory_order_date'))
