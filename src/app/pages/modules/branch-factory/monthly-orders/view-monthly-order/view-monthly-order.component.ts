@@ -24,6 +24,7 @@ export class ViewMonthlyOrderComponent {
 
   monthlyOrderDate = sessionStorage.getItem('factory_monthly_order_date') as string;
   orderItemListData: any[] = [];
+  factoryItemListData: any[] = [];
 
   isFetchingData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -44,16 +45,31 @@ export class ViewMonthlyOrderComponent {
           this.orderItemListData = res.docs;
 
           this.orderItemListData = res.docs.filter((data: any) => {
-            // console.log(new Date (data.data().order.data.order_date).getMonth())
             return new Date (data.data().order.data.order_date).getMonth() === new Date (this.monthlyOrderDate).getMonth(); // Month is 0-indexed
           });
             
-          // console.log(new Date (this.monthlyOrderDate).getMonth());
-
-          this.isFetchingData = false;
+          this.getFactoryItemList();
         },
         (err: any) => {
           console.log(err);
+          this.connectionToast.openToast();
+          this.isFetchingData = false;
+        }
+      )
+  }
+
+  getFactoryItemList(){
+    this.isFetchingData = true;
+
+    this.factoryApi.getFactoryItemList()
+      .then(
+        (res: any) => {
+          console.log(res.docs[0].id);
+          this.factoryItemListData = res.docs;
+          this.isFetchingData = false;
+        },
+        (err: any) => {
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }

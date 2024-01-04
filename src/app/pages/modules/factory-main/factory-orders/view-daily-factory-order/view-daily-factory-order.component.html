@@ -31,9 +31,7 @@
                                         <th width="20%" scope="col" rowspan="2" class="min-width-6">Item Name</th>
                                         <th width="10%" scope="col" rowspan="2" class="min-width-2">Item Price</th>
                                         <th *ngFor="let branch of branchListData" colspan="2" scope="col" class="min-width-3">
-                                            <ng-container *ngFor="let branch of branchListData">
-                                                {{branch.data().branch_name}}
-                                            </ng-container>
+                                            {{branch.data().branch_name}} 
                                         </th>
                                         <th scope="col" rowspan="2" class="min-width-3">Total Quantity</th>
                                         <th scope="col" rowspan="2" class="min-width-3">Total Price</th>

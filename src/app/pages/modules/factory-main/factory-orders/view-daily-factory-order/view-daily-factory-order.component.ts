@@ -43,6 +43,7 @@ export class ViewDailyFactoryOrderComponent {
         (res: any) => {
           // console.log(res);
           this.branchListData = res.docs;
+          this.arrangeBranchListData();
           this.isFetchingData = false;
           this.getFactoryItemList();
         },

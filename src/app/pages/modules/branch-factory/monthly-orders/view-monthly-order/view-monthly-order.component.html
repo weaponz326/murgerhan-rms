@@ -41,12 +41,8 @@
                                         <td>{{ getFormatId(data?.data().factory_item.data.item_code) }}</td>
                                         <td>{{ data?.data().factory_item.data?.item_name }}</td>
                                         <td>{{ data?.data().factory_item.data?.price | currency: 'GBP' }}</td>
-                                        <!-- Render columns for each day of the month with item quantities -->
                                         <ng-container *ngFor="let day of daysInMonth">
-                                            <td>
-                                                <!-- Fetch and display item quantity for the specific day -->
-                                                {{ getItemQuantityForDay(data?.data().factory_item.id, day) }}
-                                            </td>
+                                            <td>{{ getItemQuantityForDay(data?.data().factory_item.id, day) }}</td>
                                         </ng-container>
                                         <td>{{ getTotalQuantityForMonth(data?.data().factory_item.id) }}</td>
                                         <td>{{ getTotalQuantityForMonth(data?.data().factory_item.id) * data?.data().factory_item.data?.price | currency: 'GBP' }}</td>
@@ -59,8 +55,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
-                            
+                            </table>                            
                         </div>
                 
                     </div>
