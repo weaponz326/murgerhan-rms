@@ -161,15 +161,18 @@ exports.sendEmailOnVendorOrderSubmitted = functions.firestore
   .onWrite(async (change, context) => {
     try {
       const changedDocument = change.after;
-      const sumittedFieldValue = changedDocument.get("submitted");
+      const submittedFieldValue = changedDocument.get("submitted");
 
-      const db = admin.firestore();
-      const querySnapshot = await db.collection("users_role")
-        .where("staff_role", "==", "General Manager").get();
-
-      if (sumittedFieldValue === undefined) {
+      if (submittedFieldValue === undefined || submittedFieldValue !== true) {
+        // Exit if the 'submitted' field is not present or not true
         return null;
       }
+
+      const db = admin.firestore();
+      const querySnapshot = await db
+        .collection("users_role")
+        .where("staff_role", "==", "General Manager")
+        .get();
 
       const emailContent = `
         <p>
@@ -181,55 +184,48 @@ exports.sendEmailOnVendorOrderSubmitted = functions.firestore
         </p>
       `;
 
-      if (sumittedFieldValue == true) {
-        // Create a Nodemailer transporter
-        const transporter = nodemailer.createTransport({
-          // Configure your email provider here
-          // See nodemailer documentation for details
-          host: "smtp.gmail.com",
-          port: 587,
-          secure: false, // upgrade later with STARTTLS
-          auth: {
-            user: "netrink18@gmail.com",
-            pass: "lawvkzjdeaadaosa",
-          },
-        });
+      // Create a Nodemailer transporter
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "netrink18@gmail.com",
+          pass: "lawvkzjdeaadaosa",
+        },
+      });
 
-        // Define the email options
-        const mailOptions = {
-          from: "noreply@murgerhan.com",
-          to: "",
-          subject: "Order Submitted",
-          html: emailContent,
-        };
+      // Define the common email options
+      const commonMailOptions = {
+        from: "noreply@murgerhan.com",
+        subject: "Order Submitted",
+        html: emailContent,
+      };
 
-        querySnapshot.forEach(async (doc) => {
-          const userEmail = doc.get("email");
-          mailOptions.to = userEmail;
+      // Iterate through the General Managers' email addresses
+      querySnapshot.forEach(async (doc) => {
+        const userEmail = doc.get("email");
 
-          try {
-            await transporter.sendMail(mailOptions);
-            console.log(`Email sent successfully to ${userEmail}`);
-          } catch (error) {
-            console.error(`Error sending email to ${userEmail}:`, error);
-          }
-        });
+        // Use Object.assign to create a new object with merged properties
+        const mailOptions =
+          Object.assign({}, commonMailOptions, {to: userEmail});
 
         try {
           // Send the email
           await transporter.sendMail(mailOptions);
-          // console.log("Email sent successfully");
+          console.log(`Email sent successfully to ${userEmail}`);
         } catch (error) {
-          console.error("Error sending email:", error);
+          console.error(`Error sending email to ${userEmail}:`, error);
         }
-      }
+      });
 
       return null;
     } catch (error) {
-      console.error("Error calculating sum and updating document:", error);
+      console.error("Error processing order submission:", error);
       return null;
     }
   });
+
 
 exports.removeUserOnUserDeletion = functions.firestore
   .document("users_role/{userId}")
