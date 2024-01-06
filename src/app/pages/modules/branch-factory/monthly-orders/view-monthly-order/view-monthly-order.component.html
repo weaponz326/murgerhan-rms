@@ -36,7 +36,7 @@
                                         </ng-container>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="!isFetchingData">
+                                <!-- <tbody *ngIf="!isFetchingData">
                                     <tr *ngFor="let data of orderItemListData">
                                         <td>{{ getFormatId(data?.data().factory_item.data.item_code) }}</td>
                                         <td>{{ data?.data().factory_item.data?.item_name }}</td>
@@ -46,6 +46,22 @@
                                         </ng-container>
                                         <td>{{ getTotalQuantityForMonth(data?.data().factory_item.id) }}</td>
                                         <td>{{ getTotalQuantityForMonth(data?.data().factory_item.id) * data?.data().factory_item.data?.price | currency: 'GBP' }}</td>
+                                    </tr>
+                                </tbody> -->
+                                <tbody *ngIf="!isFetchingData">
+                                    <tr *ngFor="let data of factoryItemListData">
+                                        <td>{{ getFormatId(data?.data().item_code) }}</td>
+                                        <td>{{ data?.data().item_name }}</td>
+                                        <td>{{ data?.data().price | currency: 'GBP' }}</td>                                        
+                                        <td *ngFor="let day of daysInMonth">
+                                            <ng-container *ngFor="let item of orderItemListData">
+                                                <ng-container *ngIf="data.id == item.data().factory_item.id && day == getDate(item.data().order.data.order_date)">
+                                                    <ng-container>{{ getItemQuantityForDay(data?.id, day) }}</ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </td>
+                                        <td>{{ getTotalQuantityForMonth(data?.id) }}</td>
+                                        <td>{{ getTotalQuantityForMonth(data?.id) * data?.data().price | currency: 'GBP' }}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">

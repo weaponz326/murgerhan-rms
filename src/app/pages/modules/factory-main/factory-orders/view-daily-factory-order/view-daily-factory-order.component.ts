@@ -94,7 +94,7 @@ export class ViewDailyFactoryOrderComponent {
 
   arrangeBranchListData(){
     this.branchListData = this.branchListData
-      .filter(branch => branch.data().branch_name !== 'Head Office')
+      .filter(branch => branch.id !== '8eCdQhJV4CJviwbOvMGN')
       .sort((a, b) => {
           const order = ['Euston', 'Mayfair', 'City', 'E&C'];
 

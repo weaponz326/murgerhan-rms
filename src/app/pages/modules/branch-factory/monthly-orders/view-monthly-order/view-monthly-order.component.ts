@@ -76,6 +76,10 @@ export class ViewMonthlyOrderComponent {
       )
   }
 
+  getDate(date: any){
+    return new Date(date).getDate()
+  }
+
   getMonth(orderDate: Date): string {
     return orderDate ? new Date(orderDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
   }
