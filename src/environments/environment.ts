@@ -7,7 +7,7 @@ export const environment = {
         storageBucket: "murgerhanhub.appspot.com",
         messagingSenderId: "314027253691",
         appId: "1:314027253691:web:ca19c4299a642cd6142e9e",
-        measurementId: "G-4DH5WHR5EE"
+        measurementId: "G-369EH0HPMG"
 
         // apiKey: "AIzaSyBT10IX6Y8ZJroL6jI75raWprbC01ATXY0",
         // authDomain: "weapons-7d089.firebaseapp.com",
