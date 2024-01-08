@@ -14,7 +14,7 @@ export class VendorFormComponent {
   vendorForm = new FormGroup({
     vendorCode: new FormControl({value: '', disabled: true}),
     vendorName: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.pattern(/^(\+\d{1,3})?(\d{10})$/)),
+    phone: new FormControl('', Validators.pattern(/^(\+\d{1,3})?(\d{10}|\d{11})$/)),
     email: new FormControl('', Validators.email),
     address: new FormControl(''),
   })
