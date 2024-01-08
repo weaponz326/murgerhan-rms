@@ -88,7 +88,7 @@ export class ViewMonthlyOrderComponent {
     return this.formatId.formatId(id, 5, "#", "FO");
   }
 
-  getItemQuantityForDay(itemId: string, day: number) {
+  getItemQuantity(itemId: string, day: number) {
     const relevantOrders = this.orderItemListData.filter(data => {
       const orderDay = new Date(data.data().order?.data?.order_date).getDate();
       const factoryItemId = data.data().factory_item?.id;
@@ -121,6 +121,16 @@ export class ViewMonthlyOrderComponent {
 
       return total + quantityForDay;
     }, 0);
+  }
+
+  getTotalAmount(item: any): number {
+    const totalQuantity = this.getTotalQuantityForMonth(item?.id);
+    const price = item?.data().price;
+    return totalQuantity * price;
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item.id; // Assuming 'id' is a unique identifier for items
   }
 
 }
