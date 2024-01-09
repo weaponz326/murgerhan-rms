@@ -18,40 +18,40 @@
                         <div class="overflow-auto">
                             <table class="table table-sm table-bordered">
                                 <thead>
-                                  <tr>
-                                    <th width="10%" scope="col" rowspan="2" class="min-width-3">Item ID</th>
-                                    <th width="30%" scope="col" rowspan="2" class="min-width-6">Item Name</th>
-                                    <th width="10%" scope="col" rowspan="2" class="min-width-3">Item Price</th>
-                                    <ng-container *ngFor="let day of daysInMonth">
-                                      <th scope="col" class="min-width-2">{{ day }}</th>
-                                    </ng-container>
-                                    <th scope="col" rowspan="2" class="min-width-3">Total Quantity</th>
-                                    <th scope="col" rowspan="2" class="min-width-3">Total Amount</th>
-                                  </tr>
-                                  <tr>
-                                    <ng-container *ngFor="let day of daysInMonth">
-                                      <th scope="col">Quantity</th>
-                                    </ng-container>
-                                  </tr>
+                                    <tr>
+                                        <th width="10%" scope="col" rowspan="2" class="min-width-3">Item ID</th>
+                                        <th width="30%" scope="col" rowspan="2" class="min-width-6">Item Name</th>
+                                        <th width="10%" scope="col" rowspan="2" class="min-width-3">Item Price</th>
+                                        <ng-container *ngFor="let day of daysInMonth">
+                                            <th scope="col" class="min-width-2">{{ day }}</th>
+                                        </ng-container>
+                                        <th scope="col" rowspan="2" class="min-width-3">Total Quantity</th>
+                                        <th scope="col" rowspan="2" class="min-width-3">Total Amount</th>
+                                    </tr>
+                                    <tr>
+                                        <ng-container *ngFor="let day of daysInMonth">
+                                            <th scope="col">Quantity</th>
+                                        </ng-container>
+                                    </tr>
                                 </thead>
                                 <tbody *ngIf="!isFetchingData">
-                                  <tr *ngFor="let data of factoryItemListData; trackBy: trackByFn">
-                                    <td>{{ getFormatId(data?.data().item_code) }}</td>
-                                    <td>{{ data?.data().item_name }}</td>
-                                    <td>{{ data?.data().price | currency: 'GBP' }}</td>
-                                    <ng-container *ngFor="let day of daysInMonth">
-                                      <td>{{ getItemQuantity(data?.id, day) }}</td>
-                                    </ng-container>
-                                    <td>{{ getTotalQuantityForMonth(data?.id) }}</td>
-                                    <td>{{ getTotalAmount(data) | currency: 'GBP' }}</td>
-                                  </tr>
+                                    <tr *ngFor="let data of factoryItemListData; trackBy: trackByFn">
+                                        <td>{{ getFormatId(data?.data().item_code) }}</td>
+                                        <td>{{ data?.data().item_name }}</td>
+                                        <td>{{ data?.data().price | currency: 'GBP' }}</td>
+                                        <ng-container *ngFor="let day of daysInMonth">
+                                            <td>{{ getItemQuantity(data?.id, day) }}</td>
+                                        </ng-container>
+                                        <td>{{ getTotalQuantityForMonth(data?.id) }}</td>
+                                        <td>{{ getTotalAmount(data) | currency: 'GBP' }}</td>
+                                    </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">
-                                  <tr>
-                                    <td colspan="40">
-                                      <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
-                                    </td>
-                                  </tr>
+                                    <tr>
+                                        <td colspan="40">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>                                                          
                         </div>
