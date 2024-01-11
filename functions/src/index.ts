@@ -226,6 +226,75 @@ exports.sendEmailOnVendorOrderSubmitted = functions.firestore
     }
   });
 
+exports.sendEmailOnBranchOrderSubmitted = functions.firestore
+  .document("factory_order/{docId}")
+  .onWrite(async (change, context) => {
+    try {
+      const changedDocument = change.after;
+      const submittedFieldValue = changedDocument.get("submitted");
+
+      if (submittedFieldValue === undefined || submittedFieldValue !== true) {
+        // Exit if the 'submitted' field is not present or not true
+        return null;
+      }
+
+      const db = admin.firestore();
+      const querySnapshot = await db
+        .collection("users_role")
+        .where("staff_role", "==", "General Manager")
+        .get();
+
+      const emailContent = `
+        <p>
+          Order submitted at Murger Han Hub by branch: 
+          ${changedDocument.get("branch.data.branch_name")} 
+        </p>
+        <p>
+          Murger Han.
+        </p>
+      `;
+
+      // Create a Nodemailer transporter
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "netrink18@gmail.com",
+          pass: "lawvkzjdeaadaosa",
+        },
+      });
+
+      // Define the common email options
+      const commonMailOptions = {
+        from: "noreply@murgerhan.com",
+        subject: "Order Submitted",
+        html: emailContent,
+      };
+
+      // Iterate through the General Managers' email addresses
+      querySnapshot.forEach(async (doc) => {
+        const userEmail = doc.get("email");
+
+        // Use Object.assign to create a new object with merged properties
+        const mailOptions =
+          Object.assign({}, commonMailOptions, {to: userEmail});
+
+        try {
+          // Send the email
+          await transporter.sendMail(mailOptions);
+          console.log(`Email sent successfully to ${userEmail}`);
+        } catch (error) {
+          console.error(`Error sending email to ${userEmail}:`, error);
+        }
+      });
+
+      return null;
+    } catch (error) {
+      console.error("Error processing order submission:", error);
+      return null;
+    }
+  });
 
 exports.removeUserOnUserDeletion = functions.firestore
   .document("users_role/{userId}")
