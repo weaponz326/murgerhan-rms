@@ -58,7 +58,7 @@ export class BranchOrderItemsComponent {
     this.factoryApi.getBranchOrderItemList()
       .then(
         (res: any) => {
-          console.log(res.docs[0].data());
+          // console.log(res.docs[0].data());
           this.orderItemListData = res.docs;
 
           this.calculateTotalPrice();
@@ -69,7 +69,7 @@ export class BranchOrderItemsComponent {
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }
