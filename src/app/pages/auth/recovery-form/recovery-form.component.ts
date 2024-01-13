@@ -31,7 +31,7 @@ export class RecoveryFormComponent {
   onSubmit(){
     this.saved = true;
 
-    let email = this.recoveryForm.controls.email.value as string
+    let email = this.recoveryForm.controls.email.value?.trim() as string
 
     // if (this.recoveryForm.valid){
       this.isSending = true;

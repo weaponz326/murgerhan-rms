@@ -124,7 +124,7 @@ export class InviteUserComponent {
       invitation_code: this.thisId,
       invitation_date: serverTimestamp(),
       invitee_name: this.invitationForm.controls.inviteeName.value as string,
-      invitee_email: this.invitationForm.controls.inviteeEmail.value as string,
+      invitee_email: this.invitationForm.controls.inviteeEmail.value?.trim() as string,
       invitation_type: this.invitationForm.controls.invitationType.value as string,
       invitation_status: "Awaiting",
       email_subject: this.invitationForm.controls.emailSubject.value as string,

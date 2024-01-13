@@ -71,7 +71,7 @@ export class SignupFormComponent {
   onSubmit(){
     this.saved = true;
 
-    let email = this.signupForm.controls.email.value as string
+    let email = this.signupForm.controls.email.value?.trim() as string
     let password1 = this.signupForm.controls.password1.value as string
     let password2 = this.signupForm.controls.password2.value as string
 

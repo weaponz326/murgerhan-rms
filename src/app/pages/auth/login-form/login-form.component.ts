@@ -32,7 +32,7 @@ export class LoginFormComponent {
   onSubmit(){
     this.saved = true;
 
-    let email = this.loginForm.controls.email.value as string
+    let email = this.loginForm.controls.email.value?.trim() as string
     let password = this.loginForm.controls.password.value as string
 
     this.isSending = true;
