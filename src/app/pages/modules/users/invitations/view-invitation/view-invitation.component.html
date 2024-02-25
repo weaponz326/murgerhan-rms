@@ -14,31 +14,31 @@
 
                 <div *ngIf="!isFetchingData"> 
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitation ID :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitation ID :</span></div>
                         <div class="col-md-8">{{getFormatId(invitationData.data().invitation_code)}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitation Date :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitation Date :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitation_date.toDate() | date: 'short'}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitee Name :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitee Name :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitee_name}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitee Email :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitee Email :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitee_email}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitation Type :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitation Type :</span></div>
                         <div class="col-md-8">{{invitationData.data()?.invitation_type}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Invitation Status :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Invitation Status :</span></div>
                         <div class="col-md-8">{{invitationData.data().invitation_status}}</div>
                     </div>
                     <div *ngIf="invitationData.data().invitation_type == 'Staff' && invitationData.data().invitation_status != 'Awaiting'" class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Acceptance File :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Acceptance File :</span></div>
                         <div class="col-md-8">
                             <a [href]="termsFile" target="_blank">
                                 <button class="btn btn-sm btn-outline-success py-0"><i class="bi bi-download me-3"></i>Download</button>
@@ -46,17 +46,17 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Date Accepted :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Date Accepted :</span></div>
                         <div class="col-md-8">
                             <span *ngIf="invitationData.data().date_accepted">{{invitationData.data().date_accepted.toDate() | date: 'short'}}</span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Email Subejct :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Email Subejct :</span></div>
                         <div class="col-md-8">{{invitationData.data().email_subject}}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 text-muted"><span class="float-end">Email Message :</span></div>
+                        <div class="col-md-4 text-muted"><span class="float-start float-sm-end">Email Message :</span></div>
                         <div class="col-md-8">{{invitationData.data().email_message}}</div>
                     </div>
 
