@@ -27,13 +27,13 @@
                 <div *ngIf="passwordMismatch" class="small text-danger">Passwords do not match</div>
             </div>
             <div class="d-grid gap-2 mt-5">
-                <button [disabled]="isSending" class="btn btn-primary">Sign Up</button>
+                <button type="button" [disabled]="isSending" class="btn btn-primary">Sign Up</button>
             </div>
         </form>
 
         <div *ngIf="showPrompt" class="row p5 text-center">
             <div class="col">
-                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <img src="../../../../assets/images/success.png" alt="#" class="mb-4 prompt-image mx-auto">
                 <p class="lead">Seccessfully created account</p>
 
                 <ng-container *ngIf="invitationData.data().invitation_type == 'Staff'">

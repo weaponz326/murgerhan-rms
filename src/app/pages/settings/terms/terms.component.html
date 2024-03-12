@@ -25,13 +25,13 @@
 
             <div class="page-form-btn mt-4">
                 <button [disabled]="isSavingBasic" class="btn btn-sm btn-secondary float-start form-control-btn" routerLink="/settings/availability">Back</button>
-                <button [disabled]="!termsAcceptanceStatus || isSavingBasic || isFetchingData || !isFileUploaded" (click)="updateBasic()" class="btn btn-sm btn-primary float-end form-control-btn">Submit</button>
+                <button type="button" [disabled]="!termsAcceptanceStatus || isSavingBasic || isFetchingData || !isFileUploaded" (click)="updateBasic()" class="btn btn-sm btn-primary float-end form-control-btn">Submit</button>
             </div>
         </div>
             
         <div *ngIf="showPrompt && termsAcceptanceStatus" class="row p5 text-center">
             <div class="col">
-                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <img src="../../../../assets/images/success.png" alt="#" class="mb-4 prompt-image mx-auto">
                 <p class="lead">Thank you!</p>
                 <p class="lead">Profile successfully submitted</p>
                 <p>Contact your Admin for further instructions</p>

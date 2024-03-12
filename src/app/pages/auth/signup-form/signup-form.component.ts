@@ -87,7 +87,7 @@ export class SignupFormComponent {
 
             const user = res.user;
             const uid = user.uid; // This is the UID of the signed-in user
-            console.log('UID:', uid);
+            // console.log('UID:', uid);
             localStorage.setItem('uid', uid);
 
             if (this.invitationData.data().invitation_type == '3rd Party User')
